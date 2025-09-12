@@ -39,14 +39,14 @@ export class InfoCadastroComponent implements OnInit {
 
     //Carrega o token e decodifica
     carregarDadosUsuarioLogado(){
-    
-      if(this.tokenService.getTokenLogin()!==""){
-        var dados = JSON.parse(this.tokenService.decodeToken("tokenLogin"));
-        if(dados == null) return;
-       // var dados = JSON.parse(this.jwrHelper.decodeToken(localStorage.getItem("tokenLogin")).iss);
+
+      const token = this.tokenService.getToken();
+      if(token){
+        const dados = this.tokenService.decodeToken();
+        if(!dados) return;
         this.dadosUsuario.email = dados.email;
-        this.dadosUsuario.nome = dados.nome;        
-        this.dadosUsuario.status = dados.status;              
+        this.dadosUsuario.nome = dados.nome;
+        this.dadosUsuario.status = dados.status;
         this.dadosUsuario.documento = dados.cliente.documento;
         this.dadosUsuario.bairro = dados.endereco.bairro;
         this.dadosUsuario.cep= dados.endereco.cep;
@@ -58,7 +58,7 @@ export class InfoCadastroComponent implements OnInit {
 
         this.dadosUsuario.tipoPessoa = dados.cliente.tipoPessoa;
         this.dadosUsuario.razaoSocial = dados.razaoSocial;
-        
+
       }
     }
 

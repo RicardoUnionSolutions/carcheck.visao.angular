@@ -17,9 +17,11 @@ describe("TokenService", () => {
 
   it("should decode token stored in localStorage", () => {
     localStorage.setItem("sample", "abc");
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({ iss: "data" });
+    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
+      iss: JSON.stringify({ name: "john" }),
+    });
     const decoded = service.decodeToken("sample");
-    expect(decoded).toBe("data");
+    expect(decoded).toEqual({ name: "john" });
   });
 
   it("should return null when token missing", () => {

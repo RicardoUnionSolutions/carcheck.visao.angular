@@ -13,6 +13,7 @@ import { AnalyticsService } from "../../service/analytics.service";
 import { Title, Meta } from "@angular/platform-browser";
 import { of, BehaviorSubject, throwError } from "rxjs";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { TokenService } from "../../service/token.service";
 
 describe("LoginComponent", () => {
   let component: LoginComponent;
@@ -24,6 +25,7 @@ describe("LoginComponent", () => {
   let titleServiceMock: any;
   let metaServiceMock: any;
   let analyticsServiceMock: any;
+  let tokenServiceMock: any;
 
   beforeEach(async () => {
     loginServiceMock = {
@@ -52,6 +54,9 @@ describe("LoginComponent", () => {
       "novoCadastroGoogle",
       "novoCadastroFb",
     ]);
+    tokenServiceMock = jasmine.createSpyObj("TokenService", [
+      "decodeTokenFromString",
+    ]);
 
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
@@ -63,6 +68,7 @@ describe("LoginComponent", () => {
         { provide: AnalyticsService, useValue: analyticsServiceMock },
         { provide: Title, useValue: titleServiceMock },
         { provide: Meta, useValue: metaServiceMock },
+        { provide: TokenService, useValue: tokenServiceMock },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -76,9 +82,9 @@ describe("LoginComponent", () => {
     spyOn(component.loginFbBtnClick, "emit");
     spyOn(component.loginGoogleBtnClick, "emit");
 
-    component.jwtHelper = {
-      decodeToken: () => ({ iss: JSON.stringify({ emailVerificado: true }) }),
-    } as any;
+    tokenServiceMock.decodeTokenFromString.and.returnValue({
+      emailVerificado: true,
+    });
 
     component.ngOnInit();
     fixture.detectChanges();
@@ -140,8 +146,8 @@ describe("LoginComponent", () => {
   }));
 
   it("should not log in if email not verified", fakeAsync(() => {
-    component.jwtHelper.decodeToken = () => ({
-      iss: JSON.stringify({ emailVerificado: false }),
+    tokenServiceMock.decodeTokenFromString.and.returnValue({
+      emailVerificado: false,
     });
     pessoaServiceMock.logar.and.returnValue(of("some-token"));
     component.form.setValue({ email: "user@email.com", senha: "123456" });

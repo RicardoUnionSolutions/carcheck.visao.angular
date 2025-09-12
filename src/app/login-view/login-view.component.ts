@@ -10,8 +10,8 @@ import { LoginService } from "../service/login.service";
 import { UntypedFormGroup } from "@angular/forms";
 import { ModalService } from "../service/modal.service";
 import { AnalyticsService } from "../service/analytics.service";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { NavigationService } from "../service/navigation.service";
+import { TokenService } from "../service/token.service";
 
 @Component({
   selector: "login-view",
@@ -71,7 +71,6 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
   logInSubscriber = null;
   returnUrl: any;
 
-  jwtHelper = new JwtHelperService();
   token: any;
   user: any;
 
@@ -81,7 +80,8 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     private pessoaService: PessoaService,
     private route: ActivatedRoute,
     private router: Router,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private tokenService: TokenService
   ) {
     this.logInSubscriber = this.loginService.getLogIn().subscribe((v) => {
       this.dadosLogIn = v;
@@ -222,8 +222,7 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
           this.analyticsService.novoCadastro();
 
           this.token = response;
-          this.user = this.jwtHelper.decodeToken(this.token).iss;
-          this.user = JSON.parse(this.user);
+          this.user = this.tokenService.decodeTokenFromString(this.token);
           this.emailVerificado = this.user.emailVerificado;
           if (this.emailVerificado) {
             this.modalService.openModalMsg({
