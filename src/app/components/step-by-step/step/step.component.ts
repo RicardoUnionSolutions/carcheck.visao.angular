@@ -1,9 +1,12 @@
 import { Component, OnInit, HostBinding, Input, OnChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'step',
   templateUrl: './step.component.html',
-  styleUrls: ['./step.component.scss']
+  styleUrls: ['./step.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class StepComponent implements OnInit, OnChanges {
 

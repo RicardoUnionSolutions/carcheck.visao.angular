@@ -1,4 +1,6 @@
-@import 'functions', 'variables', 'mixins/breakpoints';
+@use 'functions' as *;
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
 
 .bar-progress{
     background: #243646;

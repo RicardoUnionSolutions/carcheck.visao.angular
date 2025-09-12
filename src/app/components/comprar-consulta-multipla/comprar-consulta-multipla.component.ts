@@ -1,22 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CkCounterComponent } from '../ck-counter/ck-counter.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'comprar-consulta-multipla',
-    templateUrl: './comprar-consulta-multipla.component.html',
-    styleUrls: ['./comprar-consulta-multipla.component.scss'],
-    standalone: true,
-    imports: [CommonModule, CkCounterComponent]
+  selector: 'comprar-consulta-multipla',
+  templateUrl: './comprar-consulta-multipla.component.html',
+  styleUrls: ['./comprar-consulta-multipla.component.scss'],
+  standalone: true,
+  imports: [CommonModule, FormsModule]
 })
 export class ComprarConsultaMultiplaComponent implements OnInit {
 
   @Input() consultas: any = [];
-  @Output() consultasChange: any = new EventEmitter();
-
   @Input() pacote: any;
-  @Output() pacoteChange: any = new EventEmitter();
-
   @Input() valorTotal: Number = 0.00;
   @Output() valorTotalChange: any = new EventEmitter();
 
@@ -32,7 +28,6 @@ export class ComprarConsultaMultiplaComponent implements OnInit {
       for (let i = 0; i < this.consultas.length; i++) {
         let vr = parseFloat(this.consultas[i].valorConsulta).toFixed(2).split('.');
         this.consultas[i].valorReais = vr[0];
-
         this.consultas[i].valorCentavos = vr[1];
       }
 
@@ -41,8 +36,6 @@ export class ComprarConsultaMultiplaComponent implements OnInit {
       this.valorTotal = this.pacote.valor_promocional;
       this.valorTotalChange.emit(this.valorTotal);
     }
-
-
   }
 
   setDesc(desc, label) {
@@ -62,10 +55,19 @@ export class ComprarConsultaMultiplaComponent implements OnInit {
     this.valorTotalCentavos = vr[1];
 
     this.valorTotalChange.emit(this.valorTotal);
-    this.consultasChange.emit(this.consultas);
 
     return this.valorTotal;
   }
 
+  incrementarQuantidade(consulta: any) {
+    consulta.quantidade++;
+    this.updateValorTotal();
+  }
 
+  decrementarQuantidade(consulta: any) {
+    if (consulta.quantidade > 0) {
+      consulta.quantidade--;
+      this.updateValorTotal();
+    }
+  }
 }

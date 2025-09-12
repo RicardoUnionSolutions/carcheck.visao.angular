@@ -1,5 +1,7 @@
 
-@import 'functions', 'variables', 'mixins/breakpoints';
+@use 'functions' as *;
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
 
 $step-size: 60px !default;
 $step-size-done: 60px !default;
