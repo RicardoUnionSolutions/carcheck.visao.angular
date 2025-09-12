@@ -4,7 +4,6 @@ import { of, throwError } from "rxjs";
 import { AppInterceptor } from "./app-interceptor.service";
 import { LoginService } from "./service/login.service";
 import { ModalService } from "./service/modal.service";
-import { Router } from "@angular/router";
 
 class LoginServiceStub {
   constructor(private token: string | null = "jwt-token") {}
@@ -24,17 +23,11 @@ class ModalServiceStub {
   openModalMsg(_: any) {}
 }
 
-class RouterStub {
-  navigate(_: any) {}
-}
-
 describe("AppInterceptor", () => {
   const baseUrl = "http://api.test";
-
   let interceptor: AppInterceptor;
   let loginSvc: LoginServiceStub;
   let modalSvc: ModalServiceStub;
-  let router: RouterStub;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,14 +35,11 @@ describe("AppInterceptor", () => {
         AppInterceptor,
         { provide: LoginService, useClass: LoginServiceStub },
         { provide: ModalService, useClass: ModalServiceStub },
-        { provide: Router, useClass: RouterStub },
       ],
     });
     interceptor = TestBed.inject(AppInterceptor);
     loginSvc = TestBed.inject(LoginService) as any;
     modalSvc = TestBed.inject(ModalService) as any;
-    router = TestBed.inject(Router) as any;
-    (interceptor as any).baseUrl = baseUrl;
   });
 
   it("should add Authorization header when token exists", (done) => {
@@ -66,17 +56,6 @@ describe("AppInterceptor", () => {
   it("should not add Authorization header when token is missing", (done) => {
     loginSvc.setToken(null);
     const req = new HttpRequest("GET", `${baseUrl}/resource`);
-    const handler: HttpHandler = {
-      handle: (request: HttpRequest<any>) => {
-        expect(request.headers.has("Authorization")).toBeFalsy();
-        return of(new HttpResponse({ status: 200 }));
-      },
-    };
-    interceptor.intercept(req, handler).subscribe(() => done());
-  });
-
-  it("should not add Authorization header when url does not match baseUrl", (done) => {
-    const req = new HttpRequest("GET", "http://other.api/resource");
     const handler: HttpHandler = {
       handle: (request: HttpRequest<any>) => {
         expect(request.headers.has("Authorization")).toBeFalsy();
@@ -224,7 +203,7 @@ describe("AppInterceptor", () => {
     expect(() => (interceptor as any).hasServerError(response)).not.toThrow();
   });
 
-  it("should handle 401 error by logging out and redirecting to login", (done) => {
+  it("should handle 401 error by logging out and showing modal", (done) => {
     const modalSvcSpy = jasmine.createSpyObj<ModalService>("ModalService", [
       "openModalMsg",
     ]);
@@ -233,17 +212,15 @@ describe("AppInterceptor", () => {
       "getLogIn",
       "logOut",
     ]);
-    const routerSpy = jasmine.createSpyObj<Router>("Router", ["navigate"]);
 
     loginSvcSpy.getTokenLogin.and.returnValue("jwt-token");
     loginSvcSpy.getLogIn.and.returnValue(of(null));
 
-    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy, routerSpy);
-    (interceptor as any).baseUrl = baseUrl;
+    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy);
 
     const req = new HttpRequest("GET", `${baseUrl}/resource`);
     const handler: HttpHandler = {
-      handle: () => throwError(new HttpErrorResponse({ status: 401 })), // 👈 aqui está a correção
+      handle: () => throwError(new HttpErrorResponse({ status: 401 })),
     };
 
     interceptor.intercept(req, handler).subscribe({
@@ -251,7 +228,6 @@ describe("AppInterceptor", () => {
       error: () => {
         expect(modalSvcSpy.openModalMsg).toHaveBeenCalled();
         expect(loginSvcSpy.logOut).toHaveBeenCalled();
-        expect(routerSpy.navigate).toHaveBeenCalledWith(["/login"]);
         done();
       },
     });
@@ -274,7 +250,6 @@ describe("AppInterceptor", () => {
   it("should rethrow non-401 errors without triggering logout or modal", (done) => {
     const modalSpy = spyOn(modalSvc, "openModalMsg");
     const logoutSpy = spyOn(loginSvc, "logOut");
-    const navigateSpy = spyOn(router, "navigate");
 
     const req = new HttpRequest("GET", `${baseUrl}/resource`);
     const handler: HttpHandler = {
@@ -286,7 +261,6 @@ describe("AppInterceptor", () => {
       error: () => {
         expect(modalSpy).not.toHaveBeenCalled();
         expect(logoutSpy).not.toHaveBeenCalled();
-        expect(navigateSpy).not.toHaveBeenCalled();
         done();
       },
     });
