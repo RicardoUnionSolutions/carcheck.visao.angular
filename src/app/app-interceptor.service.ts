@@ -26,7 +26,7 @@ export class AppInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token = this.login.getTokenLogin();
-    if (token) {
+    if (token && !req.headers.has("Authorization")) {
       req = req.clone({
         setHeaders: { Authorization: token },
       });
