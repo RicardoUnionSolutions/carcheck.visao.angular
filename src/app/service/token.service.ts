@@ -1,24 +1,52 @@
-import { Injectable } from "@angular/core";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { Subject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TokenService {
-  private log = new Subject();
-  jwtHelper: any;
-  constructor() {
-    this.jwtHelper = new JwtHelperService();
+  private readonly tokenKey = 'tokenLogin';
+  private jwtHelper = new JwtHelperService();
+
+  getTokenLogin(): string | null {
+    const token = localStorage.getItem(this.tokenKey);
+    return token === 'null' ? null : token;
   }
 
-  decodeToken(valor: any) {
-    let token = localStorage.getItem(valor);
-    if (token == null || token == "null") return null;
-    else return this.jwtHelper.decodeToken(token).iss;
+  setTokenLogin(value: string): void {
+    localStorage.setItem(this.tokenKey, value);
   }
 
-  getTokenLogin() {
-    return localStorage.getItem("tokenLogin");
+  removeTokenLogin(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  decodeToken(token?: string | null): any | null {
+    const current = token || this.getTokenLogin();
+    if (!current) {
+      return null;
+    }
+    try {
+      return this.jwtHelper.decodeToken(current);
+    } catch (error) {
+      console.error('TokenService.decodeToken - error decoding token', error);
+      return null;
+    }
+  }
+
+  getUserFromToken(token?: string | null): any | null {
+    const decoded = this.decodeToken(token);
+    if (!decoded) {
+      return null;
+    }
+    if (decoded.iss) {
+      try {
+        return JSON.parse(decoded.iss);
+      } catch (error) {
+        console.error('TokenService.getUserFromToken - invalid iss field', error);
+        return null;
+      }
+    }
+    return decoded;
   }
 }

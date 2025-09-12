@@ -3,8 +3,14 @@ import { UsuarioLogadoService } from './usuario-logado.service';
 import { TokenService } from './token.service';
 
 class TokenServiceStub {
-  decodeToken(key: string) {
+  setTokenLogin(token: string) {
+    localStorage.setItem('tokenLogin', token);
+  }
+  getUserFromToken() {
     return null;
+  }
+  removeTokenLogin() {
+    localStorage.removeItem('tokenLogin');
   }
 }
 
@@ -33,14 +39,14 @@ describe('UsuarioLogadoService', () => {
   });
 
   it('should retrieve decoded user from token service', () => {
-    spyOn(tokenService, 'decodeToken').and.returnValue({ name: 'john' });
+    spyOn(tokenService, 'getUserFromToken').and.returnValue({ name: 'john' });
     const user = service.getUsuarioLogado();
-    expect(tokenService.decodeToken).toHaveBeenCalledWith('tokenLogin');
+    expect(tokenService.getUserFromToken).toHaveBeenCalled();
     expect(user).toEqual({ name: 'john' });
   });
 
   it('should return null if token service returns null', () => {
-    spyOn(tokenService, 'decodeToken').and.returnValue(null);
+    spyOn(tokenService, 'getUserFromToken').and.returnValue(null);
     expect(service.getUsuarioLogado()).toBeNull();
   });
 

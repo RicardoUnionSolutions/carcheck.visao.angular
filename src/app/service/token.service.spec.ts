@@ -17,13 +17,20 @@ describe("TokenService", () => {
 
   it("should decode token stored in localStorage", () => {
     localStorage.setItem("sample", "abc");
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({ iss: "data" });
+    spyOn((service as any).jwtHelper, "decodeToken").and.returnValue({ foo: "bar" });
     const decoded = service.decodeToken("sample");
-    expect(decoded).toBe("data");
+    expect(decoded).toEqual({ foo: "bar" });
   });
 
   it("should return null when token missing", () => {
     const decoded = service.decodeToken("missing");
     expect(decoded).toBeNull();
+  });
+
+  it("should parse user from iss field", () => {
+    spyOn(service, "decodeToken").and.returnValue({ iss: JSON.stringify({ name: "john" }) });
+    const user = service.getUserFromToken();
+    expect(service.decodeToken).toHaveBeenCalled();
+    expect(user).toEqual({ name: "john" });
   });
 });
