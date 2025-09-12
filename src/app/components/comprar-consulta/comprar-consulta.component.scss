@@ -1,4 +1,6 @@
-// Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+@use 'functions';
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *; // Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
 
 .tipo-consulta-btn {
   width: 100%;

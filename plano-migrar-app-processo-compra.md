@@ -652,7 +652,7 @@ input[type="text"]{
 }
 
 ::ng-deep .tab.active {
-  border-radius: 17px;
+  border-radius: 50px !important;
   margin: 0px !important;
 }
 
