@@ -15,7 +15,12 @@ import { UtilForms } from "../../../utils/util-forms";
 import { LoginService } from "../../../service/login.service";
 import { CepService } from "../../../service/cep.service";
 import { PessoaService } from "../../../service/pessoa.service";
-import { distinctUntilChanged, filter, debounceTime } from "rxjs/operators";
+import {
+  distinctUntilChanged,
+  filter,
+  debounceTime,
+  map,
+} from "rxjs/operators";
 
 export interface CadastroUsuario {
   cnpj?: string;
@@ -137,7 +142,8 @@ export class CadastrarDadosUsuarioComponent implements OnInit {
     this.form.controls.cep.valueChanges
       .pipe(
         debounceTime(600),
-        filter((v) => v && v.length >= 10),
+        map((v: string) => (v ? v.replace(/\D/g, "") : "")),
+        filter((v) => v.length === 8),
         distinctUntilChanged()
       )
       .subscribe((v) => {

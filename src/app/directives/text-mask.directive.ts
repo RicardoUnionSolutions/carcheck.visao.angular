@@ -1,4 +1,13 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  OnInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  HostListener,
+} from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 @Directive({
@@ -14,6 +23,13 @@ export class TextMaskDirective implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.createMask();
+  }
+
+  @HostListener('input', ['$event'])
+  onInput(event: any) {
+    if (this.textMaskInputElement) {
+      this.textMaskInputElement.update(event.target.value);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
