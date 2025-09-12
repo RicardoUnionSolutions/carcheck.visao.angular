@@ -2,12 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { UsuarioLogadoService } from './usuario-logado.service';
 import { TokenService } from './token.service';
 
-class TokenServiceStub {
-  decodeToken(key: string) {
-    return null;
-  }
-}
-
 describe('UsuarioLogadoService', () => {
   let service: UsuarioLogadoService;
   let tokenService: TokenService;
@@ -16,7 +10,7 @@ describe('UsuarioLogadoService', () => {
     TestBed.configureTestingModule({
       providers: [
         UsuarioLogadoService,
-        { provide: TokenService, useClass: TokenServiceStub },
+        TokenService,
       ],
     });
     service = TestBed.inject(UsuarioLogadoService);
@@ -27,27 +21,28 @@ describe('UsuarioLogadoService', () => {
     localStorage.clear();
   });
 
-  it('should store token in localStorage', () => {
+  it('should store token using token service', () => {
+    const spy = spyOn(tokenService, 'setToken');
     service.setUsuarioLogado('abc');
-    expect(localStorage.getItem('tokenLogin')).toBe('abc');
+    expect(spy).toHaveBeenCalledWith('abc');
   });
 
   it('should retrieve decoded user from token service', () => {
-    spyOn(tokenService, 'decodeToken').and.returnValue({ name: 'john' });
+    spyOn(tokenService, 'getUserFromToken').and.returnValue({ name: 'john' });
     const user = service.getUsuarioLogado();
-    expect(tokenService.decodeToken).toHaveBeenCalledWith('tokenLogin');
+    expect(tokenService.getUserFromToken).toHaveBeenCalled();
     expect(user).toEqual({ name: 'john' });
   });
 
   it('should return null if token service returns null', () => {
-    spyOn(tokenService, 'decodeToken').and.returnValue(null);
+    spyOn(tokenService, 'getUserFromToken').and.returnValue(null);
     expect(service.getUsuarioLogado()).toBeNull();
   });
 
   it('should remove token on logout', () => {
-    localStorage.setItem('tokenLogin', 'abc');
+    const spy = spyOn(tokenService, 'removeToken');
     service.logout();
-    expect(localStorage.getItem('tokenLogin')).toBeNull();
+    expect(spy).toHaveBeenCalled();
   });
 });
 

@@ -1,8 +1,8 @@
 import { Injectable, LOCALE_ID, Inject } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { formatDate } from "@angular/common";
 import { ModalService } from "./modal.service";
+import { TokenService } from "./token.service";
 
 export type MODAL_BTN = {
   text?: string;
@@ -30,48 +30,31 @@ export class LoginService {
   });
   private user: any = { status: false, cliente: { documento: "" } };
   private loginTokenName = "tokenLogin";
-  jwtHelper: any;
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private tokenService: TokenService
   ) {
-    this.jwtHelper = new JwtHelperService();
     this.logIn(this.getTokenLogin());
   }
 
   decodeToken(token) {
     token = token || this.getTokenLogin();
-    console.log("LoginService.decodeToken() - Token recebido:", token);
-    if (token == null) {
-      console.log("LoginService.decodeToken() - Token é null");
-      return false;
-    }
-    try {
-      const decoded = this.jwtHelper.decodeToken(token);
-      console.log("LoginService.decodeToken() - Token decodificado:", decoded);
-      if (!decoded || !decoded.iss) {
-        console.log("LoginService.decodeToken() - Token decodificado inválido");
-        return false;
-      }
-      return decoded.iss;
-    } catch (error) {
-      console.log("LoginService.decodeToken() - Erro ao decodificar token:", error);
-      return false;
-    }
+    const user = this.tokenService.getUserFromToken(token);
+    return user ? user : false;
   }
 
   getTokenLogin() {
-    let token = localStorage.getItem(this.loginTokenName);
-    return token == "null" ? null : token;
+    return this.tokenService.getToken();
   }
 
   private setTokenLogin(value) {
-    localStorage.setItem(this.loginTokenName, value);
+    this.tokenService.setToken(value);
   }
 
   private removeTokenLogin() {
-    localStorage.removeItem(this.loginTokenName);
+    this.tokenService.removeToken();
   }
 
   getLogIn(): Observable<any> {
@@ -92,19 +75,24 @@ export class LoginService {
   }
 
   logIn(token) {
-    if (token != "null") {
+    if (token != null && token != "null") {
       this.setTokenLogin(token);
     }
+
+    if (!this.tokenService.isTokenValid(token || undefined)) {
+      this.user = { status: false, cliente: { documento: "" } };
+      this.log.next(this.user);
+      return;
+    }
+
     try {
       let user = this.decodeToken(token);
       if (user === false) {
-        console.log("LoginService - Token inválido");
         this.user = { status: false, cliente: { documento: "" } };
       } else {
-        this.user = JSON.parse(user);
+        this.user = user;
         this.user.userStatus = this.user.status;
         this.user.status = true;
-        console.log("LoginService - Usuário decodificado:", this.user);
 
         if (
           this.user.cliente.documento == null ||
@@ -126,8 +114,6 @@ export class LoginService {
           : this.user.statusCadastro;
 
         try {
-          console.log("LoginService - Tentando formatar data:", this.user.cliente.dataNascimento);
-          console.log("LoginService - Locale:", this.locale);
           this.user.cliente.dataNascimento =
             this.user.cliente.dataNascimento != null
               ? formatDate(
@@ -136,17 +122,12 @@ export class LoginService {
                   this.locale
                 )
               : this.user.cliente.dataNascimento;
-          console.log("LoginService - Data formatada com sucesso:", this.user.cliente.dataNascimento);
-        } catch (error) {
-          console.log("LoginService - Erro ao formatar data:", error);
-        }
+        } catch (error) {}
       }
     } catch (error) {
-      console.log("LoginService - Erro no login:", error);
       this.logOut();
     }
 
-    // Atualizar o estado do usuário
     this.log.next(this.user);
   }
 
