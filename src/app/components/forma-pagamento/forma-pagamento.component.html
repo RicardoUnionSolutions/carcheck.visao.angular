@@ -1,11 +1,69 @@
 <tab-nav [tabs]="menuPagamento" [(currentTab)]="formaPagamento" [(listaPagamento)]="listaPagamento"></tab-nav>
-<div class="px-lg-3 content">
-  <forma-pagamento-credito *ngIf="formaPagamento==0" [valorTotalDesconto]="valorTotalDesconto"
-    [valorTotal]="valorTotal"></forma-pagamento-credito>
+<div class="px-lg-3 content forma-pagamento-content">
+  
+  <!-- Placeholder de carregamento -->
+  <div *ngIf="cardLoading" class="payment-card-placeholder">
+    <div class="loading-overlay">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p class="loading-text">Carregando forma de pagamento...</p>
+      </div>
+    </div>
+    
+    <div class="placeholder-header">
+      <div class="placeholder-tabs">
+        <div class="placeholder-tab active"></div>
+        <div class="placeholder-tab"></div>
+        <div class="placeholder-tab"></div>
+      </div>
+    </div>
+    
+    <div class="placeholder-card">
+      <div class="placeholder-form">
+        <div class="placeholder-field large"></div>
+        <div class="placeholder-field large"></div>
+        <div class="placeholder-field-group">
+          <div class="placeholder-field small"></div>
+          <div class="placeholder-field small"></div>
+        </div>
+        <div class="placeholder-field medium"></div>
+        <div class="placeholder-checkbox">
+          <div class="placeholder-check"></div>
+          <div class="placeholder-text"></div>
+        </div>
+        <div class="placeholder-field medium"></div>
+      </div>
+      
+      <div class="placeholder-card-visual">
+        <div class="placeholder-chip"></div>
+        <div class="placeholder-lines">
+          <div class="placeholder-line"></div>
+          <div class="placeholder-line"></div>
+          <div class="placeholder-line"></div>
+          <div class="placeholder-line"></div>
+        </div>
+        <div class="placeholder-card-info">
+          <div class="placeholder-name"></div>
+          <div class="placeholder-date"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="placeholder-payment-info">
+      <div class="placeholder-bar"></div>
+      <div class="placeholder-item"></div>
+    </div>
+  </div>
 
-  <forma-pagamento-boleto *ngIf="formaPagamento==1"></forma-pagamento-boleto>
+  <!-- Conteúdo real do pagamento -->
+  <div *ngIf="!cardLoading">
+    <forma-pagamento-credito *ngIf="formaPagamento==0" [valorTotalDesconto]="valorTotalDesconto"
+      [valorTotal]="valorTotal"></forma-pagamento-credito>
 
-  <forma-pagamento-pix *ngIf="formaPagamento==2"></forma-pagamento-pix>
+    <forma-pagamento-boleto *ngIf="formaPagamento==1"></forma-pagamento-boleto>
+
+    <forma-pagamento-pix *ngIf="formaPagamento==2"></forma-pagamento-pix>
+  </div>
 
 
 

@@ -1,4 +1,4 @@
-<div class="container pt-3 pt-lg-5 px-md-5 px-lg-0">
+<div class="container-form">
     <step-by-step [steps]="steps" [(currentStep)]="currentStep" [doneSteps]="doneSteps"></step-by-step>
     <div class="currentStep-container">
         <div [hidden]="stepIndex.consulta != currentStep" class="pt-5 mt-0 pt-lg-5">
@@ -74,17 +74,17 @@
             </div>
 
         </div>
-        <div class="mb-5 flex-wrap flex-column-reverse flex-md-row flex-md-nowrap" [ngClass]="{
-            'flex-jb': (!logIn.status && cadastrar && stepIndex.cadastro==currentStep),
-            'flex-je': !(!logIn.status && cadastrar && stepIndex.cadastro==currentStep)
+        <div class="continuar-area mb-5 d-flex flex-wrap flex-column-reverse flex-md-row justify-content-end flex-md-nowrap" [ngClass]="{
+            'justify-content-between': (!logIn.status && cadastrar && stepIndex.cadastro==currentStep),
+            'justify-content-end': !(!logIn.status && cadastrar && stepIndex.cadastro==currentStep)
         }">
 
-            <div *ngIf="!logIn.status && cadastrar && stepIndex.cadastro==currentStep">
+            <div *ngIf="!logIn.status && cadastrar && stepIndex.cadastro==currentStep" class="mb-3 mb-md-0">
                 <button (click)="cadastrar=false" class="btn btn-orange-1 btn-lg w-100 py-lg-3">JÁ SOU
                     CADASTRADO</button>
             </div>
 
-            <div class="w-100 flex-je flex-ae flex-column mb-3 mb-md-0">
+            <div class="continuar-button d-flex justify-content-end align-items-end flex-column mb-3 mb-md-0 ">
                 <button *ngIf="!loadingCompra"
                     [hidden]="stepIndex.cadastro == currentStep && (cadastrar==false || logIn.status==true)"
                     (click)="next()" class="btn-next btn btn-success btn-lg  py-lg-3"

@@ -24,6 +24,20 @@
   /* Standard */
   box-shadow: none;
   outline: none;
+  
+  // Tab selecionada - azul escuro
+  &.bg-g-orange-reverse {
+    background-color: #244b5a !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  // Tabs não selecionadas - branco com borda cinza
+  &.bg-white {
+    background-color: white !important;
+    color: #333333 !important;
+    border: 1px solid #CCCCCC !important;
+  }
 }
 
 
@@ -39,6 +53,7 @@
   line-height: 0.7;
   font-weight: 700;
   border-radius: 7px;
+  margin: 0 auto;
 }
 
 .price_container span:first-child {
@@ -54,9 +69,34 @@
   line-height: 0.8;
 }
 
-/*.text-consulta-container{
+.text-consulta-container{
     min-height: 250px;
-}*/
+}
+
+// Container dos textos de preço
+.flex-column.flex-je.flex-ae {
+  width: 370px;
+  max-width: 100%;
+  margin: 0 auto;
+  
+  // Texto "De R$XX,XX por" - alinhado à direita
+  .d-flex.justify-content-end.fw-semibold {
+    width: 100%;
+    padding-right: 50px; // Mesmo padding do bloco cinza
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666666;
+  }
+  
+  // Texto de economia - alinhado à direita
+  p.fw-semibold.text-end {
+    width: 100%;
+    padding-right: 50px; // Mesmo padding do bloco cinza
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666666;
+  }
+}
 
 
 
@@ -75,7 +115,7 @@
 
   .price_container {
     font-size: 50px;
-    padding: 15px 0px;
+    padding: 15px 30px; // Padding reduzido para mobile
 
     span:first-child,
     span:last-child {
@@ -83,11 +123,22 @@
     }
   }
 
+  // Ajustar textos para mobile
+  .flex-column.flex-je.flex-ae {
+    .d-flex.justify-content-end.fw-semibold {
+      padding-right: 30px; // Mesmo padding do bloco cinza em mobile
+    }
+    
+    p.fw-semibold.text-end {
+      padding-right: 30px; // Mesmo padding do bloco cinza em mobile
+    }
+  }
 }
 
 @include media-breakpoint-down(sm) {
   .price_container {
     width: 100%;
+    padding: 15px 20px; // Padding ainda menor para telas pequenas
   }
 
   .tipo-consulta-btn {
@@ -98,27 +149,40 @@
   .linha{
     flex-wrap: wrap !important;
   }
+
+  // Ajustar textos para telas pequenas
+  .flex-column.flex-je.flex-ae {
+    .d-flex.justify-content-end.fw-semibold {
+      padding-right: 20px; // Mesmo padding do bloco cinza em telas pequenas
+    }
+    
+    p.fw-semibold.text-end {
+      padding-right: 20px; // Mesmo padding do bloco cinza em telas pequenas
+    }
+  }
 }
 
 
 .consulta {
-  border: 1px solid #EEE;
-  padding: 15px;
-  border-radius: 20px;
-  box-shadow: 6px 6px 13px 0px #eee;
-  background: #F9FAFC;
+  border: 1px solid #E5E5E5;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
   display: table;
 
   h3 {
-    font-size: 18px;
-    font-weight: 400;
-    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 15px;
   }
 
   .dado {
     padding-left: 14px;
-    color: #333;
-    font-size: 12px;
+    color: #333333;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
 
   .row {
@@ -130,6 +194,14 @@
   .detalhes {
     max-height: 0;
     transition: max-height 1s ease-out;
+    
+    span {
+      color: #333333;
+      font-weight: 600;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 15px;
+    }
   }
 
   .detalhes.expandido {
@@ -153,7 +225,8 @@
   }
 
   i {
-    font-size: large;
+    font-size: 16px;
+    color: #333333;
   }
 
 }
@@ -174,6 +247,8 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: nowrap;
+  gap: 1rem;
+
 }
 
 .listaDeProdutos{
@@ -195,18 +270,19 @@
   padding: 15px;
 }
 .label{
-  background: rgb(32, 139, 135);
-  background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
+  background: linear-gradient(180deg, #346275 0%, #244b5a 100%);
   color: #FFF;
-  padding: 8px 0;
-  font-size: 14px;
+  padding: 12px 0;
+  font-size: 16px;
   width: 100%;
   margin-bottom: 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .recomendada {
   border: 1px solid #244b5a;

@@ -9,11 +9,18 @@ input[type="text"]{
     text-transform: uppercase;
 }
 
+
 .veiculo-pesquisa-form{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: auto;
+    label {
+        input[type="radio"]{
+            margin-right: 6px;
+            background-color: red;
+        }
+    }
 }
 
 

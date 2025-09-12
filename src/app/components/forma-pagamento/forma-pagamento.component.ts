@@ -44,6 +44,9 @@ export class FormaPagamentoComponent implements OnInit {
   @Output() valorTotalChange = new EventEmitter();
   @Output() valorTotalDescontoChange = new EventEmitter();
   valorDesconto = 0;
+  
+  // Estado de carregamento do card
+  cardLoading = true;
 
   cupom = '';
   cupomQuantidade = 0;
@@ -75,6 +78,15 @@ export class FormaPagamentoComponent implements OnInit {
 
   ngOnChanges() {
     this.calcularTotalComDesconto();
+    this.simulateCardLoading();
+  }
+  
+  private simulateCardLoading() {
+    // Simula o carregamento do card por 2 segundos
+    this.cardLoading = true;
+    setTimeout(() => {
+      this.cardLoading = false;
+    }, 2000);
   }
 
   ngAfterViewInit() {

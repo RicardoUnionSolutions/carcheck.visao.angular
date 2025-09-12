@@ -8,13 +8,14 @@
 
 .formCard {
   flex: 1;
-  max-width: 500px; /* Ajuste o tamanho máximo do formulário conforme necessário */
+  width: 100%;
 }
 
 .card-wrapper {
   flex: 1;
-  max-width: 300px; /* Ajuste o tamanho máximo do cartão conforme necessário */
+  max-width: 500px; /* Ajuste o tamanho máximo do cartão conforme necessário */
   display: flex;
+  padding: 20px;
   justify-content: center;
   align-items: center;
   /* Adicione aqui estilos adicionais para o cartão, como uma borda ou sombra */

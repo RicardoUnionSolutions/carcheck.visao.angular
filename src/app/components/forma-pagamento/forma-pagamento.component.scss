@@ -1,7 +1,10 @@
+@use 'mixins/breakpoints' as *;
+
 ::ng-deep tab-nav {
   height: fit-content;
   border: solid 1px #235b7529;
   width: fit-content;
+  max-width: 1400px;
   border-radius: 20px;
 }
 
@@ -14,7 +17,9 @@
   content: none !important;
 }
 
-.content {
+.forma-pagamento-content {
+  width: 100%;
+  max-width: 1400px;
   box-shadow: 4px 9px 20px 0px #cdd1d3;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
@@ -174,4 +179,260 @@ input:focus+label {
 .btn-cupom {
   height: 38px;
   width: 60px;
+}
+
+// Placeholder de carregamento do card de pagamento
+.payment-card-placeholder {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: pulse 1.5s ease-in-out infinite;
+  position: relative;
+  
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    
+    .loading-spinner {
+      text-align: center;
+      
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #244b5a;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+      
+      .loading-text {
+        color: #244b5a;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+  }
+  
+  .placeholder-header {
+    margin-bottom: 20px;
+    
+    .placeholder-tabs {
+      display: flex;
+      gap: 10px;
+      
+      .placeholder-tab {
+        height: 50px;
+        border-radius: 8px;
+        background: #f0f0f0;
+        flex: 1;
+        
+        &.active {
+          background: #244b5a;
+        }
+      }
+    }
+  }
+  
+  .placeholder-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    
+    .placeholder-form {
+      flex: 1;
+      
+      .placeholder-field {
+        height: 40px;
+        background: #f0f0f0;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        
+        &.large {
+          width: 100%;
+        }
+        
+        &.medium {
+          width: 60%;
+        }
+        
+        &.small {
+          width: 45%;
+        }
+      }
+      
+      .placeholder-field-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      
+      .placeholder-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        
+        .placeholder-check {
+          width: 20px;
+          height: 20px;
+          background: #f0f0f0;
+          border-radius: 4px;
+        }
+        
+        .placeholder-text {
+          width: 150px;
+          height: 16px;
+          background: #f0f0f0;
+          border-radius: 4px;
+        }
+      }
+    }
+    
+    .placeholder-card-visual {
+      width: 300px;
+      height: 200px;
+      background: #e8e8e8;
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      
+      .placeholder-chip {
+        width: 40px;
+        height: 30px;
+        background: #d0d0d0;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
+      
+      .placeholder-lines {
+        margin-bottom: 40px;
+        
+        .placeholder-line {
+          height: 8px;
+          background: #d0d0d0;
+          border-radius: 4px;
+          margin-bottom: 8px;
+          
+          &:nth-child(1) { width: 80%; }
+          &:nth-child(2) { width: 60%; }
+          &:nth-child(3) { width: 70%; }
+          &:nth-child(4) { width: 50%; }
+        }
+      }
+      
+      .placeholder-card-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        
+        .placeholder-name {
+          width: 100px;
+          height: 12px;
+          background: #d0d0d0;
+          border-radius: 4px;
+        }
+        
+        .placeholder-date {
+          width: 60px;
+          height: 12px;
+          background: #d0d0d0;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+  
+  .placeholder-payment-info {
+    .placeholder-bar {
+      height: 40px;
+      background: #244b5a;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    
+    .placeholder-item {
+      height: 20px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      width: 70%;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsividade do placeholder
+@include media-breakpoint-down(md) {
+  .payment-card-placeholder {
+    .placeholder-card {
+      flex-direction: column;
+      
+      .placeholder-card-visual {
+        width: 100%;
+        height: 150px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .payment-card-placeholder {
+    padding: 15px;
+    
+    .loading-overlay .loading-spinner {
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+      }
+      
+      .loading-text {
+        font-size: 14px;
+      }
+    }
+    
+    .placeholder-header .placeholder-tabs .placeholder-tab {
+      height: 40px;
+    }
+    
+    .placeholder-card .placeholder-form .placeholder-field {
+      height: 35px;
+    }
+    
+    .placeholder-card .placeholder-card-visual {
+      height: 120px;
+      padding: 15px;
+    }
+  }
 }

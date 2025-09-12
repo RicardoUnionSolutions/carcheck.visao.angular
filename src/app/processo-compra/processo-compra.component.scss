@@ -5,6 +5,24 @@
 
 .currentStep-container{
     min-height: 380px;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+
+}
+
+.continuar-area{ 
+width: 100%;
+    .continuar-button {
+    }
+}
+
+.container-form{ 
+    padding: 25px;
+    margin-top: 20px;
 }
 
 .btn-next{

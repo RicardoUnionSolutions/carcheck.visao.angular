@@ -345,6 +345,11 @@ $icon-height-desktop: 30px;
     margin-left: 10px;
   }
 
+  // Ocultar menu de perfil em mobile
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
   .notification-icon {
     position: relative;
     color: #ffffff;
@@ -664,10 +669,6 @@ side-menubar {
     }
   }
 
-  .perfil {
-    margin-right: 8px;
-    gap: 10px;
-  }
 
   .notification-icon {
     font-size: 20px;
@@ -711,9 +712,6 @@ side-menubar {
     }
   }
 
-  .perfil {
-    gap: 8px;
-  }
 
   .menu-toggle {
     padding: 6px 10px;

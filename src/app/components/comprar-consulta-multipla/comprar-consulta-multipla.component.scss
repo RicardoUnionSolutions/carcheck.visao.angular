@@ -358,6 +358,17 @@
 }
 
 // Resumo do pedido (mantido do design original)
+.resumo-pedido {
+  margin-top: 1.5rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+  width: 100%;
+  
+  @include media-breakpoint-down(sm) {
+    padding: 0 1rem;
+  }
+}
+
 .price-container, .price-container-lg {
   font-size: 2.8rem;
   display: flex;

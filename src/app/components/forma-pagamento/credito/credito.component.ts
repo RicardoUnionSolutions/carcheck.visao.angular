@@ -29,18 +29,7 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   @ViewChild('cardForm', { static: false }) cardForm!: ElementRef;
   parcelas: any[] = [];
   cpfControl: UntypedFormControl = new UntypedFormControl('', { validators: UtilValidators.cpf });
-  formMask = {
-    cvv: { mask: UtilMasks.cvv, guide: false },
-    vencimento: { mask: UtilMasks.vencimentoCartao, guide: false },
-    cpf: { mask: UtilMasks.cpf, guide: false },
-    creditCard: { 
-      mask: UtilMasks.creditCard, 
-      guide: false,
-      placeholderChar: '•',
-      showMask: false,
-      keepCharPositions: false
-    }
-  }
+  formMask: any;
 
   form: UntypedFormGroup = this.fb.group({
     nome: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(35)]],
@@ -124,6 +113,28 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
     }
   }
 
+  // Método para interceptar teclas pressionadas
+  onCreditCardKeyPress(event: KeyboardEvent) {
+    const char = String.fromCharCode(event.which);
+    
+    // Permite apenas números (0-9)
+    if (!/[0-9]/.test(char)) {
+      event.preventDefault();
+      return false;
+    }
+    
+    // Verifica se já atingiu o limite de 16 dígitos
+    const currentValue = (event.target as HTMLInputElement).value;
+    const numbersOnly = currentValue.replace(/\D/g, '');
+    
+    if (numbersOnly.length >= 16) {
+      event.preventDefault();
+      return false;
+    }
+    
+    return true;
+  }
+
   // Método para formatar o cartão de crédito
   private formatCreditCard(value: string): string {
     const cleanValue = value.replace(/\D/g, '');
@@ -138,6 +149,21 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   }
 
   ngOnInit() {
+    // Inicializa as máscaras
+    this.formMask = {
+      cvv: { mask: UtilMasks.cvv, guide: false },
+      vencimento: { mask: UtilMasks.vencimentoCartao, guide: false },
+      cpf: { mask: UtilMasks.cpf, guide: false },
+      creditCard: { 
+        mask: UtilMasks.creditCard, 
+        guide: false,
+        placeholderChar: '•',
+        showMask: false,
+        keepCharPositions: false,
+        pipe: this.creditCardPipe
+      }
+    };
+
     this.setParcelaInicial();
 
     this.loginService.getLogIn().pipe(first()).subscribe(v => {
@@ -291,6 +317,39 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
 
   numeroToString(numero) {
     return "R$ " + numero.toFixed(2).replace(".", ",");
+  }
+
+  // Pipe para filtrar apenas números válidos no cartão de crédito
+  creditCardPipe = (conformedValue: string, config: any) => {
+    // Remove todos os caracteres não numéricos
+    const numbersOnly = conformedValue.replace(/\D/g, '');
+    
+    // Limita a 16 dígitos
+    const limitedNumbers = numbersOnly.substring(0, 16);
+    
+    // Aplica a máscara apenas se tiver números válidos
+    if (limitedNumbers.length === 0) {
+      return '';
+    }
+    
+    // Formata com espaços a cada 4 dígitos
+    let formatted = limitedNumbers;
+    if (limitedNumbers.length > 4) {
+      formatted = limitedNumbers.substring(0, 4) + ' ' + limitedNumbers.substring(4);
+    }
+    if (limitedNumbers.length > 8) {
+      formatted = limitedNumbers.substring(0, 4) + ' ' + 
+                  limitedNumbers.substring(4, 8) + ' ' + 
+                  limitedNumbers.substring(8);
+    }
+    if (limitedNumbers.length > 12) {
+      formatted = limitedNumbers.substring(0, 4) + ' ' + 
+                  limitedNumbers.substring(4, 8) + ' ' + 
+                  limitedNumbers.substring(8, 12) + ' ' + 
+                  limitedNumbers.substring(12);
+    }
+    
+    return formatted;
   }
 
 }
