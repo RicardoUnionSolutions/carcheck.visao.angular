@@ -1,4 +1,7 @@
 // Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+@use 'functions';
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
 
 .currentStep-container{
     min-height: 380px;
