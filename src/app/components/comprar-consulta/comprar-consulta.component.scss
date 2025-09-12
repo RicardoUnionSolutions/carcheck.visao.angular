@@ -1,4 +1,4 @@
-// Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+@import 'functions', 'variables', 'mixins/breakpoints';
 
 .tipo-consulta-btn {
   width: 100%;
@@ -58,7 +58,7 @@
 
 
 
-@media (max-width: 768px) {
+@include media-breakpoint-down(md) {
   .linha{
     flex-wrap: wrap !important;
   }
@@ -80,9 +80,10 @@
       font-size: 25px;
     }
   }
+
 }
 
-@media (max-width: 576px) {
+@include media-breakpoint-down(sm) {
   .price_container {
     width: 100%;
   }
