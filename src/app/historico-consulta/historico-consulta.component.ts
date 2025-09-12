@@ -95,7 +95,6 @@ export class HistoricoConsultaComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    debugger
     this.title.setTitle('Histórico de Consultas - CarCheck');
     this.meta.updateTag({
       name: 'description',
