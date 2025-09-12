@@ -6,7 +6,7 @@ import {
 } from "@angular/router";
 import { NavigationService } from "../service/navigation.service";
 import { LoginService } from "../service/login.service";
-import { Observable, map, take } from "rxjs";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -15,22 +15,26 @@ export class AuthGuardService implements CanActivate {
   private navigationService = inject(NavigationService);
   private loginService = inject(LoginService);
 
+  private user = { status: false, cliente: { documento: "" } };
+
+  constructor() {
+    this.loginService
+      .getLogIn()
+      .subscribe((user) => (this.user = user));
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    // Verificar se está tentando acessar a rota de login
-    if (state.url === '/login' || state.url.startsWith('/login')) {
-      return true;
+    if (state.url.includes("logout")) {
+      this.loginService.logOut();
     }
 
-    // Verificar se pode acessar a rota usando o serviço centralizado
-    if (this.navigationService.canAccessRoute(state.url)) {
-      return true;
+    if (this.user.status === false) {
+      this.navigationService.navigateTo("/home");
     }
 
-    // Se não pode acessar, redirecionar para login com a URL atual como redirect
-    this.navigationService.navigateToLogin(state.url);
-    return false;
+    return this.user.status;
   }
 }

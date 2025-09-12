@@ -150,5 +150,5 @@ export const routes: Routes = [
     component: CkCounterDemoComponent,
   },
   { path: "lib/componentes/step-demo", component: StepDemoComponent },
-  { path: "**", redirectTo: "/home" },
+  { path: "**", redirectTo: "" },
 ];
