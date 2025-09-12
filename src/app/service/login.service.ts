@@ -1,8 +1,8 @@
 import { Injectable, LOCALE_ID, Inject } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { formatDate } from "@angular/common";
 import { ModalService } from "./modal.service";
+import { TokenService } from "./token.service";
 
 export type MODAL_BTN = {
   text?: string;
@@ -29,18 +29,16 @@ export class LoginService {
     cliente: { documento: "" },
   });
   private user: any = { status: false, cliente: { documento: "" } };
-  private loginTokenName = "tokenLogin";
-  jwtHelper: any;
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private tokenService: TokenService
   ) {
-    this.jwtHelper = new JwtHelperService();
     this.logIn(this.getTokenLogin());
   }
 
-  decodeToken(token) {
+  decodeToken(token?: string) {
     token = token || this.getTokenLogin();
     console.log("LoginService.decodeToken() - Token recebido:", token);
     if (token == null) {
@@ -48,13 +46,16 @@ export class LoginService {
       return false;
     }
     try {
-      const decoded = this.jwtHelper.decodeToken(token);
+      const decoded = this.tokenService.decodeToken(token);
       console.log("LoginService.decodeToken() - Token decodificado:", decoded);
-      if (!decoded || !decoded.iss) {
+      if (!decoded) {
         console.log("LoginService.decodeToken() - Token decodificado inválido");
         return false;
       }
-      return decoded.iss;
+      if (decoded.iss && typeof decoded.iss === "string") {
+        return JSON.parse(decoded.iss);
+      }
+      return decoded;
     } catch (error) {
       console.log("LoginService.decodeToken() - Erro ao decodificar token:", error);
       return false;
@@ -62,16 +63,15 @@ export class LoginService {
   }
 
   getTokenLogin() {
-    let token = localStorage.getItem(this.loginTokenName);
-    return token == "null" ? null : token;
+    return this.tokenService.getToken();
   }
 
-  private setTokenLogin(value) {
-    localStorage.setItem(this.loginTokenName, value);
+  private setTokenLogin(value: string) {
+    this.tokenService.saveToken(value);
   }
 
   private removeTokenLogin() {
-    localStorage.removeItem(this.loginTokenName);
+    this.tokenService.removeToken();
   }
 
   getLogIn(): Observable<any> {
@@ -101,7 +101,7 @@ export class LoginService {
         console.log("LoginService - Token inválido");
         this.user = { status: false, cliente: { documento: "" } };
       } else {
-        this.user = JSON.parse(user);
+        this.user = user;
         this.user.userStatus = this.user.status;
         this.user.status = true;
         console.log("LoginService - Usuário decodificado:", this.user);

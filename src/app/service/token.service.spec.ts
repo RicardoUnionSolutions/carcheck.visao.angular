@@ -17,13 +17,21 @@ describe("TokenService", () => {
 
   it("should decode token stored in localStorage", () => {
     localStorage.setItem("sample", "abc");
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({ iss: "data" });
+    spyOn(service.jwtHelper, "decodeToken").and.returnValue({ data: "data" });
     const decoded = service.decodeToken("sample");
-    expect(decoded).toBe("data");
+    expect(decoded).toEqual({ data: "data" });
   });
 
   it("should return null when token missing", () => {
     const decoded = service.decodeToken("missing");
     expect(decoded).toBeNull();
+  });
+
+  it("should check token expiration", () => {
+    localStorage.setItem("sample", "abc");
+    spyOn(service.jwtHelper, "isTokenExpired").and.returnValue(false);
+    const expired = service.isTokenExpired("sample");
+    expect(service.jwtHelper.isTokenExpired).toHaveBeenCalledWith("abc");
+    expect(expired).toBeFalse();
   });
 });
