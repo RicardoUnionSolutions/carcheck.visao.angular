@@ -1,4 +1,4 @@
-// Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+@import 'functions', 'variables', 'mixins/breakpoints';
 
 .currentStep-container{
     min-height: 380px;
@@ -8,13 +8,13 @@
   width: 345px;
 }
 
-@media (min-width: 992px) {
+@include media-breakpoint-up(lg) {
     .container{
         max-width: 1200px;
     }
 }
 
-@media (max-width: 576px) {
+@include media-breakpoint-down(sm) {
     .btn-next{
         width: 100%;
     }
