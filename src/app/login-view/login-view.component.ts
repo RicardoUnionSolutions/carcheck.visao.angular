@@ -1,97 +1,89 @@
-import { CkModalComponent } from "../components/ck-modal/ck-modal.component";
-import { LoginComponent } from "../components/login/login.component";
-import { CadastrarComponent } from "../components/cadastrar/cadastrar.component";
-import { ConfirmarEmailComponent } from "../components/confirmar-email/confirmar-email.component";
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { PessoaService } from "../service/pessoa.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { LoginService } from "../service/login.service";
-import { UntypedFormGroup } from "@angular/forms";
-import { ModalService } from "../service/modal.service";
-import { AnalyticsService } from "../service/analytics.service";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { NavigationService } from "../service/navigation.service";
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { PessoaService } from '../service/pessoa.service';
+import { TokenService } from '../service/token.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LoginService } from '../service/login.service';
+import { FormGroup } from '@angular/forms';
+import { VariableGlobal } from '../service/variable.global.service';
+import { ModalService } from '../service/modal.service';
+import { AnalyticsService } from '../service/analytics.service';
+import { throws } from 'assert';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
-  selector: "login-view",
-  templateUrl: "./login-view.component.html",
-  styleUrls: ["./login-view.component.scss"],
-  standalone: true,
-  imports: [
-    CommonModule,
-    LoginComponent,
-    CadastrarComponent,
-    CkModalComponent,
-    ConfirmarEmailComponent,
-  ],
+  selector: 'login-view',
+  templateUrl: './login-view.component.html',
+  styleUrls: ['./login-view.component.scss']
 })
 export class LoginViewComponent implements OnInit, AfterViewInit {
-  @ViewChild(CkModalComponent) ckModal: CkModalComponent;
 
-  private navigationService = inject(NavigationService);
+  @ViewChild(CkModalComponent) ckModal: CkModalComponent;
 
   cadastrar = false;
   cadastrarRestoFB = false;
 
-  emailVerificado: boolean | undefined = undefined;
+  emailVerificado;
 
   dadosLogIn: any;
 
   cadastrarUsuario = {
     /* pj */
-    razaoSocial: "",
-    cnpj: "",
+    razaoSocial: '',
+    cnpj: '',
     /* pf */
-    nome: "",
-    cpf: "",
+    nome: '',
+    cpf: '',
     /* pj/pf */
-    email: "",
-    senha: "",
-    cep: "",
-    numero: "",
-    endereco: "",
-    complemento: "",
-    bairro: "",
-    cidade: "",
-    uf: "",
-    tipoPessoa: "0",
-    tokenFacebook: "",
+    email: '',
+    senha: '',
+    cep: '',
+    numero: '',
+    endereco: '',
+    complemento: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+    tipoPessoa: '0',
+    tokenFacebook: '',
 
-    dataNascimento: "",
-    telefone: "",
-    clienteTipoIndefinido: "N",
-    form: new UntypedFormGroup({}),
-  };
+    dataNascimento: '',
+    telefone: '',
+    clienteTipoIndefinido: 'N',
+
+    form: FormGroup
+  }
 
   emailMarketing: any = {
-    acao: "",
-  };
+    acao: ''
+  }
 
   logInSubscriber = null;
   returnUrl: any;
 
   jwtHelper = new JwtHelperService();
   token: any;
-  user: any;
+  user: any
 
-  constructor(
-    private modalService: ModalService,
-    private loginService: LoginService,
-    private pessoaService: PessoaService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private analyticsService: AnalyticsService
-  ) {
-    this.logInSubscriber = this.loginService.getLogIn().subscribe((v) => {
-      this.dadosLogIn = v;
+  termosUsoAceito: boolean = false;
+  alertTermosUso: boolean = false;
+  mostrarModalTermos: boolean = false;
 
-      if (v.status == true) {
-        // Usar o serviço centralizado para redirecionamento
-        this.navigationService.navigateAfterLogin();
-      }
-      /*else if (v.status == true && v.cliente.documento == '') {
+  constructor(private modalService: ModalService, private loginService: LoginService, private pessoaService: PessoaService, private route: ActivatedRoute, private router: Router, private analyticsService: AnalyticsService) {
 
+
+    this.logInSubscriber = this.loginService.getLogIn().subscribe(
+      v => {
+        //console.log(v);
+        this.dadosLogIn = v;
+        if (v.status == true && !this.returnUrl) {
+          this.router.navigate(['/']);
+
+        } else if (v.status == true && this.returnUrl) {
+          const state = history.state.pacote ? { pacote: history.state.pacote } : {};
+
+          this.router.navigate([this.returnUrl], { state: state });
+        }
+        /*else if (v.status == true && v.cliente.documento == '') {
 
          this.cadastrar = true;
 
@@ -106,23 +98,22 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
          this.cadastrarUsuario.tokenFacebook = this.dadosLogIn.tokenFacebook != null ? this.dadosLogIn.tokenFacebook : '';
 
        }*/
-    });
+      }
+    );
 
-    this.route.params.subscribe((params) => {
-      if (params.logout == "out") {
-        this.navigationService.logout();
+    this.route.params.subscribe(params => {
+      if (params.logout == 'out') {
+        this.loginService.logOut();
+        this.router.navigate(['/login']);
       }
     });
+
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.returnUrl = params["returnUrl"];
-      this.cadastrar = params["cadastro"];
-      
-      if (this.returnUrl) {
-        this.navigationService.setRedirectUrl(this.returnUrl);
-      }
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'];
+      this.cadastrar = params['cadastro'];
     });
   }
 
@@ -131,10 +122,10 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
   }
 
   closeModal() {
-    this.modalService.close("modalAvisoLogin");
+    this.modalService.close('modalAvisoLogin');
   }
   abrirModal() {
-    this.modalService.open("modalAvisoLogin");
+    this.modalService.open('modalAvisoLogin');
   }
 
   ngOnDestroy() {
@@ -164,42 +155,41 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     }*/
 
   efetuarCadastro() {
-    for (var i in this.cadastrarUsuario.form["controls"]) {
-      this.cadastrarUsuario.form["controls"][i].markAsTouched();
+    if (!this.termosUsoAceito) {
+      this.alertTermosUso = true;
+      return;
+    }
+
+    for (var i in this.cadastrarUsuario.form['controls']) {
+      this.cadastrarUsuario.form['controls'][i].markAsTouched();
     }
 
     //console.log(this.cadastrarUsuario);
     //console.log("É valido =",this.cadastrarUsuario.form['valid'])
-    if (this.cadastrarUsuario.form["invalid"]) {
+    if (this.cadastrarUsuario.form['invalid']) {
       return;
     }
 
-    this.cadastrarUsuario.clienteTipoIndefinido = "N";
+    this.cadastrarUsuario.clienteTipoIndefinido = 'N';
     let cadastro = { ...this.cadastrarUsuario };
     delete cadastro.form;
     //console.log(cadastro);
-    this.modalService.openLoading({
-      title: "Aguarde...",
-      msg: "Estamos verificando os seus dados.",
-    });
-    if (this.cadastrarUsuario.tokenFacebook != "")
-      this.pessoaService
-        .atualizar(cadastro)
-        .then((response) => {
+    this.modalService.openLoading({ title: 'Aguarde...', msg: 'Estamos verificando os seus dados.' });
+    if (this.cadastrarUsuario.tokenFacebook != '')
+      this.pessoaService.atualizar(cadastro)
+        .then(response => {
           this.modalService.closeLoading();
           this.analyticsService.novoCadastroFb();
           //this.modalService.rdstationEvento(cadastro.email, "CADASTRO").then(value => { });
           this.modalService.openModalMsg({
-            status: "0",
-            title: "Cadastro Efetuado com sucesso!",
-            text: "Seus dados foram salvos com sucesso. Clique em ontinuar para acessar sua conta.",
+            status: '0', title: 'Cadastro Efetuado com sucesso!',
+            text: 'Seus dados foram salvos com sucesso. Clique em ontinuar para aessar sua conta.',
             ok: {
-              text: "Continuar",
-              event: () => {
+              text: 'Continuar', event: () => {
                 this.loginService.logIn(response);
-              },
+              }
             },
-            cancel: { show: false },
+            cancel: { show: false }
           });
         })
         .catch((e) => {
@@ -207,48 +197,41 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
           console.log(e);
         });
     else
-      this.pessoaService
-        .adicionar(cadastro)
-        .then((response) => {
-          console.log(response);
-          this.modalService.closeLoading();
-          if (response == "erro_email") {
-            this.cadastrarUsuario.form["controls"]["email"].setErrors({
-              msg: "E-mail já cadastrado",
-            });
-            return;
-          }
+      this.pessoaService.adicionar(cadastro).then((response) => {
+        console.log(response);
+        this.modalService.closeLoading();
+        if (response == 'erro_email') {
+          this.cadastrarUsuario.form['controls']['email'].setErrors({ msg: 'E-mail já cadastrado' });
+          return;
+        }
 
-          this.analyticsService.novoCadastro();
+        this.analyticsService.novoCadastro();
 
-          this.token = response;
-          this.user = this.jwtHelper.decodeToken(this.token).iss;
-          this.user = JSON.parse(this.user);
-          this.emailVerificado = this.user.emailVerificado;
-          if (this.emailVerificado) {
-            this.modalService.openModalMsg({
-              status: "0",
-              title: "Cadastro Efetuado com sucesso!",
-              text: "Seus dados foram salvos corretamente. Clique em continuar para acessar sua conta.",
-              ok: {
-                text: "Continuar",
-                event: () => {
-                  this.loginService.logIn(response);
-                },
-              },
-              cancel: { show: false },
-            });
-          }
-        })
-        .catch((e) => {
-          this.modalService.closeLoading();
+        this.token = response;
+        this.user = this.jwtHelper.decodeToken(this.token).iss;
+        this.user = JSON.parse(this.user);
+        this.emailVerificado = this.user.emailVerificado;
+        if (this.emailVerificado) {
           this.modalService.openModalMsg({
-            title: "Erro ao efetuar transação",
-            text: "Ocorreu um erro inesperado ao efetuar LogIn, tente novamente mais tarde, caso o problema persista entre em contato com o suporte.",
-            cancel: { show: false },
+            status: '0', title: 'Cadastro Efetuado com sucesso!',
+            text: 'Seus dados foram salvos corretamente. Clique em continuar para aessar sua conta.',
+            ok: {
+              text: 'Continuar', event: () => {
+                this.loginService.logIn(response);
+              }
+            },
+            cancel: { show: false }
           });
-          console.error(e);
+        }
+
+
+      })
+        .catch(e => {
+          this.modalService.closeLoading();
+          this.modalService.openModalMsg({ title: 'Erro ao efetuar transação', text: 'Ocorreu um erro inesperado ao efetuar LogIn, tente novamente mais tarde, caso o problema persista entre em contato com o suporte.', cancel: { show: false } });
+          throws(e);
         });
+
   }
 
   cadastrarChange() {
@@ -260,36 +243,6 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
       this.next();
       //  this.usuario.logado = this.temToken();
     }*/
-
-  onLoginSuccess(loginData: any) {
-    console.log("LoginView - Dados do login recebidos:", loginData);
-    
-    if (loginData && typeof loginData === 'object' && loginData.user) {
-      // Caso: email não verificado - dados completos são passados
-      this.user = loginData.user;
-      this.token = loginData.token;
-      this.emailVerificado = loginData.emailVerificado;
-      
-      console.log("LoginView - Email verificado:", this.emailVerificado);
-      
-      if (!this.emailVerificado) {
-        console.log("LoginView - Exibindo modal de confirmação de email");
-      } else {
-        // Email verificado - fazer login e redirecionar
-        this.loginService.logIn(this.token);
-      }
-    } else {
-      // Caso: email verificado - apenas evento simples é emitido
-      console.log("LoginView - Login com email verificado, redirecionamento será feito pelo LoginComponent");
-    }
-  }
-
-  onEmailConfirmado(confirmacaoData: {user: any, token: any}) {
-    // Salvar o token no serviço de login
-    this.loginService.logIn(confirmacaoData.token);
-    
-    // O redirecionamento será feito automaticamente pelo logInSubscriber
-  }
 
   loginFbChange() {
     // var token;
@@ -305,5 +258,18 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     //    this.next();
     // this.usuario.logado = this.temToken();
     //  }
+
+  }
+
+  openModalTermosUso() {
+    this.mostrarModalTermos = true;
+  }
+
+  onFecharModalTermos(check) {
+    if (check) {
+      this.termosUsoAceito = true;
+      this.alertTermosUso = false;
+    }
+    this.mostrarModalTermos = false;
   }
 }
