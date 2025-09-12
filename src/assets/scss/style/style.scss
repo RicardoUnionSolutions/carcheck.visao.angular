@@ -363,6 +363,8 @@
   align-items: center;
   font-size: $h1-font-size;
   background-color: $orange-2;
+  color: $default-color;
+  text-transform: uppercase;
 }
 
 @include media-breakpoint-down(md) {
