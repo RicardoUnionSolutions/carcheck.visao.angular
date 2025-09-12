@@ -111,19 +111,15 @@ export class CompletarCadastroComponent implements OnInit {
   }
 
   carregarDadosUsuarioLogado() {
-    if (localStorage.getItem("tokenLogin")) {
-      var dados = this.tokenService.decodeToken("tokenLogin");
-      this.userDados = JSON.parse(dados);
+    const dados = this.tokenService.decodeToken();
+    if (dados) {
+      this.userDados = dados as any;
     }
   }
 
   temToken() {
     this.carregarDadosUsuarioLogado();
-    if (localStorage.getItem("tokenLogin")) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!this.tokenService.getTokenLogin();
   }
 
 }

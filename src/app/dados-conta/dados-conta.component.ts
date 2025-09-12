@@ -347,8 +347,8 @@ export class DadosContaComponent implements OnInit {
   //Carrega o token e decodifica
   /*carregarDadosUsuarioLogado() {
 
-    if (this.tokenService.getTokenLogin() !== "" && this.tokenService.getTokenLogin() !== "null") {
-      var dados = JSON.parse(this.tokenService.decodeToken("tokenLogin"));
+    if (this.tokenService.getTokenLogin()) {
+      var dados = this.tokenService.decodeToken();
 
       console.log(dados);
 

@@ -3,9 +3,11 @@ import { UsuarioLogadoService } from './usuario-logado.service';
 import { TokenService } from './token.service';
 
 class TokenServiceStub {
-  decodeToken(key: string) {
+  decodeToken() {
     return null;
   }
+  saveToken(token: string) {}
+  removeToken() {}
 }
 
 describe('UsuarioLogadoService', () => {
@@ -27,15 +29,16 @@ describe('UsuarioLogadoService', () => {
     localStorage.clear();
   });
 
-  it('should store token in localStorage', () => {
+  it('should store token using token service', () => {
+    spyOn(tokenService, 'saveToken');
     service.setUsuarioLogado('abc');
-    expect(localStorage.getItem('tokenLogin')).toBe('abc');
+    expect(tokenService.saveToken).toHaveBeenCalledWith('abc');
   });
 
   it('should retrieve decoded user from token service', () => {
     spyOn(tokenService, 'decodeToken').and.returnValue({ name: 'john' });
     const user = service.getUsuarioLogado();
-    expect(tokenService.decodeToken).toHaveBeenCalledWith('tokenLogin');
+    expect(tokenService.decodeToken).toHaveBeenCalledWith();
     expect(user).toEqual({ name: 'john' });
   });
 
@@ -45,9 +48,9 @@ describe('UsuarioLogadoService', () => {
   });
 
   it('should remove token on logout', () => {
-    localStorage.setItem('tokenLogin', 'abc');
+    spyOn(tokenService, 'removeToken');
     service.logout();
-    expect(localStorage.getItem('tokenLogin')).toBeNull();
+    expect(tokenService.removeToken).toHaveBeenCalled();
   });
 });
 
