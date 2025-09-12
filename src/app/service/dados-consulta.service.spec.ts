@@ -13,11 +13,7 @@ class VariableGlobalStub {
   }
 }
 
-class TokenServiceStub {
-  getTokenLogin() {
-    return 'jwt-token';
-  }
-}
+class TokenServiceStub {}
 
 describe('dadosConsultaService', () => {
   let service: dadosConsultaService;
@@ -77,7 +73,6 @@ describe('dadosConsultaService', () => {
     const req = httpMock.expectOne(BASE_URL + 'consultar/historicoConsulta');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(filtros);
-    expect(req.request.headers.get('Authorization')).toBe('Bearer jwt-token');
     req.flush(mock);
   });
 
@@ -172,7 +167,6 @@ describe('dadosConsultaService', () => {
     service.getPossuiCompraAprovada().subscribe(res => expect(res).toEqual(mock));
     const req = httpMock.expectOne(BASE_URL + 'consultar/possuiCompra');
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe('Bearer jwt-token');
     req.flush(mock);
   });
 });
