@@ -58,7 +58,10 @@ export class TextMaskDirective implements OnInit, OnDestroy, OnChanges {
 
   private destroyMask() {
     if (this.textMaskInputElement) {
-      this.textMaskInputElement.destroy();
+      // Verifica se o método destroy existe antes de chamá-lo
+      if (typeof this.textMaskInputElement.destroy === 'function') {
+        this.textMaskInputElement.destroy();
+      }
       this.textMaskInputElement = null;
     }
   }

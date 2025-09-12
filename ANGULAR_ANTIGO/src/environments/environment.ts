@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  // wsUrl: "https://ws.carcheckbrasil.com.br",
-  // webSocketUrl: "wss://ws.carcheckbrasil.com.br/consultaWebSocket",
-  wsUrl: "http://localhost:8081/CarcheckWebservice",
-   webSocketUrl: "ws://localhost:8081/CarcheckWebservice/consultaWebSocket"
+  wsUrl: "https://ws.carcheckbrasil.com.br",
+  webSocketUrl: "wss://ws.carcheckbrasil.com.br/consultaWebSocket",
+  // wsUrl: "http://localhost:8081/CarcheckWebservice",
+  //  webSocketUrl: "ws://localhost:8081/CarcheckWebservice/consultaWebSocket"
 };

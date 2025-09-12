@@ -1,24 +1,28 @@
 <div class="creditoContent">
   <div class="card-wrapper"></div>
-  <form class="formCard" card container=".card-wrapper" action="javascript:void(0);" [formGroup]="form">
+  <form #cardForm class="formCard" action="javascript:void(0);" [formGroup]="form">
 
     <div class="mt-4">
       <input type="text" name="number" placeholder="Número do cartão" class="slds-input" label="Número do cartão"
         [ngClass]="{'border-danger': (form.controls.numero.invalid) && form.controls.numero.touched==true}"
-        [formControl]="form.controls.numero" [textMask]="formMask.creditCard" card-number />
+        [formControl]="form.controls.numero" [textMask]="formMask.creditCard" 
+        (input)="onCreditCardInput($event)" maxlength="19" />
       <div *ngIf="form.controls.numero.errors != null && form.controls.numero.touched"
         class="msg text-danger f-12 fw-500">
         <span [hidden]="!form.controls.numero.errors.required">
           Campo obrigatório.
         </span>
+        <span [hidden]="!form.controls.numero.errors.invalidCreditCard">
+          Número do cartão deve ter exatamente 16 dígitos.
+        </span>
       </div>
     </div>
 
     <div class="mt-4">
-      <input type="text" name="name" placeholder="Nome Completo (como escrito no cartão)" card-name class="w-100"
+      <input type="text" name="name" placeholder="Nome Completo (como escrito no cartão)" class="w-100"
         label="Nome Completo (como escrito no cartão)" minlength="8"
         [ngClass]="{'border-danger': (form.controls.nome.invalid) && form.controls.nome.touched==true}"
-        [formControl]="form.controls.nome" card-name />
+        [formControl]="form.controls.nome" />
       <div *ngIf="form.controls.nome.errors != null && form.controls.nome.touched" class="msg text-danger f-12 fw-500">
         <span [hidden]="!form.controls.nome.errors.required">
           Campo obrigatório.
@@ -30,13 +34,13 @@
       <div class="col-6 col-md-4 col-lg-2 mt-4">
         <input type="text" name="cvc" placeholder="CVV" class="slds-input" label="CVV" [formControl]="form.controls.cvv"
           [ngClass]="{'border-danger': (form.controls.cvv.invalid) && form.controls.cvv.touched==true}"
-          [textMask]="formMask.cvv" card-cvc />
+          [textMask]="formMask.cvv" />
       </div>
 
       <div class="col-6 col-md-5 col-lg-3 mt-4">
         <input type="text" name="expiry" placeholder="Validade" class="slds-input" label="Validade"
           [ngClass]="{'border-danger': (form.controls.vencimento.invalid) && form.controls.vencimento.touched==true}"
-          [formControl]="form.controls.vencimento" [textMask]="formMask.vencimento" card-expiry />
+          [formControl]="form.controls.vencimento" [textMask]="formMask.vencimento" />
         <div *ngIf="form.controls.vencimento.errors != null && form.controls.vencimento.touched"
           class="msg text-danger f-12 fw-500">
           <span [hidden]="!form.controls.vencimento.errors.required">

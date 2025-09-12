@@ -12,10 +12,48 @@
 //@use "card-consulta";
 //@use "footer";
 //@use "blog-pagination";
-//@use "helpers";
+@use "helpers";
 
 .roboto-mono {
   font-family: "Caros";
+}
+
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+/* Cor padrão global para todos os textos */
+body {
+  color: #304d5a;
+}
+
+/* Sobrescrever cores específicas que devem manter suas cores originais */
+.text-white,
+.text-white * {
+  color: #fff !important;
+}
+
+.text-orange-1,
+.text-orange-1 * {
+  color: #ecda26 !important;
+}
+
+.text-success,
+.text-success * {
+  color: #28a745 !important;
+}
+
+.text-danger,
+.text-danger * {
+  color: #dc3545 !important;
+}
+
+.text-secondary,
+.text-secondary * {
+  color: #6c757d !important;
 }
 
 .mdi,

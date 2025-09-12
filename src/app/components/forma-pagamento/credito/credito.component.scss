@@ -43,8 +43,6 @@
   }
 }
 
-
-
 label {
   position: absolute;
   font-size: 16px;
@@ -101,7 +99,6 @@ input:focus+label {
   color: #244b5a;
 }
 
-
 .loading {
   position: absolute;
   height: 100%;
@@ -146,8 +143,6 @@ input:focus+label {
   background-color: #fff;
   transition: background-color 0.3s, border-color 0.3s;
 }
-
-
 
 /* Estado de foco */
 .custom-checkbox:focus+label::before {
@@ -219,6 +214,3 @@ input:focus+label {
     transform: rotate(0deg);
   }
 }
-
-
-

@@ -2,6 +2,7 @@
 @use 'functions' as *;
 @use 'variables' as *;
 @use 'mixins/breakpoints' as *;
+@use 'sass:math';
 
 $step-size: 60px !default;
 $step-size-done: 60px !default;
@@ -30,17 +31,53 @@ $step-md-img-size-done: 32px !default;
 $step-md-img-size-active: 40px !default;
 
 
-$step-xs-size: 35px !default;
-$step-xs-size-done: 35px !default;
-$step-xs-size-active: 45px !default;
+$step-lg-size: 50px !default;
+$step-lg-size-done: 50px !default;
+$step-lg-size-active: 70px !default;
 
-$step-xs-font-size: 20px !default;
-$step-xs-font-size-done: 20px !default;
-$step-xs-font-size-active: 20px !default;
+$step-lg-font-size: 24px !default;
+$step-lg-font-size-done: 24px !default;
+$step-lg-font-size-active: 32px !default;
 
-$step-xs-img-size: 28px !default;
-$step-xs-img-size-done: 28px !default;
-$step-xs-img-size-active: 32px !default;
+$step-lg-img-size: 40px !default;
+$step-lg-img-size-done: 40px !default;
+$step-lg-img-size-active: 50px !default;
+
+$step-sm-size: 32px !default;
+$step-sm-size-done: 32px !default;
+$step-sm-size-active: 40px !default;
+
+$step-sm-font-size: 18px !default;
+$step-sm-font-size-done: 18px !default;
+$step-sm-font-size-active: 18px !default;
+
+$step-sm-img-size: 24px !default;
+$step-sm-img-size-done: 24px !default;
+$step-sm-img-size-active: 28px !default;
+
+$step-xs-size: 28px !default;
+$step-xs-size-done: 28px !default;
+$step-xs-size-active: 35px !default;
+
+$step-xs-font-size: 16px !default;
+$step-xs-font-size-done: 16px !default;
+$step-xs-font-size-active: 16px !default;
+
+$step-xs-img-size: 20px !default;
+$step-xs-img-size-done: 20px !default;
+$step-xs-img-size-active: 24px !default;
+
+$step-xxs-size: 24px !default;
+$step-xxs-size-done: 24px !default;
+$step-xxs-size-active: 30px !default;
+
+$step-xxs-font-size: 14px !default;
+$step-xxs-font-size-done: 14px !default;
+$step-xxs-font-size-active: 14px !default;
+
+$step-xxs-img-size: 16px !default;
+$step-xxs-img-size-done: 16px !default;
+$step-xxs-img-size-active: 20px !default;
 
 
 
@@ -131,9 +168,16 @@ $step-xs-img-size-active: 32px !default;
     background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
     background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
     background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
-    font-size: $step-font-size-done;
+    font-size: $step-font-size-active;
     color: Rgba(255,255,255,1);
     background-origin: border-box;
+    height: $step-size-active;
+    min-height: $step-size-active;
+    max-height: $step-size-active;
+    flex-basis: $step-size-active;
+    width: $step-size-active;
+    min-width: $step-size-active;
+    max-width: $step-size-active;
 
     animation: step-active 400ms ease-out 400ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
@@ -146,8 +190,8 @@ $step-xs-img-size-active: 32px !default;
 
 :host.active img{
     filter: grayscale(1) brightness(1.5);
-    max-width: $step-img-size-done;
-    max-height: $step-img-size-done;
+    max-width: $step-img-size-active;
+    max-height: $step-img-size-active;
     opacity: 1;
     animation: step-active-img 400ms ease-out 400ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
@@ -201,8 +245,8 @@ $step-xs-img-size-active: 32px !default;
         background-origin: border-box;
     }
 
-    40% {
-        border: $step-size-done/2 solid #244b5a;
+        40% {
+            border: math.div($step-size-done, 2) solid #244b5a;
         background-color: #efefef;
         font-size: 5px;
         height: $step-size-done;
@@ -262,8 +306,8 @@ $step-xs-img-size-active: 32px !default;
         max-width: $step-size-done;
     }
 
-    60%{
-        border: $step-size-done/2 solid #284e5d;
+        60%{
+            border: math.div($step-size-done, 2) solid #284e5d;
         background-color: #284e5d;
         background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
         background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
@@ -373,9 +417,9 @@ $step-xs-img-size-active: 32px !default;
         opacity: 1;
     }
 
-    40%{
-        max-width: $step-img-size  / 10;
-        max-height: $step-img-size / 10;
+        40%{
+            max-width: math.div($step-img-size, 10);
+            max-height: math.div($step-img-size, 10);
         opacity: 0.2;
         filter: grayscale(1) brightness(0.8);
     }
@@ -396,9 +440,9 @@ $step-xs-img-size-active: 32px !default;
         opacity: 1;
     }
 
-    60%{
-        max-width: $step-img-size  / 10;
-        max-height: $step-img-size / 10;
+        60%{
+            max-width: math.div($step-img-size, 10);
+            max-height: math.div($step-img-size, 10);
         opacity: 0.2;
         filter: grayscale(1) brightness(0.8);
     }
@@ -504,7 +548,7 @@ $step-xs-img-size-active: 32px !default;
         }
 
         40% {
-            border: $step-md-size-done/2 solid #243646;
+            border: math.div($step-md-size-done, 2) solid #243646;
             background: #efefef;
             font-size: 5px;
             height: $step-md-size-done;
@@ -564,7 +608,7 @@ $step-xs-img-size-active: 32px !default;
         }
 
         60%{
-            border: $step-md-size-done/2 solid #243646;
+            border: math.div($step-md-size-done, 2) solid #243646;
             background: #243646;
             background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
             background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
@@ -675,8 +719,8 @@ $step-xs-img-size-active: 32px !default;
         }
 
         40%{
-            max-width: $step-md-img-size  / 10;
-            max-height: $step-md-img-size / 10;
+            max-width: math.div($step-md-img-size, 10);
+            max-height: math.div($step-md-img-size, 10);
             opacity: 0.2;
             filter: grayscale(1) brightness(0.8);
         }
@@ -698,8 +742,8 @@ $step-xs-img-size-active: 32px !default;
         }
 
         60%{
-            max-width: $step-md-img-size  / 10;
-            max-height: $step-md-img-size / 10;
+            max-width: math.div($step-md-img-size, 10);
+            max-height: math.div($step-md-img-size, 10);
             opacity: 0.2;
             filter: grayscale(1) brightness(0.8);
         }
@@ -750,6 +794,138 @@ $step-xs-img-size-active: 32px !default;
 
 
 
+
+@include media-breakpoint-down(lg) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-lg-size;
+        min-height: $step-lg-size;
+        max-height: $step-lg-size;
+        flex-basis: $step-lg-size;
+        width: $step-lg-size;
+        min-width: $step-lg-size;
+        max-width: $step-lg-size;
+        font-size: $step-lg-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-lg-img-size;
+        max-height: $step-lg-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.active{
+        height: $step-lg-size-active !important;
+        min-height: $step-lg-size-active !important;
+        max-height: $step-lg-size-active !important;
+        flex-basis: $step-lg-size-active !important;
+        width: $step-lg-size-active !important;
+        min-width: $step-lg-size-active !important;
+        max-width: $step-lg-size-active !important;
+        font-size: $step-lg-font-size-active !important;
+    }
+
+    :host.active img{
+        max-width: $step-lg-img-size-active;
+        max-height: $step-lg-img-size-active;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-sm-size;
+        min-height: $step-sm-size;
+        max-height: $step-sm-size;
+        flex-basis: $step-sm-size;
+        width: $step-sm-size;
+        min-width: $step-sm-size;
+        max-width: $step-sm-size;
+        font-size: $step-sm-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-sm-img-size;
+        max-height: $step-sm-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.active{
+        height: $step-sm-size-active !important;
+        min-height: $step-sm-size-active !important;
+        max-height: $step-sm-size-active !important;
+        flex-basis: $step-sm-size-active !important;
+        width: $step-sm-size-active !important;
+        min-width: $step-sm-size-active !important;
+        max-width: $step-sm-size-active !important;
+        font-size: $step-sm-font-size-active !important;
+    }
+
+    :host.active img{
+        max-width: $step-sm-img-size-active;
+        max-height: $step-sm-img-size-active;
+    }
+}
 
 @include media-breakpoint-down(xs) {
 
@@ -810,7 +986,7 @@ $step-xs-img-size-active: 32px !default;
         }
 
         40% {
-            border: $step-xs-size-done/2 solid #243646;
+            border: math.div($step-xs-size-done, 2) solid #243646;
             background: #efefef;
             font-size: 5px;
             height: $step-xs-size-done;
@@ -870,7 +1046,7 @@ $step-xs-img-size-active: 32px !default;
         }
 
         60%{
-            border: $step-xs-size-done/2 solid #243646;
+            border: math.div($step-xs-size-done, 2) solid #243646;
             background: #243646;
             background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
             background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
@@ -981,8 +1157,8 @@ $step-xs-img-size-active: 32px !default;
         }
 
         40%{
-            max-width: $step-xs-img-size  / 10;
-            max-height: $step-xs-img-size / 10;
+            max-width: math.div($step-xs-img-size, 10);
+            max-height: math.div($step-xs-img-size, 10);
             opacity: 0.2;
             filter: grayscale(1) brightness(0.8);
         }
@@ -1004,8 +1180,8 @@ $step-xs-img-size-active: 32px !default;
         }
 
         60%{
-            max-width: $step-xs-img-size  / 10;
-            max-height: $step-xs-img-size / 10;
+            max-width: math.div($step-xs-img-size, 10);
+            max-height: math.div($step-xs-img-size, 10);
             opacity: 0.2;
             filter: grayscale(1) brightness(0.8);
         }
@@ -1052,5 +1228,139 @@ $step-xs-img-size-active: 32px !default;
         }
     }
 
+}
+
+// Breakpoint para telas muito pequenas (até 320px)
+@media (max-width: 320px) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-xxs-size;
+        min-height: $step-xxs-size;
+        max-height: $step-xxs-size;
+        flex-basis: $step-xxs-size;
+        width: $step-xxs-size;
+        min-width: $step-xxs-size;
+        max-width: $step-xxs-size;
+        font-size: $step-xxs-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-xxs-img-size;
+        max-height: $step-xxs-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.active{
+        height: $step-xs-size-active !important;
+        min-height: $step-xs-size-active !important;
+        max-height: $step-xs-size-active !important;
+        flex-basis: $step-xs-size-active !important;
+        width: $step-xs-size-active !important;
+        min-width: $step-xs-size-active !important;
+        max-width: $step-xs-size-active !important;
+        font-size: $step-xs-font-size-active !important;
+    }
+
+    :host.active img{
+        max-width: $step-xs-img-size-active;
+        max-height: $step-xs-img-size-active;
+    }
+}
+
+// Breakpoint para telas muito pequenas (até 320px)
+@media (max-width: 320px) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-xxs-size;
+        min-height: $step-xxs-size;
+        max-height: $step-xxs-size;
+        flex-basis: $step-xxs-size;
+        width: $step-xxs-size;
+        min-width: $step-xxs-size;
+        max-width: $step-xxs-size;
+        font-size: $step-xxs-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-xxs-img-size;
+        max-height: $step-xxs-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.active{
+        height: $step-xxs-size-active !important;
+        min-height: $step-xxs-size-active !important;
+        max-height: $step-xxs-size-active !important;
+        flex-basis: $step-xxs-size-active !important;
+        width: $step-xxs-size-active !important;
+        min-width: $step-xxs-size-active !important;
+        max-width: $step-xxs-size-active !important;
+        font-size: $step-xxs-font-size-active !important;
+    }
+
+    :host.active img{
+        max-width: $step-xxs-img-size-active;
+        max-height: $step-xxs-img-size-active;
+    }
 }
 

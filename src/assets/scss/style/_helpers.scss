@@ -1,3 +1,6 @@
+
+@use "../bootstrap/mixins/breakpoints" as *;
+
 .container-img,
 .img-180,
 .img-160,
@@ -61,11 +64,23 @@
 .f-18 {
   font-size: 18px;
 }
+.f-20 {
+  font-size: 20px;
+}
 .f-21 {
   font-size: 21px;
 }
 .f-22 {
   font-size: 22px;
+}
+.f-24 {
+  font-size: 24px;
+}
+.f-26 {
+  font-size: 26px;
+}
+.f-32 {
+  font-size: 32px;
 }
 .f-36 {
   font-size: 36px;
@@ -125,6 +140,14 @@
   color: #243646;
 }
 
+.text-orange-1 {
+  color: #ecda26 !important;
+}
+
+.bg-silver {
+  background-color: #dee2e6 !important;
+}
+
 @include media-breakpoint-down(md) {
   .w-100-sm {
     width: 100%;
@@ -137,8 +160,20 @@
   .f-18-sm {
     font-size: 18px;
   }
+  .f-20-sm {
+    font-size: 20px;
+  }
   .f-21-sm {
     font-size: 21px;
+  }
+  .f-24-sm {
+    font-size: 24px;
+  }
+  .f-26-sm {
+    font-size: 26px;
+  }
+  .f-32-sm {
+    font-size: 32px;
   }
   .f-36-sm {
     font-size: 36px;
@@ -154,5 +189,41 @@
   }
   .f-150-sm {
     font-size: 150px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .f-md-20 {
+    font-size: 20px;
+  }
+  .f-md-22 {
+    font-size: 22px;
+  }
+  .f-md-24 {
+    font-size: 24px;
+  }
+  .f-md-26 {
+    font-size: 26px;
+  }
+  .f-md-32 {
+    font-size: 32px;
+  }
+  .f-md-36 {
+    font-size: 36px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .f-lg-20 {
+    font-size: 20px;
+  }
+  .f-lg-24 {
+    font-size: 24px;
+  }
+  .f-lg-26 {
+    font-size: 26px;
+  }
+  .f-lg-32 {
+    font-size: 32px;
   }
 }

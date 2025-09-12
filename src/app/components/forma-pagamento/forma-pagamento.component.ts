@@ -24,6 +24,7 @@ export class FormaPagamentoComponent implements OnInit {
   @ViewChild(CreditoComponent) credito;
   tabIndex = { credito: 0, boleto: 1, pix: 2 };
   formaPagamento = this.tabIndex.credito;
+  private previousFormaPagamento = this.tabIndex.credito;
 
   @Input() menuPagamento: any[];
 
@@ -74,6 +75,31 @@ export class FormaPagamentoComponent implements OnInit {
 
   ngOnChanges() {
     this.calcularTotalComDesconto();
+  }
+
+  ngAfterViewInit() {
+    // Monitora mudanças na forma de pagamento
+    this.monitorFormaPagamento();
+  }
+
+  private monitorFormaPagamento() {
+    // Usa setInterval para verificar mudanças na forma de pagamento
+    setInterval(() => {
+      if (this.formaPagamento !== this.previousFormaPagamento) {
+        console.log('FormaPagamentoComponent: Mudança detectada na forma de pagamento');
+        console.log('Anterior:', this.previousFormaPagamento, 'Atual:', this.formaPagamento);
+        
+        // Se mudou para crédito, reinicializa o card
+        if (this.formaPagamento === this.tabIndex.credito && this.credito) {
+          console.log('FormaPagamentoComponent: Reinicializando card de crédito');
+          setTimeout(() => {
+            this.credito.reinitializeCard();
+          }, 500);
+        }
+        
+        this.previousFormaPagamento = this.formaPagamento;
+      }
+    }, 100);
   }
 
 

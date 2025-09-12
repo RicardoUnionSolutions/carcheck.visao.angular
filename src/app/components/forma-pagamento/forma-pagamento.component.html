@@ -15,24 +15,27 @@
 
 <ng-content></ng-content>
 
-<div class="py-2 px-3 bg-light rounded my-3">
-  <div class="flex-ac custom-checkbox-wrapper">
-    <input [(ngModel)]="pagamento.termosUso" class="custom-checkbox m-0 radio-md" id="inputtermposdeuso" type="checkbox"
+<div class="terms-section">
+  <div class="tw-bold custom-checkbox-wrapper">
+    <input [(ngModel)]="pagamento.termosUso" class="custom-checkbox" id="inputtermposdeuso" type="checkbox"
       name="inputtermposdeuso">
-    <label for="inputtermposdeuso" class="f-16 ml-2 fw-700">Li e aceito com os <u (click)="openModalTermosUso()"
-        class="pointer text-orange-1 fw-700">Termos
-        de uso e Política de Privacidade</u>.</label>
+    <label for="inputtermposdeuso">
+      Li e aceito com os
+      <u (click)="openModalTermosUso(); $event.preventDefault(); $event.stopPropagation();">
+        Termos de uso e Política de Privacidade
+      </u>.
+    </label>
   </div>
   <div [hidden]="!termosUsoAlert || pagamento.termosUso" class="f-12 text-danger">
     Por favor, leia e concorde com os termos de uso.
   </div>
 </div>
 
-<div class="py-2 px-3 bg-light rounded my-3">
-  <div class="flex-ac">
-    <span class="f-16 ml-2 mr-2 fw-700">Cupom </span>
-    <input class="input-form text-uppercase" type="text" [(ngModel)]="cupom">
-    <button *ngIf="!valorDesconto" class="btn btn-sm btn-orange-1 px-2 ml-2 btn-cupom"
+<div class="coupon-section">
+  <div class="coupon-container">
+    <span class="coupon-label">Cupom</span>
+    <input class="coupon-input text-uppercase" type="text" [(ngModel)]="cupom" placeholder="Digite o cupom">
+    <button *ngIf="!valorDesconto" class="coupon-button"
       (click)="validaCupom()">Ativar</button>
     <button *ngIf="valorDesconto" class="btn btn-sm btn-outline-danger px-2 ml-2"
       (click)="removerCupom()">Remover</button>
@@ -42,6 +45,7 @@
     <span class="f-12 ml-2 mt-2 mr-2 fw-700 text-danger" *ngIf="cupomError">{{cupomMsg}}</span>
   </div>
 </div>
+
 
 <ck-modal id="modaltermosuso" class="full-screen">
 

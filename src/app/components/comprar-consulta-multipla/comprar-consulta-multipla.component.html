@@ -1,80 +1,132 @@
 
-<div class="consultation-table-container">
-  <!-- Cabeçalho da tabela -->
-  <div class="table-header">
-    <div class="header-cell consultation-header">TIPO DE CONSULTA</div>
-    <div class="header-cell quantity-header">QUANTIDADE</div>
-    <div class="header-cell price-header">PREÇO UNITÁRIO</div>
-    <div class="header-cell details-header"></div>
-  </div>
+<div class="page-wrapper">
 
-  <!-- Lista de consultas -->
-  <div class="consultation-rows">
-    <div *ngFor="let c of consultas; let i=index" 
-         class="consultation-row" 
-         [ngClass]="{'active':c.label==hoverLabel}"
-         (mouseenter)="setDesc(c.desc, c.label)">
-      
-      <!-- Tipo de consulta -->
-      <div class="consultation-type">
-        <div class="icon-badge">
-          <div class="icon-wrapper">
-            <img src="./assets/images/{{c.icon}}" alt="{{c.label}}" class="icon-image">
-          </div>
-        </div>
-        <span class="consultation-name" [ngClass]="{'highlighted': c.label === 'Completa'}">{{c.label}}</span>
-      </div>
-
-      <!-- Controles de quantidade -->
-      <div class="quantity-controls">
-        <button class="quantity-btn minus-btn" (click)="decrementarQuantidade(c)">
-          <span class="btn-symbol">−</span>
-        </button>
-        <div class="input-wrapper">
-          <input 
-                 class="quantity-input" 
-                 [(ngModel)]="c.quantidade" 
-                 (ngModelChange)="updateValorTotal()"
-                 min="0" 
-                 readonly>
-        </div>
-        <button class="quantity-btn plus-btn" (click)="incrementarQuantidade(c)">
-          <span class="btn-symbol">+</span>
-        </button>
-      </div>
-
-      <!-- Preço unitário -->
-      <div class="unit-price" [ngClass]="{'highlighted': c.label === 'Completa'}">
-        <span class="currency-symbol">R$</span>
-        <span class="price-value">{{c.valorReais}}</span>
-        <span class="price-cents">,{{c.valorCentavos}}</span>
-      </div>
-
-      <!-- Botão detalhes -->
-      <a href="{{c.link}}" target="_blank" class="details-btn">
-        Detalhes
-      </a>
+  <div class="consultation-table-container">
+    <!-- Cabeçalho da tabela -->
+    <div class="table-header">
+      <div class="header-cell consultation-header">TIPO DE CONSULTA</div>
+      <div class="header-cell quantity-header">QUANTIDADE</div>
+      <div class="header-cell price-header">PREÇO UNITÁRIO</div>
+      <div class="header-cell details-header"></div>
     </div>
+  
+    <!-- Lista de consultas -->
+    <div class="consultation-rows">
+      <div *ngFor="let c of consultas; let i=index" 
+           class="consultation-row" 
+           [ngClass]="{'active':c.label==hoverLabel}"
+           (mouseenter)="setDesc(c.desc, c.label)">
+        
+        <!-- Tipo de consulta -->
+        <div class="consultation-type">
+          <div class="icon-badge">
+            <div class="icon-wrapper">
+              <img src="./assets/images/{{c.icon}}" alt="{{c.label}}" class="icon-image">
+            </div>
+          </div>
+          <span class="consultation-name" >{{c.label}}</span>
+        </div>
+  
+        <!-- Controles de quantidade -->
+        <div class="quantity-controls">
+          <button class="quantity-btn minus-btn" (click)="decrementarQuantidade(c)">
+            <span class="btn-symbol">−</span>
+          </button>
+          <div class="input-wrapper">
+            <input 
+                   class="quantity-input" 
+                   [(ngModel)]="c.quantidade" 
+                   (ngModelChange)="updateValorTotal()"
+                   min="0" 
+                   readonly>
+          </div>
+          <button class="quantity-btn plus-btn" (click)="incrementarQuantidade(c)">
+            <span class="btn-symbol">+</span>
+          </button>
+        </div>
+  
+        <!-- Preço unitário -->
+        <div class="unit-price" >
+          <span class="currency-symbol">R$</span>
+          <span class="price-value">{{c.valorReais}}</span>
+          <span class="price-cents">,{{c.valorCentavos}}</span>
+        </div>
+  
+        <!-- Botão detalhes -->
+        <a href="{{c.link}}" target="_blank" class="details-btn">
+          Detalhes
+        </a>
+      </div>
+    </div>
+    <div class="consultation-rows-mobile">
+      <div *ngFor="let c of consultas; let i=index" 
+           class="consultation-row" 
+           [ngClass]="{'active':c.label==hoverLabel}"
+           (mouseenter)="setDesc(c.desc, c.label)">
+<div class="d-flex justify-content-between">
+  
+  <div class="consultation-type">
+    <div class="icon-badge">
+      <div class="icon-wrapper">
+        <img src="./assets/images/{{c.icon}}" alt="{{c.label}}" class="icon-image">
+      </div>
+    </div>
+    <span class="consultation-name" >{{c.label}}</span>
+  </div>
+  <div class="quantity-controls">
+    <button class="quantity-btn minus-btn" (click)="decrementarQuantidade(c)">
+      <span class="btn-symbol">−</span>
+    </button>
+    <div class="input-wrapper">
+      <input 
+      class="quantity-input" 
+      [(ngModel)]="c.quantidade" 
+      (ngModelChange)="updateValorTotal()"
+      min="0" 
+      readonly>
+    </div>
+    <button class="quantity-btn plus-btn" (click)="incrementarQuantidade(c)">
+      <span class="btn-symbol">+</span>
+    </button>
   </div>
 </div>
+<div class="d-flex justify-content-between">
 
-  <!-- <div class="mb-3 mb-md-4 mx-1 md-sm-0 rounded bg-silver p-2 p-md-3 d-flex align-items-center justify-content-between">
-    <div class="fw-700 f-md-18 f-16">
-      Para comprar uma Vistoria Veicular
-    </div>
-    <a [routerLink]="['/comprar-consulta-placa','laudo']" [queryParams]="{next: 'CONSULTA'}" class="btn btn-lg btn-orange-1 px-md-5">Clique aqui</a>
-  </div> -->
+  <div class="fw-semibold fs-5">
+    Valor unitário:
+  </div>
+  <div class="unit-price" >
+    <span class="currency-symbol">R$</span>
+    <span class="price-value">{{c.valorReais}}</span>
+    <span class="price-cents">,{{c.valorCentavos}}</span>
+  </div>
 
-<!-- Resumo do pedido -->
-<div class="d-flex flex-column flex-lg-row px-3">
-  <div [innerHTML]="hoverDesc" class="fw-500 fs-6 fs-sm-5 w-100 pt-3 pb-3 pb-sm-0"></div>
-  <div class="ms-lg-5 ms-0 text-nowrap">
-    <h4 class="fw-700 fs-5 text-dark">Total a pagar:</h4>
-    <div class="price-container-lg mb-2">
-      <span>R$</span>
-      <span>{{valorTotalReais}}</span>
-      <span>,{{valorTotalCentavos}}</span>
+</div>
+        
+      </div>
     </div>
-    <ng-content></ng-content>
+
+    
+  </div>
+  
+    <!-- <div class="mb-3 mb-md-4 mx-1 md-sm-0 rounded bg-silver p-2 p-md-3 d-flex align-items-center justify-content-between">
+      <div class="fw-700 f-md-18 f-16">
+        Para comprar uma Vistoria Veicular
+      </div>
+      <a [routerLink]="['/comprar-consulta-placa','laudo']" [queryParams]="{next: 'CONSULTA'}" class="btn btn-lg btn-orange-1 px-md-5">Clique aqui</a>
+    </div> -->
+  
+  <!-- Resumo do pedido -->
+  <div class="resumo-pedido fw-semibold d-flex flex-column flex-lg-row px-3">
+    <div [innerHTML]="hoverDesc" class="fw-500 fs-6 fs-sm-5 w-100 pt-3 pb-3 pb-sm-0"></div>
+    <div class="ms-lg-5 ms-0 text-nowrap">
+      <h4 class="fw-700 fs-5 ">Total a pagar:</h4>
+      <div class="price-container-lg mb-2">
+        <span>R$</span>
+        <span>{{valorTotalReais}}</span>
+        <span>,{{valorTotalCentavos}}</span>
+      </div>
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>

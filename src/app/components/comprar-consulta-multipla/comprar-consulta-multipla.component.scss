@@ -2,19 +2,40 @@
 @use 'variables' as *;
 @use 'mixins/breakpoints' as *;
 
-// Container principal da tabela
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 150px;
+  width: 100%;
+}
+
+
+// Container principal da tabela - Estilização unificada
 .consultation-table-container {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin: 2rem 0;
+  width: 100%;
+  max-width: 1200px;
+  
+  // Responsividade unificada
+  @include media-breakpoint-down(sm) {
+    margin: 1rem 0;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
 }
 
 // Cabeçalho da tabela
 .table-header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 1fr;
   gap: 1rem;
   padding: 1.5rem 2rem;
   background: #f8f9fa;
@@ -22,6 +43,11 @@
   font-weight: 700;
   font-size: 1rem;
   color: #243646;
+  
+  // Ocultar cabeçalho no mobile
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
 }
 
 .header-cell {
@@ -45,46 +71,53 @@
   }
 }
 
-// Linhas de consulta
+// Linhas de consulta - Estilização unificada
 .consultation-rows {
   display: flex;
   flex-direction: column;
-}
-
-.consultation-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 1rem;
-  padding: 1.5rem 2rem;
-  align-items: center;
-  border-bottom: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
+  max-width: 1200px;
   
-  &:last-child {
-    border-bottom: none;
+  // Ocultar em telas menores que lg
+  @include media-breakpoint-down(lg) {
+    display: none;
   }
   
-  &:hover {
-    background: #f8f9fa;
-  }
-  
-  &.active {
-    color: #ecda26;
-
-    .unit-price, .consultation-name {
-      color: #ecda26;
+  // Grid para cada linha de consulta
+  .consultation-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    
+    &:last-child {
+      border-bottom: none;
     }
+    
+    &:hover {
+      background: #f8f9fa;
+    }
+    
+    &.active {
+      color: #ecda26;
 
-    .icon-badge {
-      border: 3px solid #ecda26;
-      padding: 0px;
+      .unit-price, .consultation-name {
+        color: #ecda26;
+      }
 
-      .icon-wrapper {
-        background-color: rgba(255, 255, 255, 0);
+      .icon-badge {
+        border: 3px solid #ecda26;
+        padding: 0px;
 
-        .icon-image {
-          filter: grayscale(1) brightness(2);
-          background: transparent;
+        .icon-wrapper {
+          background-color: rgba(255, 255, 255, 0);
+
+          .icon-image {
+            filter: grayscale(1) brightness(2);
+            background: transparent;
+          }
         }
       }
     }
@@ -96,6 +129,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  
+  @include media-breakpoint-down(sm) {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 }
 
 .icon-badge {
@@ -141,6 +179,11 @@
   &.highlighted {
     color: #ecda26;
   }
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 }
 
 // Controles de quantidade
@@ -150,6 +193,12 @@
   justify-content: center;
   gap: 1rem;
   height: 35px;
+  
+  @include media-breakpoint-down(sm) {
+    margin: 1rem 0;
+    gap: 0.75rem;
+    height: 30px;
+  }
 }
 
 .quantity-btn {
@@ -176,6 +225,12 @@
   &:active {
     transform: scale(0.95);
   }
+  
+  @include media-breakpoint-down(sm) {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
 }
 
 .input-wrapper {
@@ -185,6 +240,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @include media-breakpoint-down(sm) {
+    width: 50px;
+    height: 30px;
+  }
 }
 
 .quantity-input {
@@ -208,6 +268,10 @@
     outline: none;
     border-color: #000000;
   }
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 0.8rem;
+  }
 }
 
 // Preço unitário
@@ -221,23 +285,41 @@
   &.highlighted {
     color: #ecda26;
   }
+  
+  @include media-breakpoint-down(sm) {
+    justify-content: center;
+    margin: 0.5rem 0;
+    transform: scale(0.9);
+  }
 }
 
 .currency-symbol {
   font-size: 1.2rem;
   margin-right: 0.25rem;
   opacity: 0.8;
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem;
+  }
 }
 
 .price-value {
   font-size: 2rem;
   line-height: 1;
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1.8rem;
+  }
 }
 
 .price-cents {
   font-size: 1.2rem;
   vertical-align: super;
   line-height: 1;
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem;
+  }
 }
 
 // Botão detalhes
@@ -265,6 +347,13 @@
   
   &:active {
     transform: translateY(0);
+  }
+  
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem;
+    font-size: 1rem;
   }
 }
 
@@ -312,86 +401,67 @@
   }
 }
 
-// Responsividade
-@include media-breakpoint-down(md) {
-  .table-header {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  .consultation-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  .consultation-type {
-    justify-content: center;
-  }
-  
-  .quantity-controls {
-    justify-content: center;
-  }
-  
-  .unit-price {
-    justify-content: center;
-  }
-  
-  .details-btn {
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto;
+// Responsividade adicional para elementos específicos
+@include media-breakpoint-down(sm) {
+  .icon-badge {
+    width: 50px;
+    height: 50px;
   }
 }
 
-@include media-breakpoint-down(sm) {
-  .consultation-table-container {
-    margin: 1rem 0;
-    border-radius: 8px;
+.consultation-rows-mobile {
+  display: none;
+  padding: 0 1rem;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 1200px;
+  
+  // Exibir apenas em telas menores que lg
+  @include media-breakpoint-down(lg) {
+    display: flex;
   }
   
-  .table-header {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-  
-  .consultation-row {
-    padding: 0.75rem;
-  }
-  
-  .icon-badge {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .consultation-name {
-    font-size: 1rem;
-  }
-  
-  .quantity-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-  }
-  
-  .quantity-input {
-    width: 50px;
-    height: 35px;
-    font-size: 0.9rem;
-  }
-  
-  .price-value {
-    font-size: 1.5rem;
-  }
-  
-  .currency-symbol {
-    font-size: 1rem;
-  }
-  
-  .price-cents {
-    font-size: 1rem;
+  .consultation-row { 
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    &.active {
+      color: #ecda26;
+
+      .unit-price, .consultation-name {
+        color: #ecda26;
+      }
+
+      .icon-badge {
+        border: 3px solid #ecda26;
+        padding: 0px;
+
+        .icon-wrapper {
+          background-color: rgba(255, 255, 255, 0);
+
+          .icon-image {
+            filter: grayscale(1) brightness(2);
+            background: transparent;
+          }
+        }
+      }
+    }
   }
 }

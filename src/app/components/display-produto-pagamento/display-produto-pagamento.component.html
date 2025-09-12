@@ -16,11 +16,11 @@
 </div>
 <div class="infos" *ngIf="!dadosVeiculo">
   <h2 class="bg-dark mb-0 f-md-22 f-18 text-center p-1 text-white">Você está pagando por:</h2>
-  <div class="bg-silver py-3 font-weight-bold row no-gutters rounded-bottom">
+  <div class="bg-silver py-3 fw-bold px-3 rounded-bottom">
     <ng-container *ngFor="let c of consultasSelecionadas">
-      <div *ngIf="c.quantidade>0" class="col-6 col-md-4 pl-3">
-        <span class="text-orange-1 f-32">{{c.quantidade}}.</span>
-        <span class="f-24">Consulta {{c.label}}</span>
+      <div *ngIf="c.quantidade>0" class="col-6 col-md-4 pl-3 ">
+        <span class="text-orange-1 f-32 ">{{c.quantidade}}.</span>
+        <span class="f-24 consulta" [ngClass]="{'consulta-completa': c.label === 'Completa'}">Consulta {{c.label}}</span>
       </div>
     </ng-container>
   </div>

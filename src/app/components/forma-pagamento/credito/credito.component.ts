@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { PagSeguroService } from '../../../service/pagseguro.service';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { UtilMasks } from '../../../utils/util-masks';
@@ -13,6 +13,7 @@ import { CkSelectComponent } from '../../ck-select/ck-select.component';
 import { CkInputComponent } from '../../ck-input/ck-input.component';
 
 declare var PagSeguroDirectPayment: any;
+declare var Card: any;
 
 @Component({
     selector: 'forma-pagamento-credito',
@@ -21,22 +22,29 @@ declare var PagSeguroDirectPayment: any;
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, TextMaskDirective, CkSelectComponent, CkInputComponent]
 })
-export class CreditoComponent implements OnInit {
+export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
   @Input() valorTotal = 0;
   @Input() valorTotalDesconto = 0;
+  @ViewChild('cardForm', { static: false }) cardForm!: ElementRef;
   parcelas: any[] = [];
   cpfControl: UntypedFormControl = new UntypedFormControl('', { validators: UtilValidators.cpf });
   formMask = {
     cvv: { mask: UtilMasks.cvv, guide: false },
     vencimento: { mask: UtilMasks.vencimentoCartao, guide: false },
     cpf: { mask: UtilMasks.cpf, guide: false },
-    creditCard: { mask: UtilMasks.creditCard, guide: false }
+    creditCard: { 
+      mask: UtilMasks.creditCard, 
+      guide: false,
+      placeholderChar: '•',
+      showMask: false,
+      keepCharPositions: false
+    }
   }
 
   form: UntypedFormGroup = this.fb.group({
     nome: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(35)]],
-    numero: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    numero: ['', [Validators.required, this.creditCardValidator]], // Validador customizado para cartão
     cvv: ['', [Validators.required]],
     parcela: [null, Validators.required],
     vencimento: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
@@ -49,12 +57,85 @@ export class CreditoComponent implements OnInit {
   cartao: any = { bandeira: '', config: null };
   login: any;
 
-  messages: any;
-  placeholders: any;
-  masks: any;
+  messages: any = {
+    validDate: 'Data válida\naté',
+    monthYear: 'mm/aaaa'
+  };
+
+  placeholders: any = {
+    number: '•••• •••• •••• ••••',
+    name: 'Nome Completo',
+    expiry: '••/••',
+    cvc: '•••'
+  };
+
+  masks: any = {
+    cardNumber: '•'
+  };
+
   documentoDono: any;
+  private cardInstance: any = null;
+  private isCardInitialized = false;
 
   constructor(private loginService: LoginService, public pagSeguro: PagSeguroService, private fb: UntypedFormBuilder, pessoaService: PessoaService) { }
+
+  // Validador customizado para cartão de crédito
+  creditCardValidator(control: UntypedFormControl) {
+    if (!control.value) {
+      return null;
+    }
+    
+    // Remove espaços e caracteres não numéricos
+    const cleanValue = control.value.replace(/\D/g, '');
+    
+    // Verifica se tem exatamente 16 dígitos
+    if (cleanValue.length !== 16) {
+      return { invalidCreditCard: true };
+    }
+    
+    // Verifica se todos os caracteres são dígitos
+    if (!/^\d{16}$/.test(cleanValue)) {
+      return { invalidCreditCard: true };
+    }
+    
+    return null;
+  }
+
+  // Método para limitar entrada do cartão de crédito
+  onCreditCardInput(event: any) {
+    const input = event.target;
+    let value = input.value;
+    
+    // Remove caracteres não numéricos
+    const cleanValue = value.replace(/\D/g, '');
+    
+    // Limita a 16 dígitos
+    if (cleanValue.length > 16) {
+      const limitedValue = cleanValue.substring(0, 16);
+      // Aplica a máscara manualmente
+      const formattedValue = this.formatCreditCard(limitedValue);
+      input.value = formattedValue;
+      this.form.controls.numero.setValue(formattedValue);
+    } else {
+      // Aplica a máscara normalmente
+      const formattedValue = this.formatCreditCard(cleanValue);
+      input.value = formattedValue;
+      this.form.controls.numero.setValue(formattedValue);
+    }
+  }
+
+  // Método para formatar o cartão de crédito
+  private formatCreditCard(value: string): string {
+    const cleanValue = value.replace(/\D/g, '');
+    const match = cleanValue.match(/(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/);
+    if (match) {
+      const formatted = [match[1], match[2], match[3], match[4]]
+        .filter(group => group.length > 0)
+        .join(' ');
+      return formatted;
+    }
+    return cleanValue;
+  }
 
   ngOnInit() {
     this.setParcelaInicial();
@@ -71,10 +152,91 @@ export class CreditoComponent implements OnInit {
       .subscribe(v => this.getCreditCardBrand(v));
   }
 
-  ngOnChanges() {
-    if (this.form) {
-      this.getCreditCardBrand(this.form.controls.numero.value.replace(" ", ""));
+  ngAfterViewInit() {
+    console.log('CreditoComponent: ngAfterViewInit chamado');
+    this.initializeCard();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('CreditoComponent: ngOnChanges chamado', changes);
+    // Se o componente foi recriado, reinicializa o card
+    if (changes.valorTotal || changes.valorTotalDesconto) {
+      setTimeout(() => {
+        this.initializeCard();
+      }, 100);
     }
+  }
+
+  ngOnDestroy() {
+    console.log('CreditoComponent: ngOnDestroy chamado');
+    this.destroyCard();
+  }
+
+  private initializeCard() {
+    console.log('CreditoComponent: Tentando inicializar card.js');
+    
+    // Destrói instância anterior se existir
+    this.destroyCard();
+    
+    // Aguarda o card.js carregar e inicializa o cartão
+    setTimeout(() => {
+      if (typeof Card !== 'undefined' && this.cardForm && this.cardForm.nativeElement) {
+        console.log('CreditoComponent: Inicializando nova instância do card.js');
+        try {
+          this.cardInstance = new Card({
+            form: this.cardForm.nativeElement,
+            container: '.card-wrapper',
+            width: 350,
+            formatting: true,
+            messages: {
+              validDate: 'Data válida\naté',
+              monthYear: 'mm/aaaa'
+            },
+            placeholders: {
+              number: '•••• •••• •••• ••••',
+              name: 'Nome Completo',
+              expiry: '••/••',
+              cvc: '•••'
+            },
+            masks: {
+              cardNumber: '•'
+            }
+          });
+          this.isCardInitialized = true;
+          console.log('CreditoComponent: Card.js inicializado com sucesso');
+        } catch (error) {
+          console.error('CreditoComponent: Erro ao inicializar card.js:', error);
+        }
+      } else {
+        console.warn('CreditoComponent: Card.js não disponível ou form não encontrado');
+        console.log('Card disponível:', typeof Card !== 'undefined');
+        console.log('Form disponível:', !!this.cardForm);
+        console.log('Form element:', this.cardForm?.nativeElement);
+      }
+    }, 1000);
+  }
+
+  private destroyCard() {
+    if (this.cardInstance) {
+      console.log('CreditoComponent: Destruindo instância anterior do card.js');
+      try {
+        // Limpa o container do card
+        const container = document.querySelector('.card-wrapper');
+        if (container) {
+          container.innerHTML = '';
+        }
+        this.cardInstance = null;
+        this.isCardInitialized = false;
+      } catch (error) {
+        console.error('CreditoComponent: Erro ao destruir card.js:', error);
+      }
+    }
+  }
+
+  // Método público para reinicializar o card (pode ser chamado externamente)
+  public reinitializeCard() {
+    console.log('CreditoComponent: Reinicializando card por solicitação externa');
+    this.initializeCard();
   }
 
   updateControlCpf(dono) {
