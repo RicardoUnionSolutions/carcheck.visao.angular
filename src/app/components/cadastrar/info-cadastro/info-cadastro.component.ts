@@ -26,7 +26,7 @@ export class InfoCadastroComponent implements OnInit {
     tipoPessoa:''
   } 
 
-  constructor(private tokenService:TokenService) { 
+  constructor(private tokenService: TokenService) {
     this.carregarDadosUsuarioLogado();
   }
 
@@ -39,26 +39,22 @@ export class InfoCadastroComponent implements OnInit {
 
     //Carrega o token e decodifica
     carregarDadosUsuarioLogado(){
-    
-      if(this.tokenService.getTokenLogin()!==""){
-        var dados = JSON.parse(this.tokenService.decodeToken("tokenLogin"));
-        if(dados == null) return;
-       // var dados = JSON.parse(this.jwrHelper.decodeToken(localStorage.getItem("tokenLogin")).iss);
+      if (this.tokenService.getToken()) {
+        const dados = this.tokenService.getUserFromToken();
+        if (!dados) return;
         this.dadosUsuario.email = dados.email;
-        this.dadosUsuario.nome = dados.nome;        
-        this.dadosUsuario.status = dados.status;              
+        this.dadosUsuario.nome = dados.nome;
+        this.dadosUsuario.status = dados.status;
         this.dadosUsuario.documento = dados.cliente.documento;
         this.dadosUsuario.bairro = dados.endereco.bairro;
-        this.dadosUsuario.cep= dados.endereco.cep;
-        this.dadosUsuario.cidade= dados.endereco.cidade;
-        this.dadosUsuario.complemento= dados.endereco.complemento;
-        this.dadosUsuario.endereco= dados.endereco.endereco;
-        this.dadosUsuario.estado= dados.endereco.estado;
-        this.dadosUsuario.numero= dados.endereco.numero;
-
+        this.dadosUsuario.cep = dados.endereco.cep;
+        this.dadosUsuario.cidade = dados.endereco.cidade;
+        this.dadosUsuario.complemento = dados.endereco.complemento;
+        this.dadosUsuario.endereco = dados.endereco.endereco;
+        this.dadosUsuario.estado = dados.endereco.estado;
+        this.dadosUsuario.numero = dados.endereco.numero;
         this.dadosUsuario.tipoPessoa = dados.cliente.tipoPessoa;
         this.dadosUsuario.razaoSocial = dados.razaoSocial;
-        
       }
     }
 

@@ -3,6 +3,7 @@ import { LOCALE_ID } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginService } from "./login.service";
 import { ModalService } from "./modal.service";
+import { TokenService } from "./token.service";
 
 class ModalServiceStub {
   openModalMsg() {}
@@ -16,6 +17,7 @@ class RouterStub {
 describe("LoginService", () => {
   let service: LoginService;
   let router: Router;
+  let tokenService: TokenService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,10 +26,12 @@ describe("LoginService", () => {
         { provide: LOCALE_ID, useValue: "en-US" },
         { provide: ModalService, useClass: ModalServiceStub },
         { provide: Router, useClass: RouterStub },
+        TokenService,
       ],
     });
     service = TestBed.inject(LoginService);
     router = TestBed.inject(Router);
+    tokenService = TestBed.inject(TokenService);
   });
 
   afterEach(() => {
@@ -39,13 +43,11 @@ describe("LoginService", () => {
       status: false,
       cliente: { documento: "123", dataNascimento: "2000-01-01" },
       nome: "John",
-    };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    } as any;
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service.getLogIn().subscribe((v) => expect(v.status).toBeTruthy());
-    expect(localStorage.getItem("tokenLogin")).toBe("token");
+    expect(tokenService.getToken()).toBe("token");
   });
 
   it("should logout and clear token from storage", () => {
@@ -56,11 +58,12 @@ describe("LoginService", () => {
   });
 
   it("should return false when decoding null token", () => {
+    spyOn(tokenService, "getUserFromToken").and.returnValue(null);
     expect(service.decodeToken(null)).toBeFalsy();
   });
 
-  it("should retrieve token from localStorage", () => {
-    localStorage.setItem("tokenLogin", "abc");
+  it("should retrieve token from service", () => {
+    tokenService.setToken("abc");
     expect(service.getTokenLogin()).toBe("abc");
   });
 
@@ -70,10 +73,10 @@ describe("LoginService", () => {
   });
 
   it('should not overwrite existing token when provided token is "null"', () => {
-    localStorage.setItem("tokenLogin", "existing");
+    tokenService.setToken("existing");
     spyOn(service, "decodeToken").and.returnValue(false);
     service.logIn("null");
-    expect(localStorage.getItem("tokenLogin")).toBe("existing");
+    expect(tokenService.getToken()).toBe("existing");
   });
 
   it("should expose email and telefone after login", () => {
@@ -87,9 +90,7 @@ describe("LoginService", () => {
       },
       nome: "John",
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     expect(service.getEmail()).toBe("john@example.com");
     expect(service.getTelefone()).toBe("9999");
@@ -107,9 +108,7 @@ describe("LoginService", () => {
       },
       nome: "John",
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service.getLogIn().subscribe((v) => {
       expect(v.statusCadastro).toBe("COMPLETO");
@@ -123,9 +122,7 @@ describe("LoginService", () => {
       nome: "",
       cliente: { documento: "", dataNascimento: null, telefone: "" },
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service
       .getLogIn()
@@ -143,9 +140,7 @@ describe("LoginService", () => {
         clienteAntigo: true,
       },
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service
       .getLogIn()

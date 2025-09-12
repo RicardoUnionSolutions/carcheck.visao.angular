@@ -5,7 +5,6 @@ import { CkInputComponent } from "../components/ck-input/ck-input.component";
 import { CkSelectComponent } from "../components/ck-select/ck-select.component";
 import { UtilMasks } from "../utils/util-masks";
 import { UtilForms } from "../utils/util-forms";
-import { TokenService } from "../service/token.service";
 import { PessoaService } from "../service/pessoa.service";
 import { dadosConsultaService } from "../service/dados-consulta.service";
 import { LoginService } from "../service/login.service";
@@ -95,7 +94,6 @@ export class DadosContaComponent implements OnInit {
     private loginService: LoginService,
     private dadosConsultaService: dadosConsultaService,
     private fb: UntypedFormBuilder,
-    private tokenService: TokenService,
     private pessoaService: PessoaService,
     private title: Title,
     private meta: Meta
@@ -343,26 +341,6 @@ export class DadosContaComponent implements OnInit {
     //this.loginService.logIn(this.dadosUsuario);
     //localStorage.setItem('tokenLogin', JSON.stringify(this.dadosUsuario));
   }
-
-  //Carrega o token e decodifica
-  /*carregarDadosUsuarioLogado() {
-
-    if (this.tokenService.getTokenLogin() !== "" && this.tokenService.getTokenLogin() !== "null") {
-      var dados = JSON.parse(this.tokenService.decodeToken("tokenLogin"));
-
-      console.log(dados);
-
-      this.dadosUsuario.cep = dados.endereco.cep;
-      this.dadosUsuario.endereco = dados.endereco.endereco;
-      this.dadosUsuario.numero = dados.endereco.numero;
-      this.dadosUsuario.bairro = dados.endereco.bairro;
-      this.dadosUsuario.cidade = dados.endereco.cidade;
-      this.dadosUsuario.complemento = dados.endereco.complemento;
-      this.dadosUsuario.estado = dados.endereco.estado;
-      this.dadosUsuario.email = dados.email;
-      this.dadosUsuario.senhaAntiga = dados.senha;
-    }
-  }*/
 
   carregaCreditoCliente() {}
 }

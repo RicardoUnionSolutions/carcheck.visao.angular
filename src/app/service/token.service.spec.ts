@@ -15,15 +15,19 @@ describe("TokenService", () => {
     localStorage.clear();
   });
 
-  it("should decode token stored in localStorage", () => {
-    localStorage.setItem("sample", "abc");
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({ iss: "data" });
-    const decoded = service.decodeToken("sample");
-    expect(decoded).toBe("data");
+  it("should store and retrieve token", () => {
+    service.setToken("abc");
+    expect(service.getToken()).toBe("abc");
   });
 
-  it("should return null when token missing", () => {
-    const decoded = service.decodeToken("missing");
-    expect(decoded).toBeNull();
+  it("should decode user from token", () => {
+    const user = { name: "john" };
+    spyOn(service as any, "decode").and.returnValue({ iss: JSON.stringify(user) });
+    expect(service.getUserFromToken("token")).toEqual(user);
+  });
+
+  it("should return null for invalid token", () => {
+    spyOn(service as any, "decode").and.returnValue(null);
+    expect(service.getUserFromToken("token")).toBeNull();
   });
 });
