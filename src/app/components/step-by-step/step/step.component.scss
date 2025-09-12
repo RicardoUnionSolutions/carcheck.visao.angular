@@ -1,136 +1,1030 @@
-// Variáveis simplificadas
-$step-size: 60px;
-$step-size-active: 90px;
-$step-size-mobile: 40px;
-$step-size-mobile-active: 50px;
-$step-size-xs: 35px;
-$step-size-xs-active: 45px;
 
-$primary-color: #244b5a;
-$background-color: #efefef;
-$text-color: #000;
-$text-color-active: #fff;
+@import 'functions', 'variables', 'mixins/breakpoints';
 
-// Estilo base do step
-:host {
+$step-size: 60px !default;
+$step-size-done: 60px !default;
+$step-size-active: 90px !default;
+
+$step-font-size: 28px !default;
+$step-font-size-done: 28px !default;
+$step-font-size-active: 42px !default;
+
+$step-img-size: 36px !default;
+$step-img-size-done: 36px !default;
+$step-img-size-active: 56px !default;
+
+
+
+$step-md-size: 40px !default;
+$step-md-size-done: 40px !default;
+$step-md-size-active: 50px !default;
+
+$step-md-font-size: 24px !default;
+$step-md-font-size-done: 24px !default;
+$step-md-font-size-active: 24px !default;
+
+$step-md-img-size: 26px !default;
+$step-md-img-size-done: 26px !default;
+$step-md-img-size-active: 32px !default;
+
+
+$step-xs-size: 35px !default;
+$step-xs-size-done: 35px !default;
+$step-xs-size-active: 45px !default;
+
+$step-xs-font-size: 20px !default;
+$step-xs-font-size-done: 20px !default;
+$step-xs-font-size-active: 20px !default;
+
+$step-xs-img-size: 22px !default;
+$step-xs-img-size-done: 22px !default;
+$step-xs-img-size-active: 28px !default;
+
+
+
+
+:host{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: $step-size;
     height: $step-size;
+    min-height: $step-size;
+    max-height: $step-size;
+    flex-basis: $step-size;
+    width: $step-size;
+    min-width: $step-size;
+    max-width: $step-size;
+    font-size: $step-font-size;
     border-radius: 50%;
-    background: $background-color;
     position: relative;
     z-index: 2;
-    transition: all 0.4s ease-out;
-    cursor: pointer;
+    background: #efefef;
+    line-height: 1;
+    background-origin: border-box;
 }
 
-// Imagens dentro do step
-:host img {
+:host img{
     filter: grayscale(1) brightness(0.5);
-    max-width: 36px;
-    max-height: 36px;
-    transition: all 0.4s ease-out;
+    max-width: $step-img-size;
+    max-height: $step-img-size;
+    opacity: 1;
 }
 
-// Estado ativo
-:host.active {
-    width: $step-size-active;
-    height: $step-size-active;
-    background: $primary-color;
-    color: $text-color-active;
-    border: 4px solid $primary-color;
-    
-    img {
-        filter: grayscale(1) brightness(1.5);
-        max-width: 56px;
-        max-height: 56px;
+:host.active-return{
+    animation: step-active-reverse 400ms ease-in 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+}
+
+:host.active-return img{
+    animation: step-active-img-reverse 400ms ease-in 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+}
+
+:host.done-to-active{
+    border: 0px solid #244b5a;
+    background-color: #efefef;
+    font-size: $step-font-size-done;
+    color: Rgba(0,0,0,1);
+    animation: step-done-reverse 400ms ease-out 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+}
+
+:host.done-to-active img{
+    animation: step-done-img-reverse 400ms ease-out 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+}
+
+:host.active{
+    border: 0px solid #244b5a;
+    background-color: #efefef;
+    font-size: $step-font-size-done;
+    color: Rgba(0,0,0,1);
+    background-origin: border-box;
+    background: -moz-radial-gradient(top, ellipse cover, #efefef 0%, #efefef 85%, #efefef 100%);
+    background: -webkit-radial-gradient(top, ellipse cover,  #efefef 0%, #efefef 85%, #efefef 100%);
+    background: radial-gradient(ellipse at top, #efefef 0%, #efefef 85%, #efefef 100%);
+
+    animation: step-active 400ms ease-out 400ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+    animation-fill-mode: both;
+}
+
+:host.active img{
+    animation: step-active-img 400ms ease-out 400ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+    animation-fill-mode: both;
+}
+
+
+:host.done{
+    border: 0px solid #244b5a;
+    background-color: #efefef;
+    font-size: $step-font-size-done;
+    color: Rgba(0,0,0,1);
+    cursor: pointer;
+    animation: step-done 400ms ease-out 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+    animation-fill-mode: both;
+}
+
+:host.done img{
+    animation: step-done-img 400ms ease-out 0ms 1;
+    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+    -moz-animation-fill-mode: both;    /* FF 5+ */
+    -o-animation-fill-mode: both;      /* Not implemented yet */
+    -ms-animation-fill-mode: both;     /* IE 10+ */
+    animation-fill-mode: both;         /* When the spec is finished */
+    animation-fill-mode: both;
+}
+
+
+@keyframes step-active{
+    0% {
+        border: 0px solid #244b5a;
+        background-color: #efefef;
+        font-size: $step-font-size-done;
+        color: Rgba(0,0,0,1);
+        background-origin: border-box;
     }
-}
 
-// Estado concluído
-:host.done {
-    background: $primary-color;
-    color: $text-color-active;
-    border: 3px solid $primary-color;
-    
-    img {
-        filter: grayscale(1) brightness(1.5);
+    40% {
+        border: $step-size-done/2 solid #244b5a;
+        background-color: #efefef;
+        font-size: 5px;
+        height: $step-size-done;
+        min-height: $step-size-done;
+        max-height: $step-size-done;
+        flex-basis: $step-size-done;
+        width: $step-size-done;
+        min-width: $step-size-done;
+        max-width: $step-size-done;
     }
-}
 
-// Animações simplificadas
-:host.active-return {
-    animation: shrinkStep 0.4s ease-in forwards;
-}
-
-:host.done-to-active {
-    animation: expandStep 0.4s ease-out forwards;
-}
-
-@keyframes shrinkStep {
-    to {
-        width: $step-size;
-        height: $step-size;
-        background: $background-color;
-        color: $text-color;
-        border: none;
+    41%{
+        background-color: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        color: Rgba(255,255,255,0);
     }
-}
 
-@keyframes expandStep {
-    to {
-        width: $step-size-active;
+    100% {
         height: $step-size-active;
-        background: $primary-color;
-        color: $text-color-active;
-        border: 4px solid $primary-color;
+        min-height: $step-size-active;
+        max-height: $step-size-active;
+        flex-basis: $step-size-active;
+        width: $step-size-active;
+        min-width: $step-size-active;
+        max-width: $step-size-active;
+        font-size: $step-font-size-active;
+        color: Rgba(255,255,255,1);
+        border: 4px solid #244b5a;
+        background-color: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
+
     }
 }
 
-// Responsividade - Tablet
-@media (max-width: 768px) {
-    :host {
-        width: $step-size-mobile;
-        height: $step-size-mobile;
-        
-        img {
-            max-width: 26px;
-            max-height: 26px;
-        }
+
+@keyframes step-active-reverse{
+    100% {
+        border: 0px solid #244b5a;
+        background-color: #efefef;
+        font-size: $step-font-size-done;
+        color: Rgba(0,0,0,1);
     }
-    
-    :host.active {
-        width: $step-size-mobile-active;
-        height: $step-size-mobile-active;
-        
-        img {
-            max-width: 32px;
-            max-height: 32px;
-        }
+
+    61% {
+        background-color: #efefef;
+        font-size: 5px;
+        height: $step-size-done;
+        min-height: $step-size-done;
+        max-height: $step-size-done;
+        flex-basis: $step-size-done;
+        width: $step-size-done;
+        min-width: $step-size-done;
+        max-width: $step-size-done;
+    }
+
+    60%{
+        border: $step-size-done/2 solid #284e5d;
+        background-color: #284e5d;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
+        color: Rgba(255,255,255,0);
+    }
+
+    0% {
+        height: $step-size-active;
+        min-height: $step-size-active;
+        max-height: $step-size-active;
+        flex-basis: $step-size-active;
+        width: $step-size-active;
+        min-width: $step-size-active;
+        max-width: $step-size-active;
+        font-size: $step-font-size-active;
+        color: Rgba(255,255,255,1);
+        border: 4px solid #244b5a;
+        background-color: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     }
 }
 
-// Responsividade - Mobile
-@media (max-width: 576px) {
-    :host {
-        width: $step-size-xs;
-        height: $step-size-xs;
-        
-        img {
-            max-width: 22px;
-            max-height: 22px;
-        }
+
+@keyframes step-done{
+    0% {
+        height: $step-size-active;
+        min-height: $step-size-active;
+        max-height: $step-size-active;
+        flex-basis: $step-size-active;
+        width: $step-size-active;
+        min-width: $step-size-active;
+        max-width: $step-size-active;
+        font-size: $step-font-size-active;
+        color: Rgba(255,255,255,1);
+        border: 4px solid #244b5a;
+        background: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     }
-    
-    :host.active {
-        width: $step-size-xs-active;
-        height: $step-size-xs-active;
-        
-        img {
-            max-width: 28px;
-            max-height: 28px;
-        }
+
+    100% {
+        height: $step-size-done;
+        min-height: $step-size-done;
+        max-height: $step-size-done;
+        flex-basis: $step-size-done;
+        width: $step-size-done;
+        min-width: $step-size-done;
+        max-width: $step-size-done;
+        font-size: $step-font-size-done;
+        color: Rgba(255,255,255,1);
+        border: 3px solid #244b5a;
+        background: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     }
 }
+
+
+
+@keyframes step-done-reverse{
+    0% {
+        height: $step-size-done;
+        min-height: $step-size-done;
+        max-height: $step-size-done;
+        flex-basis: $step-size-done;
+        width: $step-size-done;
+        min-width: $step-size-done;
+        max-width: $step-size-done;
+        font-size: $step-font-size-done;
+        color: Rgba(255,255,255,1);
+        border: 3px solid #244b5a;
+        background: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
+    }
+
+    100% {
+        height: $step-size-active;
+        min-height: $step-size-active;
+        max-height: $step-size-active;
+        flex-basis: $step-size-active;
+        width: $step-size-active;
+        min-width: $step-size-active;
+        max-width: $step-size-active;
+        font-size: $step-font-size-active;
+        color: Rgba(255,255,255,1);
+        border: 4px solid #244b5a;
+        background: #244b5a;
+        background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+    }
+
+}
+
+@keyframes step-active-img{
+    0%{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-img-size;
+        max-height: $step-img-size;
+        opacity: 1;
+    }
+
+    40%{
+        max-width: $step-img-size  / 10;
+        max-height: $step-img-size / 10;
+        opacity: 0.2;
+        filter: grayscale(1) brightness(0.8);
+    }
+
+    100%{
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size-active;
+        max-height: $step-img-size-active;
+        opacity: 1;
+    }
+}
+
+@keyframes step-active-img-reverse{
+    0%{
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size-active;
+        max-height: $step-img-size-active;
+        opacity: 1;
+    }
+
+    60%{
+        max-width: $step-img-size  / 10;
+        max-height: $step-img-size / 10;
+        opacity: 0.2;
+        filter: grayscale(1) brightness(0.8);
+    }
+
+    100%{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-img-size;
+        max-height: $step-img-size;
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes step-done-img{
+    0% {
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size-active;
+        max-height: $step-img-size-active;
+        opacity: 1;
+    }
+
+    100% {
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size-done;
+        max-height: $step-img-size-done;
+        opacity: 1;
+    }
+}
+
+@keyframes step-done-img-reverse{
+    0% {
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size;
+        max-height: $step-img-size;
+        opacity: 1;
+    }
+
+    100% {
+        filter: grayscale(1) brightness(1.5);
+        max-width: $step-img-size-active;
+        max-height: $step-img-size-active;
+        opacity: 1;
+    }
+}
+
+@include media-breakpoint-down(md) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-md-size;
+        min-height: $step-md-size;
+        max-height: $step-md-size;
+        flex-basis: $step-md-size;
+        width: $step-md-size;
+        min-width: $step-md-size;
+        max-width: $step-md-size;
+        font-size: $step-md-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-md-img-size;
+        max-height: $step-md-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+
+    @keyframes step-active{
+        0% {
+            border: 0px solid #243646;
+            background: #efefef;
+            font-size: $step-md-font-size-done;
+            color: Rgba(0,0,0,1);
+        }
+
+        40% {
+            border: $step-md-size-done/2 solid #243646;
+            background: #efefef;
+            font-size: 5px;
+            height: $step-md-size-done;
+            min-height: $step-md-size-done;
+            max-height: $step-md-size-done;
+            flex-basis: $step-md-size-done;
+            width: $step-md-size-done;
+            min-width: $step-md-size-done;
+            max-width: $step-md-size-done;
+        }
+
+        41%{
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            color: Rgba(255,255,255,0);
+        }
+
+        100% {
+            height: $step-md-size-active;
+            min-height: $step-md-size-active;
+            max-height: $step-md-size-active;
+            flex-basis: $step-md-size-active;
+            width: $step-md-size-active;
+            min-width: $step-md-size-active;
+            max-width: $step-md-size-active;
+            font-size: $step-md-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+    @keyframes step-active-reverse{
+        100% {
+            border: 0px solid #243646;
+            background: #efefef;
+            font-size: $step-md-font-size-done;
+            color: Rgba(0,0,0,1);
+        }
+
+        61% {
+            background: #efefef;
+            font-size: 5px;
+            height: $step-md-size-done;
+            min-height: $step-md-size-done;
+            max-height: $step-md-size-done;
+            flex-basis: $step-md-size-done;
+            width: $step-md-size-done;
+            min-width: $step-md-size-done;
+            max-width: $step-md-size-done;
+        }
+
+        60%{
+            border: $step-md-size-done/2 solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            color: Rgba(255,255,255,0);
+        }
+
+        0% {
+            height: $step-md-size-active;
+            min-height: $step-md-size-active;
+            max-height: $step-md-size-active;
+            flex-basis: $step-md-size-active;
+            width: $step-md-size-active;
+            min-width: $step-md-size-active;
+            max-width: $step-md-size-active;
+            font-size: $step-md-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+    @keyframes step-done{
+        0% {
+            height: $step-md-size-active;
+            min-height: $step-md-size-active;
+            max-height: $step-md-size-active;
+            flex-basis: $step-md-size-active;
+            width: $step-md-size-active;
+            min-width: $step-md-size-active;
+            max-width: $step-md-size-active;
+            font-size: $step-md-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+        100% {
+            height: $step-md-size-done;
+            min-height: $step-md-size-done;
+            max-height: $step-md-size-done;
+            flex-basis: $step-md-size-done;
+            width: $step-md-size-done;
+            min-width: $step-md-size-done;
+            max-width: $step-md-size-done;
+            font-size: $step-md-font-size-done;
+            color: Rgba(255,255,255,1);
+            border: 3px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+
+    @keyframes step-done-reverse{
+        0% {
+            height: $step-md-size-done;
+            min-height: $step-md-size-done;
+            max-height: $step-md-size-done;
+            flex-basis: $step-md-size-done;
+            width: $step-md-size-done;
+            min-width: $step-md-size-done;
+            max-width: $step-md-size-done;
+            font-size: $step-md-font-size-done;
+            color: Rgba(255,255,255,1);
+            border: 3px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+        100% {
+            height: $step-md-size-active;
+            min-height: $step-md-size-active;
+            max-height: $step-md-size-active;
+            flex-basis: $step-md-size-active;
+            width: $step-md-size-active;
+            min-width: $step-md-size-active;
+            max-width: $step-md-size-active;
+            font-size: $step-md-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+    }
+
+    @keyframes step-active-img{
+        0%{
+            filter: grayscale(1) brightness(0.5);
+            max-width: $step-md-img-size;
+            max-height: $step-md-img-size;
+            opacity: 1;
+        }
+
+        40%{
+            max-width: $step-md-img-size  / 10;
+            max-height: $step-md-img-size / 10;
+            opacity: 0.2;
+            filter: grayscale(1) brightness(0.8);
+        }
+
+        100%{
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size-active;
+            max-height: $step-md-img-size-active;
+            opacity: 1;
+        }
+    }
+
+    @keyframes step-active-img-reverse{
+        0%{
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size-active;
+            max-height: $step-md-img-size-active;
+            opacity: 1;
+        }
+
+        60%{
+            max-width: $step-md-img-size  / 10;
+            max-height: $step-md-img-size / 10;
+            opacity: 0.2;
+            filter: grayscale(1) brightness(0.8);
+        }
+
+        100%{
+            filter: grayscale(1) brightness(0.5);
+            max-width: $step-md-img-size;
+            max-height: $step-md-img-size;
+            opacity: 1;
+        }
+
+    }
+
+
+    @keyframes step-done-img{
+        0% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size-active;
+            max-height: $step-md-img-size-active;
+            opacity: 1;
+        }
+
+        100% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size-done;
+            max-height: $step-md-img-size-done;
+            opacity: 1;
+        }
+    }
+
+    @keyframes step-done-img-reverse{
+        0% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size;
+            max-height: $step-md-img-size;
+            opacity: 1;
+        }
+
+        100% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-md-img-size-active;
+            max-height: $step-md-img-size-active;
+            opacity: 1;
+        }
+    }
+
+}
+
+
+
+
+@include media-breakpoint-down(xs) {
+
+    :host{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $step-xs-size;
+        min-height: $step-xs-size;
+        max-height: $step-xs-size;
+        flex-basis: $step-xs-size;
+        width: $step-xs-size;
+        min-width: $step-xs-size;
+        max-width: $step-xs-size;
+        font-size: $step-xs-font-size;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        background: #efefef;
+        line-height: 1;
+    }
+
+    :host img{
+        filter: grayscale(1) brightness(0.5);
+        max-width: $step-xs-img-size;
+        max-height: $step-xs-img-size;
+        opacity: 1;
+    }
+
+    :host.done{
+        cursor: pointer;
+        animation: step-done 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+    :host.done img{
+        animation: step-done-img 400ms ease-out 0ms 1;
+        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
+        -moz-animation-fill-mode: both;    /* FF 5+ */
+        -o-animation-fill-mode: both;      /* Not implemented yet */
+        -ms-animation-fill-mode: both;     /* IE 10+ */
+        animation-fill-mode: both;         /* When the spec is finished */
+        animation-fill-mode: both;
+    }
+
+
+    @keyframes step-active{
+        0% {
+            border: 0px solid #243646;
+            background: #efefef;
+            font-size: $step-xs-font-size-done;
+            color: Rgba(0,0,0,1);
+        }
+
+        40% {
+            border: $step-xs-size-done/2 solid #243646;
+            background: #efefef;
+            font-size: 5px;
+            height: $step-xs-size-done;
+            min-height: $step-xs-size-done;
+            max-height: $step-xs-size-done;
+            flex-basis: $step-xs-size-done;
+            width: $step-xs-size-done;
+            min-width: $step-xs-size-done;
+            max-width: $step-xs-size-done;
+        }
+
+        41%{
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            color: Rgba(255,255,255,0);
+        }
+
+        100% {
+            height: $step-xs-size-active;
+            min-height: $step-xs-size-active;
+            max-height: $step-xs-size-active;
+            flex-basis: $step-xs-size-active;
+            width: $step-xs-size-active;
+            min-width: $step-xs-size-active;
+            max-width: $step-xs-size-active;
+            font-size: $step-xs-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+    @keyframes step-active-reverse{
+        100% {
+            border: 0px solid #243646;
+            background: #efefef;
+            font-size: $step-xs-font-size-done;
+            color: Rgba(0,0,0,1);
+        }
+
+        61% {
+            background: #efefef;
+            font-size: 5px;
+            height: $step-xs-size-done;
+            min-height: $step-xs-size-done;
+            max-height: $step-xs-size-done;
+            flex-basis: $step-xs-size-done;
+            width: $step-xs-size-done;
+            min-width: $step-xs-size-done;
+            max-width: $step-xs-size-done;
+        }
+
+        60%{
+            border: $step-xs-size-done/2 solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            color: Rgba(255,255,255,0);
+        }
+
+        0% {
+            height: $step-xs-size-active;
+            min-height: $step-xs-size-active;
+            max-height: $step-xs-size-active;
+            flex-basis: $step-xs-size-active;
+            width: $step-xs-size-active;
+            min-width: $step-xs-size-active;
+            max-width: $step-xs-size-active;
+            font-size: $step-xs-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+    @keyframes step-done{
+        0% {
+            height: $step-xs-size-active;
+            min-height: $step-xs-size-active;
+            max-height: $step-xs-size-active;
+            flex-basis: $step-xs-size-active;
+            width: $step-xs-size-active;
+            min-width: $step-xs-size-active;
+            max-width: $step-xs-size-active;
+            font-size: $step-xs-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+        100% {
+            height: $step-xs-size-done;
+            min-height: $step-xs-size-done;
+            max-height: $step-xs-size-done;
+            flex-basis: $step-xs-size-done;
+            width: $step-xs-size-done;
+            min-width: $step-xs-size-done;
+            max-width: $step-xs-size-done;
+            font-size: $step-xs-font-size-done;
+            color: Rgba(255,255,255,1);
+            border: 3px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+    }
+
+
+
+    @keyframes step-done-reverse{
+        0% {
+            height: $step-xs-size-done;
+            min-height: $step-xs-size-done;
+            max-height: $step-xs-size-done;
+            flex-basis: $step-xs-size-done;
+            width: $step-xs-size-done;
+            min-width: $step-xs-size-done;
+            max-width: $step-xs-size-done;
+            font-size: $step-xs-font-size-done;
+            color: Rgba(255,255,255,1);
+            border: 3px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+        100% {
+            height: $step-xs-size-active;
+            min-height: $step-xs-size-active;
+            max-height: $step-xs-size-active;
+            flex-basis: $step-xs-size-active;
+            width: $step-xs-size-active;
+            min-width: $step-xs-size-active;
+            max-width: $step-xs-size-active;
+            font-size: $step-xs-font-size-active;
+            color: Rgba(255,255,255,1);
+            border: 4px solid #243646;
+            background: #243646;
+            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
+            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
+        }
+
+    }
+
+    @keyframes step-active-img{
+        0%{
+            filter: grayscale(1) brightness(0.5);
+            max-width: $step-xs-img-size;
+            max-height: $step-xs-img-size;
+            opacity: 1;
+        }
+
+        40%{
+            max-width: $step-xs-img-size  / 10;
+            max-height: $step-xs-img-size / 10;
+            opacity: 0.2;
+            filter: grayscale(1) brightness(0.8);
+        }
+
+        100%{
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size-active;
+            max-height: $step-xs-img-size-active;
+            opacity: 1;
+        }
+    }
+
+    @keyframes step-active-img-reverse{
+        0%{
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size-active;
+            max-height: $step-xs-img-size-active;
+            opacity: 1;
+        }
+
+        60%{
+            max-width: $step-xs-img-size  / 10;
+            max-height: $step-xs-img-size / 10;
+            opacity: 0.2;
+            filter: grayscale(1) brightness(0.8);
+        }
+
+        100%{
+            filter: grayscale(1) brightness(0.5);
+            max-width: $step-xs-img-size;
+            max-height: $step-xs-img-size;
+            opacity: 1;
+        }
+
+    }
+
+
+    @keyframes step-done-img{
+        0% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size-active;
+            max-height: $step-xs-img-size-active;
+            opacity: 1;
+        }
+
+        100% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size-done;
+            max-height: $step-xs-img-size-done;
+            opacity: 1;
+        }
+    }
+
+    @keyframes step-done-img-reverse{
+        0% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size;
+            max-height: $step-xs-img-size;
+            opacity: 1;
+        }
+
+        100% {
+            filter: grayscale(1) brightness(1.5);
+            max-width: $step-xs-img-size-active;
+            max-height: $step-xs-img-size-active;
+            opacity: 1;
+        }
+    }
+
+}
+
