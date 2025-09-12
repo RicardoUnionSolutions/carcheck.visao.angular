@@ -1,6 +1,6 @@
-// Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
-@use '../../../assets/scss/bootstrap/variables' as *;
-@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use 'functions' as *;
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
 
 .steps-container{
     display: flex;
@@ -38,6 +38,7 @@
         height: 50px;
         max-width: 100vw;
         padding: 0px 20px;
+
     }
 
     .title-container h2{
@@ -49,11 +50,13 @@
     }
 }
 
+
 @include media-breakpoint-down(xs) {
     .steps-container{
         height: 50px;
         max-width: 100vw;
         padding: 0px 0px;
+
     }
 
     .title-container h2{

@@ -13,7 +13,7 @@
 @use "sass:math";
 @use "sass:map";
 @use "sass:color";
-@use "_functions" as *;
+@use "functions" as *;
 
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
