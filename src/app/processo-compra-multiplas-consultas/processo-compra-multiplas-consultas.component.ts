@@ -416,24 +416,8 @@ export class ProcessoCompraMultiplasConsultasComponent implements OnInit {
 
     if (this.cadastrarUsuario.formCadastro["invalid"]) return;
 
-    this.cadastrarUsuario.clienteTipoIndefinido = "N";
-    let cadastro = { ...this.cadastrarUsuario };
-    delete cadastro.formCadastro;
-    if (cadastro.formAcesso != null) delete cadastro.formAcesso;
-
-    this.loadingCompra = true;
-
-    this.pessoaService.completarCadastroPagamento(cadastro).subscribe(
-      (userToken) => {
-        this.loginService.logIn(userToken);
-        this.nextStep();
-        this.loadingCompra = false;
-      },
-      (error) => {
-        this.loadingCompra = false;
-        console.log("erro", error);
-      }
-    );
+    // Apenas avança para a próxima etapa sem efetuar transação
+    this.nextStep();
   }
 
   verificaCompraAprovada() {

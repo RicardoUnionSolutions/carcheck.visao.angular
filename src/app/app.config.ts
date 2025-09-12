@@ -10,6 +10,8 @@ import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localePT from "@angular/common/locales/pt";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { importProvidersFrom } from '@angular/core';
+import { CardModule } from 'ngx-card';
 
 import { routes } from "./app.routes";
 import { AppInterceptor } from "./app-interceptor.service";
@@ -37,6 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     provideClientHydration(),
+    importProvidersFrom(CardModule),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: "pt" },
     // Serviços da aplicação
