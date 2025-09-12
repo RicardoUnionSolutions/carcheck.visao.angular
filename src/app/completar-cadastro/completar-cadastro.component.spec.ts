@@ -23,7 +23,7 @@ describe("CompletarCadastroComponent", () => {
 
   beforeEach(async () => {
     pessoaServiceMock = jasmine.createSpyObj("PessoaService", ["atualizar"]);
-    tokenServiceMock = jasmine.createSpyObj("TokenService", ["decodeToken"]);
+    tokenServiceMock = jasmine.createSpyObj("TokenService", ["decodeToken", "getToken"]);
     loginServiceMock = jasmine.createSpyObj("LoginService", ["logIn"]);
     titleServiceMock = jasmine.createSpyObj("Title", ["setTitle"]);
     metaServiceMock = jasmine.createSpyObj("Meta", ["updateTag"]);
@@ -87,12 +87,12 @@ describe("CompletarCadastroComponent", () => {
       },
     } as any;
 
-    localStorage.setItem("tokenLogin", "token");
-    tokenServiceMock.decodeToken.and.returnValue(JSON.stringify(user));
+    tokenServiceMock.getToken.and.returnValue("token");
+    tokenServiceMock.decodeToken.and.returnValue(user);
 
     component.ngOnInit();
 
-    expect(tokenServiceMock.decodeToken).toHaveBeenCalledWith("tokenLogin");
+    expect(tokenServiceMock.decodeToken).toHaveBeenCalled();
     expect(component.cadastro).toEqual(
       jasmine.objectContaining({
         tipoPessoa: "0",
@@ -207,22 +207,24 @@ describe("CompletarCadastroComponent", () => {
 
   it("should load user data when token exists", () => {
     localStorage.setItem("tokenLogin", "token");
-    tokenServiceMock.decodeToken.and.returnValue('{"nome":"John"}');
+    tokenServiceMock.getToken.and.returnValue("token");
+    tokenServiceMock.decodeToken.and.returnValue({ nome: "John" });
 
     component.carregarDadosUsuarioLogado();
 
-    expect(tokenServiceMock.decodeToken).toHaveBeenCalledWith("tokenLogin");
+    expect(tokenServiceMock.decodeToken).toHaveBeenCalled();
     expect(component.userDados).toEqual({ nome: "John" });
   });
 
   it("should not load user data when token is missing", () => {
+    tokenServiceMock.getToken.and.returnValue(null);
     component.carregarDadosUsuarioLogado();
     expect(tokenServiceMock.decodeToken).not.toHaveBeenCalled();
     expect(component.userDados).toBeUndefined();
   });
 
   it("temToken should return true if token exists", () => {
-    localStorage.setItem("tokenLogin", "token");
+    tokenServiceMock.getToken.and.returnValue("token");
     spyOn(component, "carregarDadosUsuarioLogado");
     const result = component.temToken();
     expect(component.carregarDadosUsuarioLogado).toHaveBeenCalled();
@@ -230,6 +232,7 @@ describe("CompletarCadastroComponent", () => {
   });
 
   it("temToken should return false if token does not exist", () => {
+    tokenServiceMock.getToken.and.returnValue(null);
     spyOn(component, "carregarDadosUsuarioLogado");
     const result = component.temToken();
     expect(component.carregarDadosUsuarioLogado).toHaveBeenCalled();

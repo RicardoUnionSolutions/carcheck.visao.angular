@@ -10,6 +10,7 @@ import { PessoaService } from "../service/pessoa.service";
 import { ModalService } from "../service/modal.service";
 import { AnalyticsService } from "../service/analytics.service";
 import { Router, ActivatedRoute } from "@angular/router";
+import { TokenService } from "../service/token.service";
 import { BehaviorSubject, Subject } from "rxjs";
 import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import {
@@ -49,6 +50,7 @@ describe("LoginViewComponent", () => {
   let routerMock: any;
   let routeMock: any;
   let analyticsServiceMock: any;
+  let tokenServiceMock: any;
 
   beforeEach(async () => {
     loginServiceMock = {
@@ -82,6 +84,9 @@ describe("LoginViewComponent", () => {
       "novoCadastroFb",
       "novoCadastro",
     ]);
+    tokenServiceMock = jasmine.createSpyObj("TokenService", [
+      "decodeTokenFromString",
+    ]);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -96,6 +101,7 @@ describe("LoginViewComponent", () => {
         { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute, useValue: routeMock },
         { provide: AnalyticsService, useValue: analyticsServiceMock },
+        { provide: TokenService, useValue: tokenServiceMock },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -240,9 +246,9 @@ describe("LoginViewComponent", () => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
     pessoaServiceMock.adicionar.and.returnValue(Promise.resolve("token"));
-    component.jwtHelper = {
-      decodeToken: () => ({ iss: JSON.stringify({ emailVerificado: true }) }),
-    } as any;
+    tokenServiceMock.decodeTokenFromString.and.returnValue({
+      emailVerificado: true,
+    });
     component.efetuarCadastro();
     tick();
     expect(pessoaServiceMock.adicionar).toHaveBeenCalled();
@@ -257,9 +263,9 @@ describe("LoginViewComponent", () => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
     pessoaServiceMock.adicionar.and.returnValue(Promise.resolve("token"));
-    component.jwtHelper = {
-      decodeToken: () => ({ iss: JSON.stringify({ emailVerificado: false }) }),
-    } as any;
+    tokenServiceMock.decodeTokenFromString.and.returnValue({
+      emailVerificado: false,
+    });
     modalServiceMock.openModalMsg.calls.reset();
     component.efetuarCadastro();
     tick();

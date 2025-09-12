@@ -23,10 +23,10 @@ import { ModalService } from "../../service/modal.service";
 import { AnalyticsService } from "../../service/analytics.service";
 import { distinctUntilChanged, filter } from "rxjs/operators";
 import { CredentialResponse, PromptMomentNotification } from "google-one-tap";
-import { JwtHelperService } from "@auth0/angular-jwt";
 import { Title, Meta } from "@angular/platform-browser";
 import { CkInputComponent } from "../ck-input/ck-input.component";
 import { ConfirmarEmailComponent } from "../confirmar-email/confirmar-email.component";
+import { TokenService } from "../../service/token.service";
 
 declare var FB: any;
 declare var window: any;
@@ -87,7 +87,6 @@ export class LoginComponent implements OnInit {
   });
 
   form: FormGroup;
-  jwtHelper = new JwtHelperService();
   
   // Propriedade local para armazenar dados do login
   loginData = {
@@ -258,8 +257,7 @@ export class LoginComponent implements OnInit {
         return;
       }
       this.token = users;
-      const decodedToken = this.jwtHelper.decodeToken(this.token);
-      this.user = JSON.parse(decodedToken.iss);
+      this.user = this.tokenService.decodeTokenFromString(this.token);
       this.emailNaoVerificado = !this.user.emailVerificado;
       // SEMPRE verificar se o email está verificado após login bem-sucedido
       if (this.user.emailVerificado) {
