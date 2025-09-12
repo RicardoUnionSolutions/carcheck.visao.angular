@@ -7,21 +7,17 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { VariableGlobal } from "./service/variable.global.service";
 import { LoginService } from "./service/login.service";
 import { Injectable } from "@angular/core";
-import { map, tap, catchError } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 import { ModalService, MODAL_MSG } from "./service/modal.service";
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-  private baseUrl: string;
-
   constructor(
     private login: LoginService,
     private modalService: ModalService
   ) {
-    this.baseUrl = new VariableGlobal().getUrl();
     this.login.getLogIn();
   }
 
@@ -30,7 +26,7 @@ export class AppInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token = this.login.getTokenLogin();
-    if (req.url.startsWith(this.baseUrl) && token) {
+    if (token) {
       req = req.clone({
         setHeaders: { Authorization: token },
       });
@@ -52,7 +48,8 @@ export class AppInterceptor implements HttpInterceptor {
       )
       .pipe(
         catchError((r) => {
-          if (r && r instanceof HttpErrorResponse && r.status == 401) {
+          const hasToken = !!this.login.getTokenLogin();
+          if (hasToken && r && r instanceof HttpErrorResponse && r.status == 401) {
             let modalMsg: MODAL_MSG = {
               status: 4,
               title: "Sessão expirou",
