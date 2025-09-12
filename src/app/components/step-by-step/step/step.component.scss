@@ -11,9 +11,9 @@ $step-font-size: 28px !default;
 $step-font-size-done: 28px !default;
 $step-font-size-active: 42px !default;
 
-$step-img-size: 36px !default;
-$step-img-size-done: 36px !default;
-$step-img-size-active: 56px !default;
+$step-img-size: 48px !default;
+$step-img-size-done: 48px !default;
+$step-img-size-active: 64px !default;
 
 
 
@@ -25,9 +25,9 @@ $step-md-font-size: 24px !default;
 $step-md-font-size-done: 24px !default;
 $step-md-font-size-active: 24px !default;
 
-$step-md-img-size: 26px !default;
-$step-md-img-size-done: 26px !default;
-$step-md-img-size-active: 32px !default;
+$step-md-img-size: 32px !default;
+$step-md-img-size-done: 32px !default;
+$step-md-img-size-active: 40px !default;
 
 
 $step-xs-size: 35px !default;
@@ -38,9 +38,9 @@ $step-xs-font-size: 20px !default;
 $step-xs-font-size-done: 20px !default;
 $step-xs-font-size-active: 20px !default;
 
-$step-xs-img-size: 22px !default;
-$step-xs-img-size-done: 22px !default;
-$step-xs-img-size-active: 28px !default;
+$step-xs-img-size: 28px !default;
+$step-xs-img-size-done: 28px !default;
+$step-xs-img-size-active: 32px !default;
 
 
 
@@ -63,13 +63,24 @@ $step-xs-img-size-active: 28px !default;
     background: #efefef;
     line-height: 1;
     background-origin: border-box;
+    overflow: hidden;
 }
 
 :host img{
-    filter: grayscale(1) brightness(0.5);
+    filter: grayscale(1) brightness(0.8);
     max-width: $step-img-size;
     max-height: $step-img-size;
     opacity: 1;
+    display: block;
+}
+
+.step-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    max-width: $step-img-size;
+    max-height: $step-img-size;
 }
 
 :host.active-return{
@@ -113,14 +124,14 @@ $step-xs-img-size-active: 28px !default;
 }
 
 :host.active{
-    border: 0px solid #244b5a;
-    background-color: #efefef;
+    border: 3px solid #244b5a;
+    background: #244b5a;
+    background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+    background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+    background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     font-size: $step-font-size-done;
-    color: Rgba(0,0,0,1);
+    color: Rgba(255,255,255,1);
     background-origin: border-box;
-    background: -moz-radial-gradient(top, ellipse cover, #efefef 0%, #efefef 85%, #efefef 100%);
-    background: -webkit-radial-gradient(top, ellipse cover,  #efefef 0%, #efefef 85%, #efefef 100%);
-    background: radial-gradient(ellipse at top, #efefef 0%, #efefef 85%, #efefef 100%);
 
     animation: step-active 400ms ease-out 400ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
@@ -132,6 +143,10 @@ $step-xs-img-size-active: 28px !default;
 }
 
 :host.active img{
+    filter: grayscale(1) brightness(1.5);
+    max-width: $step-img-size-done;
+    max-height: $step-img-size-done;
+    opacity: 1;
     animation: step-active-img 400ms ease-out 400ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
     -moz-animation-fill-mode: both;    /* FF 5+ */
@@ -143,10 +158,13 @@ $step-xs-img-size-active: 28px !default;
 
 
 :host.done{
-    border: 0px solid #244b5a;
-    background-color: #efefef;
+    border: 3px solid #244b5a;
+    background: #244b5a;
+    background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
+    background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
+    background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     font-size: $step-font-size-done;
-    color: Rgba(0,0,0,1);
+    color: Rgba(255,255,255,1);
     cursor: pointer;
     animation: step-done 400ms ease-out 0ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
@@ -158,6 +176,10 @@ $step-xs-img-size-active: 28px !default;
 }
 
 :host.done img{
+    filter: grayscale(1) brightness(1.5);
+    max-width: $step-img-size-done;
+    max-height: $step-img-size-done;
+    opacity: 1;
     animation: step-done-img 400ms ease-out 0ms 1;
     -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
     -moz-animation-fill-mode: both;    /* FF 5+ */

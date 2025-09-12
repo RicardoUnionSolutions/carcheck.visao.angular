@@ -29,12 +29,12 @@
 
 <div class="container py-4 pb-md-5 pt-3">
 
-  <div class="flex-jb flex-column-reverse flex-md-row">
-    <div *ngIf="escondeBotaoFiltro==false" class="col-12 col-md-7 d-flex mt-3 mt-md-0 p-0">
-      <ck-input class="w-100" [label]="'Placa'" [mask]="maskPlaca" [(control)]="form.controls.placa"></ck-input>
-      <button (click)="pesquisar()" class="ml-2 btn btn-orange-1">Filtrar</button>
+  <div class="form-container">
+    <div *ngIf="escondeBotaoFiltro==false" class="search-section">
+      <ck-input class="search-input" [label]="'Placa'" [mask]="maskPlaca" [(control)]="form.controls.placa"></ck-input>
+      <button (click)="pesquisar()" class="btn btn-orange-1 filter-btn">Filtrar</button>
     </div>
-    <div class="col-12 col-md-4 col-lg-3 col-xl-3 p-0">
+    <div class="new-consultation-section">
       <a [routerLink]="['/realizar-consultas']" class="btn btn-novaconsulta w-100 btn-lg">Nova consulta</a>
     </div>
   </div>
@@ -42,7 +42,6 @@
   <div class="banner container" style="
 margin: auto;
 align-content: center;
-padding-top: 40px;
 ">
     <app-banner-vistoria></app-banner-vistoria>
   </div>

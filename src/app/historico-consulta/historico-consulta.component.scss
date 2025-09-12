@@ -16,16 +16,48 @@ a:hover{
 
 .btn{
   border-radius: 10px !important;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-orange-1{
+  background-color: #ecda26;
+  color: #243646;
+  border: 2px solid #ecda26;
+  
+  &:hover{
+    background-color: #d4c421;
+    border-color: #d4c421;
+    color: #243646;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(236, 218, 38, 0.3);
+  }
+  
+  &:active{
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(236, 218, 38, 0.3);
+  }
 }
 
 .btn-novaconsulta{
   background-color: #243646;
   color: white;
-}
-
-.btn-novaconsulta:hover{
-  background-color: #244b5a;
-  color: white;
+  border: 2px solid #243646;
+  
+  &:hover{
+    background-color: #244b5a;
+    border-color: #244b5a;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(36, 54, 70, 0.3);
+  }
+  
+  &:active{
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(36, 54, 70, 0.3);
+  }
 }
 
 .novoUsuario{
@@ -106,4 +138,57 @@ a:hover{
   outline: none;
   box-shadow: 0px 6px 13px #8f8f8f;
   transform: scale(1.02);
+}
+
+// Layout melhorado para o formulário de consulta
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.75rem;
+    max-width: 70%;
+  }
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-btn {
+  height: 46px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 120px;
+  
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
+}
+
+.new-consultation-section {
+  @include media-breakpoint-up(md) {
+    flex: 0 0 auto;
+    min-width: 200px;
+  }
 }

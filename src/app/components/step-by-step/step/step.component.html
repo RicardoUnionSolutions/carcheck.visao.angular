@@ -1,2 +1,2 @@
 <i *ngIf="icon" class="{{icon}}"></i>
-<img *ngIf="image" src="{{image}}" alt="">
+<img *ngIf="image" [src]="image" [alt]="title || 'Step icon'" class="step-image">
