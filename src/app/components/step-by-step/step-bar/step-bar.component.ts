@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, HostBinding, OnChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'step-bar',
   templateUrl: './step-bar.component.html',
-  styleUrls: ['./step-bar.component.scss']
+  styleUrls: ['./step-bar.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class StepBarComponent implements OnInit, OnChanges {
 

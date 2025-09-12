@@ -1,9 +1,14 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StepComponent } from './step/step.component';
+import { StepBarComponent } from './step-bar/step-bar.component';
 
 @Component({
   selector: 'step-by-step',
   templateUrl: './step-by-step.component.html',
-  styleUrls: ['./step-by-step.component.scss']
+  styleUrls: ['./step-by-step.component.scss'],
+  standalone: true,
+  imports: [CommonModule, StepComponent, StepBarComponent]
 })
 export class StepByStepComponent implements OnInit, OnChanges {
 
