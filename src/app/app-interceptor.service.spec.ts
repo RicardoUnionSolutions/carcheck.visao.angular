@@ -46,7 +46,19 @@ describe("AppInterceptor", () => {
     const req = new HttpRequest("GET", `${baseUrl}/resource`);
     const handler: HttpHandler = {
       handle: (request: HttpRequest<any>) => {
-        expect(request.headers.get("Authorization")).toBe("jwt-token");
+        expect(request.headers.get("Authorization")).toBe("Bearer jwt-token");
+        return of(new HttpResponse({ status: 200 }));
+      },
+    };
+    interceptor.intercept(req, handler).subscribe(() => done());
+  });
+
+  it("should not duplicate Bearer prefix", (done) => {
+    loginSvc.setToken("Bearer existing");
+    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const handler: HttpHandler = {
+      handle: (request: HttpRequest<any>) => {
+        expect(request.headers.get("Authorization")).toBe("Bearer existing");
         return of(new HttpResponse({ status: 200 }));
       },
     };
