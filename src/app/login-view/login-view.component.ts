@@ -2,7 +2,7 @@ import { CkModalComponent } from "../components/ck-modal/ck-modal.component";
 import { LoginComponent } from "../components/login/login.component";
 import { CadastrarComponent } from "../components/cadastrar/cadastrar.component";
 import { ConfirmarEmailComponent } from "../components/confirmar-email/confirmar-email.component";
-import { Component, OnInit, ViewChild, AfterViewInit, inject } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { PessoaService } from "../service/pessoa.service";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -11,7 +11,6 @@ import { UntypedFormGroup } from "@angular/forms";
 import { ModalService } from "../service/modal.service";
 import { AnalyticsService } from "../service/analytics.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { NavigationService } from "../service/navigation.service";
 
 @Component({
   selector: "login-view",
@@ -28,8 +27,6 @@ import { NavigationService } from "../service/navigation.service";
 })
 export class LoginViewComponent implements OnInit, AfterViewInit {
   @ViewChild(CkModalComponent) ckModal: CkModalComponent;
-
-  private navigationService = inject(NavigationService);
 
   cadastrar = false;
   cadastrarRestoFB = false;
@@ -86,9 +83,11 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     this.logInSubscriber = this.loginService.getLogIn().subscribe((v) => {
       this.dadosLogIn = v;
 
-      if (v.status == true) {
-        // Usar o serviço centralizado para redirecionamento
-        this.navigationService.navigateAfterLogin();
+      if (v.status == true && !this.returnUrl) {
+        this.router.navigate(["/"]);
+      } else if (v.status == true && this.returnUrl) {
+        const state = history.state.pacote ? { pacote: history.state.pacote } : {};
+        this.router.navigate([this.returnUrl], { state });
       }
       /*else if (v.status == true && v.cliente.documento == '') {
 
@@ -110,7 +109,8 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
 
     this.route.params.subscribe((params) => {
       if (params.logout == "out") {
-        this.navigationService.logout();
+        this.loginService.logOut();
+        this.router.navigate(["/login"]);
       }
     });
   }
@@ -119,10 +119,6 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe((params) => {
       this.returnUrl = params["returnUrl"];
       this.cadastrar = params["cadastro"];
-      
-      if (this.returnUrl) {
-        this.navigationService.setRedirectUrl(this.returnUrl);
-      }
     });
   }
 

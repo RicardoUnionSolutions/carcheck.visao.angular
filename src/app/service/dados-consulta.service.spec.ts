@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { dadosConsultaService } from './dados-consulta.service';
 import { VariableGlobal } from './variable.global.service';
-import { TokenService } from './token.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const BASE_URL = 'http://api/';
@@ -10,12 +9,6 @@ const BASE_URL = 'http://api/';
 class VariableGlobalStub {
   getUrl(url: string) {
     return BASE_URL + url;
-  }
-}
-
-class TokenServiceStub {
-  getTokenLogin() {
-    return 'jwt-token';
   }
 }
 
@@ -29,7 +22,6 @@ describe('dadosConsultaService', () => {
     providers: [
         dadosConsultaService,
         { provide: VariableGlobal, useClass: VariableGlobalStub },
-        { provide: TokenService, useClass: TokenServiceStub },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
     ]
@@ -77,7 +69,6 @@ describe('dadosConsultaService', () => {
     const req = httpMock.expectOne(BASE_URL + 'consultar/historicoConsulta');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(filtros);
-    expect(req.request.headers.get('Authorization')).toBe('Bearer jwt-token');
     req.flush(mock);
   });
 
@@ -172,7 +163,6 @@ describe('dadosConsultaService', () => {
     service.getPossuiCompraAprovada().subscribe(res => expect(res).toEqual(mock));
     const req = httpMock.expectOne(BASE_URL + 'consultar/possuiCompra');
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe('Bearer jwt-token');
     req.flush(mock);
   });
 });

@@ -1,38 +1,31 @@
-import { Injectable, inject } from "@angular/core";
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from "@angular/router";
-import { NavigationService } from "../service/navigation.service";
-import { LoginService } from "../service/login.service";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { LoginService } from '../service/login.service';
+import { Observable } from 'rxjs';
+import { VariableGlobal } from '../service/variable.global.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  private navigationService = inject(NavigationService);
-  private loginService = inject(LoginService);
 
-  private user = { status: false, cliente: { documento: "" } };
+  user = { status: false, cliente: { documento: '' } };
 
-  constructor() {
-    this.loginService
-      .getLogIn()
-      .subscribe((user) => (this.user = user));
+  constructor(private login: LoginService, private route: Router, private global: VariableGlobal) {
+    this.login.getLogIn().subscribe(user => this.user = user);
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | boolean {
-    if (state.url.includes("logout")) {
-      this.loginService.logOut();
-    }
+  canActivate(router: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
-    if (this.user.status === false) {
-      this.navigationService.navigateTo("/home");
+    router.url.forEach(i => {
+      if (i.path.replace('/', '').toLocaleLowerCase() == 'logout') {
+        this.login.logOut();
+        // window.location.href = this.global.getUrlSite().home;
+      }
+    });
+
+    if (this.user.status == false) {
+      this.route.navigate(['home']);
     }
 
     return this.user.status;

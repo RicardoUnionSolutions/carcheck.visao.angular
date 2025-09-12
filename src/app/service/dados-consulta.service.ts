@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { VariableGlobal } from './variable.global.service';
 import { Observable } from 'rxjs';
-import { TokenService } from './token.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class dadosConsultaService {
 
-  constructor(private http: HttpClient, private variableGlobal: VariableGlobal, private tokenService: TokenService) { }
+  constructor(
+    private http: HttpClient,
+    private variableGlobal: VariableGlobal
+  ) { }
 
   getConsultaVeiculo(uuid: any): Observable<any> {
     return this.http.get(this.variableGlobal.getUrl("consultar/dadosConsultaVeiculo/" + uuid));
@@ -22,14 +24,7 @@ export class dadosConsultaService {
   }
 
   getHistoricoConsulta(filtros: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.tokenService.getTokenLogin()}`,
-    });
-    return this.http.post(
-      this.variableGlobal.getUrl("consultar/historicoConsulta"),
-      filtros,
-      { headers }
-    );
+    return this.http.post(this.variableGlobal.getUrl("consultar/historicoConsulta"), filtros);
   }
 
   getHistoricoGeralConsulta(filtros: any): Observable<any> {
@@ -76,13 +71,7 @@ export class dadosConsultaService {
   }
 
   getPossuiCompraAprovada(): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.tokenService.getTokenLogin()}`,
-    });
-    return this.http.get(
-      this.variableGlobal.getUrl("consultar/possuiCompra"),
-      { headers }
-    );
+    return this.http.get(this.variableGlobal.getUrl("consultar/possuiCompra"));
   }
 
 }

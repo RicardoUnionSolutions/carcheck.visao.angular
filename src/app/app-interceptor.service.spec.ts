@@ -4,6 +4,7 @@ import { of, throwError } from "rxjs";
 import { AppInterceptor } from "./app-interceptor.service";
 import { LoginService } from "./service/login.service";
 import { ModalService } from "./service/modal.service";
+import { Router } from '@angular/router';
 
 class LoginServiceStub {
   constructor(private token: string | null = "jwt-token") {}
@@ -23,6 +24,10 @@ class ModalServiceStub {
   openModalMsg(_: any) {}
 }
 
+class RouterStub {
+  navigate(_: any[]) {}
+}
+
 describe("AppInterceptor", () => {
   const baseUrl = "http://api.test";
   let interceptor: AppInterceptor;
@@ -35,6 +40,7 @@ describe("AppInterceptor", () => {
         AppInterceptor,
         { provide: LoginService, useClass: LoginServiceStub },
         { provide: ModalService, useClass: ModalServiceStub },
+        { provide: Router, useClass: RouterStub },
       ],
     });
     interceptor = TestBed.inject(AppInterceptor);
@@ -212,11 +218,12 @@ describe("AppInterceptor", () => {
       "getLogIn",
       "logOut",
     ]);
+    const routerSpy = jasmine.createSpyObj<Router>("Router", ["navigate"]);
 
     loginSvcSpy.getTokenLogin.and.returnValue("jwt-token");
     loginSvcSpy.getLogIn.and.returnValue(of(null));
 
-    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy);
+    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy, routerSpy);
 
     const req = new HttpRequest("GET", `${baseUrl}/resource`);
     const handler: HttpHandler = {

@@ -11,12 +11,14 @@ import { LoginService } from "./service/login.service";
 import { Injectable } from "@angular/core";
 import { map, catchError } from "rxjs/operators";
 import { ModalService, MODAL_MSG } from "./service/modal.service";
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
   constructor(
     private login: LoginService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {
     this.login.getLogIn();
   }
@@ -59,7 +61,7 @@ export class AppInterceptor implements HttpInterceptor {
             };
             this.modalService.openModalMsg(modalMsg);
             this.login.logOut();
-            // O redirecionamento será feito pelo NavigationService que está escutando o LoginService
+            this.router.navigate(['/login']);
           }
           throw r;
         })
