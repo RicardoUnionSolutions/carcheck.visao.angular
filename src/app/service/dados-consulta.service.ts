@@ -22,7 +22,14 @@ export class dadosConsultaService {
   }
 
   getHistoricoConsulta(filtros: any): Observable<any> {
-    return this.http.post(this.variableGlobal.getUrl("consultar/historicoConsulta"), filtros);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.tokenService.getTokenLogin()}`,
+    });
+    return this.http.post(
+      this.variableGlobal.getUrl("consultar/historicoConsulta"),
+      filtros,
+      { headers }
+    );
   }
 
   getHistoricoGeralConsulta(filtros: any): Observable<any> {
@@ -61,11 +68,21 @@ export class dadosConsultaService {
 
   downloadPdf(token): Observable<any> {
     const params = { token: token };
-    return this.http.post(this.variableGlobal.getUrl('consultar/relatorioConsultaPdf'), params, { responseType: "arraybuffer" });
+    return this.http.post(
+      this.variableGlobal.getUrl('consultar/relatorioConsultaPdf'),
+      params,
+      { responseType: "arraybuffer" }
+    );
   }
 
   getPossuiCompraAprovada(): Observable<any> {
-    return this.http.get(this.variableGlobal.getUrl("consultar/possuiCompra"));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.tokenService.getTokenLogin()}`,
+    });
+    return this.http.get(
+      this.variableGlobal.getUrl("consultar/possuiCompra"),
+      { headers }
+    );
   }
 
 }
