@@ -1,0 +1,295 @@
+<div class="mt-1 mt-lg-1">
+
+  <div class="row no-gutters px-2">
+
+    <!-- INICIO dos dados de origem, idade veiculo e kms que foi comentado nao sera usado no novo layout -->
+
+    <!-- <div *ngIf="dadosConsulta?.veiculo!=null && qtdeCampos>=1 && dadosConsulta.composta.mostrarDadosResumoSuperior"
+            class="col-12 col-sm-6 col-md-4" style="margin-left: 64px;">
+            <div class="d-flex">
+                <div class="svg-30 mr-2 fill-orange-1" [inlineSVG]="'local.svg'" [removeSVGAttributes]="['class']"></div>
+                <div>
+                    <h4 class="ck-h4">Origem</h4>
+                    <div>{{dados?.municipioOrigem}}/{{dados?.ufOrigem}}</div>
+                </div>
+            </div>
+            <div class="d-flex mt-4">
+                <div class="svg-30 mr-2 fill-orange-1" [inlineSVG]="'info-circle.svg'" [removeSVGAttributes]="['class']"></div>
+                <div>
+                    <h4 class="ck-h4">Idade do veículo</h4>
+                    <div>{{dados?.idadeVeiculo}} {{dados?.idadeVeiculo > 1 ? 'anos' : 'ano'}} </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="dadosConsulta?.veiculo!=null && qtdeCampos>=1 && dadosConsulta.composta.mostrarDadosResumoSuperior"
+            class="col-12 order-md-0 col-sm-6 col-md-4">
+            <div class="d-flex mt-4 mt-sm-0">
+                <div class="svg-30 mr-2 fill-orange-1" [inlineSVG]="'velocimetro.svg'" [removeSVGAttributes]="['class']"></div>
+                <div>
+                    <h4 class="ck-h4">Quilometragem</h4>
+                    <div>{{dados?.quilometragem}}</div>
+                </div>
+            </div>
+            <p class="f-14 text-gray-deep mt-1 mb-0">
+                Nossa KM é baseada na média de rodagem nacional.
+                <br> Não tem relação com o veículo é só para embasamento.
+            </p>
+        </div> -->
+
+        <!-- FIM dos dados de origem, idade veiculo e kms que foi comentado nao sera usado no novo layout -->
+
+        <!-- <div *ngIf="dados?.numeroProprietarios != null && dadosConsulta.composta.mostrarDadosResumoSuperior" class="d-flex mt-1 mt-sm-0">
+            <div class="svg-30 mr-2 fill-orange-1" [inlineSVG]="'usuario.svg'" [removeSVGAttributes]="['class']"></div>
+            <div>
+              <h4 class="ck-h4">Proprietários</h4>
+              <div>{{dados?.numeroProprietarios}} Proprietários</div>
+            </div>
+          </div> -->
+
+          <div style="width: 100% ;" *ngIf="dados?.completa && dados?.vprecoFipe!=0.00 && dados?.vprecoFipe!='' && dados?.vprecoFipe.indexOf('-')==-1">
+            <div class="title border-secondary mt-1 mt-lg-1">
+                <div class="svg-24 fill-dark mr-3 mb-1 flex-ac" [inlineSVG]="'cifrao-circle.svg'" [removeSVGAttributes]="['class']"></div>
+                <span style="font-weight: 800 ;">ANÁLISE DE MERCADO</span>
+            </div>
+            <div class="flex-as flex-wrap flex-md-nowrap pt-sm-1 px-sm-5 mt-3" >
+                <div *ngIf="dados.fotoVeiculo!=null" class="img-mercado mb-3 mb-md-0">
+                    <img src={{dados?.fotoVeiculo}} alt="">
+                </div>
+                <div *ngIf="dados.fotoVeiculo==null" class="img-mercado">
+                    <img class="d-none d-md-inline-block" src="./assets/images/analise_mercado_sem_imagem.svg" alt="Nenhuma imagem referente ao modelo informado">
+                </div>
+                <div class="w-100 row no-gutters px-3 px-sm-0">
+
+                    <div class="mb-2 col-lg-5 col-12 pl-md-4 pt-md-0" *ngIf="dados.precoFipe">
+                        <h4 class="ck-h4">Descrição Marca/Modelo Fipe</h4>
+                        <span>{{dados?.marcaWebMotors}} / {{dados?.modeloWebMotors}}</span>
+                    </div>
+
+                    <div class="row w-100 no-gutters px-md-4 col-12 col-lg-7">
+                        <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoFipe">
+                            <h4 class="ck-h4">Preço Fipe</h4>
+                            <span>{{dados?.vprecoFipe | currency:'BRL'}}</span>
+                        </div>
+                        <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                            <h4 class="ck-h4">Preço Mercado Financeiro</h4>
+                            <span>{{dados?.vprecoMolica | currency:'BRL'}}</span>
+                        </div>
+                        <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                            <h4 class="ck-h4">Preço Mercado BR</h4>
+                            <span>{{dados?.vprecoBr | currency:'BRL'}}</span>
+                        </div>
+                        <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                            <h4 class="ck-h4">Preço Mercado {{dados?.ufMolicar}} </h4>
+                            <span>{{dados?.vprecoUf | currency:'BRL'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="dadosConsulta?.precificador?.ocorrencia?.length>0 && dadosConsulta.composta.mostrarDadosResumoSuperior && dadosConsulta.composta.nome!='PrecoMercadoFinanceiro' && dadosConsulta.composta.nome!='Completa' && dadosConsulta.composta.nome!='Garage'"
+            class="col-12 col-sm-6 col-md-4">
+            <div class="d-flex mt-4 mt-sm-0">
+                <div class="svg-30 mr-2 fill-orange-1" [inlineSVG]="'cifrao-circle.svg'" [removeSVGAttributes]="['class']"></div>
+                <div *ngIf="dados.precoFipe || dados.precoMercado">
+                    <h4 class="ck-h4 mb-4">Preço médio</h4>
+                    <ng-container *ngIf="dados.precoMercado">
+                        <h4 class="ck-h4"> • Fipe</h4>
+                        <div class="pl-2">{{dados?.precoFipe}}</div>
+                    </ng-container>
+                    <ng-container *ngIf="dados.precoMercado">
+                        <h4 class="ck-h4 mt-3"> • Mercado</h4>
+                        <div class="pl-2">{{dados?.precoMercado}}</div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+
+    <!-- INICIO dos checklist antigo -->
+
+    <!-- <div [hidden]="resumoEstrutural.length==0 && resumoLegal.length==0" class="title border-secondary mt-3 mt-lg-4">
+        <div class="svg-36 fill-dark mr-3 flex-ac" [inlineSVG]="'carro.svg'" [removeSVGAttributes]="['class']"></div>
+        <span class="fw-700">VEÍCULO</span>
+    </div>
+    <div class="row no-gutters pt-4 px-3 px-sm-4">
+        <div *ngFor="let r of resumoEstrutural; let i = index;" class="col-12 col-sm-6 col-md-4 mb-3">
+            <div [hidden]="r.mostrar=='N'">
+                <h4 class="fw-500 f-16 mb-1"> {{r.pergunta}} </h4>
+                <ck-tag [status]="r.status" [text]="r.resposta"></ck-tag>
+            </div>
+        </div>
+        <div *ngFor="let r of resumoLegal; let i = index;" class="col-12 col-sm-6 col-md-4 mb-3">
+            <div [hidden]="r.mostrar=='N'">
+                <h4 class="fw-500 f-16 mb-1"> {{r.pergunta}} </h4>
+                <ck-tag [status]="r.status" [text]="r.resposta"></ck-tag>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Parte referente ao checklist-->
+<!-- [hidden]="dadosConsulta.denatran==null && dadosConsulta.binrf==null" -->
+
+<!-- <div *ngIf="( dadosConsulta?.composta?.nome=='Garage' )">
+    <div  class="title border-secondary mt-3 mt-lg-4">
+        <div class="svg-36 fill-dark mr-3 flex-ac" [inlineSVG]="'checklist.svg'" [removeSVGAttributes]="['class']"></div>
+        <span class="fw-700">CHECKLIST</span>
+    </div>
+    <div class="row f-18 no-gutters bg-silver-light rounded my-5" [hidden]="dadosConsulta?.denatran==null">
+        <div class="col-4 flex-ac flex-jc py-3 px-2">
+            <div class="svg-30 mr-3 fill-success" [inlineSVG]="'check-square.svg'" [removeSVGAttributes]="['class']"></div>
+            <div class="fw-500">Aprovações</div>
+        </div>
+        <div class="col-4 flex-ac flex-jc py-3 px-2">
+            <div class="svg-30 mr-3 fill-danger" [inlineSVG]="'x-square.svg'" [removeSVGAttributes]="['class']"></div>
+            <div class="fw-500">Restrições</div>
+        </div>
+        <div class="col-4 flex-ac flex-jc py-3 px-2">
+            <div class="svg-30 mr-3 fill-orange-1" [inlineSVG]="'alert-square.svg'" [removeSVGAttributes]="['class']"></div>
+            <div class="fw-500">Alertas</div>
+        </div>
+    </div> -->
+
+      <!-- FIM dos checklist antigo -->
+
+
+<!--
+    <div class="row no-gutters mb-5 pb-5 center-block ">
+
+         Alienação
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.alienacao=='S' ? '2' : '0' " [label]="'Alienação fiduciária'"
+            class="col-12 col-md-6 ">
+
+        </check-item>
+
+         Arrendamento Mercantil
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta?.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.arrendamentoMercantil=='S' ? '2' : '0' "
+            [label]="'Arrendamento mercantil'" class="col-12 col-md-6">
+
+
+        </check-item>
+
+         Restrição Tributária
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR') " [status]="dados.restricaoTributaria=='S' ? '2' : '0' "
+            [label]="'Restrição tributaria'" class="col-12 col-md-6">
+
+        </check-item>
+
+         Roubo e Furto
+        <check-item [hidden]="dadosConsulta?.binrf==null || dadosConsulta?.binrf.codigoControle=='ERRO_FORNECEDOR'" [status]="dados.roubo=='S' ? '2' : '0' " [label]="'Restrição de roubo e furto'"
+            class="col-12 col-md-6"></check-item>
+
+
+            <check-item [hidden]="dadosConsulta?.binrf==null" [status]="dados.historicoRoubo=='S' ? '2' : '0' " [label]="'Historico de Roubo'"
+            class="col-12 col-md-6"></check-item>
+
+         Restrição Judicial
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.restricaoJudicial=='S' ? '2' : '0' "
+            [label]="'Restrição judicial'" class="col-12 col-md-6">
+
+        </check-item>
+
+         Restrição de Penhor
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta?.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.restricaoPenhor=='S' ? '2' : '0' " [label]="'Restrição de penhor'"
+            class="col-12 col-md-6">
+
+        </check-item>
+
+         Restrição Administrativa
+        <check-item [hidden]="(dadosConsulta?.denatran==null || dadosConsulta?.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.restricaoAdministrativa=='S' ? '2' : '0' "
+            [label]="'Restrição administrativa'" class="col-12 col-md-6">
+
+
+        </check-item>
+
+
+        <check-item [hidden]="dadosConsulta?.denatran==null || dadosConsulta?.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS'" [status]="dados.comunicacaoVenda=='S' ? '1' : '0' "
+            [label]="'Comunicação de Venda'" class="col-12 col-md-6">
+
+        </check-item>
+
+
+         Circulação
+        <check-item [hidden]="dadosConsulta?.denatran==null || dadosConsulta?.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS'" [status]="dados.circulacao=='S' ? '0' : '2' " [label]="'Em circulação'"
+            class="col-12 col-md-6">
+
+        </check-item>
+
+         Reserva Dominio
+        <check-item [hidden]="(dadosConsulta?.denatran==null  || dadosConsulta?.denatran.codigoControle=='ERRO_FORNECEDOR' || dadosConsulta.denatran.codigoControle=='DUAS_ETAPAS') && (dadosConsulta?.binrf==null || dadosConsulta.binrf.codigoControle=='ERRO_FORNECEDOR')" [status]="dados.reserva=='S' ? '2' : '0' " [label]="'Reserva de Domínio'"
+            class="col-12 col-md-6">
+
+        </check-item>
+        </div>
+      -->
+
+
+
+
+
+    <!--FIM parte referente ao checklist-->
+
+    <!--Parte referente ao bloco preço de mercado -->
+    <!-- <div *ngIf="dados?.completa && dados?.vprecoFipe!=0.00 && dados?.vprecoFipe!='' && dados?.vprecoFipe.indexOf('-')==-1">
+        <div class="title border-secondary mt-3 mt-lg-4">
+            <div class="svg-24 fill-dark mr-3 mb-1 flex-ac" [inlineSVG]="'cifrao-circle.svg'" [removeSVGAttributes]="['class']"></div>
+            <span class="fw-700">ANÁLISE DE MERCADO</span>
+        </div>
+        <div class="flex-as flex-wrap flex-md-nowrap pt-sm-4 px-sm-4">
+            <div *ngIf="dados.fotoVeiculo!=null" class="img-mercado mb-3 mb-md-0">
+                <img src={{dados?.fotoVeiculo}} alt="">
+            </div>
+            <div *ngIf="dados.fotoVeiculo==null" class="img-mercado">
+                <img class="d-none d-md-inline-block" src="./assets/images/analise_mercado_sem_imagem.png" alt="Nenhuma imagem referente ao modelo informado">
+            </div>
+            <div class="w-100 row no-gutters px-3 px-sm-0">
+
+                <div class="mb-2 col-lg-5 col-12 pl-md-4 pt-md-0" *ngIf="dados.precoFipe">
+                    <h4 class="ck-h4">Descrição Marca/Modelo Fipe</h4>
+                    <div>{{dados?.marcaWebMotors}} / {{dados?.modeloWebMotors}}</div>
+                </div>
+
+                <div class="row w-100 no-gutters px-md-4 col-12 col-lg-7">
+                    <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoFipe">
+                        <h4 class="ck-h4">Preço Fipe</h4>
+                        <div>{{dados?.vprecoFipe | currency:'BRL'}}</div>
+                    </div>
+                    <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                        <h4 class="ck-h4">Preço Mercado Financeiro</h4>
+                        <div>{{dados?.vprecoMolica | currency:'BRL'}}</div>
+                    </div>
+                    <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                        <h4 class="ck-h4">Preço Mercado BR</h4>
+                        <div>{{dados?.vprecoBr | currency:'BRL'}}</div>
+                    </div>
+                    <div class="mb-2 col-sm-6 col-12 pl-lg-4" *ngIf="dados.precoMercado">
+                        <h4 class="ck-h4">Preço Mercado {{dados?.ufMolicar}} </h4>
+                        <div>{{dados?.vprecoUf | currency:'BRL'}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div> -->
+
+
+    <!-- <div [hidden]="resumoLegal.length==0" class="title border-secondary mt-4 pt-2">
+        <div class="svg-28 mb-1 fill-dark mr-3 flex-ac" [inlineSVG]="'juridico.svg'" [removeSVGAttributes]="['class']"></div>
+        <span class="fw-700">LEGAL</span>
+    </div>
+    <div class="row pt-4 px-4 mb-5">
+        <div *ngFor="let r of resumoLegal; let i = index;" class="col-12 col-sm-6 col-md-4 mb-3">
+            <div [hidden]="r.mostrar=='N'">
+                <h4 class="fw-500 f-16 mb-1"> {{r.pergunta}} </h4>
+                <ck-tag [status]="r.status" [text]="r.resposta"></ck-tag>
+            </div>
+        </div>
+    </div> -->
+
+

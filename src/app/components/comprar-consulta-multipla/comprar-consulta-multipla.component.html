@@ -1,0 +1,69 @@
+
+<div class="container pt-3 pt-md-5 pb-5 mb-5">
+  <div>
+    <div class="d-none d-sm-flex flex-ae flex-jc mb-4 text-center">
+      <h2 class="consulta-container mr-1 mr-lg-5 f-20 mb-0">
+        TIPO DE CONSULTA
+      </h2>
+
+      <h2 class="quantidade-container mx-1 mx-md-5 f-20  mb-0">
+        QUANTIDADE
+      </h2>
+
+      <h2 class="preco-uni-container mx-1 f-20 mb-0">
+        PREÇO UNITÁRIO
+      </h2>
+
+      <div class="d-lg-block d-none ml-0 ml-md-5" style="width: 180px;"></div>
+
+    </div>
+    <div *ngFor="let c of consultas; let i=index"
+    class="consulta flex-ac flex-wrap flex-sm-nowrap justify-content-between justify-sm-content-center mb-2 mb-sm-4 mb-lg-5" [ngClass]="{'active':c.label==hoverLabel}"
+      (mouseenter)="setDesc(c.desc, c.label)">
+
+      <div class="consulta-container flex-ac mr-0 mr-sm-3 mr-lg-5">
+        <div class="img-container mr-2 mr-lg-4">
+          <div class="img-wrap">
+            <img src="./assets/images/{{c.icon}}" alt="">
+          </div>
+          <!--div class="img-wrap" [inlineSVG]="c.icon"></div-->
+        </div>
+        <h3 class="f-20 f-md-22 f-lg-26 mb-0">{{c.label}}</h3>
+      </div>
+
+      <ck-counter [(value)]="c.quantidade" (valueChange)="updateValorTotal()" class="mx-sm-1 mx-md-5"></ck-counter>
+      <div class="d-sm-none ml-1 my-2 f-18 fw-500">
+        Valor unitário:
+      </div>
+      <div class="price-container mx-1 mx-lg-3">
+        <span>R$</span>
+        <span>{{c.valorReais}}</span>
+        <span>,{{c.valorCentavos}}</span>
+      </div>
+
+      <a href="{{c.link}}" target="_blank" class="d-none d-lg-block btn btn-lg px-5 btn-outline-orange-1  ml-0 ml-md-5">Detalhes</a>
+
+    </div>
+  </div>
+
+  <!-- <div class="mb-3 mb-md-4 mx-1 md-sm-0 rounded bg-silver p-2 p-md-3 d-flex align-items-center justify-content-between">
+    <div class="fw-700 f-md-18 f-16">
+      Para comprar uma Vistoria Veicular
+    </div>
+    <a [routerLink]="['/comprar-consulta-placa','laudo']" [queryParams]="{next: 'CONSULTA'}" class="btn btn-lg btn-orange-1 px-md-5">Clique aqui</a>
+  </div> -->
+
+  <div class="d-flex flex-align-end flex-sm-align-start no-gutters flex-column flex-lg-row px-3">
+    <div [innerHTML]="hoverDesc" class="fw-500 f-16 f-sm-18 w-100 pt-3 pb-3 pb-sm-0 pb-sm-0"></div>
+    <div class="ml-lg-5 ml-0 text-nowrap">
+      <h4 class="fw-700 f-20 text-default">Total a pagar:</h4>
+      <div class="price-container-lg mb-2">
+        <span>R$</span>
+        <span>{{valorTotalReais}}</span>
+        <span>,{{valorTotalCentavos}}</span>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+</div>

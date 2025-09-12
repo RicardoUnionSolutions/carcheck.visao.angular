@@ -1,0 +1,163 @@
+::ng-deep tab-nav {
+  height: fit-content;
+  border: solid 1px #235b7529;
+  width: fit-content;
+  border-radius: 20px;
+}
+
+::ng-deep .tab.active {
+  border-radius: 17px;
+  margin: 0px !important;
+
+
+}
+
+::ng-deep.active:after {
+  content: none !important;
+}
+
+.content {
+  box-shadow: 4px 9px 20px 0px #cdd1d3;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+/* Container do checkbox */
+.custom-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Esconde o checkbox original */
+.custom-checkbox {
+  display: none;
+}
+
+/* Estiliza o label para se parecer com um checkbox */
+.custom-checkbox + label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+/* Caixa do checkbox personalizada */
+.custom-checkbox + label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ccc;
+  border-radius: 5px; /* Caixa arredondada */
+  background-color: #fff;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+
+
+/* Estado de foco */
+.custom-checkbox:focus + label::before {
+  border-color: #ecda26
+}
+
+/* Estado de seleção */
+.custom-checkbox:checked + label::before {
+  border-color: #ecda26
+}
+
+/* Exibe a marca de seleção quando o checkbox está marcado */
+.custom-checkbox:checked + label::after {
+  opacity: 1;
+  animation: checkmark-appear 0.3s forwards;
+}
+
+/* Animação ao clicar */
+.custom-checkbox + label::before {
+  transition: all 0.3s ease;
+}
+
+.custom-checkbox:checked + label::before {
+  transform: scale(1.1);
+}
+
+.custom-checkbox:not(:checked) + label::before {
+  transform: scale(1);
+}
+
+/* Animação ao desmarcar */
+.custom-checkbox:not(:checked) + label::after {
+  opacity: 0;
+  animation: checkmark-disappear 0.3s forwards;
+}
+
+/* Marca de seleção personalizada */
+.custom-checkbox + label::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 2px;
+  width: 10px;
+  height: 20px;
+  border: solid #304d5a;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Keyframes para a animação de aparecer e desaparecer */
+@keyframes checkmark-appear {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes checkmark-disappear {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+input,
+  textarea {
+    padding: 0px;
+    border: none;
+    outline: none;
+    background: rgb(238, 238, 238);
+    background: linear-gradient(0deg, rgba(238, 238, 238, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    height: 40px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px 10px;
+    transition: 200ms ease-in;
+    font-weight: 500;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  textarea:focus,
+  input:focus {
+    border: 2px solid #244b5a;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  textarea:focus+label,
+  input:focus+label {
+    color: #244b5a;
+  }
+  .btn-cupom{
+    height: 38px;
+    width: 60px;
+  }

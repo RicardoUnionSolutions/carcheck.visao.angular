@@ -1,0 +1,373 @@
+---
+alwaysApply: true
+---
+
+# Melhores Práticas SCSS para Componentes Standalone Angular 20
+
+## Visão Geral
+Este documento define as melhores práticas para uso de SCSS em componentes standalone do Angular 20, baseado na documentação oficial e nas práticas recomendadas da comunidade.
+
+## 1. Uso de @use vs @import
+
+### ✅ CORRETO - Usar @use
+```scss
+// ✅ Preferir @use para módulos Sass modernos
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:color';
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+```
+
+### ❌ EVITAR - @import depreciado
+```scss
+// ❌ @import está depreciado e será removido no Dart Sass 3.0.0
+@import 'functions', 'variables', 'mixins/breakpoints';
+```
+
+## 2. Configuração do Angular.json
+
+### ⚠️ IMPORTANTE - Configuração do includePaths
+O Angular 20 permite configurar `includePaths` no `angular.json` para simplificar os caminhos de importação:
+
+```json
+// angular.json
+{
+  "projects": {
+    "carcheck": {
+      "architect": {
+        "build": {
+          "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss/bootstrap",
+                "src/assets/scss/style"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### ✅ CORRETO - Usar includePaths (Recomendado)
+```scss
+// ✅ Usar caminhos simplificados com includePaths
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+```
+
+### ❌ EVITAR - Caminhos relativos longos
+```scss
+// ❌ Caminhos relativos longos e propensos a erro
+@use '../../../../assets/scss/bootstrap/_variables' as *;
+@use '../../../../assets/scss/bootstrap/mixins/_breakpoints' as *;
+```
+
+## 3. Estrutura de Arquivos SCSS
+
+### Arquivo de Configuração Central
+```scss
+// src/assets/scss/bootstrap/_config.scss
+@use "sass:math";
+@use "sass:map";
+@use "sass:color";
+
+// Importar variáveis
+@use "variables" as *;
+
+// Importar funções (sem dependência circular)
+@use "_functions" as *;
+
+// Importar mixins
+@use "mixins/breakpoints" as *;
+@use "mixins/hover" as *;
+// ... outros mixins
+```
+
+### Componentes Standalone
+```scss
+// src/app/components/meu-componente/meu-componente.component.scss
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+
+// Variáveis locais do componente
+$component-padding: 1rem;
+$component-border-radius: 0.25rem;
+
+:host {
+  display: block;
+  padding: $component-padding;
+}
+
+.componente-container {
+  border-radius: $component-border-radius;
+  
+  @include media-breakpoint-down(md) {
+    padding: $component-padding * 0.5;
+  }
+}
+```
+
+## 4. Evitar Dependências Circulares
+
+### ❌ PROBLEMA - Loop de módulos
+```scss
+// _variables.scss
+@use "functions" as *;
+
+// _functions.scss  
+@use "variables" as *; // ❌ Cria dependência circular
+```
+
+### ✅ SOLUÇÃO - Dependências unidirecionais
+```scss
+// _variables.scss
+@use "sass:math";
+@use "sass:map";
+@use "sass:color";
+@use "_functions" as *;
+
+// _functions.scss
+@use "sass:math";
+@use "sass:map";
+@use "sass:color";
+// Não importa _variables.scss
+```
+
+## 5. Estrutura de Pastas Recomendada
+
+```
+src/
+├── assets/
+│   └── scss/
+│       └── bootstrap/
+│           ├── _config.scss
+│           ├── _variables.scss
+│           ├── _functions.scss
+│           └── mixins/
+│               └── _breakpoints.scss
+└── app/
+    └── components/
+        └── meu-componente/
+            └── meu-componente.component.scss
+```
+
+## 6. Variáveis e Mixins
+
+### Variáveis Locais do Componente
+```scss
+// Definir variáveis específicas do componente no topo
+$component-primary-color: #007bff;
+$component-spacing: 1rem;
+$component-border-radius: 0.25rem;
+
+:host {
+  --component-padding: #{$component-spacing};
+  --component-radius: #{$component-border-radius};
+}
+```
+
+### Uso de Mixins Responsivos
+```scss
+.responsive-container {
+  padding: 1rem;
+  
+  @include media-breakpoint-down(md) {
+    padding: 0.5rem;
+  }
+  
+  @include media-breakpoint-down(sm) {
+    padding: 0.25rem;
+  }
+}
+```
+
+## 7. Encapsulamento de Estilos
+
+### ViewEncapsulation
+```typescript
+// Componente TypeScript
+@Component({
+  selector: 'app-meu-componente',
+  templateUrl: './meu-componente.component.html',
+  styleUrls: ['./meu-componente.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated // Padrão
+})
+export class MeuComponenteComponent {}
+```
+
+### Estilos Globais
+```scss
+// Para estilos globais, usar :host
+:host {
+  display: block;
+  width: 100%;
+}
+
+// Para estilos específicos do componente
+.meu-componente {
+  background: white;
+  border-radius: 0.25rem;
+}
+```
+
+## 8. Performance e Otimização
+
+### Evitar Imports Desnecessários
+```scss
+// ✅ Importar apenas o necessário
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+
+// ❌ Evitar imports não utilizados
+@use 'functions' as *; // Se não usar funções
+```
+
+### Usar Variáveis CSS para Temas
+```scss
+:host {
+  --primary-color: #{$primary};
+  --secondary-color: #{$secondary};
+  --text-color: #{$body-color};
+}
+
+.componente {
+  color: var(--text-color);
+  background: var(--primary-color);
+}
+```
+
+## 9. Migração de @import para @use
+
+### Conversão Manual
+```scss
+// ANTES (❌)
+@import 'functions', 'variables', 'mixins/breakpoints';
+
+// DEPOIS (✅)
+@use 'functions' as *;
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+```
+
+## 10. Problemas Comuns na Migração Angular 9 → 20
+
+### ⚠️ Erro de Caminho de Arquivo
+```bash
+# ❌ ERRO COMUM
+X [ERROR] Can't find stylesheet to import.
+  ╷
+1 │ @use '../../../../assets/scss/bootstrap/variables' as *;
+  │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+```
+
+**Causa**: Caminhos relativos longos e complexos
+**Solução**: Usar `includePaths` no `angular.json`
+
+### ⚠️ Dependências Circulares
+```scss
+// ❌ PROBLEMA
+// _variables.scss
+@use "functions" as *;
+
+// _functions.scss  
+@use "variables" as *; // Cria dependência circular
+```
+
+**Solução**: Corrigir para `@use "_functions" as *;`
+
+### ⚠️ Arquivos com Underscore
+```scss
+// ❌ ERRO - Arquivo não encontrado
+@use 'variables' as *;
+
+// ✅ CORRETO - Incluir underscore
+@use '_variables' as *;
+```
+
+## 11. Checklist de Validação
+
+### Antes de Commitar
+- [ ] Configurar `includePaths` no `angular.json`
+- [ ] Converter todos os `@import` para `@use`
+- [ ] Corrigir dependências circulares
+- [ ] Verificar se arquivos têm underscore (`_`)
+- [ ] Testar build com `ng build`
+- [ ] Testar servidor com `npm start`
+
+### Verificação de Build
+```bash
+# Verificar se não há erros de SCSS
+ng build --configuration development
+
+# Verificar warnings de depreciação
+ng build --verbose
+```
+
+## 12. Exemplos Práticos
+
+### Componente Simples
+```scss
+// src/app/components/button/button.component.scss
+@use 'variables' as *;
+
+$button-padding: 0.75rem 1.5rem;
+$button-border-radius: 0.25rem;
+
+:host {
+  display: inline-block;
+}
+
+.btn {
+  padding: $button-padding;
+  border-radius: $button-border-radius;
+  background: $primary;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  
+  &:hover {
+    background: darken($primary, 10%);
+  }
+}
+```
+
+### Componente com Responsividade
+```scss
+// src/app/components/card/card.component.scss
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
+
+$card-padding: 1.5rem;
+$card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+.card {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $card-shadow;
+  padding: $card-padding;
+  
+  @include media-breakpoint-down(md) {
+    padding: $card-padding * 0.75;
+  }
+  
+  @include media-breakpoint-down(sm) {
+    padding: $card-padding * 0.5;
+  }
+}
+```
+
+## Conclusão
+
+Seguir essas práticas garante:
+- ✅ Compatibilidade com Angular 20
+- ✅ Performance otimizada
+- ✅ Manutenibilidade do código
+- ✅ Evita erros de build
+- ✅ Código mais limpo e organizado
+
+Para mais informações, consulte a [documentação oficial do Angular](https://angular.dev) e a [documentação do Sass](https://sass-lang.com/).

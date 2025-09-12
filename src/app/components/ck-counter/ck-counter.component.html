@@ -1,0 +1,13 @@
+<div class="flex-ac">
+
+<button [disabled]="minValue==value" (click)="remove()" class="btn btn-sm btn-outline-orange-1">
+    <i class="mdi mdi-minus"></i>
+</button>
+
+<input [(ngModel)]="value" [textMask]="mask" (keydown)="keyDown($event)" (keypress)="keyPress($event)" (ngModelChange)="modelChange()" (blur)="blur()" class="mx-2 mx-lg-4 border-dark f-20 f-md-24" type="text">
+
+<button [disabled]="maxValue==value" (click)="add()" class="btn btn-sm btn-outline-orange-1">
+  <i class="mdi mdi-plus"></i>
+</button>
+
+</div>

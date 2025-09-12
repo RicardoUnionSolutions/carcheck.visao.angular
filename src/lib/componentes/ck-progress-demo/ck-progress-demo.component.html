@@ -1,0 +1,188 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-progress-demo">
+  <h2>CK Progress Bar - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Barra de Progresso Básica</h3>
+    <div class="progress-example">
+      <div class="progress-label">
+        <span>Progresso: {{ progressValue }}%</span>
+        <div class="progress-controls">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            [(ngModel)]="progressValue"
+            class="progress-slider"
+          />
+        </div>
+      </div>
+      <div class="ck-progress">
+        <div
+          class="ck-progress-bar"
+          [style.width.%]="progressValue"
+          [style.background-color]="getProgressColor(progressValue)"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tamanhos</h3>
+    <div class="size-demo">
+      <div class="size-item">
+        <h4>Pequeno</h4>
+        <div class="ck-progress small">
+          <div class="ck-progress-bar" style="width: 60%"></div>
+        </div>
+      </div>
+      <div class="size-item">
+        <h4>Médio</h4>
+        <div class="ck-progress medium">
+          <div class="ck-progress-bar" style="width: 60%"></div>
+        </div>
+      </div>
+      <div class="size-item">
+        <h4>Grande</h4>
+        <div class class="ck-progress large">
+          <div class="ck-progress-bar" style="width: 60%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Cores</h3>
+    <div class="color-demo">
+      <div class="color-item">
+        <h4>Padrão</h4>
+        <div class="ck-progress">
+          <div class="ck-progress-bar" style="width: 70%"></div>
+        </div>
+      </div>
+      <div class="color-item">
+        <h4>Sucesso</h4>
+        <div class="ck-progress">
+          <div class="ck-progress-bar success" style="width: 70%"></div>
+        </div>
+      </div>
+      <div class="color-item">
+        <h4>Aviso</h4>
+        <div class="ck-progress">
+          <div class="ck-progress-bar warning" style="width: 70%"></div>
+        </div>
+      </div>
+      <div class="color-item">
+        <h4>Erro</h4>
+        <div class="ck-progress">
+          <div class="ck-progress-bar danger" style="width: 70%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Com Texto</h3>
+    <div class="text-demo">
+      <div class="ck-progress">
+        <div class="ck-progress-bar" style="width: 65%">
+          <span class="progress-text">65% Concluído</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Animada</h3>
+    <div class="animated-demo">
+      <div class="ck-progress">
+        <div
+          class="ck-progress-bar animated"
+          [style.width.%]="progressAnimated"
+        ></div>
+      </div>
+      <button
+        class="btn-primary"
+        (click)="startAnimation()"
+        [disabled]="isAnimated"
+      >
+        {{ isAnimated ? "Animando..." : "Iniciar Animação" }}
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Listrada</h3>
+    <div class="striped-demo">
+      <div class="ck-progress">
+        <div
+          class="ck-progress-bar striped"
+          [style.width.%]="progressStriped"
+        ></div>
+      </div>
+      <div class="progress-controls">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          [(ngModel)]="progressStriped"
+          class="progress-slider"
+        />
+        <span>{{ progressStriped }}%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Múltiplas Barras</h3>
+    <div class="multiple-demo">
+      <div class="ck-progress">
+        <div class="ck-progress-bar" style="width: 25%">
+          <span class="progress-text">25%</span>
+        </div>
+        <div class="ck-progress-bar success" style="width: 30%">
+          <span class="progress-text">30%</span>
+        </div>
+        <div class="ck-progress-bar warning" style="width: 20%">
+          <span class="progress-text">20%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Simulação de Carregamento</h3>
+    <div class="simulation-demo">
+      <div class="simulation-container">
+        <div class="ck-progress">
+          <div class="ck-progress-bar" [style.width.%]="simulationProgress">
+            <span class="progress-text" *ngIf="simulationProgress > 0">
+              {{ simulationProgress }}%
+            </span>
+          </div>
+        </div>
+        <div class="simulation-text" *ngIf="isSimulating">
+          Carregando arquivos... {{ simulationProgress }}%
+        </div>
+      </div>
+      <button
+        class="btn-primary"
+        (click)="simulateProgress()"
+        [disabled]="isSimulating"
+      >
+        {{ isSimulating ? "Carregando..." : "Simular Carregamento" }}
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles</h3>
+    <div class="controls">
+      <button class="btn-secondary" (click)="resetAll()">Resetar Todas</button>
+      <button class="btn-primary" (click)="progressValue = 100">
+        Completar (100%)
+      </button>
+    </div>
+  </div>
+</div>

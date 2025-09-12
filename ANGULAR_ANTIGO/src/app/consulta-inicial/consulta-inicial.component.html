@@ -1,0 +1,174 @@
+<!-- new consulta teste  -->
+<div *ngIf="!loading" class="container d-flex flex-column">
+  <div appAppearOnScroll class="ck-card">
+    <div class="ck-card-title text-uppercase"><img src="./assets/images/icons-consulta-carcheck/carSVG.svg"
+        style="width: 50px;"> informações sobre o veículo
+    </div>
+    <div *ngIf="dadosVeiculo == null && erroAoConsultar">
+      <div class="avisoLimite">
+        <h2 class=" text-secondary">
+          <strong>
+            Ops !!
+          </strong>
+        </h2>
+        <p class="f-16 f-md-18 text-secondary"><b><br>
+            Serviço de consulta experimental temporariamente indisponível </b></p>
+        <p class="f-16 f-md-18 text-secondary"> Caso problema persistir, entre em contato conosco.</p>
+      </div>
+    </div>
+    <div *ngIf="limiteAtingido">
+      <div class="avisoLimite">
+        <h2 class=" text-secondary">
+          <strong>
+            Ops !!
+          </strong>
+        </h2>
+        <p class="f-16 f-md-18 text-secondary"><b><br>
+            Limite de consultas experimental atingido. </b></p>
+        <p class="f-16 f-md-18 text-secondary"> Volte amanhã para realizar novas consultas experimental, ou utilize de
+          nossos serviços pagos.</p>
+      </div>
+    </div>
+
+    <div *ngIf="this.dadosVeiculo != null" class="ck-card-body flex-ac flex-column flex-md-row">
+      <div class="logo-marca-container mb-3 mb-md-0">
+        <div class="img-circle"><img alt="" src="./assets/images/marcas/{{this.dadosVeiculo.img}}.png" height="210px">
+        </div>
+        <div class="containerPlaca">
+          <div class="placa">
+            <h2 class="nrPlaca">{{this.placa}}</h2>
+            <img class="placa-img" src="./assets/images/Placa.svg" alt="" srcset="">
+          </div>
+        </div>
+      </div>
+      <div class="row no-gutters w-100">
+        <div class="col-12 col-lg-6 margin-0">
+          <ul class="list-inline striped-list px-2">
+            <div class="subtitle" style="font-weight: 800;"> VEÍCULO </div>
+            <li class="pb-3">
+              <h4 class="text-secondary f-12 format-compacta">MARCA / MODELO: </h4><span
+                class="text-uppercase format-compacta">{{this.dadosVeiculo.veiculo.modelo}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Fabricação /
+                Modelo:</h4><span class="text-uppercase format-compacta">{{this.dadosVeiculo.veiculo.anoFabricacao}} /
+                {{this.dadosVeiculo.veiculo.anoModelo}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Cor:</h4><span
+                class="text-uppercase format-compacta">{{this.dadosVeiculo.veiculo.cor}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Chassi:</h4><span
+                class="text-uppercase format-compacta">{{this.dadosVeiculo.veiculo.chassi}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Combustível:</h4>
+              <span class="text-uppercase format-compacta">{{this.dadosVeiculo.veiculo.combustivel}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-6 margin-0 dadosConsulta  ">
+          <ul class=" list-inline px-2">
+            <div class="subtitle" style="font-weight: 800;"> CONSULTA </div>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Entrada:</h4>
+              <span class="text-uppercase format-compacta">{{this.placa}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Data realização:
+              </h4><span class="text-uppercase format-compacta">{{this.dadosVeiculo.listaFipes[0]?.data |
+                date:'mediumDate'}}</span>
+            </li>
+            <li class="pb-3">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Consulta:</h4>
+              <span class="text-uppercase format-compacta">Experimental</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- fim new consulta teste  -->
+
+  <!-- consulta fipe -->
+
+
+  <div *ngIf="this.dadosVeiculo?.listaFipes?.length > 0" appAppearOnScroll class="ck-card">
+    <div class="ck-card-title text-uppercase"><img src="./assets/images/svg/cifrao-circle.svg"
+        style="width: 50px; filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(180deg);"> INFORMAÇÕES
+      DA FIPE
+    </div>
+
+    <div *ngIf="this.dadosVeiculo?.listaFipes?.length > 0">
+      <span class=" fw-600 f-12 p-2 mb-2"> Mes/Ano referencia : {{dadosVeiculo.listaFipes[0]?.fipes[0].mesReferencia}} /
+        {{dadosVeiculo.listaFipes[0]?.fipes[0].anoReferencia}} </span>
+      <div class="ck-card-body table-responsive">
+        <table class="w-100 px-3">
+          <tr class="border-bottom f-14">
+            <th class="px-2 pb-1">
+              Modelo
+            </th>
+
+            <th class="px-2 pb-1">
+              Código fipe
+            </th>
+            <th class="px-2 pb-1">
+              Preço fipe
+            </th>
+          </tr>
+          <tr *ngFor="let d of dadosVeiculo.listaFipes; let i = index;" [ngClass]="{'bg-silver-light': i%2}">
+            <td class="p-2 ">{{d.fipes[0]?.modelo}}</td>
+            <td class="p-2 ">{{d.fipes[0]?.codigoFipe}}</td>
+            <strong>
+              <td class="p-2 ">{{d.fipes[0]?.preco | currency:'BRL'}}</td>
+            </strong>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <h4 *ngIf="!erroAoConsultar && !limiteAtingido" class="text-secondary"><b><br>
+        Informações de Leilão, Recall, Sinistro entre outros...</b>
+      <h5> Você poderá ver em nossas consultas pagas</h5>
+    </h4>
+  </div>
+</div>
+<div *ngIf="!loading">
+  <app-produtos [placa]="this.placa" [detalhesExpandido]="false"></app-produtos>
+  <app-comparar-produto></app-comparar-produto>
+  <app-duvidas-frequentes></app-duvidas-frequentes>
+</div>
+
+<div [hidden]="!loading" class="my-5 position-relative flex-jc">
+  <i class="mdi mdi-loading rotate animation-speed-2000 f-80 text-gray-light"></i>
+</div>
+
+
+<div *ngIf="this.dadosVeiculo != null" class="bannerFixed" id="bannerFixed">
+  <div  class="bannerContainer">
+    <div class="body">
+      <div class="content no-fields">
+        <p class="description">
+        <div style="font-family: Inter, sans-serif;
+        font-weight: 500;
+        font-size: 20px;">
+          E aí {{this.nome}}, curtiu ? Compre agora!
+        </div>
+        <div class="buttons">
+          <button (click)="clickComprar()" type="button" class="btn btn-warning btn-comprar">
+            <span>
+              COMPRAR CONSULTA
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button (click)="closeBanner()" type="button" class="mdi mdi-close"></button>
+  </div>
+</div>

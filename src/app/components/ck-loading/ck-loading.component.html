@@ -1,0 +1,28 @@
+<div class="ck-modal">
+    <div class="ck-modal-body">
+      <div class="position-relative mt-3">
+          <div class="loading-container">
+              <div class="svg-w-50 svg-w-md-60 svg-w-lg-70 fill-orange-1 logo-loading" [inlineSVG]="'checklist.svg'" [removeSVGAttributes]="['class']"></div>
+              <!-- <img class="logo-loading" src="./assets/images/logos/Carcheck_Logos-08.png" alt="" srcset=""> -->
+               <!-- <img class="logo-loading-externa rotate-reverse" src="./assets/images/logos/aspiral-azul.svg" alt="" srcset=""> -->
+               <!-- <img class="logo-loading-externa3 rotate-reverse" src="./assets/images\logos\aspiral-amarelo.png" alt="" srcset="">
+               <img class="logo-loading-externa2 rotate-reverse" src="./assets/images\logos\aspiral-azul.png" alt="" srcset=""> -->
+          </div>
+        <div class="loading-container">
+          <i class="mdi mdi-loading rotate f-50"></i>
+        </div>
+        <div class="loading-container">
+          <i class="mdi mdi-loading rotate-reverse text-default-color f-50"></i>
+        </div>
+
+      </div>
+      <div class="loading-text px-3 pb-3 pb-md-5 px-md-5">
+        <h1 *ngIf="msg?.title" class="text-center fw-700 f-22">{{msg?.title}}</h1>
+        <div *ngIf="msg?.text" class="f-18 fw-500 text-center">
+            {{msg?.text}}
+        </div>
+        <ng-content></ng-content>
+      </div>
+    </div>
+</div>
+<div class="ck-modal-background"></div>

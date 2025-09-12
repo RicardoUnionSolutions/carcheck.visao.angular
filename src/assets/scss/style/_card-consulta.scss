@@ -1,0 +1,111 @@
+.card-consulta{
+    transition: 400ms all linear;
+    align-self: stretch;
+}
+
+.card-consulta:hover{
+    box-shadow: 4px 7px 7px 0px rgba(0,0,0,0.25);
+}
+
+.card-consulta-header{
+    max-height: 110px;
+    overflow: visible;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.card-consulta-img-container{
+    height: 160px;
+    width: 160px;
+    position: relative;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 50%;
+    padding: 6px;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.card-consulta-img-container .mdi,
+.card-consulta-img-container img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: contain;
+    background: white;
+}
+
+.card-consulta-img-container .mdi{
+    font-size: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-consulta-desc{
+    padding: 15px 15px 30px 15px;
+    text-align: center;
+}
+
+.card-consulta-desc h3{
+    font-size: 24px;
+}
+
+.card-consulta-desc p{
+    font-size: 20px;
+    margin: 0px;
+}
+
+.card-consulta-sub{
+    padding: 15px;
+}
+
+.card-consulta-sub h4{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px;
+    padding: 0px;
+}
+
+.card-consulta-sub p{
+    margin: 0px;
+    color: rgba(0,0,0,0.46);
+    font-weight: 500;
+}
+
+.card-consulta-info{
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 7px; 
+}
+
+.card-consulta-info-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border: 2px solid white;
+    color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-consulta-info-text{
+    background: white;
+    color: #333;
+    font-size: 11px;
+    margin-left: -11px;
+    padding: 1px 5px 1px 15px;
+    border-radius: 3px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.card-consulta-info-icon.mdi-alert-outline{
+    padding-bottom: 5px;
+}

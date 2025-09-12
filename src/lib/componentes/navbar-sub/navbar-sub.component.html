@@ -1,0 +1,14 @@
+<div class="navbar-sub">
+  <ul class="navbar-nav">
+    <li
+      *ngFor="let option of options; let i = index"
+      class="nav-item"
+      [class.active]="active === i"
+    >
+      <a class="nav-link" (click)="selectItem(i)" [routerLink]="option.url">
+        <i [class]="'mdi mdi-' + option.icon" *ngIf="option.icon"></i>
+        {{ option.label }}
+      </a>
+    </li>
+  </ul>
+</div>

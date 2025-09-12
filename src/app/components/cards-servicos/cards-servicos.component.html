@@ -1,0 +1,22 @@
+<div class="servicos">
+
+  <div *ngFor="let servico of servicos" class="servico" [ngClass]="{ 'indisponivel': !servico.disponivel }">
+
+    <h3><i class="fas {{servico.icone}}"></i> {{servico.title}}</h3>
+    <div class="descricao">
+      <p>{{servico.descricao}}</p>
+    </div>
+    <a class="btn btn-primario" target="{{servico.target}}" href="{{servico.url}}">{{servico.btn}}</a>
+
+
+
+    <div *ngIf="!servico.disponivel" class="overlay">
+      <span class="em-breve">Em breve, <p class="novidade">novidades no ar!</p></span>
+    </div>
+
+    <p *ngIf="servico.obs !=''" class="obs">
+      {{servico.obs}}
+    </p>
+  </div>
+
+</div>

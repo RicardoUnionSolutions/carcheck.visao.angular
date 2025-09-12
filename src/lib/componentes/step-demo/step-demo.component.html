@@ -1,0 +1,138 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="step-demo">
+  <h2>Step by Step - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Processo de Cadastro</h3>
+    <div class="step-container">
+      <div class="step-progress">
+        <div
+          *ngFor="let step of steps; let i = index"
+          class="step-item"
+          [class.completed]="step.completed"
+          [class.active]="step.active"
+          [class.clickable]="step.completed || step.active"
+          (click)="goToStep(step.id)"
+        >
+          <div class="step-circle">
+            <span *ngIf="!step.completed">{{ step.id }}</span>
+            <span *ngIf="step.completed" class="checkmark">✓</span>
+          </div>
+          <div class="step-content">
+            <h4>{{ step.title }}</h4>
+            <p>{{ step.description }}</p>
+          </div>
+          <div class="step-connector" *ngIf="i < steps.length - 1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Conteúdo da Etapa Atual</h3>
+    <div class="step-content-demo">
+      <div class="content-area">
+        <h4>{{ steps[currentStep - 1].title }}</h4>
+        <p>{{ steps[currentStep - 1].description }}</p>
+
+        <div class="form-example" *ngIf="currentStep === 1">
+          <h5>Formulário de Informações Básicas</h5>
+          <div class="form-group">
+            <label>Nome:</label>
+            <input
+              type="text"
+              placeholder="Digite seu nome"
+              class="form-input"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              placeholder="Digite seu email"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <div class="verification-example" *ngIf="currentStep === 2">
+          <h5>Verificação de Dados</h5>
+          <div class="verification-item">
+            <span class="check">✓</span>
+            <span>Nome: João Silva</span>
+          </div>
+          <div class="verification-item">
+            <span class="check">✓</span>
+            <span>Email: joao@email.com</span>
+          </div>
+        </div>
+
+        <div class="payment-example" *ngIf="currentStep === 3">
+          <h5>Forma de Pagamento</h5>
+          <div class="payment-options">
+            <div class="payment-option">
+              <input type="radio" name="payment" id="credit" />
+              <label for="credit">Cartão de Crédito</label>
+            </div>
+            <div class="payment-option">
+              <input type="radio" name="payment" id="debit" />
+              <label for="debit">Cartão de Débito</label>
+            </div>
+            <div class="payment-option">
+              <input type="radio" name="payment" id="pix" />
+              <label for="pix">PIX</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirmation-example" *ngIf="currentStep === 4">
+          <h5>Confirmação Final</h5>
+          <div class="confirmation-summary">
+            <p>✅ Cadastro realizado com sucesso!</p>
+            <p>📧 Email de confirmação enviado</p>
+            <p>🎉 Bem-vindo à nossa plataforma!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles de Navegação</h3>
+    <div class="step-controls">
+      <button
+        class="btn-secondary"
+        (click)="previousStep()"
+        [disabled]="currentStep === 1"
+      >
+        ← Anterior
+      </button>
+
+      <div class="step-indicator">
+        Etapa {{ currentStep }} de {{ totalSteps }}
+      </div>
+
+      <button
+        class="btn-primary"
+        (click)="nextStep()"
+        [disabled]="currentStep === totalSteps"
+      >
+        Próximo →
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles de Demonstração</h3>
+    <div class="demo-controls">
+      <button class="btn-secondary" (click)="resetSteps()">
+        Resetar Processo
+      </button>
+      <button class="btn-primary" (click)="goToStep(1)">Ir para Etapa 1</button>
+      <button class="btn-primary" (click)="goToStep(2)">Ir para Etapa 2</button>
+      <button class="btn-primary" (click)="goToStep(3)">Ir para Etapa 3</button>
+      <button class="btn-primary" (click)="goToStep(4)">Ir para Etapa 4</button>
+    </div>
+  </div>
+</div>

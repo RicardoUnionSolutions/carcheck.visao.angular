@@ -1,0 +1,41 @@
+<ck-modal id="default-modal-msg">
+<div class="p-3 p-md-4">
+
+    <div class="flex-ac">
+      <div *ngIf="modal?.status===0 || modal?.status==='0'" class="svg-w-40 svg-w-lg-50 fill-success" [inlineSVG]="'check-circle.svg'" [removeSVGAttributes]="['class']"></div>
+      <div *ngIf="modal?.status==1" class="svg-w-40 svg-w-lg-50 fill-orange-1" [inlineSVG]="'alert-circle.svg'" [removeSVGAttributes]="['class']"></div>
+      <div *ngIf="modal?.status==2" class="svg-w-40 svg-w-lg-50 fill-danger" [inlineSVG]="'x-circle.svg'" [removeSVGAttributes]="['class']"></div>
+      <div *ngIf="!modal?.status || modal?.status==4 || modal?.status==3" class="svg-w-40 svg-w-lg-50 fill-blue" [inlineSVG]="'info-circle.svg'" [removeSVGAttributes]="['class']"></div>
+      <h1 class="text-default fw-700 f-20" [ngClass]="{'ml-2 ml-md-3': modal?.status>-1}" >{{modal?.title}}</h1>
+    </div>
+
+    <div class="mb-4 mb-5-lg mt-2">
+        <div *ngIf="modal.html==false"  class="f-18 fw-500 text-secondary">
+            {{modal?.text}}
+        </div>
+        <div *ngIf="modal.html==true" class="f-18 fw-500 text-secondary" [innerHTML]="modal?.text">
+        </div>
+    </div>
+
+    <div class="flex-jb">
+        <button [hidden]="modal?.cancel?.show===false" (click)="cancelEvent()" class="btn btn-secondary px-md-5"
+        [ngClass]="{
+          'btn-secondary': modal?.cancel?.status < 0 ||  modal?.cancel.status > 4,
+          'btn-success':  modal?.cancel?.status == 0,
+          'btn-orange-1':  modal?.cancel?.status == 1,
+          'btn-danger':  modal?.cancel?.status == 2,
+          'btn-blue':  modal?.cancel?.status == 4
+        }"> {{modal?.cancel?.text==null ? 'Cancelar' : modal?.cancel?.text}} </button>
+        <div></div>
+        <button [hidden]="modal?.ok?.show===false" (click)="okEvent()" class="btn btn-success  px-md-5"
+        [ngClass]="{
+          'btn-secondary': modal?.ok?.status < 0 ||  modal?.ok.status > 4,
+          'btn-success': modal?.ok?.status == 0,
+          'btn-orange-1': modal?.ok?.status == 1,
+          'btn-danger': modal?.ok?.status == 2,
+          'btn-blue': modal?.ok?.status == 4
+        }"> {{modal?.ok?.text==null ? 'Confimar' : modal?.ok?.text}} </button>
+    </div>
+
+</div>
+</ck-modal>

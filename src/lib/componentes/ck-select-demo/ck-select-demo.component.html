@@ -1,0 +1,128 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-select-demo">
+  <h2>CK Select - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Select Básico</h3>
+    <div class="input-group">
+      <label>Escolha uma opção:</label>
+      <select
+        [(ngModel)]="selectedOption"
+        (change)="onSelectChange(selectedOption)"
+        class="ck-select"
+      >
+        <option value="">Selecione uma opção</option>
+        <option *ngFor="let option of options" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <span class="input-value"
+        >Valor selecionado: {{ selectedOption || "Nenhum" }}</span
+      >
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Select com Países</h3>
+    <div class="input-group">
+      <label>País:</label>
+      <select [(ngModel)]="selectedOption" class="ck-select">
+        <option value="">Selecione um país</option>
+        <option *ngFor="let country of countries" [value]="country.value">
+          {{ country.label }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Select Múltiplo</h3>
+    <div class="input-group">
+      <label>Estados (múltipla seleção):</label>
+      <select
+        [(ngModel)]="selectedMultiple"
+        (change)="onMultipleChange(selectedMultiple)"
+        class="ck-select"
+        multiple
+        size="4"
+      >
+        <option *ngFor="let state of states" [value]="state.value">
+          {{ state.label }}
+        </option>
+      </select>
+      <span class="input-value"
+        >Estados selecionados:
+        {{ selectedMultiple.join(", ") || "Nenhum" }}</span
+      >
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Select Obrigatório com Validação</h3>
+    <div class="input-group">
+      <label>Campo Obrigatório: <span class="required">*</span></label>
+      <select
+        [(ngModel)]="selectedError"
+        (blur)="validateRequired()"
+        class="ck-select"
+        [class.error]="hasError"
+        required
+      >
+        <option value="">Selecione uma opção</option>
+        <option *ngFor="let option of options" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <span *ngIf="hasError" class="error-message"
+        >Este campo é obrigatório</span
+      >
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Estados do Select</h3>
+    <div class="input-group">
+      <label>Normal:</label>
+      <select class="ck-select">
+        <option value="">Estado normal</option>
+        <option value="1">Opção 1</option>
+        <option value="2">Opção 2</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Desabilitado:</label>
+      <select class="ck-select" disabled>
+        <option value="">Campo desabilitado</option>
+        <option value="1">Opção 1</option>
+        <option value="2">Opção 2</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>Com Erro:</label>
+      <select class="ck-select error">
+        <option value="">Campo com erro</option>
+        <option value="1">Opção 1</option>
+        <option value="2">Opção 2</option>
+      </select>
+      <span class="error-message">Mensagem de erro</span>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles de Demonstração</h3>
+    <div class="controls">
+      <button class="btn-secondary" (click)="toggleDisabled()">
+        {{ isDisabled ? "Habilitar" : "Desabilitar" }} Select
+      </button>
+      <button
+        class="btn-primary"
+        (click)="selectedOption = ''; selectedMultiple = []; selectedError = ''"
+      >
+        Limpar Seleções
+      </button>
+    </div>
+  </div>
+</div>

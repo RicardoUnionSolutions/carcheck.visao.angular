@@ -1,0 +1,38 @@
+@import 'functions', 'variables', 'mixins/breakpoints';
+
+.btn{
+    height: 30px;
+    width: 30px;
+    min-height: 30px;
+    min-width: 30px;
+    font-size: 24px;
+    line-height: 1;
+    border-radius: 50%;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 200ms all linear;
+
+    &:active{
+        box-shadow: none;
+    }
+}
+
+input{
+    height: 45px;
+    border: 1px solid;
+    border-radius: 4px;
+    width: 80px;
+    padding: 5px;
+    text-align: center;   
+}
+
+
+@include media-breakpoint-down(sm) {
+    input{
+        height: 37px;
+        border-radius: 3px;
+        width: 50px;
+    }
+}

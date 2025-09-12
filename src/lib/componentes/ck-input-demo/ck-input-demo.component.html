@@ -1,0 +1,101 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-input-demo">
+  <h2>CK Input - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Input Básico</h3>
+    <div class="input-group">
+      <label>Nome:</label>
+      <input
+        type="text"
+        [(ngModel)]="inputValue"
+        (input)="onInputChange(inputValue)"
+        placeholder="Digite seu nome"
+        class="ck-input"
+      />
+      <span class="input-value">Valor: {{ inputValue }}</span>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Input de Email com Validação</h3>
+    <div class="input-group">
+      <label>Email:</label>
+      <input
+        type="email"
+        [(ngModel)]="emailValue"
+        (blur)="onEmailBlur()"
+        placeholder="Digite seu email"
+        class="ck-input"
+        [class.error]="inputError"
+      />
+      <span *ngIf="inputError" class="error-message">Email inválido</span>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Input de Senha</h3>
+    <div class="input-group">
+      <label>Senha:</label>
+      <div class="password-input">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="passwordValue"
+          placeholder="Digite sua senha"
+          class="ck-input"
+        />
+        <button
+          type="button"
+          class="toggle-password"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ showPassword ? "👁️" : "👁️‍🗨️" }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Input Obrigatório</h3>
+    <div class="input-group">
+      <label>Campo Obrigatório: <span class="required">*</span></label>
+      <input
+        type="text"
+        [(ngModel)]="requiredValue"
+        (blur)="validateRequired()"
+        placeholder="Este campo é obrigatório"
+        class="ck-input"
+        [class.error]="inputError"
+        required
+      />
+      <span *ngIf="inputError" class="error-message"
+        >Este campo é obrigatório</span
+      >
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Estados do Input</h3>
+    <div class="input-group">
+      <label>Normal:</label>
+      <input type="text" placeholder="Estado normal" class="ck-input" />
+    </div>
+
+    <div class="input-group">
+      <label>Desabilitado:</label>
+      <input
+        type="text"
+        placeholder="Campo desabilitado"
+        class="ck-input"
+        disabled
+      />
+    </div>
+
+    <div class="input-group">
+      <label>Com Erro:</label>
+      <input type="text" placeholder="Campo com erro" class="ck-input error" />
+      <span class="error-message">Mensagem de erro</span>
+    </div>
+  </div>
+</div>

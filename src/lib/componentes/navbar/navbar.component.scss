@@ -1,0 +1,542 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use "sass:color";
+
+// Evita scroll horizontal quando sidebar está fechada
+:host {
+  overflow-x: hidden;
+}
+
+// Cores do sistema baseadas nas variáveis do Bootstrap
+$primary-color: #304d5a; // $blue-2
+$secondary-color: #ecda26; // $orange
+$accent-color: #243646; // Cor escura para contraste
+$white-color: #ffffff;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(75deg, #243646, #244b5a 59%, #181818 150%);
+  border-bottom: solid;
+  border-width: 5px;
+  border-color: #243646;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .custom-logo-link {
+    display: flex;
+    align-items: center;
+
+    .custom-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .icon-logo {
+      padding-right: 10px;
+      margin-top: 8px;
+      height: 30px;
+      width: auto;
+      padding-left: 15px;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+    a {
+      color: $white-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+
+      &:hover {
+        color: $secondary-color;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    // Estilos dos botões agora são gerenciados pelo componente ButtonComponent
+    app-button {
+      display: inline-block;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: $secondary-color;
+      border: 2px solid $secondary-color;
+      color: $primary-color;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: color.adjust($secondary-color, $lightness: -10%);
+        border-color: color.adjust($secondary-color, $lightness: -10%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  // Mobile menu styles are now in _sidebar.scss
+  // Only navbar-specific styles remain here
+
+  .nav-actions {
+    .menu-toggle {
+      @extend .sidebar-toggle !optional;
+      display: none;
+    }
+  }
+}
+
+// Responsividade - Sistema completo de breakpoints
+
+// Desktop grande (1200px+)
+@include media-breakpoint-up(xl) {
+  .navbar {
+    padding: 15px 40px;
+    
+    .nav-links {
+      gap: 30px;
+    }
+    
+    .nav-actions {
+      gap: 15px;
+    }
+  }
+}
+
+// Desktop médio (992px - 1199px)
+@include media-breakpoint-down(xl) {
+  .navbar {
+    padding: 20px 30px;
+    
+    .nav-links {
+      gap: 25px;
+    }
+  }
+}
+
+// Tablet (768px - 991px)
+@include media-breakpoint-down(lg) {
+  .navbar {
+    padding: 20px 20px;
+    
+    .nav-links {
+      gap: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-actions {
+      gap: 10px;
+    }
+  }
+}
+
+// Mobile grande (576px - 767px)
+@include media-breakpoint-down(md) {
+  .navbar {
+    padding: 20px 15px;
+    
+    .custom-logo-link {
+      .custom-logo {
+        height: 35px;
+      }
+      
+      .icon-logo {
+        height: 25px;
+        padding-right: 8px;
+      }
+    }
+    
+    .nav-links {
+      display: none;
+    }
+
+    .nav-actions {
+      app-button {
+        display: none !important;
+      }
+
+      .menu-toggle {
+        display: flex;
+        padding: 8px;
+      }
+    }
+  }
+}
+
+// Mobile pequeno (até 575px)
+@include media-breakpoint-down(sm) {
+  .navbar {
+    padding: 20px 10px;
+    
+    .custom-logo-link {
+      .custom-logo {
+        height: 30px;
+      }
+      
+      .icon-logo {
+        height: 20px;
+        padding-right: 5px;
+        padding-left: 10px;
+      }
+    }
+    
+    .nav-actions {
+      .menu-toggle {
+        padding: 6px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+// Mobile extra pequeno (até 375px)
+@media (max-width: 375px) {
+  .navbar {
+    padding: 6px 8px;
+    
+    .custom-logo-link {
+      .custom-logo {
+        height: 28px;
+      }
+      
+      .icon-logo {
+        height: 18px;
+        padding-right: 3px;
+        padding-left: 8px;
+      }
+    }
+  }
+}
+
+// Estilos para menu do usuário
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .user-name {
+    color: $white-color;
+    font-weight: 500;
+    margin-right: 10px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: $secondary-color;
+      transform: translateY(-1px);
+    }
+  }
+
+  .user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: $white-color;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    a {
+      display: block;
+      padding: 12px 16px;
+      color: $accent-color;
+      text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.2s ease;
+      font-weight: 500;
+
+      &:last-child {
+        border-bottom: none;
+        color: #dc3545;
+      }
+
+      &:hover {
+        background: color.adjust($secondary-color, $lightness: 40%);
+        color: $primary-color;
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  &:hover .user-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+// Estilos para o sidebar integrado
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none; // Evita interferência quando fechado
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; // Permite interação quando aberto
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px; // Aumentei para garantir que fique completamente fora
+  width: 300px;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    $primary-color 0%,
+    $accent-color 100%
+  );
+  z-index: 9999;
+  transition: all 0.3s ease;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden; // Evita que conteúdo vaze
+  visibility: hidden; // Esconde quando fechada
+
+  &.open {
+    right: 0;
+    visibility: visible; // Mostra quando aberta
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: $primary-color;
+    position: relative;
+
+
+    h3 {
+      color: $white-color;
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: 0.5px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: $secondary-color;
+        border-radius: 1px;
+      }
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: $white-color;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: $secondary-color;
+        border-color: $secondary-color;
+        color: $primary-color;
+        transform: translateY(-2px) rotate(90deg);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0) rotate(90deg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .sidebar-content {
+    padding: 20px 0;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+
+    .sidebar-section {
+      margin-bottom: 30px;
+
+      h4 {
+        color: $secondary-color;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 0 15px 20px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin: 0;
+
+          a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: $white-color;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+
+            i {
+              margin-right: 12px;
+              font-size: 20px;
+              width: 24px;
+              text-align: center;
+              color: $secondary-color;
+              transition: all 0.3s ease;
+              text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+              // Ícones específicos com ajustes de tamanho
+              &.mdi-cog {
+                font-size: 22px;
+                color: color.adjust($secondary-color, $lightness: 10%);
+              }
+
+              &.mdi-newspaper {
+                font-size: 21px;
+                color: color.adjust($secondary-color, $lightness: 5%);
+              }
+
+              &.mdi-magnify {
+                font-size: 19px;
+              }
+
+              &.mdi-cart {
+                font-size: 21px;
+              }
+
+              &.mdi-email {
+                font-size: 20px;
+              }
+
+              &.mdi-home {
+                font-size: 22px;
+              }
+
+              &.mdi-credit-card {
+                font-size: 19px;
+              }
+
+              &.mdi-account {
+                font-size: 21px;
+              }
+
+              &.mdi-logout {
+                font-size: 20px;
+                color: #ff6b6b;
+              }
+
+              &.mdi-login {
+                font-size: 20px;
+              }
+
+              &.mdi-account-plus {
+                font-size: 21px;
+              }
+            }
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+              border-left-color: $secondary-color;
+              transform: translateX(5px);
+
+              i {
+                color: $white-color;
+                transform: scale(1.1);
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 20px 15px;
+
+    .custom-logo-link {
+      .custom-logo {
+        height: 35px;
+      }
+      
+      .icon-logo {
+        height: 25px;
+      }
+    }
+
+    .sidebar {
+      width: 100%;
+      right: -100%;
+    }
+  }
+}

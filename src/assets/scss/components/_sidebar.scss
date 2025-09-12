@@ -1,0 +1,225 @@
+// ========================================
+// UNIFIED SIDEBAR COMPONENT
+// ========================================
+// Um único tipo de sidebar para todo o sistema
+// Design simples, moderno e consistente
+
+@use "sass:color";
+@use "../bootstrap/variables" as *;
+
+// ========================================
+// VARIABLES - Usando cores do sistema
+// ========================================
+$sidebar-width: 280px;
+$sidebar-bg: $white;
+$sidebar-accent: $default-color; // #304d5a - cor primária do sistema
+$sidebar-secondary: $orange; // #ecda26 - cor secundária do sistema
+$sidebar-text: $gray-700; // #495057
+$sidebar-text-muted: $gray-600; // #6c757d
+$sidebar-border: $gray-300; // #dee2e6
+$sidebar-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$sidebar-overlay: rgba(0, 0, 0, 0.5);
+$sidebar-transition: all 0.3s ease;
+$sidebar-z-index: 1000;
+
+// ========================================
+// UNIFIED SIDEBAR
+// ========================================
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -$sidebar-width;
+  width: $sidebar-width;
+  height: 100vh;
+  background: $sidebar-bg;
+  z-index: $sidebar-z-index;
+  transition: $sidebar-transition;
+  overflow-y: auto;
+  box-shadow: $sidebar-shadow;
+  border-right: 1px solid $sidebar-border;
+
+  &.open {
+    left: 0;
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid $sidebar-border;
+    background: #fafafa;
+
+    h3 {
+      color: $sidebar-text;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: $sidebar-text-muted;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: $sidebar-transition;
+
+      &:hover {
+        background: #f3f4f6;
+        color: $sidebar-text;
+      }
+    }
+  }
+
+  .sidebar-content {
+    padding: 20px 0;
+
+    .sidebar-section {
+      margin-bottom: 24px;
+
+      h4 {
+        color: $sidebar-text-muted;
+        font-size: 12px;
+        margin: 0 0 12px 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+      }
+
+      .sidebar-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 4px;
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: $sidebar-text;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: $sidebar-transition;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+
+            i {
+              font-size: 18px;
+              width: 20px;
+              text-align: center;
+            }
+
+            &:hover {
+              background: #f3f4f6;
+              color: $sidebar-accent;
+            }
+          }
+
+          &.active {
+            a {
+              background: $sidebar-accent;
+              color: white;
+              font-weight: 600;
+
+              &:hover {
+                background: color.adjust($sidebar-accent, $lightness: -10%);
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ========================================
+// SIDEBAR OVERLAY
+// ========================================
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $sidebar-overlay;
+  z-index: $sidebar-z-index - 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: $sidebar-transition;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// ========================================
+// SIDEBAR TOGGLE BUTTON
+// ========================================
+.sidebar-toggle {
+  background: $sidebar-secondary;
+  border: none;
+  color: $sidebar-accent;
+  cursor: pointer;
+  transition: $sidebar-transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 18px;
+
+  &:hover {
+    background: color.adjust($sidebar-secondary, $lightness: -10%);
+    transform: translateY(-1px);
+  }
+
+  &.open {
+    background: $sidebar-accent;
+    color: white;
+  }
+}
+
+// ========================================
+// RESPONSIVIDADE
+// ========================================
+@media (max-width: 767.98px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .sidebar-toggle {
+    display: none;
+  }
+}
+
+// ========================================
+// SCROLLBAR PERSONALIZADA
+// ========================================
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}

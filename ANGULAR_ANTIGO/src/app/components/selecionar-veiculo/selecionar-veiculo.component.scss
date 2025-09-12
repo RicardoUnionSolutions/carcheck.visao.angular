@@ -1,0 +1,30 @@
+@import 'functions', 'variables', 'mixins/breakpoints';
+
+input[type="text"]{
+    max-width: 400px;
+    letter-spacing: 10px;
+    outline: none;
+    box-shadow: none;
+    font-family: "Caros";
+    text-transform: uppercase;
+}
+
+.veiculo-pesquisa-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+
+@include media-breakpoint-down(md) {
+    input[type="text"]{
+        max-width: 100%;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .veiculo-pesquisa-form{
+        flex-wrap: wrap;
+    }
+}

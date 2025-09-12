@@ -1,0 +1,248 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.ck-counter-demo {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  h2 {
+    color: #243646;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .demo-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: #243646;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #ecda26;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .counters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+
+    .counter-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 2px solid #e1e5e9;
+
+      .counter-label {
+        display: block;
+        margin-top: 0.5rem;
+        color: #666;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .size-demo,
+  .color-demo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    .size-item,
+    .color-item {
+      text-align: center;
+
+      h4,
+      span {
+        color: #243646;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .dashboard-demo {
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+
+      .stat-card {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        border: 2px solid #e1e5e9;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+          border-color: #ecda26;
+        }
+
+        .stat-label {
+          margin-top: 1rem;
+          color: #666;
+          font-weight: 500;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.btn-primary {
+        background: #ecda26;
+        color: #243646;
+
+        &:hover {
+          background: #d9c713;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-secondary {
+        background: transparent;
+        color: #243646;
+        border: 2px solid #e1e5e9;
+
+        &:hover {
+          border-color: #243646;
+          background: #f8f9fa;
+        }
+      }
+
+      &.btn-success {
+        background: #28a745;
+        color: white;
+
+        &:hover {
+          background: #218838;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  // Counter Styles
+  .ck-counter {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #243646;
+    line-height: 1;
+    transition: all 0.3s ease;
+
+    &.small {
+      font-size: 1.5rem;
+    }
+
+    &.medium {
+      font-size: 2rem;
+    }
+
+    &.large {
+      font-size: 3rem;
+    }
+
+    // Colors
+    &.primary {
+      color: #ecda26;
+    }
+
+    &.success {
+      color: #28a745;
+    }
+
+    &.warning {
+      color: #ffc107;
+    }
+
+    &.danger {
+      color: #dc3545;
+    }
+
+    &.info {
+      color: #17a2b8;
+    }
+
+    // Animation
+    &.animate {
+      animation: counterPulse 0.5s ease-in-out;
+    }
+  }
+}
+
+// Animations
+@keyframes counterPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .ck-counter-demo {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .demo-section {
+      padding: 1rem;
+    }
+
+    .counters-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .size-demo,
+    .color-demo {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dashboard-demo .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .controls {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

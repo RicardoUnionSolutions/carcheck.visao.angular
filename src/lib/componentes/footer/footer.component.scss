@@ -1,0 +1,314 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  background-color: #244b5a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: aliceblue;
+  flex-direction: column;
+
+  a {
+    text-decoration: underline;
+    color: #ecda26;
+  }
+}
+
+.d-block {
+  color: #ecda26;
+}
+
+.topfoot {
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 40px 20%;
+  align-items: center;
+
+  input {
+    display: inline-block;
+    width: 40%;
+    background: rgba(0, 0, 0, 0.07);
+    border: 0;
+    margin-top: 20px;
+  }
+
+  #inscever-btn {
+    cursor: pointer;
+    background: #ecda26;
+    color: #244b5a;
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 10px 0px;
+  }
+
+  .container-promocao {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .titulo-promocao {
+    h3 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    padding-right: 80px;
+  }
+
+  .form-promocao {
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+      align-content: center;
+      justify-content: space-evenly;
+      align-items: baseline;
+      flex-wrap: wrap;
+
+      .form-control {
+        color: #c2d8de;
+        background-color: #1a3742;
+        &::placeholder {
+          color: #c2d8de;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.app-section {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 30px 20%;
+  text-align: center;
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .app-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    a {
+      display: inline-block;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      img {
+        height: 50px;
+      }
+    }
+  }
+}
+
+.midfoot {
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 40px 20%;
+  width: 100%;
+  align-content: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  .sobre-carcheck {
+    flex: 1;
+    max-width: 300px;
+
+    h3 {
+      color: #ecda26;
+      margin-bottom: 15px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .redes-sociais {
+      h4 {
+        color: #ecda26;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .social-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 8px;
+
+          a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+
+            &:hover {
+              color: #ecda26;
+            }
+
+            i {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .col-md-4 {
+    flex: 1;
+    max-width: 200px;
+
+    h3 {
+      color: #ecda26;
+      margin-bottom: 15px;
+    }
+
+    .mapa-site {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .menu-item {
+        margin-bottom: 8px;
+
+        a {
+          color: white;
+          text-decoration: none;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #ecda26;
+          }
+        }
+      }
+    }
+  }
+
+  .formas-pagamento {
+    flex: 1;
+    max-width: 300px;
+
+    h3 {
+      color: #ecda26;
+      margin-bottom: 15px;
+    }
+
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+
+      .payment-method {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+
+        img {
+          width: 40px;
+          height: 25px;
+          object-fit: contain;
+          margin-bottom: 5px;
+        }
+
+        span {
+          font-size: 12px;
+          color: #c2d8de;
+        }
+      }
+    }
+  }
+}
+
+.rodape {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #c2d8de;
+}
+
+// Responsividade
+@include media-breakpoint-down(lg) {
+  .topfoot {
+    padding: 30px 10%;
+    flex-direction: column;
+    text-align: center;
+
+    .container-promocao {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .titulo-promocao {
+      padding-right: 0;
+    }
+  }
+
+  .midfoot {
+    padding: 30px 10%;
+    flex-direction: column;
+    gap: 30px;
+
+    .sobre-carcheck,
+    .col-md-4,
+    .formas-pagamento {
+      max-width: 100%;
+    }
+  }
+
+  .app-section {
+    padding: 20px 10%;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .topfoot {
+    padding: 20px 5%;
+  }
+
+  .midfoot {
+    padding: 20px 5%;
+  }
+
+  .app-section {
+    padding: 15px 5%;
+  }
+}

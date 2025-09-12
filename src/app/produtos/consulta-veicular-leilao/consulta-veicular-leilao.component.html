@@ -1,0 +1,98 @@
+<section id="conteudo" class="padding-60">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+        <h1 class="mb-4">Consulta Veicular Leilão</h1>
+        <div class="content-text">
+          <p class="mb-3">
+            <span style="font-weight: 400">A </span
+            ><b><i>consulta veicular leilão</i></b
+            ><span style="font-weight: 400">
+              é indicada para quem quer verificar ocorrência de leilão no
+              histórico veicular. Você consegue realizar a consulta por meio da
+              placa do carro ou chassi.</span
+            >
+          </p>
+          <p class="mb-3">
+            <span style="font-weight: 400"
+              >Um carro usado que já tenha sido leiloado precisa ter seu valor
+              ajustado ao retornar para o mercado. Para garantir um preço justo
+              na compra de um veículo usado, consulte o </span
+            ><b>histórico de leilão</b
+            ><span style="font-weight: 400">
+              e feche negócio com ainda mais segurança sabendo se o modelo já
+              passou por um leilão ou não.</span
+            >
+          </p>
+          <p class="mb-3">
+            <span style="font-weight: 400">Por ser 100% online a </span
+            ><b><i>consulta veicular leilão </i></b
+            ><span style="font-weight: 400"
+              >permite impressão e compartilhamento. Os dados são apresentados
+              em um relatório com quadro de resumo que facilita a visualização
+              das informações.</span
+            >
+          </p>
+          <p class="mb-3">
+            <span style="font-weight: 400"
+              >Confira a relação de dados disponíveis pela </span
+            ><b>Consulta Veicular Leilão</b
+            ><span style="font-weight: 400">:</span>
+          </p>
+          <ul class="mb-3">
+            <li style="font-weight: 400" aria-level="1">
+              <span style="font-weight: 400">Dados originais;</span>
+            </li>
+            <li style="font-weight: 400" aria-level="1">
+              <span style="font-weight: 400">Histórico de Leilão;</span>
+            </li>
+            <li style="font-weight: 400" aria-level="1">
+              <span style="font-weight: 400">Valor da tabela Fipe.</span>
+            </li>
+          </ul>
+          <p class="mb-3">
+            <span style="font-weight: 400"
+              >Dados necessários para consulta:</span
+            >
+          </p>
+          <p class="mb-3">
+            <b
+              >Informe a placa ou chassi do veículo para realizar a consulta.</b
+            >
+          </p>
+          <div class="alert alert-warning">
+            <b>ATENÇÃO:</b> Veículos anteriores ao ano de 1992 não possuem todas
+            as informações citadas acima disponíveis no histórico devido a
+            criação do cadastro nacional de motores neste ano.
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div appAppearRightOnScroll class="consulta text-center">
+          <h2 class="azul">{{ consulta.nome_da_consulta }}</h2>
+          <!-- <div class="promocional"><span class="promocional-text">Valor promocional até dia 10/08</span></div> -->
+          <span class="de">{{ consulta.valor_atual | currency : "BRL" }}</span>
+          <br />
+          <span class="preco">{{
+            consulta.valor_promocional | currency : "BRL"
+          }}</span>
+          <br />
+          <p>Por consulta</p>
+          <a href="/comprar-consulta-placa/leilao" class="btn">comprar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<h1 class="text-center">Exemplo de consulta</h1>
+<h5 class="sub text-center">Modelo e explicação da consulta <br /></h5>
+<h6 class="text-center">* Dados ficticios</h6>
+<app-exemplo-consulta-leilao></app-exemplo-consulta-leilao>
+
+<app-comparar-produto [consultaComparada]="consulta.id"></app-comparar-produto>
+
+<app-como-funciona></app-como-funciona>
+
+<app-duvidas-frequentes></app-duvidas-frequentes>
+
+<app-produtos></app-produtos>

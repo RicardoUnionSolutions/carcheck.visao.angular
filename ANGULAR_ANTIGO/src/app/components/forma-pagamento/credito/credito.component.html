@@ -1,0 +1,79 @@
+<div class="creditoContent">
+  <div class="card-wrapper"></div>
+  <form class="formCard" card container=".card-wrapper" action="javascript:void(0);">
+
+    <div class="mt-4">
+      <input type="text" name="number" placeholder="Número do cartão" class="slds-input" label="Número do cartão"
+        [ngClass]="{'border-danger': (form.controls.numero.invalid) && form.controls.numero.touched==true}"
+        [formControl]="form.controls.numero" [textMask]="formMask.creditCard" card-number />
+      <div *ngIf="form.controls.numero.errors != null && form.controls.numero.touched"
+        class="msg text-danger f-12 fw-500">
+        <span [hidden]="!form.controls.numero.errors.required">
+          Campo obrigatório.
+        </span>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <input type="text" name="name" placeholder="Nome Completo (como escrito no cartão)" card-name class="w-100"
+        label="Nome Completo (como escrito no cartão)" minlength="8"
+        [ngClass]="{'border-danger': (form.controls.nome.invalid) && form.controls.nome.touched==true}"
+        [formControl]="form.controls.nome" card-name />
+      <div *ngIf="form.controls.nome.errors != null && form.controls.nome.touched" class="msg text-danger f-12 fw-500">
+        <span [hidden]="!form.controls.nome.errors.required">
+          Campo obrigatório.
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 col-md-4 col-lg-2 mt-4">
+        <input type="text" name="cvc" placeholder="CVV" class="slds-input" label="CVV" [formControl]="form.controls.cvv"
+          [ngClass]="{'border-danger': (form.controls.cvv.invalid) && form.controls.cvv.touched==true}"
+          [textMask]="formMask.cvv" card-cvc />
+      </div>
+
+      <div class="col-6 col-md-5 col-lg-3 mt-4">
+        <input type="text" name="expiry" placeholder="Validade" class="slds-input" label="Validade"
+          [ngClass]="{'border-danger': (form.controls.vencimento.invalid) && form.controls.vencimento.touched==true}"
+          [formControl]="form.controls.vencimento" [textMask]="formMask.vencimento" card-expiry />
+        <div *ngIf="form.controls.vencimento.errors != null && form.controls.vencimento.touched"
+          class="msg text-danger f-12 fw-500">
+          <span [hidden]="!form.controls.vencimento.errors.required">
+            Campo obrigatório.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4" style="width: fit-content;">
+      <ck-select label="Parcelas" [(control)]="form.controls.parcela" [options]="parcelas" [loading]="loadingCartao">
+      </ck-select>
+    </div>
+
+
+    <div *ngIf="login.cliente.tipoPessoa!='JURIDICA'"
+      class="mb-1 f-18 f-md-20 text-nowrap d-flex align-items-center custom-checkbox-wrapper">
+      <input class="mr-2 check-md custom-checkbox" type="checkbox" name="donoCartao" id="donoCartao"
+        [formControl]="form.controls.donoCartao"> <label for="donoCartao">Sou o dono do cartão</label>
+      </div>
+      <p class="mt-2" *ngIf="!form.controls.documentoCartao" >Documento <strong>{{this.documentoDono}}</strong></p>
+
+
+    <div class="col-12 order-first order-md-0 mt-2 pt-1 pt-md-0 mt-md-4" *ngIf="form.controls.documentoCartao">
+      <ck-input label="CPF (dono do cartão)" [(control)]="form.controls.documentoCartao" [mask]="formMask.cpf">
+      </ck-input>
+    </div>
+  </form>
+
+</div>
+<div>
+  *O prazo para aprovação com cartão de crédito é de até <strong>8</strong> horas.
+</div>
+<div *ngIf="cartao.situacaoPagamento=='CANCELADO'" class="mt-3 mb-4 text-right text-danger f-20 fw-500 flex-ac flex-jc">
+  <ng-container *ngFor="let erro of pagamento.erros">
+    <span> {{erro}}</span><br>
+  </ng-container>
+
+  <!--Ocorreu um erro ao efetuar operação, verifique se os dados do cartão estão corretos, ou tente novamente mais tarde.-->
+</div>

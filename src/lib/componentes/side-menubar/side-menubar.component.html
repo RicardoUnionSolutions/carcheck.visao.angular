@@ -1,0 +1,68 @@
+<div class="sidebar-container">
+  <!-- Botão Toggle -->
+  <button
+    class="sidebar-toggle"
+    (click)="toggleMenu()"
+    [class.open]="isOpenComputed()"
+    type="button"
+    aria-label="Abrir menu"
+  >
+    <i class="mdi mdi-menu"></i>
+  </button>
+
+  <!-- Overlay -->
+  <div
+    class="sidebar-overlay"
+    [class.open]="isOpenComputed()"
+    (click)="toggleMenu()"
+  ></div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" [class.open]="isOpenComputed()">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <button
+        class="close-btn"
+        (click)="toggleMenu()"
+        type="button"
+        aria-label="Fechar menu"
+      >
+        <i class="mdi mdi-close"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-content">
+      <!-- Menu Principal -->
+      <div class="sidebar-section" *ngIf="options.length > 0">
+        <h4>Navegação</h4>
+        <ul class="sidebar-links">
+          <li
+            *ngFor="let option of options; let i = index"
+            [class.active]="active === i"
+          >
+            <a (click)="selectItem(i)" [routerLink]="option.url">
+              <i [class]="'mdi mdi-' + option.icon" *ngIf="option.icon"></i>
+              {{ option.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Menu do Usuário -->
+      <div class="sidebar-section" *ngIf="userOptions.length > 0">
+        <h4>Minha Conta</h4>
+        <ul class="sidebar-links">
+          <li
+            *ngFor="let option of userOptions; let i = index"
+            [class.active]="active === i"
+          >
+            <a (click)="selectItemUser(i)" [routerLink]="option.url">
+              <i [class]="'mdi mdi-' + option.icon" *ngIf="option.icon"></i>
+              {{ option.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

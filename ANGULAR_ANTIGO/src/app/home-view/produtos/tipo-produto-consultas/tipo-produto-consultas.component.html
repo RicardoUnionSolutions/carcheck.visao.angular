@@ -1,0 +1,81 @@
+<section appAppearOnScroll id="premios">
+  <div class="container">
+    <div class="col-md-12 text-center">
+      <div class="d-flex flex-wrap">
+        <div
+          *ngFor="let consulta of consultas; let i = index"
+          class="cards col-md-4 text-center"
+        >
+          <div
+            class="consulta"
+            [ngClass]="{ recomendada: consulta.recomendada }"
+          >
+            <div *ngIf="consulta.recomendada" class="label">NOVA CONSULTA</div>
+            <div class="logo_premio">
+              <img
+                [src]="consulta.imagem"
+                [alt]="consulta.nome_da_consulta"
+                style="height: 90px !important"
+              />
+            </div>
+            <h3>{{ consulta.nome_da_consulta }}</h3>
+            <p>{{ consulta.descricao_da_consulta }}</p>
+            <!-- <div class="promocional"><span class="promocional-text">Valor promocional até dia 10/08</span></div> -->
+            <span class="de">{{ valorToString(consulta.valor_atual) }}</span
+            ><br />
+            <p class="preco">
+              <b>{{ valorToString(consulta.valor_promocional) }}</b>
+            </p>
+            <div class="d-flex flex-column">
+              <a [id]="'bt_detalhes' + i" (click)="mostraDetalhes(i)"
+                >Mais detalhes</a
+              >
+              <hr />
+              <button (click)="clickComprar(consulta.slug)" class="btn">
+                comprar
+              </button>
+            </div>
+            <div
+              [id]="'detalhes' + i"
+              class="detalhes text-left"
+              [ngClass]="{ expandido: detalhesVisiveis[i] }"
+            >
+              <hr />
+              <div
+                *ngFor="let insumo of consulta.lista_de_insumos"
+                class="dado col-xs-12"
+              >
+                <div class="row">
+                  <div class="col-xs-1 nopadding">
+                    <i class="mdi mdi-check" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-xs-11" style="padding-left: 5px">
+                    {{ insumo }}
+                  </div>
+                </div>
+              </div>
+              <div class="clear"></div>
+              <div class="info text-center">
+                <a
+                  [href]="
+                    '/produto/' +
+                    consulta.nome_da_consulta.replaceAll(' ', '-').toLowerCase()
+                  "
+                  >Ver exemplo e mais informações</a
+                >
+                <hr />
+                <a [id]="'bt_fecharDetalhes' + i" (click)="fecharDetalhes(i)"
+                  ><i
+                    class="mdi mdi-arrow-up-bold-circle"
+                    style="font-size: 35px"
+                  ></i
+                ></a>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

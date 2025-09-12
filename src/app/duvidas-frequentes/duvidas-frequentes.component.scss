@@ -1,0 +1,82 @@
+.accordion {
+  margin: 0 20px;
+}
+
+.card {
+  background: transparent;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.card-header {
+  background: transparent;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.accordion-body-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.accordion-body-wrapper.open {
+  max-height: 1000px;
+  opacity: 1;
+  transition: max-height 0.8s ease, opacity 0.4s ease;
+}
+
+.card-body {
+  margin: 10px 20px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.faq-title {
+  padding: 20px;
+  font-size: 35px;
+}
+
+section {
+  background-color: whitesmoke;
+}
+
+.padding-60 {
+  padding-top: 100px;
+}
+
+.accordion-btn {
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  background: #ecda26;
+  color: #244b5a;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.icon {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.icon.rotar {
+  transform: rotate(180deg);
+}
+
+.card-body {
+  font-size: 20px;
+}

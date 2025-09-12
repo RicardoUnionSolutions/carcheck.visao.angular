@@ -1,0 +1,32 @@
+<div class="navbar-dropdown" [class.disabled]="disabled">
+  <div class="dropdown-toggle" (click)="toggleCollapse()">
+    <div class="user-info">
+      <img [src]="img" [alt]="title" class="user-avatar" />
+      <span class="user-name">{{ title }}</span>
+    </div>
+    <i class="mdi mdi-chevron-down dropdown-arrow" [class.rotated]="show"></i>
+  </div>
+
+  <div class="dropdown-menu" [class.show]="show">
+    <div class="dropdown-content">
+      <div class="user-profile">
+        <img [src]="img" [alt]="title" class="profile-avatar" />
+        <div class="profile-info">
+          <h4>{{ title }}</h4>
+          <p>Minha Conta</p>
+        </div>
+      </div>
+
+      <div class="dropdown-divider"></div>
+
+      <ul class="dropdown-list">
+        <li *ngFor="let option of options" class="dropdown-item">
+          <a (click)="selectOption(option)" [routerLink]="option.url">
+            <i [class]="'mdi mdi-' + option.icon" *ngIf="option.icon"></i>
+            {{ option.label }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+@use '../assets/scss/bootstrap/_variables' as *;
+@use '../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+
+section{
+    max-width: 100%;
+    display: block;
+
+    padding-top: 56px;
+}
+
+
+@include media-breakpoint-down(md)  {
+    section{
+        min-height: calc(100vh - 48px);
+        padding-top: 70px;
+    }
+}
+
+@media (max-width: 411px) {
+ section{
+  padding-top: 70px;
+  }
+}
+

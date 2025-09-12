@@ -1,0 +1,376 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.step-demo {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  h2 {
+    color: #243646;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .demo-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: #243646;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #ecda26;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .step-container {
+    .step-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      margin-bottom: 2rem;
+
+      .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+
+        &.clickable {
+          cursor: pointer;
+        }
+
+        .step-circle {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: #e1e5e9;
+          color: #666;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+          z-index: 2;
+          position: relative;
+
+          .checkmark {
+            color: white;
+            font-size: 1.5rem;
+          }
+        }
+
+        .step-content {
+          text-align: center;
+          margin-top: 1rem;
+          max-width: 150px;
+
+          h4 {
+            color: #243646;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+          }
+
+          p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+          }
+        }
+
+        .step-connector {
+          position: absolute;
+          top: 25px;
+          left: 50%;
+          width: 100%;
+          height: 2px;
+          background: #e1e5e9;
+          z-index: 1;
+        }
+
+        &.active {
+          .step-circle {
+            background: #ecda26;
+            color: #243646;
+            transform: scale(1.1);
+          }
+
+          .step-content h4 {
+            color: #ecda26;
+            font-weight: 600;
+          }
+        }
+
+        &.completed {
+          .step-circle {
+            background: #28a745;
+            color: white;
+          }
+
+          .step-connector {
+            background: #28a745;
+          }
+
+          .step-content h4 {
+            color: #28a745;
+          }
+        }
+
+        &:hover.clickable {
+          .step-circle {
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+
+  .step-content-demo {
+    .content-area {
+      padding: 2rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 2px solid #e1e5e9;
+
+      h4 {
+        color: #243646;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-example,
+      .verification-example,
+      .payment-example,
+      .confirmation-example {
+        h5 {
+          color: #243646;
+          margin-bottom: 1rem;
+          font-size: 1.2rem;
+        }
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: #243646;
+          font-weight: 600;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 2px solid #e1e5e9;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #ecda26;
+            box-shadow: 0 0 0 3px rgba(236, 218, 38, 0.1);
+          }
+        }
+      }
+
+      .verification-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        .check {
+          color: #28a745;
+          font-weight: bold;
+        }
+      }
+
+      .payment-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .payment-option {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          input[type="radio"] {
+            margin: 0;
+          }
+
+          label {
+            margin: 0;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .confirmation-summary {
+        p {
+          margin-bottom: 0.5rem;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .step-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+
+    .step-indicator {
+      color: #243646;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.btn-primary {
+        background: #ecda26;
+        color: #243646;
+
+        &:hover:not(:disabled) {
+          background: #d9c713;
+          transform: translateY(-2px);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      &.btn-secondary {
+        background: transparent;
+        color: #243646;
+        border: 2px solid #e1e5e9;
+
+        &:hover:not(:disabled) {
+          border-color: #243646;
+          background: #f8f9fa;
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .demo-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.btn-primary {
+        background: #ecda26;
+        color: #243646;
+
+        &:hover {
+          background: #d9c713;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-secondary {
+        background: transparent;
+        color: #243646;
+        border: 2px solid #e1e5e9;
+
+        &:hover {
+          border-color: #243646;
+          background: #f8f9fa;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .step-demo {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .demo-section {
+      padding: 1rem;
+    }
+
+    .step-container .step-progress {
+      flex-direction: column;
+      gap: 1rem;
+
+      .step-item {
+        flex-direction: row;
+        width: 100%;
+        text-align: left;
+
+        .step-content {
+          margin-top: 0;
+          margin-left: 1rem;
+          text-align: left;
+          max-width: none;
+        }
+
+        .step-connector {
+          display: none;
+        }
+      }
+    }
+
+    .step-controls {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .demo-controls {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

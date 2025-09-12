@@ -1,0 +1,77 @@
+<div class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }">
+  <div class="ck-card-title"><img src="./assets/images/icons-consulta-carcheck/file-blank-folderSVG.svg" style="width: 50px;" > RECALL</div>
+
+
+  <consulta-msg [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()">
+    <div *ngIf="dadosDetalhamento?.ocorrencia.length==0">
+      <div class="f-16">
+        <strong>NÃO CONSTAM OCORRÊNCIAS</strong>
+      </div>
+      <div>
+        Não encontramos nas nossas bases de dados registros de recall para este veículo.
+      </div>
+    </div>
+
+    <div *ngIf="dadosDetalhamento?.ocorrencia.length>0">
+      <div class="f-16">
+        <strong>Foram encontrados
+          <span class="alerta"> {{dadosDetalhamento?.ocorrencia.length}} ocorrência(s) </span> de recall para este veículo. </strong>
+      </div>
+      <div>
+        Leia o comunicado e verifique se chassi está na faixa de chassi de RECALL!
+      </div>
+    </div>
+
+  </consulta-msg>
+
+
+  <div *ngIf="statusConsulta!=5" class="ck-card-body">
+
+
+
+    <ng-container *ngFor="let r of dadosDetalhamento?.ocorrencia; let i = index;">
+      <div class="border-bottom border-gray flex-ac w-100 mb-2">
+        <!--i class="mdi mdi-file-document f-24 mr-2 mb-1"></i-->
+        <div class="svg-20 mb-1 mr-2" [inlineSVG]="'manutencao.svg'"></div>
+        <h2 class="f-16 mb-1">RECALL {{i+1}}</h2>
+      </div>
+      <div class="row px-3 f-18 mb-4">
+        <div class="col-12 col-md-5 col-lg-4">
+          <!-- <div class="mb-2">
+            <h4>Marca</h4>
+            <span>{{r.marca}}</span>
+          </div>
+          <div class="mb-2">
+            <h4>Produto</h4>
+            <span>{{r.produto}}</span>
+          </div>
+          <div class="mb-2">
+            <h4>Ano Modelo</h4>
+            <span>{{r.anoModelo}}</span>
+          </div>
+          <div class="mb-2">
+            <h4>Ano Fabricação</h4>
+            <span>{{r.anoFabricacao}}</span>
+          </div> -->
+          <div class="mb-2">
+            <h4>Data ocorrência</h4>
+            <span>{{r.data!=null ? r.data:"----"}}</span>
+          </div>
+          <div class="mb-2">
+            <h4>Procedimento</h4>
+            <span>{{r.procedimento!=null ? r.procedimento : "----"}}</span>
+          </div>
+
+        </div>
+        <div class="col-12 col-md-7 col-lg-8">
+          <div class="mb-2">
+            <h4 class="mb-1">Comunicado</h4>
+            <div class="p-2 bg-white">
+              <div class="text-recall f-14">{{r.comunicado!=null ? r.comunicado : "----"}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

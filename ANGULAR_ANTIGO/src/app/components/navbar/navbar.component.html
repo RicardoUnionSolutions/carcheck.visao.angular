@@ -1,0 +1,177 @@
+<nav class="navbar navbar-expand-lg fixed-top py-0 hide-print">
+  <a
+    href="{{ urlSite }}"
+    class="custom-logo-link py-2"
+    [ngClass]="{ 'py-3': !logIn.status }"
+    rel="home"
+    itemprop="url"
+  >
+    <img
+      src="./assets/images/logos/Carcheck_Logos-07.png"
+      class="icon-logo"
+      alt="logo Carcheck Brasil"
+    />
+    <img
+      src="./assets/images/logos/Carcheck_Logos-05.png"
+      class="custom-logo"
+      alt="Carcheck Brasil"
+    />
+  </a>
+
+  <ng-container *ngIf="logIn.status">
+    <navbar-sub [options]="menuOptions"></navbar-sub>
+    <div class="side-menubar">
+      <side-menubar [options]="menuOptions" [userOptions]="userOptions">
+      </side-menubar>
+    </div>
+    <div class="perfil">
+      <span
+        (click)="showNotifications()"
+        class="notification-icon mdi mdi-bell mdi mdi-bell font-center"
+        [ngClass]="{
+          'animation-class': this.notificationService.addAnimationClass
+        }"
+      >
+        <div class="notification">
+          <button id="notification-button">
+            <span
+              *ngIf="this.notificationService.unreadNotifications.length > 0"
+              class="counter"
+              id="notification-counter"
+              >{{ this.notificationService.unreadNotifications.length }}</span
+            >
+          </button>
+          <div
+            class="notification-list"
+            id="notification-list"
+            style="display: none"
+          >
+            <div
+              *ngIf="this.notificationService.notification.length > 0"
+              class="header-list"
+            >
+              <p>Notificações</p>
+              <p (click)="limparNotificacoes()">Limpar</p>
+            </div>
+            <div
+              *ngIf="this.notificationService.notification.length == 0"
+              class="notification-item"
+            >
+              <div class="notification-card">
+                <div class="content">
+                  <h2>Não ha notificações</h2>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="this.notificationService.notification.length > 0">
+              <div
+                class="notification-item"
+                *ngFor="let item of this.notificationService.notification"
+              >
+                <div class="notification-card">
+                  <div *ngIf="item.read" [ngClass]="{ neon: item.read }"></div>
+                  <div
+                    *ngIf="!item.read"
+                    [ngClass]="{ neonUnread: !item.read }"
+                  ></div>
+                  <div class="content">
+                    <h2>{{ item.message }}</h2>
+                    <p>{{ item.subtitle }}</p>
+                    <div class="sub">
+                      <p class="time">{{ item.date }}</p>
+                      <a *ngIf="item.token != null" href="">Visualizar</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+
+      <div class="menu-container">
+        <navbar-dropdown
+          [menuUrl]="userOptionsMenu"
+          (showChange)="toggleNavUsuario($event)"
+          [options]="userOptions"
+          [img]="logIn.fotoGoogle || './assets/images/usuario.png'"
+          [title]="logIn.nome"
+        >
+        </navbar-dropdown>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!logIn?.status">
+    <div class="navegacao">
+      <ul class="nav navbar-nav" style="font-family: 'Open Sans', sans-serif">
+        <li class="menu-item-inicio"><a href="/home">Início</a></li>
+        <li class="menu-item-consulta">
+          <a href="/consulta-placa-veiculo">Consulta de Placa</a>
+        </li>
+        <li class="menu-item-servicos"><a href="/servicos">Serviços</a></li>
+        <li class="menu-item-blog"><a href="/blog">Blog</a></li>
+        <li class="menu-item-duvida">
+          <a href="/duvidas-frequentes">Dúvidas Frequentes</a>
+        </li>
+        <li class="menu-item-contato"><a href="/contato">Contato</a></li>
+      </ul>
+      <a *ngIf="currentUrl !== '/login'" href="/login" class="btn btn-entrar">
+        Entrar
+      </a>
+      <span
+        *ngIf="currentUrl !== '/login'"
+        (click)="navigateToCadastro()"
+        class="cadastrar"
+        >&nbsp; Cadastrar-se</span
+      >
+    </div>
+
+    <div class="side-menu" [ngClass]="{ open: isOpen }">
+      <div class="overlay" (click)="toggleMenu()"></div>
+      <div class="menu-content">
+        <ul class="container">
+          <li class="closeMenu" (click)="toggleMenu()">
+            <img
+              src="./assets/images/logos/Carcheck_Logos-02.png"
+              height="53px"
+              width="auto"
+              alt="carheckbrasil"
+              srcset=""
+            />
+            <i class="mdi mdi-backburger"></i>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="menu-item-inicio"><a href="/home">Início</a></li>
+          <li class="menu-item-consulta">
+            <a href="/consulta-placa-veiculo">Consulta de Placa</a>
+          </li>
+          <li class="menu-item-servicos"><a href="/servicos">Serviços</a></li>
+          <li class="menu-item-blog"><a href="/blog">Blog</a></li>
+          <li class="menu-item-duvida">
+            <a href="/duvidas-frequentes">Dúvidas Frequentes</a>
+          </li>
+          <li class="menu-item-contato"><a href="/contato">Contato</a></li>
+        </ul>
+        <button *ngIf="currentUrl !== '/login'" class="btn btn-entrar">
+          <a href="/login"> Entrar </a>
+        </button>
+      </div>
+      <span
+        *ngIf="currentUrl !== '/login'"
+        (click)="navigateToCadastro()"
+        class="cadastrar"
+        >Cadastrar-se</span
+      >
+      <button
+        [hidden]="isOpen"
+        class="menu-toggle"
+        (click)="toggleMenu()"
+        aria-label="Abrir menu de navegação"
+      >
+        <i class="mdi mdi-menu"></i>
+      </button>
+    </div>
+  </ng-container>
+</nav>

@@ -1,0 +1,452 @@
+
+<div class="ck-card mt-5" *ngIf="verificaNaoNulidade()" [ngClass]="{'disabled': statusConsulta == 5 }">
+  <div class="ck-card-title"> <img src="./assets/images/icons-consulta-carcheck/file-blank-folderSVG.svg" style="width: 50px;" > DADOS DO VEÍCULO</div>
+
+  <consulta-msg *ngIf="statusConsulta==5" [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()"></consulta-msg>
+
+
+  <div *ngIf="statusConsulta!=5" class="ck-card-body">
+    <div class="border-bottom border-gray flex-ac w-100 mb-2">
+      <!--i class="mdi mdi-file-document f-24 mr-2 mb-1"></i-->
+      <div class="svg-20 mb-1 mr-2" [inlineSVG]="'relatorio.svg'"></div>
+      <h2 class="f-16 mb-1 fw-600">LICENCIAMENTO</h2>
+    </div>
+
+
+    <div class="row no-gutters px-3 f-18 mb-4">
+
+      <!--PLACA -->
+
+          <div class="col-12 col-md-6 col-lg-4" >
+            <div class="row d-flex justify-content-between bg-strip bg-pdf m-1 p-2">
+              <h4>Placa</h4>
+              <span>{{verificaPlaca()}}</span>
+            </div>
+          </div>
+
+
+      <!-- CHASSI -->
+
+          <div class="col-12 col-md-6 col-lg-4 ">
+            <div class="row d-flex justify-content-between bg-strip bg-pdf m-1 p-2">
+              <h4>Chassi</h4>
+              <span>{{verificaChassi()}}</span>
+            </div>
+          </div>
+
+        <!-- MARCA/MODELO-->
+        <div class="col-12 col-md-6 col-lg-4 ">
+          <div class="row d-flex justify-content-between bg-strip m-1 p-2">
+            <h4>Marca/Modelo</h4>
+            <span>{{verificaMarcaModelo()}}</span>
+          </div>
+        </div>
+
+
+      <!--  <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Chassi</h4>
+        <span>2018/2018</span>
+      </div>
+      -->
+
+
+      <!-- MOTOR-->
+      <!-- <div class="col-12 col-md-6 col-lg-4">
+        <h4>Motor Original</h4>
+        <span>{{verificaMotor()}}</span>
+      </div> -->
+
+
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Marca/Modelo</h4>
+        <span>GM / Ferrari</span>
+      </div>
+    -->
+
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="row d-flex justify-content-between m-1 p-2">
+        <h4>Ano</h4>
+        <span>{{verificaAno()}}</span>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-lg-4 ">
+      <div class="row d-flex justify-content-between bg-pdf m-1 p-2">
+        <h4>Combustivel</h4>
+        <span>{{verificaCombustivel()}}</span>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="row d-flex justify-content-between bg-pdf m-1 p-2">
+        <h4>Cor</h4>
+        <span>{{verificaCor()}}</span>
+      </div>
+    </div>
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Ano</h4>
+        <span>2018/2018</span>
+      </div>
+      -->
+
+
+
+      <!-- <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Municipio</h4>
+          <span>{{verificaMunicipio()}}</span>
+        </div> -->
+
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Combustível</h4>
+        <span>Alcool/Vodka</span>
+      </div>
+      -->
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Cor</h4>
+        <span>Marrom</span>
+      </div>
+      -->
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Espécie</h4>
+          <span>{{verificaEspecie()}}</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Procedência</h4>
+          <span>{{verificaProcedencia()}}</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Passageiros</h4>
+          <span>{{verificaCapacidadePassageiros()}}</span>
+        </div>
+      </div>
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Espécie</h4>
+        <span>Passageiro</span>
+      </div>
+      -->
+
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Procedência</h4>
+        <span>Nacional</span>
+      </div>
+      -->
+
+
+
+
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Passageiros</h4>
+        <span>17</span>
+      </div>
+      -->
+
+    </div>
+
+    <div class="border-bottom border-gray align-items-center d-flex w-100 mb-2">
+      <div class="svg-24 mb-1 mr-2" [inlineSVG]="'engrenagem.svg'"></div>
+      <h2 class="f-16 mb-1 fw-600">TÉCNICOS</h2>
+    </div>
+
+    <div class="row no-gutters  px-3 f-18 mb-4">
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Modelo</h4>
+          <span>{{verificaModelo()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 " *ngIf="verificaAno()">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Ano</h4>
+          <span>{{verificaAno()}}</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 " *ngIf="verificaTipoVeiculo()">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Tipo de veículo</h4>
+          <span>{{verificaTipoVeiculo()}}</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 " *ngIf="verificaTipoMontagem()">
+        <div class="row d-flex justify-content-between m-1 p-2">
+          <h4>Tipo de montagem</h4>
+          <span>{{verificaTipoMontagem()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-pdf">
+          <h4>Tipo de carroceria</h4>
+          <span>{{verificaTipoCarroceria()}}</span>
+        </div>
+      </div>
+
+
+
+      <div class="col-12 col-md-6 col-lg-4 " *ngIf="verificaPotencia()">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-pdf">
+          <h4>Potência</h4>
+          <span>{{verificaPotencia()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Cilindradas</h4>
+          <span>{{verificaCilindradas()}}</span>
+        </div>
+      </div>
+
+      <!-- MOTOR -->
+
+      <!-- <div class="col-12 col-md-6 col-lg-4 mb-2" *ngIf="verificaMotor()">
+        <h4>Motor</h4>
+        <span>{{verificaMotor()}} </span>
+      </div> -->
+
+    </div>
+
+    <div class="border-bottom border-gray align-items-center d-flex w-100 mb-2">
+      <div class="svg-24 mb-1 mr-2" [inlineSVG]="'caminhao.svg'"></div>
+      <h2 class="f-16 mb-1 fw-600">CARGA</h2>
+    </div>
+
+
+    <div class="row no-gutters  px-3 f-18 mb-4">
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Número da carroceria</h4>
+          <span>{{verificaCarroceria()}} </span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 " *ngIf="verificaQuantidadeEixos()">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Quantidade de eixos</h4>
+          <span>{{verificaQuantidadeEixos()}} </span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Número do eixo traseiro</h4>
+          <span>{{verificaEixoTrasDiferencial()}}</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2">
+          <h4>Número do eixo auxiliar</h4>
+          <span>{{verificaTerceiroEixo()}}</span>
+         </div>
+      </div>
+      </div>
+
+
+    <div class="border-bottom border-gray align-items-center d-flex w-100 ">
+      <div class="svg-24 mb-1 mr-2" [inlineSVG]="'fabrica.svg'"></div>
+      <h2 class="f-16 mb-1 fw-600">FATURAMENTO</h2>
+    </div>
+
+    <div class="row no-gutters px-3 f-18 mb-4">
+      <!-- <div class="col-12 col-md-6 col-lg-4 ">
+        <h4>CNPJ</h4>
+        <span>{{verificaCnpjFaturamento()}}</span>
+      </div> -->
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Endereço</h4>
+          <span>{{verificaEnderecoFaturamento()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip bg-pdf">
+          <h4>Cidade / UF</h4>
+          <span>{{verificaCidadeFaturamento()}}/{{verificaUfFaturamento()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-strip">
+          <h4>Razão social</h4>
+          <span>{{verificaRazaoSocialFaturamento()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2">
+          <h4>CEP</h4>
+          <span>{{verificaCepFaturamento()}}</span>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-md-6 col-lg-4 ">
+        <div class="row d-flex justify-content-between m-1 p-2 bg-pdf">
+          <h4>Telefone</h4>
+          <span>{{verificaTelefoneFaturamento()}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+      <!--
+        <ng-container *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.carroceria;else quartotres">
+            <div class="col-12 col-md-6 col-lg-4 mb-2" *ngIf="dadosDetalhamentoNacional.binestadual.carroceria.carroceria">
+              <h4>Número da carroceria</h4>
+              <span>{{dadosDetalhamentoNacional.binestadual.dadosveiculo.carroceria}} </span>
+            </div>
+          </ng-container>
+        -->
+      <!--
+          <ng-template #secondtres>
+            <ng-container *ngIf="dadosDetalhamentoNacional.binfederal.dadosveiculo.carroceria;else thirdtres">
+              <div class="col-12 col-md-6 col-lg-4 mb-2">
+                <h4>Número da carroceria</h4>
+                <span>{{dadosDetalhamentoNacional.binfederal.dadosveiculo.carroceria}} zxxx</span>
+              </div>
+            </ng-container>
+          </ng-template>
+          <ng-template #thirdtres>
+            <ng-container *ngIf="dadosDetalhamentoNacional.carroceria; else quartotres">
+              <div class="col-12 col-md-6 col-lg-4 mb-2">
+                <h4>Número da carroceria</h4>
+                <span>{{dadosDetalhamentoNacional.binrf.dadosveiculo.carroceria}}</span>
+              </div>
+            </ng-container>
+          </ng-template>
+          <ng-template #quartotres>
+                <div class="col-12 col-md-6 col-lg-4 mb-2">
+                  <h4>Número da carroceria</h4>
+                  <span>----</span>
+                </div>
+          </ng-template>
+     -->
+
+      <!--
+      <div class="col-12 col-md-6 col-lg-4 mb-2">
+        <h4>Número da carroceria</h4>
+        <span>Não possui</span>
+      </div>
+    -->
+      <!--Procurando quantidade eixos-->
+
+
+
+
+      <!--
+
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Quantidade de eixos</h4>
+          <span>Não possui</span>
+        </div>
+
+-->
+
+
+
+      <!--
+          <ng-container *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.eixoTrasDiferencial;else second">
+            <div class="col-12 col-md-6 col-lg-4 mb-2" *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.eixoTrasDiferencial">
+              <h4>Número do eixo traseiro</h4>
+              <span>{{dadosDetalhamentoNacional.binestadual.dadosveiculo.eixoTrasDiferencial}}</span>
+            </div>
+          </ng-container>
+          <ng-template #second>
+            <ng-container *ngIf="dadosDetalhamentoNacional.binfederal.dadosveiculo.eixoTrasDiferencial;else third">
+              <div class="col-12 col-md-6 col-lg-4 mb-2">
+                <h4>Número do eixo traseiro</h4>
+                <span>{{dadosDetalhamentoNacional.binfederal.dadosveiculo.eixoTrasDiferencial}}</span>
+              </div>
+            </ng-container>
+          </ng-template>
+          <ng-template #third>
+            <ng-container *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.eixoTrasDiferencial;else quarto">
+              <div class="col-12 col-md-6 col-lg-4 mb-2">
+                <h4>Número do eixo traseiro</h4>
+                <span>{{dadosDetalhamentoNacional.binestadual.dadosveiculo.eixoTrasDiferencial}} </span>
+              </div>
+            </ng-container>
+          </ng-template>
+          <ng-template #quarto>
+            <ng-container *ngIf="dadosDetalhamentoNacional.binestadual">
+              <div class="col-12 col-md-6 col-lg-4 mb-2">
+                <h4>Número do eixo traseiro</h4>
+                <span>Quarto </span>
+              </div>
+            </ng-container>
+          </ng-template>
+
+-->
+
+
+
+      <!--
+          <ng-container *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.terceiroEixo;else second">
+            <div class="col-12 col-md-6 col-lg-4 mb-2" *ngIf="dadosDetalhamentoNacional.binestadual.dadosveiculo.terceiroEixo">
+                <h4>Quantidade de eixos</h4>
+                <span>{{dadosDetalhamentoNacional.binestadual.dadosveiculo.terceiroEixo}}</span>
+              </div>
+          </ng-container>
+          <ng-template #second>
+              <ng-container *ngIf="dadosDetalhamentoNacional.binfederal.dadosveiculo.terceiroEixo;else third">
+                  <div class="col-12 col-md-6 col-lg-4 mb-2" >
+                      <h4>Quantidade de eixos</h4>
+                      <span>{{dadosDetalhamentoNacional.binfederal.dadosveiculo.terceiroEixo}}</span>
+                    </div>
+              </ng-container>
+          </ng-template>
+          <ng-template #third>
+              <ng-container *ngIf="dadosDetalhamentoNacional.binrf.dadosveiculo.terceiroEixo;else quarto">
+                  <div class="col-12 col-md-6 col-lg-4 mb-2">
+                      <h4>Quantidade de eixos</h4>
+                      <span>{{dadosDetalhamentoNacional.binrf.dadosveiculo.terceiroEixo}} </span>
+                    </div>
+              </ng-container>
+          </ng-template>
+
+        -->

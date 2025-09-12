@@ -1,0 +1,201 @@
+.parceria-seguralta {
+  background: #2a2a2a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: #ecda26;
+  text-align: center;
+  overflow: hidden;
+  margin: 12px 0px 0px 0px;
+  .row {
+    align-items: end;
+  }
+}
+
+.logo {
+  width: 220px;
+  filter: drop-shadow(2px 2px 5px rgba(255, 255, 255, 0.2));
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #f5f5f5;
+}
+
+.titulo span {
+  color: #ecda26;
+}
+
+.descricao {
+  font-size: 1.3rem;
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  color: #dcdcdc;
+}
+
+.servicos {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.servico {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 30px;
+  border-radius: 10px;
+  color: #161616;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 280px;
+}
+
+.servico:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.servico h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #304d5a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.servico i {
+  font-size: 1.8rem;
+  color: #ecda26;
+}
+
+.servico p {
+  font-size: 1.1rem;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primario {
+  background: #244b5a;
+  color: #fff;
+  border: none;
+
+  a {
+    color: #dcdcdc;
+    text-decoration: none;
+  }
+}
+
+.btn-primario:hover {
+  background: #ecda26;
+
+  a {
+    color: #244b5a;
+    text-decoration: none;
+  }
+}
+
+
+
+.redes-sociais {
+  margin-top: 40px;
+}
+
+.redes-sociais p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.social-icon {
+  font-size: 2rem;
+  margin: 0 12px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.whatsapp {
+  color: #f5f5f5;
+
+}
+
+.whatsapp:hover {
+  color: #f5f5f5;
+  transform: scale(1.5);
+}
+
+.instagram {
+  color: #f5f5f5;
+
+}
+
+.instagram:hover {
+  color: #f5f5f5;
+  transform: scale(1.5);
+}
+
+.site-link {
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+.site-link a {
+  color: #e7e7e7;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-link a:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .servicos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .servico {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .titulo {
+    font-size: 2rem;
+  }
+
+  .descricao {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .parceria-seguralta {
+    padding: 50px 15px;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+  }
+
+  .descricao {
+    font-size: 1rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .social-icon {
+    font-size: 1.8rem;
+  }
+}

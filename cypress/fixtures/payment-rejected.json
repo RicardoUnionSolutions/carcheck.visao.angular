@@ -1,0 +1,9 @@
+[
+  {
+    "transacao": "54321",
+    "dataPagamento": "2023-08-08T12:00:00",
+    "valorFinal": 75.5,
+    "tipoPagamento": "BOLETO",
+    "situacaoPagamento": "CANCELADO"
+  }
+]

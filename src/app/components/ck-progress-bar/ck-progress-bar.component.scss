@@ -1,0 +1,70 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  width: 100%;
+  height: 25px;
+  border: 1px solid #bbb;
+  display: block;
+  border-radius: 4px;
+  padding: 1px;
+  background: white;
+
+  .this-progress {
+    height: 100%;
+    background-image: linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.3) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.3) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 0.7rem 0.7rem;
+    position: relative;
+    border-radius: 4px;
+
+    .this-label {
+      right: 0px;
+      top: calc(100% + 10px);
+      max-width: 70px;
+      min-width: 40px;
+      position: absolute;
+      text-align: center;
+      border-radius: 2px;
+      transform: translateX(49%);
+
+      * {
+        padding: 3px 3px 1px 3px;
+        background-color: inherit;
+        color: white;
+        font-size: 13px;
+        line-height: 1;
+        border-radius: 2px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 20px;
+        text-align: center;
+      }
+
+      &:before {
+        top: -4px;
+        left: calc(50% - 4px);
+        position: absolute;
+        height: 8px;
+        width: 8px;
+        content: "";
+        transform: rotate(45deg);
+        display: block;
+        background-color: inherit;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+}

@@ -1,0 +1,21 @@
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+.rotate{
+    animation: rotate 6000ms linear infinite;
+}
+
+.animation-speed-2000{
+    animation-duration: 2000ms;
+}
+
+@keyframes rotate-reverse {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+
+.rotate-reverse{
+    animation: rotate-reverse 6000ms linear infinite;
+}

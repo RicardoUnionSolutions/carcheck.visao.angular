@@ -1,0 +1,26 @@
+{
+  "veiculo": {
+    "marca": "CHEVROLET",
+    "modelo": "ONIX",
+    "anoFabricacao": "2019",
+    "anoModelo": "2020",
+    "cor": "BRANCO",
+    "chassi": "ABC123456789DEF01",
+    "combustivel": "GASOLINA"
+  },
+  "listaFipes": [
+    {
+      "status": "OK",
+      "data": "2023-08-10T00:00:00Z",
+      "fipes": [
+        {
+          "mesReferencia": "08",
+          "anoReferencia": "2023",
+          "modelo": "ONIX 1.0",
+          "codigoFipe": "123456",
+          "preco": 50000
+        }
+      ]
+    }
+  ]
+}

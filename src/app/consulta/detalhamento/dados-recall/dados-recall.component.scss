@@ -1,0 +1,37 @@
+@use '../../../../assets/scss/bootstrap/variables' as *;
+@use '../../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+
+.text-recall{
+    width: 100%;
+    background: white;
+    color: $gray-700;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0px 10px 0px 5px;
+    line-height: 1.5;
+    text-align: justify;
+    white-space: pre-line;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        background: $gray-200;
+    }
+
+    &::-webkit-scrollbar-track {
+        padding: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $orange-1;
+      outline: none;
+      border-radius: 2px;
+      border: 1px solid white;
+    }
+}
+
+.alerta{
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: underline yellow;
+}

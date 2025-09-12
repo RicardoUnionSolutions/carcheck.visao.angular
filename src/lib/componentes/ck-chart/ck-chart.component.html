@@ -1,0 +1,21 @@
+<div class="ck-chart">
+  <h3 *ngIf="title" class="chart-title">{{ title }}</h3>
+  <div class="chart-container">
+    <canvas
+      #chartCanvas
+      [width]="width"
+      [height]="height"
+      class="chart-canvas"
+    ></canvas>
+  </div>
+  <div class="chart-legend" *ngIf="config.legend && data.length > 0">
+    <div *ngFor="let item of data; let i = index" class="legend-item">
+      <div
+        class="legend-color"
+        [style.background-color]="item.color || getColor(i)"
+      ></div>
+      <span class="legend-label">{{ item.label }}</span>
+      <span class="legend-value">{{ item.value }}</span>
+    </div>
+  </div>
+</div>

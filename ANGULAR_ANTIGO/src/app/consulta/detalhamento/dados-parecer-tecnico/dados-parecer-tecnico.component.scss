@@ -1,0 +1,19 @@
+.medidor{
+  display: flex;
+  align-items: center;
+}
+
+.frame{
+  width: 225px;
+  padding: 20px;
+}
+
+.frameNumber{
+  margin-top: -61px;
+  margin-left: 69px;
+  font-weight: 700;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

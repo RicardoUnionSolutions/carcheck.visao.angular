@@ -1,0 +1,106 @@
+<div class="componentes-viewer">
+  <div class="header">
+    <h1>Biblioteca de Componentes</h1>
+    <p>Visualize e teste todos os componentes reutilizáveis do projeto</p>
+  </div>
+
+  <div class="filters">
+    <div class="categoria-filter">
+      <label for="categoria">Filtrar por categoria:</label>
+      <select
+        id="categoria"
+        [(ngModel)]="filtroCategoria"
+        (change)="filtrarPorCategoria(filtroCategoria)"
+      >
+        <option *ngFor="let categoria of categorias" [value]="categoria">
+          {{ categoria }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="componentes-grid">
+    <div
+      *ngFor="let componente of getComponentesFiltrados()"
+      class="componente-card"
+      (click)="selecionarComponente(componente)"
+    >
+      <div class="componente-header">
+        <h3>{{ componente.nome }}</h3>
+        <span class="categoria-badge">{{ componente.categoria }}</span>
+      </div>
+      <p class="descricao">{{ componente.descricao }}</p>
+      <div class="componente-actions">
+        <button class="btn-primary" (click)="selecionarComponente(componente)">
+          Ver Detalhes
+        </button>
+        <button class="btn-secondary" (click)="abrirDemo(componente)">
+          Testar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Detalhes -->
+  <div
+    *ngIf="componenteSelecionado"
+    class="modal-overlay"
+    (click)="fecharDetalhes()"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ componenteSelecionado.nome }}</h2>
+        <button class="close-btn" (click)="fecharDetalhes()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="componente-info">
+          <h3>Descrição</h3>
+          <p>{{ componenteSelecionado.descricao }}</p>
+
+          <h3>Categoria</h3>
+          <span class="categoria-badge">{{
+            componenteSelecionado.categoria
+          }}</span>
+
+          <h3>Propriedades</h3>
+          <div class="props-table" *ngIf="componenteSelecionado.props">
+            <table>
+              <thead>
+                <tr>
+                  <th>Propriedade</th>
+                  <th>Tipo</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let prop of componenteSelecionado.props">
+                  <td>
+                    <code>{{ prop.nome }}</code>
+                  </td>
+                  <td>
+                    <span class="tipo">{{ prop.tipo }}</span>
+                  </td>
+                  <td>{{ prop.descricao }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Exemplo de Uso</h3>
+          <div class="code-example">
+            <pre><code>&lt;{{ componenteSelecionado.nome.toLowerCase().replace(' ', '-') }} 
+  [propriedade]="valor"
+  (evento)="metodo()"&gt;
+&lt;/{{ componenteSelecionado.nome.toLowerCase().replace(' ', '-') }}&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" (click)="fecharDetalhes()">Fechar</button>
+        <button class="btn-secondary">Copiar Código</button>
+      </div>
+    </div>
+  </div>
+</div>

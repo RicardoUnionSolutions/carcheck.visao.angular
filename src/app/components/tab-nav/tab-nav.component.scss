@@ -1,0 +1,72 @@
+:host {
+  display: block;
+  margin: 0px auto 20px auto;
+}
+
+.tab {
+  border: none;
+  text-decoration: none;
+  padding: 8px 20px;
+  background: transparent;
+  position: relative;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.58);
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  min-width: 120px;
+
+  &.active {
+    color: #ecda26;
+    background-color: #243646;
+  }
+
+  &.active:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    height: 3px;
+    width: 100%;
+    background: #243646;
+    border-radius: 0 0 3px 3px;
+  }
+
+  .icon {
+    font-size: 16px;
+  }
+}
+
+// Responsividade usando breakpoints Bootstrap
+@media (max-width: 576px) {
+  .tab {
+    padding: 6px 12px;
+    font-size: 14px;
+    min-width: 100px;
+
+    .icon {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  .tab {
+    padding: 7px 15px;
+    font-size: 15px;
+    min-width: 110px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tab {
+    padding: 8px 20px;
+    font-size: 16px;
+    min-width: 120px;
+  }
+}

@@ -1,0 +1,195 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  .navbar-dropdown {
+    position: relative;
+    display: inline-block;
+
+    &.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .user-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-name {
+          color: white;
+          font-weight: 500;
+          font-size: 14px;
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .dropdown-arrow {
+        color: white;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      min-width: 250px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      margin-top: 8px;
+
+      &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .dropdown-content {
+        padding: 0;
+
+        .user-profile {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px;
+          background: #f8f9fa;
+          border-radius: 8px 8px 0 0;
+
+          .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ecda26;
+          }
+
+          .profile-info {
+            h4 {
+              margin: 0 0 4px 0;
+              color: #244b5a;
+              font-size: 16px;
+              font-weight: 600;
+            }
+
+            p {
+              margin: 0;
+              color: #6c757d;
+              font-size: 14px;
+            }
+          }
+        }
+
+        .dropdown-divider {
+          height: 1px;
+          background: #e9ecef;
+          margin: 0;
+        }
+
+        .dropdown-list {
+          list-style: none;
+          padding: 8px 0;
+          margin: 0;
+
+          .dropdown-item {
+            a {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              padding: 12px 16px;
+              color: #244b5a;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              cursor: pointer;
+              font-weight: 500;
+
+              i {
+                font-size: 16px;
+                width: 20px;
+                text-align: center;
+                color: #6c757d;
+              }
+
+              &:hover {
+                background: #f8f9fa;
+                color: #ecda26;
+                padding-left: 20px;
+
+                i {
+                  color: #ecda26;
+                }
+              }
+            }
+
+            &:last-child a {
+              border-radius: 0 0 8px 8px;
+            }
+          }
+        }
+      }
+    }
+
+    &.active {
+      .dropdown-toggle {
+        background: #ecda26;
+        border-color: #d4c420;
+
+        .user-name {
+          color: #244b5a;
+        }
+
+        .dropdown-arrow {
+          color: #244b5a;
+        }
+      }
+    }
+  }
+
+  // Responsividade
+  @include media-breakpoint-down(md) {
+    .navbar-dropdown {
+      .dropdown-menu {
+        right: -50px;
+        min-width: 200px;
+      }
+    }
+  }
+}

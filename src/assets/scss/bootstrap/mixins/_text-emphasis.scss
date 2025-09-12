@@ -1,0 +1,17 @@
+// stylelint-disable declaration-no-important
+
+@use "sass:color";
+@use "./hover" as *;
+
+// Typography
+
+@mixin text-emphasis-variant($parent, $color) {
+  #{$parent} {
+    color: $color !important;
+  }
+  a#{$parent} {
+    @include hover-focus {
+      color: color.mix(black, $color, 10%) !important;
+    }
+  }
+}

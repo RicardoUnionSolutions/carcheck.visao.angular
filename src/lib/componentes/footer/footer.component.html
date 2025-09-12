@@ -1,0 +1,115 @@
+<div class="topfoot" *ngIf="showNewsletter">
+  <div class="container-promocao">
+    <div class="titulo-promocao">
+      <h3>Receba promoções</h3>
+      <p>Seja o primeiro a descobrir tudo o que temos para você</p>
+    </div>
+    <div class="form-promocao">
+      <form class="row" (ngSubmit)="onNewsletterSubmit($event)">
+        <input
+          id="nome-inscricao"
+          autocomplete="off"
+          type="text"
+          class="form-control"
+          placeholder="Seu nome"
+        />
+        <div
+          id="nome-inscricao-erro"
+          class="d-none text-danger-light px-2 text-right fw-500 f-14"
+        >
+          Campo obrigatório.
+        </div>
+        <input
+          id="email-inscricao"
+          autocomplete="off"
+          type="email"
+          class="form-control"
+          placeholder="Seu e-mail"
+        />
+        <div
+          id="email-invalido-inscricao-erro"
+          class="d-none text-danger-light px-2 text-right fw-500 f-14"
+        >
+          E-mail inválido.
+        </div>
+        <button type="submit" id="inscever-btn">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<section class="app-section" *ngIf="showApps">
+  <p>Baixe nosso app e tenha acesso fácil aos nossos serviços!</p>
+
+  <div class="app-links">
+    <!-- Google Play -->
+    <a
+      href="https://play.google.com/store/apps/details?id=com.sazso.carcheck"
+      target="_blank"
+    >
+      <img
+        src="./assets/images/google-play-badge.png"
+        alt="Disponível no Google Play"
+      />
+    </a>
+
+    <!-- App Store -->
+    <a href="https://apps.apple.com/app/id6459511385" target="_blank">
+      <img
+        src="./assets/images/app-store-badge.png"
+        alt="Disponível na App Store"
+      />
+    </a>
+  </div>
+</section>
+
+<div class="midfoot">
+  <div class="sobre-carcheck">
+    <h3>Sobre o {{ companyName }}</h3>
+    <p>
+      Somos especialistas em consultas de veículos, oferecendo informações
+      completas e confiáveis para ajudar você a tomar decisões informadas na
+      compra ou venda de veículos.
+    </p>
+
+    <div class="redes-sociais">
+      <h4>Nos siga nas redes sociais:</h4>
+      <ul class="social-links">
+        <li *ngFor="let social of socialMedia">
+          <a [href]="social.url" [title]="social.label" target="_blank">
+            <i [class]="social.icon"></i>
+            {{ social.label }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Mapa do site</h3>
+    <ul id="menu-rodape" class="mapa-site">
+      <li *ngFor="let link of links" class="menu-item">
+        <a [routerLink]="link.url">{{ link.label }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formas-pagamento">
+    <h3>Formas de Pagamento</h3>
+    <div class="payment-methods">
+      <div *ngFor="let method of paymentMethods" class="payment-method">
+        <img
+          [src]="'./assets/images/payments/' + method.icon"
+          [alt]="method.title"
+        />
+        <span>{{ method.title }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rodape">
+  <div class="text-center">
+    {{ companyName }} {{ copyrightYear }} - Todos os direitos reservados
+  </div>
+</div>

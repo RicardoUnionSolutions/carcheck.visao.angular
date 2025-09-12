@@ -1,0 +1,35 @@
+<br />
+
+<app-destaque></app-destaque>
+
+<app-aplicativo></app-aplicativo>
+
+<!-- <div class="banner container" style="
+margin: auto;
+align-content: center;
+margin-bottom: 10px;
+">
+  <app-banner-vistoria></app-banner-vistoria>
+</div> -->
+
+<div class="d-flex align-items-center flex-column justify-content-center">
+  <div class="section-title">Consultas e pacotes</div>
+  <p class="subtext">
+    Explore várias opções de consulta para garantir maior segurança na
+    negociação de veículos usados e seminovos. <br /><b
+      >Faça suas verificações agora e assegure a melhor compra!
+    </b>
+  </p>
+</div>
+
+<section>
+  <app-produtos></app-produtos>
+</section>
+
+<app-destaque-servicos></app-destaque-servicos>
+
+<app-lazy-wrapper [component]="depoimentosComponent"></app-lazy-wrapper>
+<app-lazy-wrapper [component]="sobreComponent"></app-lazy-wrapper>
+<app-lazy-wrapper [component]="comoFuncionaComponent"></app-lazy-wrapper>
+<app-lazy-wrapper [component]="duvidasFrequentesComponent"></app-lazy-wrapper>
+<app-lazy-wrapper [component]="blogComponent"></app-lazy-wrapper>

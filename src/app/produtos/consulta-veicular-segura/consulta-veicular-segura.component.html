@@ -1,0 +1,71 @@
+<section id="conteudo" class="padding-60">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+        <h1 class="mb-4">Consulta Veicular Segura</h1>
+        <div class="content-text">
+          <p class="mb-3">
+            <span style="font-weight: 400">A </span
+            ><b><i>consulta veicular segura</i></b
+            ><span style="font-weight: 400">
+              é indicada para quem tem mais experiência em compra e venda de
+              veículos. Por meio da placa do carro ou chassi, você tem acesso à
+              informações de forma resumidas sobre as informações que indicam
+              riscos na compra do veículo.</span
+            >
+          </p>
+          <p class="mb-3">
+            <span style="font-weight: 400">Por ser 100% online a </span
+            ><b><i>consulta veicular segura</i></b
+            ><span style="font-weight: 400">
+              permite impressão e compartilhamento. Os dados são apresentados em
+              um relatório com quadro de resumo, checklist, timeline e um
+              detalhamento que facilita a visualização das informações.</span
+            >
+          </p>
+          <p class="mb-3">
+            <span style="font-weight: 400"
+              >Dados necessários para consulta:</span
+            >
+          </p>
+          <p class="mb-3">
+            <b
+              >Informe a placa ou chassi do veículo para realizar a consulta.</b
+            >
+          </p>
+          <div class="alert alert-warning">
+            <b>ATENÇÃO:</b> Veículos anteriores ao ano de 1992 não possuem todas
+            as informações citadas acima disponíveis no histórico devido a
+            criação do cadastro nacional de motores neste ano.
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div appAppearRightOnScroll class="consulta text-center">
+          <h2 class="azul">{{ consulta.nome_da_consulta }}</h2>
+          <!-- <div class="promocional"><span class="promocional-text">Valor promocional até dia 10/08</span></div> -->
+          <span class="de">{{ consulta.valor_atual | currency : "BRL" }}</span>
+          <br />
+          <span class="preco">{{
+            consulta.valor_promocional | currency : "BRL"
+          }}</span>
+          <br />
+          <p>Por consulta</p>
+          <a href="/comprar-consulta-placa/segura" class="btn">comprar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<h1 class="text-center">Exemplo de consulta</h1>
+<h5 class="sub text-center">Modelo e explicação da consulta <br /></h5>
+<h6 class="text-center">* Dados ficticios</h6>
+<app-exemplo-consulta-segura></app-exemplo-consulta-segura>
+
+<app-comparar-produto [consultaComparada]="consulta.id"></app-comparar-produto>
+
+<app-como-funciona></app-como-funciona>
+
+<app-duvidas-frequentes></app-duvidas-frequentes>
+
+<app-produtos></app-produtos>

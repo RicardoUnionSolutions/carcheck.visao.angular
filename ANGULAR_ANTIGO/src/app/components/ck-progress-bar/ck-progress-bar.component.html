@@ -1,0 +1,21 @@
+<div class="this-progress" 
+  [ngStyle]="{'width': progress + '%', 
+    'background-color': progress <= range.danger ? color.danger : progress <= range.warning ? color.warning : progress <= range.success ? color.success : color.default }">
+  <div class="this-label" [ngStyle]="{ 'background-color': progress <= range.danger ? color.danger : progress <= range.warning ? color.warning : progress <= range.success ? color.success : color.default }">
+    <div [hidden]="dangerMsg.children.length == 0 || type =='info' || type =='color' || !(progress <= range.danger)" #dangerMsg>
+      <ng-content  select=".danger"></ng-content>
+    </div>
+    <div [hidden]="warningMsg.children.length == 0 ||  type =='info' || type =='color' || progress <= range.danger || progress > range.warning" #warningMsg>
+      <ng-content  select=".warning"></ng-content>
+    </div>
+    <div [hidden]="successMsg.children.length == 0 || type =='info' || type =='color' || progress <= range.warning || progress > range.success" #successMsg>
+      <ng-content  select=".success"></ng-content>
+    </div>
+    <div [hidden]="infoMsg.children.length == 0 || type !='info' && type !='color'" #infoMsg>
+      <ng-content  select=".info"></ng-content>
+    </div>
+    <div *ngIf="dangerMsg.children.length == 0 && warningMsg.children.length == 0 && successMsg.children.length == 0 && infoMsg.children.length == 0">
+      {{progress}}%
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div appAppearRightOnScroll class="testimonials-container">
+  <div *ngFor="let review of reviews" class="testimonial-card">
+    <img class="user-photo" [src]="review.photo" alt="{{ review.name }}">
+    <div class="user-info">
+      <h3>{{ review.name }}</h3>
+      <div class="rating">
+        <i *ngFor="let star of review.stars" class="mdi mdi-star"></i>
+      </div>
+      <p class="comment">"{{ review.comment }}"</p>
+    </div>
+  </div>
+</div>

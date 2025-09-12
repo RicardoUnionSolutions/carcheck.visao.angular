@@ -1,0 +1,139 @@
+<!-- Exemplos de uso do componente Button -->
+
+<div class="button-examples">
+  <h2>Exemplos de Botões</h2>
+  
+  <!-- Botões Primários -->
+  <section class="example-section">
+    <h3>Botões Primários</h3>
+    <div class="button-group">
+      <app-button variant="primary" size="sm">Pequeno</app-button>
+      <app-button variant="primary" size="md">Médio</app-button>
+      <app-button variant="primary" size="lg">Grande</app-button>
+    </div>
+  </section>
+
+  <!-- Botões Secundários -->
+  <section class="example-section">
+    <h3>Botões Secundários</h3>
+    <div class="button-group">
+      <app-button variant="secondary" size="sm">Pequeno</app-button>
+      <app-button variant="secondary" size="md">Médio</app-button>
+      <app-button variant="secondary" size="lg">Grande</app-button>
+    </div>
+  </section>
+
+  <!-- Botões Outline -->
+  <section class="example-section">
+    <h3>Botões Outline</h3>
+    <div class="button-group">
+      <app-button variant="outline" size="sm">Pequeno</app-button>
+      <app-button variant="outline" size="md">Médio</app-button>
+      <app-button variant="outline" size="lg">Grande</app-button>
+    </div>
+  </section>
+
+  <!-- Botões Ghost -->
+  <section class="example-section">
+    <h3>Botões Ghost</h3>
+    <div class="button-group">
+      <app-button variant="ghost" size="sm">Pequeno</app-button>
+      <app-button variant="ghost" size="md">Médio</app-button>
+      <app-button variant="ghost" size="lg">Grande</app-button>
+    </div>
+  </section>
+
+  <!-- Botões com Ícones -->
+  <section class="example-section">
+    <h3>Botões com Ícones</h3>
+    <div class="button-group">
+      <app-button variant="primary" icon="mdi mdi-login" iconPosition="left">
+        Entrar
+      </app-button>
+      <app-button variant="secondary" icon="mdi mdi-account-plus" iconPosition="right">
+        Cadastrar
+      </app-button>
+      <app-button variant="outline" icon="mdi mdi-download" iconPosition="left">
+        Download
+      </app-button>
+    </div>
+  </section>
+
+  <!-- Botões com Estados -->
+  <section class="example-section">
+    <h3>Estados dos Botões</h3>
+    <div class="button-group">
+      <app-button variant="primary">Normal</app-button>
+      <app-button variant="primary" disabled>Desabilitado</app-button>
+      <app-button variant="primary" loading>Carregando</app-button>
+    </div>
+  </section>
+
+  <!-- Botões Full Width -->
+  <section class="example-section">
+    <h3>Botões Full Width</h3>
+    <div class="button-group">
+      <app-button variant="primary" fullWidth>Botão Full Width</app-button>
+      <app-button variant="outline" fullWidth>Botão Outline Full Width</app-button>
+    </div>
+  </section>
+
+  <!-- Botões da Navbar (exemplo de uso real) -->
+  <section class="example-section">
+    <h3>Exemplo de Uso na Navbar</h3>
+    <div class="navbar-example">
+      <div class="nav-actions">
+        <app-button variant="outline" size="md">Entrar</app-button>
+        <app-button variant="primary" size="md">Cadastrar-se</app-button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+.button-examples {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.example-section {
+  margin-bottom: 30px;
+}
+
+.example-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.navbar-example {
+  background: linear-gradient(135deg, #304d5a 0%, #243646 50%, #1e2a35 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.navbar-example .nav-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .navbar-example .nav-actions {
+    flex-direction: column;
+  }
+}
+</style>

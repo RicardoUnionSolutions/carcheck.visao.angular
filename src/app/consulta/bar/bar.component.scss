@@ -1,0 +1,92 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use 'sass:color';
+
+:host{
+    background: $gray-900;
+    display: block;
+    width: 100%;
+    position: relative;
+    position: fixed;
+    top: 56px;
+    left: 0px;
+    z-index: 1029;
+}
+
+ul{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0px auto;
+    padding: 0px;
+    min-height: 45px;
+}
+
+li{
+    width: 25%;
+    flex-basis: 25%;
+    padding: 0px;
+    margin: 0px;
+}
+
+button{
+    height: 100%;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:none;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none;
+}
+
+span{
+    display: block;
+    font-size: 20px;
+    max-width: 100%;
+    overflow: hidden;
+    opacity: 1;
+    transition: 200ms all ease-in;
+}
+
+svg{
+    max-height: 18px;
+    max-width: 30px;
+    width: 100%;
+    margin: 0px 15px 0px 0px;
+    transition: 200ms all ease-in, max-width 100ms linear, max-height 100ms ease-in;
+}
+
+svg .cls-1{
+    transition: 200ms all ease-in;
+    fill: white;
+}
+
+button:active, button.active{
+    
+    background: color.adjust($gray-900, $lightness: -0.8%);
+
+    span{
+        max-width: 0%;
+        font-size: 0px;
+        opacity: 0;
+    }
+    
+    svg{
+        max-width: 47px;
+        max-height: 30px;
+
+        margin: 0px;
+
+        .cls-1{
+            fill: #ffdd55;
+        }
+
+    } 
+   
+}

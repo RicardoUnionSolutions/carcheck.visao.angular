@@ -1,0 +1,41 @@
+// Variáveis simples
+$bar-color: #243646;
+$bar-background: #efefef;
+$bar-height: 18px;
+$bar-height-mobile: 13px;
+$bar-height-xs: 10px;
+
+// Barra de progresso
+.bar-progress {
+    background: $bar-color;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease-in;
+}
+
+// Container da barra
+:host {
+    width: 100%;
+    height: $bar-height;
+    margin: 0 -3px;
+    background: $bar-background;
+    
+    &.done .bar-progress {
+        width: 100%;
+        transition: width 0.4s ease-in;
+    }
+}
+
+// Responsividade - Tablet
+@media (max-width: 768px) {
+    :host {
+        height: $bar-height-mobile;
+    }
+}
+
+// Responsividade - Mobile
+@media (max-width: 576px) {
+    :host {
+        height: $bar-height-xs;
+    }
+}

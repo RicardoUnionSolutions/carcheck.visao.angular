@@ -1,0 +1,146 @@
+@import 'functions', 'variables', 'mixins/breakpoints';
+
+h2{
+  font-size: 30px;
+  margin: 0 0 20px;
+}
+
+a {
+  color: #244b5a;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  a{
+    color: #244b5aa3;
+  }
+
+}
+a:hover{
+  color: #244b5a !important;
+}
+
+.imagem img {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+#destaque_interno{
+  padding-top: 70px;
+}
+
+.post{
+  margin-bottom: 20px;
+}
+
+.item{
+  margin-bottom: 20px;
+}
+
+.item:hover{
+  box-shadow: 1px 2px 9px 8px whitesmoke;
+  border-radius: 20px;
+}
+
+.data {
+  padding: 10px 0;
+  font-size: 12px;
+  color: #BBB;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Número de linhas para exibir */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category{
+  color: #244b5aa3;
+}
+
+.category:hover{
+  color: #244b5a !important;
+}
+
+.pagination{
+  position: relative;
+  left: 25%;
+}
+
+@include media-breakpoint-down(md) {
+  .pagination{
+    position: relative;left: 5%;
+  }
+}
+
+::ng-deep.pagination{
+  flex-wrap: wrap !important;
+}
+
+::ng-deep.pagination > li > a
+{
+    background-color: white;
+    color: #304d5a;
+}
+
+::ng-deep.pagination > li > a:focus,
+::ng-deep.pagination > li > a:hover,
+::ng-deep.pagination > li > span:focus,
+::ng-deep.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+::ng-deep.pagination > .active > a
+{
+    color: #304d5a !important;
+    font-weight: bold;
+    background-color: #ecda26 !important;
+    border: solid 1px #304d5a4d !important;
+}
+
+::ng-deep.pagination > .active > a:hover
+{
+    background-color: #ecda26 !important;
+    border: solid 1px #304d5a;
+}
+
+
+/* Estilos para a tela de carregamento */
+.loading-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-logo {
+  margin: 40px;
+  width: 40px;
+  height: 40px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,174 @@
+#premios {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 60px 0;
+  min-height: 100vh;
+}
+
+.consulta {
+  border: 1px solid #e0e6ed;
+  margin: 0;
+  padding: 0;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  &.recomendada {
+    border: 2px solid #244b5a;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #208b87 0%, #244b5a 100%);
+    }
+  }
+}
+
+.consulta-header {
+  padding: 25px 20px 15px;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #e0e6ed;
+  position: relative;
+}
+
+.consulta-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #244b5a;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.badge-recomendada {
+  background: linear-gradient(90deg, #208b87 0%, #244b5a 100%);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.consulta-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.insumos-positivos,
+.insumos-negativos {
+  margin-bottom: 20px;
+}
+
+.insumos-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #244b5a;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.insumo-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding: 8px 0;
+}
+
+.insumo-icon {
+  font-size: 18px;
+  margin-right: 12px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.insumo-check {
+  color: #28a745;
+}
+
+.insumo-close {
+  color: #dc3545;
+}
+
+.insumo-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.insumo-negado {
+  color: #6c757d;
+  text-decoration: line-through;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #e0e6ed 50%,
+    transparent 100%
+  );
+  margin: 20px 0;
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  #premios {
+    padding: 40px 0;
+  }
+
+  .consulta {
+    margin-bottom: 20px;
+  }
+
+  .consulta-header {
+    padding: 20px 15px 10px;
+  }
+
+  .consulta-title {
+    font-size: 18px;
+  }
+
+  .consulta-content {
+    padding: 15px;
+  }
+
+  .insumo-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .consulta-title {
+    font-size: 16px;
+  }
+
+  .insumos-title {
+    font-size: 14px;
+  }
+
+  .insumo-icon {
+    font-size: 16px;
+  }
+}

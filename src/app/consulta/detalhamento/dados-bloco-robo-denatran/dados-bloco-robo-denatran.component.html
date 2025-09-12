@@ -1,0 +1,129 @@
+
+<div *ngIf="dadosDetalhamento.comunicacaoVenda" class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }">
+
+    <div class="ck-card-title">COMUNICAÇÃO DE VENDA</div>
+    <consulta-msg [status]="1" [statusReload]="statusReload" (reloadClick)="reload()">
+      <div class="row no-gutters  px-3 f-18 mb-4">
+
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Data Comunicação de Venda</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.dataComunicacaoVenda !="" && dadosDetalhamento?.comunicacaoVenda?.dataComunicacaoVenda!=null? dadosDetalhamento?.comunicacaoVenda?.dataComunicacaoVenda : "-----"}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Data Venda</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.dataVenda !="" && dadosDetalhamento?.comunicacaoVenda?.dataVenda!=null ? dadosDetalhamento?.comunicacaoVenda?.dataVenda : "-----"}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Documento Comprador</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.documentoComprador !="" && dadosDetalhamento?.comunicacaoVenda?.documentoComprador!=null ? dadosDetalhamento?.comunicacaoVenda?.documentoComprador : "-----" }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Documento Proprietario</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.documentoProprietario !="" && dadosDetalhamento?.comunicacaoVenda?.documentoProprietario!=null ? dadosDetalhamento?.comunicacaoVenda?.documentoProprietario : "-----" }}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Nome Comprador</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.nomeComprador !="" && dadosDetalhamento?.comunicacaoVenda?.nomeComprador !=null ? dadosDetalhamento?.comunicacaoVenda?.nomeComprador : "-----"}}</span>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
+          <h4>Placa</h4>
+          <span>{{dadosDetalhamento?.comunicacaoVenda?.placa !="" && dadosDetalhamento?.comunicacaoVenda?.placa !=null ? dadosDetalhamento?.comunicacaoVenda?.placa : "-----" }}</span>
+        </div>
+      </div>
+    </consulta-msg>
+  </div>
+
+  <div *ngIf="dadosDetalhamento.comunicacaoVenda==null && dadosDetalhamento.codigoControle=='OK'"  class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }">
+    <div class="ck-card-title">COMUNICAÇÃO DE VENDA</div>
+    <consulta-msg [status]="0" [statusReload]="statusReload" (reloadClick)="reload()">
+      <div class="fw-700 f-16">
+        Não encontramos registro de comunicação de venda nas nossas bases de dados
+      </div>
+    </consulta-msg>
+  </div>
+
+
+
+  <div *ngIf="dadosDetalhamento?.renajudDenatran?.length>0" class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }" >
+      <div class="ck-card-title">RENAJUD</div>
+      <consulta-msg *ngIf="statusConsulta==5" [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()" ></consulta-msg>
+
+      <div *ngIf="statusConsulta!=5" class="ck-card-body table-responsive">
+
+        <table class="w-100 px-3">
+          <tr class="text-orange-1 border-orange-1 f-14">
+            <th class="px-2 pb-1">
+              Tribunal
+            </th>
+            <th class="px-2 pb-1">
+              Descrição Tribunal
+            </th>
+            <th class="px-2 pb-1">
+              Orgão Judiciário
+            </th>
+            <th class="px-2 pb-1">
+              Processo
+            </th>
+            <th class="px-2 pb-1">
+              Data Inclusão
+            </th>
+            <th class="px-2 pb-1">
+              Descrição
+            </th>
+          </tr>
+          <tr *ngFor="let renajud of dadosDetalhamento.renajudDenatran; let i = index;" [ngClass]="{'bg-silver-light': i%2}">
+            <td class="p-2 text-nowrap">{{renajud.tribunal}}</td>
+            <td class="p-2 text-nowrap">{{renajud.descricaoTribunal}}</td>
+            <td class="p-2 text-nowrap">{{renajud.orgaoJudiciario}}</td>
+            <td class="p-2 text-nowrap">{{renajud.processo}}</td>
+            <td class="p-2 text-nowrap">{{renajud.dataInclusao}}</td>
+            <td class="p-2 text-nowrap">{{renajud.descricao}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+    <div *ngIf="dadosDetalhamento?.multasRenainf?.length>0" class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }" >
+        <div class="ck-card-title">MULTAS</div>
+        <consulta-msg *ngIf="statusConsulta==5" [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()" ></consulta-msg>
+
+        <div *ngIf="statusConsulta!=5" class="ck-card-body table-responsive">
+
+          <table class="w-100 px-3">
+            <tr class="text-orange-1 border-orange-1 f-14">
+              <th class="px-2 pb-1">
+                Local
+              </th>
+              <th class="px-2 pb-1">
+                Valor
+              </th>
+              <th class="px-2 pb-1">
+                Data Infração
+              </th>
+              <th class="px-2 pb-1">
+                Hora Infração
+              </th>
+              <th class="px-2 pb-1">
+                Data Vencimento
+              </th>
+              <th class="px-2 pb-1">
+                Descrição
+              </th>
+              <th class="px-2 pb-1">
+                  Orgão
+              </th>
+            </tr>
+            <tr *ngFor="let renainf of dadosDetalhamento.multasRenainf; let i = index;" [ngClass]="{'bg-silver-light': i%2}">
+              <td class="p-2 text-nowrap">{{renainf.local}}</td>
+              <td class="p-2 text-nowrap">{{renainf.valor}}</td>
+              <td class="p-2 text-nowrap">{{renainf.dataInfracao}}</td>
+              <td class="p-2 text-nowrap">{{renainf.horaInfracao}}</td>
+              <td class="p-2 text-nowrap">{{renainf.dataVencimento}}</td>
+              <td class="p-2 text-nowrap">{{renainf.descricao}}</td>
+              <td class="p-2 text-nowrap">{{renainf.orgao}}</td>
+            </tr>
+          </table>
+
+        </div>
+      </div>

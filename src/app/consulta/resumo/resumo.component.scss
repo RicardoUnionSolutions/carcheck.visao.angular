@@ -1,0 +1,62 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.detail{
+    display: none;
+    max-height: 0px;
+    width: 0%;
+    transition: 400ms 0ms max-height ease-in,  400ms 0ms width ease-in, 0ms 400ms display ease-in;
+
+    &.show{
+        display: block;
+        max-height: 500px;
+        transition: 400ms 0ms max-height ease-in,  400ms 0ms width ease-in, 0ms 0ms display ease-in;
+
+        &:nth-child(odd){
+            order: 1;
+        }
+    }
+}
+
+
+.title{
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid;
+    justify-content: flex-start;
+    margin-left: 80px;
+    margin-right: 20px;
+}
+
+.img-mercado{
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    overflow: hidden;
+
+    img{
+      vertical-align: middle;
+      height: auto;
+      width: 100px;
+      border-style: none;
+    }
+}
+
+@include media-breakpoint-up(md) {
+  .img-mercado{
+    width: 116px;
+    height: 102px;
+    margin-left: 31px;
+  }
+}
+
+
+.dadosVeiculo{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    height: auto;
+    width: 100%;
+}

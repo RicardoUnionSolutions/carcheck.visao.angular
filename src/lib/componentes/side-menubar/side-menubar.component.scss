@@ -1,0 +1,12 @@
+// ========================================
+// SIDE-MENUBAR COMPONENT
+// ========================================
+// Este componente usa os estilos unificados do _sidebar.scss
+// Apenas estilos específicos do componente são definidos aqui
+
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use "../../assets/scss/components/sidebar" as *;
+
+// Estilos específicos do side-menubar (se necessário)
+// A maioria dos estilos está no _sidebar.scss unificado

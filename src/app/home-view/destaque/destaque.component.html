@@ -1,0 +1,196 @@
+<section id="destaque" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="experimentar">
+      <h1 id="hero-title">Consultas veiculares dados 100% seguros</h1>
+      <h2 class="sub">Consultar o veículo nunca foi tão fácil!</h2>
+
+      <div class="card">
+        <h3 class="black">Experiencia Carcheck Brasil</h3>
+        <form [formGroup]="compraTesteForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input
+              placeholder="DIGITE A PLACA"
+              formControlName="placa"
+              autocomplete="off"
+              maxlength="8"
+              spellcheck="false"
+              class="input-consulta-placa text-uppercase form-control form-control-lg"
+              type="text"
+              (keypress)="maskcaraPlaca($event)"
+            />
+
+            <!-- Validação da placa -->
+            <div
+              *ngIf="
+                compraTesteForm.get('placa')?.invalid &&
+                compraTesteForm.get('placa')?.touched
+              "
+              class="text-danger mt-1"
+            >
+              <small *ngIf="compraTesteForm.get('placa')?.errors?.['required']">
+                A placa é obrigatória.
+              </small>
+              <small *ngIf="compraTesteForm.get('placa')?.errors?.['pattern']">
+                Digite uma placa válida (ex: ABC-1234).
+              </small>
+            </div>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div
+            *ngIf="compraTesteForm.get('placa')?.value?.length === 8"
+            class="recaptcha"
+          >
+            <ngx-recaptcha2
+              formControlName="tokenRecaptcha"
+              siteKey="6Lc4doYbAAAAADT5YN8T_iQ0myYSrf9XkkKg1RgI"
+              (success)="onCaptchaSuccess($event)"
+            >
+            </ngx-recaptcha2>
+          </div>
+
+          <div class="acoes">
+            <button
+              type="submit"
+              aria-label="Consultar placa de veículo"
+              id="testar-consulta-btn"
+              [disabled]="!compraTesteForm.valid"
+              class="btn btn-lg btn-ck-orange-1"
+              style="font-weight: bold"
+            >
+              CONSULTAR
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="customers">
+        <div class="customers-icon">
+          <img
+            alt="Ícone de clientes"
+            src="./assets/images/customers.png"
+            loading="lazy"
+          />
+        </div>
+        <p>+ de 1.92 milhões de pessoas já consultaram.</p>
+      </div>
+    </div>
+    <div appAppearRightOnScroll class="imgDestaque">
+      <div class="typed_wrap">
+        <h1>
+          <span class="highlight-text">{{ displayedText }}</span>
+          <span class="cursor">|</span>
+        </h1>
+        <h1>E muito mais!</h1>
+      </div>
+
+      <img
+        (click)="scrollToElement()"
+        alt="Fundo visual Carcheck Brasil"
+        src="../../../assets/images/img-destaque/fundo.png"
+        loading="lazy"
+      />
+
+      <div class="car-container">
+        <img
+          alt="Carro em destaque Carcheck Brasil"
+          src="../../../assets/images/img-destaque/car-destaque.png"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg">
+    <path
+      fill="#F3F3F3"
+      fill-opacity="1"
+      d="M0,50 C360,150 1080,-50 1440,50 L1440,100 L0,100 Z"
+    ></path>
+    <path
+      fill="#F3F3F3"
+      fill-opacity="1"
+      d="M0,100 L1440,100 L1440,50 C1080,-50 360,150 0,50 Z"
+    ></path>
+  </svg>
+</div>
+
+<!-- Modal -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5 class="modal-title">Complete seus dados</h5>
+      <button
+        type="button"
+        class="btn-close"
+        (click)="closeModal()"
+        aria-label="Fechar modal"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form [formGroup]="modalForm">
+        <div class="form-group">
+          <label for="name" class="form-label">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="Digite seu nome completo"
+          />
+          <div
+            *ngIf="
+              modalForm.get('name')?.invalid && modalForm.get('name')?.touched
+            "
+            class="text-danger"
+          >
+            <small *ngIf="modalForm.get('name')?.errors?.['required']">
+              O nome é obrigatório.
+            </small>
+            <small *ngIf="modalForm.get('name')?.errors?.['minlength']">
+              O nome deve ter pelo menos 2 caracteres.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="Digite seu email"
+          />
+          <div
+            *ngIf="
+              modalForm.get('email')?.invalid && modalForm.get('email')?.touched
+            "
+            class="text-danger"
+          >
+            <small *ngIf="modalForm.get('email')?.errors?.['required']">
+              O email é obrigatório.
+            </small>
+            <small *ngIf="modalForm.get('email')?.errors?.['email']">
+              Por favor, insira um email válido.
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!modalForm.valid"
+        (click)="onContinue()"
+      >
+        Continuar
+      </button>
+    </div>
+  </div>
+</div>

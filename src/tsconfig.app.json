@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "types": [
+      "gapi",
+      "gapi.auth2",
+      "node"
+    ]
+  },
+  "files": [
+    "main.ts",
+    "polyfills.ts",
+    "main.server.ts",
+    "server.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

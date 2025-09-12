@@ -1,0 +1,45 @@
+<div class="ck-card mt-5" [ngClass]="{'disabled': statusConsulta == 5 }">
+    <div class="ck-card-title">RISCO DE ACEITAÇÃO NO MERCADO</div>
+
+
+  <consulta-msg *ngIf="this.dadosDetalhamentoParecerTecnico.codigoControle!='OK'" [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()">  </consulta-msg>
+   <div *ngIf="this.dadosDetalhamentoParecerTecnico.codigoControle=='OK'" [status]="statusParecer - 1" [statusReload]="statusReload" (reloadClick)="reload()">
+    <div *ngIf="temStatusParecer && this.dadosDetalhamentoParecerTecnico.codigoControle=='OK'">
+
+
+      <div class="medidor">
+        <div *ngIf="statusParecer == 1" class="medidorContainer">
+        <img class="frame" src="./assets/images/newProgress/Frame100svg.svg" alt="" srcset="">
+        <h5 class="frameNumber">100%<h6>de aceitação</h6></h5>
+        </div>
+        <div *ngIf="statusParecer == 2" class="medidorContainer">
+          <img class="frame" src="./assets/images/newProgress/Frame60svg.svg" alt="" srcset="">
+          <h5 class="frameNumber">55%<h6>de aceitação</h6></h5>
+          </div>
+          <div *ngIf="statusParecer == 3" class="medidorContainer">
+            <img class="frame" src="./assets/images/newProgress/Frame10svg.svg" alt="" srcset="">
+            <h5 class="frameNumber">10%<h6>de aceitação</h6></h5>
+            </div>
+      <div class=" f-16">
+        <div class="fw-700 mb-1 f-16">
+
+          {{statusParecer==1 ? 'Veículo não possui ocorrência.' : statusParecer==2 ? 'Foi identificado uma ocorrência de
+        grau médio para este veículo.' : 'Foi encontrado uma ocorrência grave para este veículo.'}}
+        </div>
+        {{statusParecer==1 ? 'Não foi encontrado nas nossas bases de dados registros de restrição para o veículo
+      pesquisado.' :
+      statusParecer==2 ? 'Encontramos em nossa base de dados uma ocorrencia de grau médio para o veículo pesquisado.'
+      :
+      'Encontramos em nossa base de dados uma ocorrência grave para o veículo pesquisado.'}}
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <div class="f-12 f-text-right p-2 p-md-4"><i>Verifica em bases de dados de vários parceiros ocorrências para os
+      veículos que não são provenientes de leilão, indicando o eventual risco de aceitação do veículo, fornecendo um
+      parecer se o veículo teria fácil, média ou difícil comercialização perante o mercado. Esses dados são buscados
+      de
+      seguradoras, desmanches, empresas de recuperação de veículos e etc.</i>
+  </div>
+</div>

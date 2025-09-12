@@ -1,0 +1,13 @@
+//
+// Visibility utilities
+//
+
+@use "../mixins/visibility" as *;
+
+.visible {
+  @include invisible(visible);
+}
+
+.invisible {
+  @include invisible(hidden);
+}

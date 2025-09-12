@@ -1,0 +1,25 @@
+.etapa_circulo{
+  background: #244b5a;
+  border-radius: 50%;
+  color: #FFF;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0px;
+  align-items: flex-start;
+}
+
+h3{
+  color: black;
+}
+
+.etapas{
+  padding : 20px;
+}

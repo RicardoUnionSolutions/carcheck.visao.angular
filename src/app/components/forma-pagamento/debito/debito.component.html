@@ -1,0 +1,20 @@
+<div class=" flex-ja pt-4 flex-wrap flex-lg-nowrap">
+  <ng-container *ngFor="let item of bandeiras">
+    <div tabindex="0" class="card-container mb-4 mx-2 mx-lg-0" (click)="selectItem(item)" 
+      [ngClass]="{'border-orange-1': item!=activeItem, 'border-success': item==activeItem, 'active': item==activeItem  }">
+      <img src="https://stc.pagseguro.uol.com.br{{item?.img}}"  />
+      <p>{{item?.nome}}</p>
+      <div class="svg-icon fill-success svg-30" [inlineSVG]="'check-circle.svg'" [removeSVGAttributes]="['class']"></div>
+    </div>
+  </ng-container>
+</div>
+<p class="pb-3 pb-lg-5">
+    *O prazo para aprovação do débito é de até <span class="f-20 text-dark font-weight-bold">3</span> horas.
+</p>
+<div *ngIf="this.pagamento?.DEBITO?.erro==true" class="pb-5 text-center px-3 text-danger f-20 fw-500">
+  <span>Selecione uma das instituições acima para efetuar o pagamento.</span>
+</div>
+
+<div *ngIf="this.pagamento?.DEBITO?.situacaoPagamento=='CANCELADO'" class="pb-5 text-center px-3 text-danger f-20 fw-500">
+    <span>Erro ao efetuar operação, tente novamente mais tarde.</span>
+  </div>

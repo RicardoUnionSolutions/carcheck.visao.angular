@@ -1,0 +1,18 @@
+// Badge mixins
+
+@use "sass:color";
+@use "../variables" as *;
+@use "./hover" as *;
+
+@mixin badge-variant($bg) {
+  color: color-yiq($bg);
+  background-color: $bg;
+
+  &[href] {
+    @include hover-focus {
+      color: color-yiq($bg);
+      text-decoration: none;
+      background-color: color.mix(black, $bg, 10%);
+    }
+  }
+}

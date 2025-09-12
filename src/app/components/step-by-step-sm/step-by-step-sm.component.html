@@ -1,0 +1,11 @@
+<div class="step-bar">
+</div>
+<div [style.width.%]="calculateProgress()" class="step-progress"></div>
+<div class="steps">
+    <ng-container *ngFor="let text of steps; let i = index">
+        <div class="step" [ngClass]="{'done': i < active, 'active': i == active }">
+            <div class="step-icon"></div>
+            <div class="step-text">{{text}}</div>
+        </div>
+    </ng-container>
+</div>

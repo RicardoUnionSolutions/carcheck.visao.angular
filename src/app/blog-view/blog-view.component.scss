@@ -1,0 +1,470 @@
+// Responsive Blog View - Angular 20
+// Breakpoints: xs (<576px), sm (≥576px), md (≥768px), lg (≥992px), xl (≥1200px)
+
+h2{
+  font-size: 30px;
+  margin: 0 0 20px;
+}
+
+a {
+  color: #244b5a;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  a{
+    color: #244b5aa3;
+  }
+}
+a:hover{
+  color: #244b5a !important;
+}
+
+.imagem {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+#destaque_interno{
+  padding-top: 70px;
+  padding-bottom: 40px;
+  
+  .container {
+    .titulo {
+      text-align: left;
+      
+      h3 {
+        color: #2c3e50;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      hr {
+        width: 100%;
+        height: 4px;
+        background: #244b5a;
+        border: none;
+        margin-bottom: 20px;
+        border-radius: 2px;
+      }
+      
+      h4 {
+        color: #6c757d;
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+// Responsive Grid System
+.posts-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr;
+  
+  // Tablet: 2 columns
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  // Desktop: 2 columns (maintained for consistency)
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.post-item {
+  width: 100%;
+  margin-bottom: 0; // Reset margin since grid handles spacing
+}
+
+.post{
+  margin-bottom: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+// Remove old .item styles - now using .post-item
+.post-item:hover .post{
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #244b5a;
+  z-index: 10;
+  position: relative;
+}
+
+.post {
+  .data {
+    padding: 15px 20px 5px;
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  h5 {
+    padding: 0 20px;
+    margin: 10px 0 15px;
+    
+    a {
+      color: #2c3e50;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: block;
+      
+      &:hover {
+        color: #244b5a;
+      }
+    }
+  }
+  
+  .category {
+    display: inline-block;
+    margin: 0 20px 15px;
+    padding: 6px 12px;
+    background: #f8f9fa;
+    color: #244b5a;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: #244b5a;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+  }
+  
+  .truncate {
+    padding: 0 20px 20px;
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-height: calc(1.6em * 3);
+  }
+}
+
+.sidebar {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  height: fit-content;
+  position: static;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-in;
+  margin-top: 30px;
+  
+  // Mobile: Full width, no margin
+  @media (max-width: 767.98px) {
+    margin-top: 20px;
+    padding: 15px;
+  }
+  
+  .sidebar-title {
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .categories-list {
+    li {
+      margin-bottom: 4px;
+      
+      a {
+        display: block;
+        padding: 8px 12px;
+        color: #6c757d;
+        font-size: 14px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        
+        &:hover {
+          background: #f8f9fa;
+          color: #244b5a;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Pagination
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 0 15px;
+  
+  // Mobile: Full width, centered
+  @media (max-width: 767.98px) {
+    margin-top: 30px;
+    padding: 0 10px;
+  }
+}
+
+.pagination {
+  position: static !important;
+  left: auto !important;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+::ng-deep.pagination{
+  flex-wrap: wrap !important;
+}
+
+::ng-deep.pagination > li > a
+{
+    background-color: white;
+    color: #304d5a;
+}
+
+::ng-deep.pagination > li > a:focus,
+::ng-deep.pagination > li > a:hover,
+::ng-deep.pagination > li > span:focus,
+::ng-deep.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+::ng-deep.pagination > .active > a
+{
+    color: #304d5a !important;
+    font-weight: bold;
+    background-color: #ecda26 !important;
+    border: solid 1px #304d5a4d !important;
+}
+
+::ng-deep.pagination > .active > a:hover
+{
+    background-color: #ecda26 !important;
+    border: solid 1px #304d5a;
+}
+
+
+/* Estilos para a tela de carregamento */
+.loading-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-logo {
+  margin: 40px;
+  width: 40px;
+  height: 40px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+// Mobile First Responsive Design
+// Mobile (xs: <576px)
+@media (max-width: 575.98px) {
+  #destaque_interno {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    
+    .container .titulo {
+      h3 {
+        font-size: 28px;
+        text-align: center;
+      }
+      
+      h4 {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
+  
+  .posts-grid {
+    gap: 20px;
+  }
+  
+  .post {
+    .data {
+      padding: 12px 15px 5px;
+      font-size: 11px;
+    }
+    
+    h5 a {
+      font-size: 16px;
+      padding: 0 15px;
+    }
+    
+    .category {
+      margin: 0 15px 12px;
+      padding: 5px 10px;
+      font-size: 10px;
+    }
+    
+    .truncate {
+      padding: 0 15px 15px;
+      font-size: 13px;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+  }
+  
+  .sidebar {
+    margin-top: 15px;
+    padding: 15px;
+    
+    .sidebar-title {
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    .categories-list li a {
+      padding: 10px 12px;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
+  
+  .pagination-container {
+    margin-top: 20px;
+  }
+}
+
+// Tablet (sm: 576px - 767.98px)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #destaque_interno {
+    padding-top: 60px;
+    padding-bottom: 35px;
+    
+    .container .titulo {
+      h3 {
+        font-size: 32px;
+      }
+      
+      h4 {
+        font-size: 17px;
+      }
+    }
+  }
+  
+  .posts-grid {
+    gap: 25px;
+  }
+  
+  .post {
+    .data {
+      padding: 14px 18px 5px;
+    }
+    
+    h5 a {
+      font-size: 17px;
+    }
+    
+    .category {
+      font-size: 11px;
+    }
+    
+    .truncate {
+      font-size: 14px;
+    }
+  }
+  
+  .sidebar {
+    margin-top: 25px;
+    
+    .sidebar-title {
+      font-size: 15px;
+    }
+  }
+}
+
+// Tablet Landscape (md: 768px - 991.98px)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .posts-grid {
+    gap: 30px;
+  }
+  
+  .sidebar {
+    margin-top: 0; // No margin on tablet landscape
+  }
+}
+
+// Desktop (lg: 992px+)
+@media (min-width: 992px) {
+  .posts-grid {
+    gap: 30px;
+  }
+  
+  .sidebar {
+    margin-top: 0; // No margin on desktop
+  }
+}

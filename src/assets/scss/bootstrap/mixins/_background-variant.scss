@@ -1,0 +1,25 @@
+// stylelint-disable declaration-no-important
+
+@use "sass:color";
+@use "../variables" as *;
+@use "./hover" as *;
+
+// Contextual backgrounds
+
+@mixin bg-variant($parent, $color) {
+  #{$parent} {
+    background-color: $color !important;
+  }
+  a#{$parent},
+  button#{$parent} {
+    @include hover-focus {
+      background-color: color.mix(black, $color, 10%) !important;
+    }
+  }
+}
+
+@mixin bg-gradient-variant($parent, $color) {
+  #{$parent} {
+    background: $color linear-gradient(180deg, color.mix($body-bg, $color, 15%), $color) repeat-x !important;
+  }
+}

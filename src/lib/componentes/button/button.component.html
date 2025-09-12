@@ -1,0 +1,32 @@
+<button
+  [type]="type()"
+  [disabled]="disabled() || loading()"
+  (click)="onClick($event)"
+  class="app-button__element"
+>
+  <span class="app-button__content">
+    <!-- Ícone à esquerda -->
+    <i 
+      *ngIf="icon() && iconPosition() === 'left'" 
+      [class]="icon()"
+      class="app-button__icon app-button__icon--left"
+    ></i>
+    
+    <!-- Conteúdo do botão -->
+    <span class="app-button__text">
+      <ng-content></ng-content>
+    </span>
+    
+    <!-- Ícone à direita -->
+    <i 
+      *ngIf="icon() && iconPosition() === 'right'" 
+      [class]="icon()"
+      class="app-button__icon app-button__icon--right"
+    ></i>
+    
+    <!-- Loading spinner -->
+    <span *ngIf="loading()" class="app-button__spinner">
+      <i class="mdi mdi-loading mdi-spin"></i>
+    </span>
+  </span>
+</button>

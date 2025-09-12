@@ -1,0 +1,63 @@
+<section appAppearOnScroll id="premios">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="mb-3">Compare os dados disponíveis com outros produtos</h2>
+        <p class="text-muted">
+          Veja as diferenças entre nossos planos de consulta
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div
+        *ngFor="let consulta of consultas; let i = index"
+        class="col-lg-4 col-md-6 col-sm-12 mb-4"
+      >
+        <div class="consulta" [ngClass]="{ recomendada: consulta.recomendada }">
+          <div class="consulta-header">
+            <h3 class="consulta-title">{{ consulta.nome_da_consulta }}</h3>
+            <div *ngIf="consulta.recomendada" class="badge-recomendada">
+              RECOMENDADA
+            </div>
+          </div>
+
+          <div class="consulta-content">
+            <div class="insumos-positivos">
+              <h5 class="insumos-title">Incluído:</h5>
+              <div
+                *ngFor="let insumo of consulta.lista_de_insumos"
+                class="insumo-item"
+              >
+                <i
+                  class="mdi mdi-check insumo-icon insumo-check"
+                  aria-hidden="true"
+                ></i>
+                <span class="insumo-text">{{ insumo }}</span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="consulta.lista_de_insumos_negados.length > 0"
+              class="insumos-negativos"
+            >
+              <hr class="divider" />
+              <h5 class="insumos-title">Não incluído:</h5>
+              <div
+                *ngFor="let insumoNegado of consulta.lista_de_insumos_negados"
+                class="insumo-item"
+              >
+                <i
+                  class="mdi mdi-close insumo-icon insumo-close"
+                  aria-hidden="true"
+                ></i>
+                <span class="insumo-text insumo-negado">{{
+                  insumoNegado
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

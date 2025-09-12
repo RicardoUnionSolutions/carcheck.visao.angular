@@ -1,0 +1,161 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-tag-demo">
+  <h2>CK Tag - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Tags Básicas</h3>
+    <div class="tags-container">
+      <div class="ck-tag primary">Tag Primária</div>
+      <div class="ck-tag secondary">Tag Secundária</div>
+      <div class="ck-tag success">Tag Sucesso</div>
+      <div class="ck-tag warning">Tag Aviso</div>
+      <div class="ck-tag danger">Tag Perigo</div>
+      <div class="ck-tag info">Tag Info</div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tamanhos</h3>
+    <div class="size-demo">
+      <div class="size-item">
+        <h4>Pequeno</h4>
+        <div class="tags-container">
+          <div class="ck-tag primary small">Pequeno</div>
+          <div class="ck-tag secondary small">Tag</div>
+          <div class="ck-tag success small">Demo</div>
+        </div>
+      </div>
+      <div class="size-item">
+        <h4>Médio</h4>
+        <div class="tags-container">
+          <div class="ck-tag primary medium">Médio</div>
+          <div class="ck-tag secondary medium">Tag</div>
+          <div class="ck-tag success medium">Demo</div>
+        </div>
+      </div>
+      <div class="size-item">
+        <h4>Grande</h4>
+        <div class="tags-container">
+          <div class="ck-tag primary large">Grande</div>
+          <div class="ck-tag secondary large">Tag</div>
+          <div class="ck-tag success large">Demo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tags Removíveis</h3>
+    <div class="removable-demo">
+      <div class="tags-container">
+        <div class="ck-tag primary removable">
+          <span>Removível</span>
+          <button class="remove-btn">&times;</button>
+        </div>
+        <div class="ck-tag secondary removable">
+          <span>Clique no X</span>
+          <button class="remove-btn">&times;</button>
+        </div>
+        <div class="ck-tag success removable">
+          <span>Para remover</span>
+          <button class="remove-btn">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tags Interativas</h3>
+    <div class="interactive-demo">
+      <div class="tags-container">
+        <div *ngFor="let tag of tags" class="ck-tag" [ngClass]="tag.color">
+          <span>{{ tag.text }}</span>
+          <button
+            *ngIf="tag.removable"
+            class="remove-btn"
+            (click)="removeTag(tag.id)"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Adicionar Nova Tag</h3>
+    <div class="add-tag-form">
+      <div class="form-group">
+        <label for="tagText">Texto da Tag:</label>
+        <input
+          type="text"
+          id="tagText"
+          [(ngModel)]="newTagText"
+          placeholder="Digite o texto da tag"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="tagColor">Cor:</label>
+        <select id="tagColor" [(ngModel)]="newTagColor" class="form-select">
+          <option *ngFor="let color of colors" [value]="color.value">
+            {{ color.label }}
+          </option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" (click)="addTag()">Adicionar Tag</button>
+        <button class="btn-secondary" (click)="addRandomTag()">
+          Tag Aleatória
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Exemplos de Uso</h3>
+    <div class="usage-examples">
+      <div class="example-item">
+        <h4>Categorias de Produto</h4>
+        <div class="tags-container">
+          <div class="ck-tag primary">Eletrônicos</div>
+          <div class="ck-tag secondary">Smartphone</div>
+          <div class="ck-tag success">Em Estoque</div>
+        </div>
+      </div>
+
+      <div class="example-item">
+        <h4>Habilidades Técnicas</h4>
+        <div class="tags-container">
+          <div class="ck-tag info">Frontend</div>
+          <div class="ck-tag warning">Backend</div>
+          <div class="ck-tag danger">DevOps</div>
+          <div class="ck-tag success">Mobile</div>
+        </div>
+      </div>
+
+      <div class="example-item">
+        <h4>Status de Tarefa</h4>
+        <div class="tags-container">
+          <div class="ck-tag success">Concluída</div>
+          <div class="ck-tag warning">Em Progresso</div>
+          <div class="ck-tag danger">Bloqueada</div>
+          <div class="ck-tag info">Pendente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles</h3>
+    <div class="controls">
+      <button class="btn-secondary" (click)="clearAllTags()">
+        Limpar Todas as Tags
+      </button>
+      <button class="btn-primary" (click)="addRandomTag()">
+        Adicionar Tag Aleatória
+      </button>
+    </div>
+  </div>
+</div>

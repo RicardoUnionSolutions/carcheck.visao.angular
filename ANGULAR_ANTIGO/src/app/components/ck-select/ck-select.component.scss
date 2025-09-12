@@ -1,0 +1,162 @@
+:host.h-100 {
+  select {
+    height: 100% !important;
+  }
+}
+
+
+:host {
+  position: relative;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0px 0px 0px 0px;
+  border-radius: 4px;
+  background: white;
+
+  label {
+    position: absolute;
+    z-index: 0;
+    font-size: 18px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    top: 10px;
+    left: 10px;
+    color: #444;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: 200ms ease-in;
+  }
+
+  select {
+    appearance: none;
+    background: transparent;
+    z-index: 1;
+    width: 100%;
+    padding: 0px;
+    border: none;
+    outline: none;
+    height: 46px;
+    border-radius: 10px;
+    padding: 10px 10px;
+    color: rgba(0, 0, 0, 0.8);
+    transition: 200ms ease-in;
+    max-width: 100%;
+    margin: 0px 0px 0px 0px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  select:focus {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+    border: 2px solid #244b5a;
+  }
+
+  select:active{
+    border-color: #ecda26;
+  }
+
+  select:focus+label {
+    color: #244b5a;
+  }
+
+  select.selected+label,
+  select:focus+label {
+    font-size: 14px !important;
+    top: -11px;
+    left: 10px;
+    padding: 0px 1px;
+    z-index: 2;
+    background-color: inherit;
+    width: auto;
+    height: 26px;
+    display: block;
+    transition: 200ms ease-in;
+  }
+
+}
+
+
+select:disabled,
+input:disabled {
+  opacity: 0.8;
+  border-color: #888;
+  color: #777;
+}
+
+select:disabled+label {
+  color: #777;
+}
+
+.loading {
+  position: absolute;
+  height: 100%;
+  right: 15px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host.ck-lg {
+  select {
+    height: 60px;
+    font-size: 24px;
+  }
+
+  label {
+    top: 15px;
+    left: 18px;
+    background-color: inherit;
+    width: auto;
+  }
+}
+
+:host.no-box {
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  input,
+  textarea {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom-width: 1px;
+    border-radius: 0px;
+    padding: 0px;
+  }
+
+  input:not(:placeholder-shown)+label,
+  input:focus+label,
+  textarea:not(:placeholder-shown)+label,
+  textarea:focus+label {
+    font-size: 12px !important;
+    top: -12px;
+    left: 0px;
+    background: transparent;
+    z-index: 0;
+  }
+
+}
+
+.msg {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0px;
+  width: 100%;
+  text-align: right;
+  padding: 0px 4px;
+  line-height: 1;
+
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+}

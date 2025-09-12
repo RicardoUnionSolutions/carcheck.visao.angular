@@ -1,0 +1,28 @@
+// List group contextual variants
+//
+// Add modifier classes to change text and background color on individual items.
+// Organizationally, this must come after the `:hover` states.
+
+@use "sass:color";
+@use "../variables" as *;
+@use "./hover" as *;
+
+@mixin list-group-item-variant($state, $background, $color) {
+  .list-group-item-#{$state} {
+    color: $color;
+    background-color: $background;
+
+    &.list-group-item-action {
+      @include hover-focus {
+        color: $color;
+        background-color: color.mix(black, $background, 5%);
+      }
+
+      &.active {
+        color: #fff;
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+  }
+}

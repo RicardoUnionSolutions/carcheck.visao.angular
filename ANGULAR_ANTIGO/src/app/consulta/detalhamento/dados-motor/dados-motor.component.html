@@ -1,0 +1,42 @@
+<div class="ck-card mt-5"  [ngClass]="{'disabled': statusConsulta == 5 }">
+  <div class="ck-card-title">OCORRÊNCIA MOTOR DIVERGENTE</div>
+
+  <consulta-msg *ngIf="statusConsulta==5" [status]="statusConsulta" [statusReload]="statusReload" (reloadClick)="reload()" ></consulta-msg>
+ 
+  <div *ngIf="statusConsulta!=5" class="ck-card-body">
+    <div class="row no-gutters p-2 p-md-4" [ngClass]="{'bg-silver-light': i%2 }">
+        <div class="flex-ac col-12 col-lg-6">
+          <div *ngIf="dadosDetalhamento.constaDivergencia" class="svg-w-40 svg-w-sm-50 svg-w-md-60 fill-danger" [inlineSVG]="'x-circle.svg'" [removeSVGAttributes]="['class']"></div>
+          <div *ngIf="!dadosDetalhamento.constaDivergencia" class="svg-w-40 svg-w-sm-50 svg-w-md-60 fill-success" [inlineSVG]="'check-circle.svg'" [removeSVGAttributes]="['class']"></div>
+
+          <div class="pl-3 pl-md-4">
+            <div class="f-14 f-sm-16 fw-700 pb-2" *ngIf="dadosDetalhamento.constaDivergencia">
+             Numeração não confere com o motor original
+            </div>
+
+            <div class="f-14 f-sm-16 fw-700 pb-2" *ngIf="!dadosDetalhamento.constaDivergencia">
+             Numeração confere com o motor original
+            </div>
+          </div>
+        </div>
+        
+        <div class="row no-gutters pt-2 pt-lg-0">
+          <div class="px-3 pb-2">
+            <h4>Motor Atual</h4>
+            <span>{{dadosDetalhamento.motorAtual}}</span>
+          </div>
+
+          <div class="px-3 pb-2">
+            <h4>Motor Original</h4>
+            <span>{{dadosDetalhamento.motorOriginal}}</span>
+          </div>
+
+          <div class="px-3 pb-2" *ngIf="dadosDetalhamento.listaOutrasNumeracoes.length>0">
+            <h4>Outros Números</h4>
+            <span>{{getOutrosNumeros()}}</span>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+</div>

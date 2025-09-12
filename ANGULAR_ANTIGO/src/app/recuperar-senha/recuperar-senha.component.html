@@ -1,0 +1,40 @@
+<div class="h-100 py-5 container flex-ac">
+  <div *ngIf="!emailEnviado" class="card-senha border-silver-light p-3 p-sm-5">
+    <h1 class="f-24 text-orange-1 mb-3">
+      Recuperar acesso ao Carcheck Brasil
+    </h1>
+    <p class="f-16 fw-500 mb-4">
+      Informe o e-mail que foi utilizado para efetuar o cadastro abaixo, assim que for verificado o cadastro será enviado para
+      o e-mail as informações necessárias para recuperar o seu acesso ao nosso sistema.
+    </p>
+    <ck-input noBox="true" [control]="email" label="E-mail"></ck-input>
+
+    <button (click)="enviarEmail()"
+    [ngClass]="{'flex-ac flex-jc relative':loading}"
+    class="btn btn-success btn-lg w-100 mt-5" [disabled]="loading" >
+        <i [ngClass]="{'d-block':loading, 'd-none':!loading}" class="mdi mdi-loading mr-3 f-24 rotate"></i>
+        {{loading ? 'Enviando...' : 'Confirmar'}}
+    </button>
+
+
+    <a [routerLink]="'/login'" class="w-100 btn btn-orange-1 btn-lg mt-4">
+      Voltar
+    </a>
+
+  </div>
+
+
+  <div *ngIf="emailEnviado" class="card-senha border-silver-light p-3 p-sm-5">
+    <h1 class="f-24 text-success mb-3">
+      E-mail enviado com sucesso!
+    </h1>
+    <p class="f-16 fw-500 mb-5 pb-5">
+      Aguarde, em breve você receberá em breve um e-mail com as informações necessárias para recuperar o seu acesso.
+    </p>
+
+    <a [routerLink]="'/login'" class="w-100 btn btn-orange-1 btn-lg mt-5">
+      Efetuar Login
+    </a>
+
+  </div>
+</div>

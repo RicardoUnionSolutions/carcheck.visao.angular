@@ -1,0 +1,84 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use '../consulta.component.scss' as *;
+/*
+.checklist{
+
+    .btn.btn-sm.btn-outline-orange-1{
+        min-width: 124px;
+    }
+
+    .detail{
+        width: 200%;
+        position: relative;
+        max-width: 200%;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+        filter: drop-shadow(0px -1px 1px rgba(20,20,20,0.2));
+        border-radius: 4px;
+
+        &:after{
+            content: '';
+            display: block;
+            background-color: inherit;
+            width: 40px;
+            height: 20px;
+            -webkit-clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+            clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+            position: absolute;
+            top: -20px;
+            left: 16px;
+            z-index: -1;        
+        }
+    
+        &.showDetail{
+            max-width: 200%;
+            opacity: 1;
+            color: rgba(48,48,48,1);
+            transition: opacity 100ms ease-in;
+            &:after{
+                opacity: 1;
+            }
+
+            .detail-body{
+                opacity: 1;
+                max-height: 400px;
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+        }
+
+        .detail-body{
+            overflow: hidden;
+            width: 100%;
+            max-height: 0px;
+            padding-top: 0rem;
+            padding-bottom: 0rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            transition: 200ms max-height ease-out, padding 250ms ease-out;
+
+            h4{
+                font-weight: 500;
+                font-size: 0.9rem;
+                margin-bottom: 0px;
+                margin-top: 0px;
+                width: auto;
+                color: $orange-1;
+            }
+        }
+    }
+
+    
+
+    &>div:nth-child(even){
+        .detail{
+            margin-left: -100%;
+
+            &:after{
+                left: calc(50% + 16px);
+            }
+        }
+    }
+}
+*/

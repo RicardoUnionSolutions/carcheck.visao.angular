@@ -1,0 +1,50 @@
+<div class="ck-card mt-5 hide-print">
+
+  <div class="ck-card-title">DETRAN</div>
+
+  <div class="card-body">
+
+    <div class="fw-500 text-deep-gray mb-1">
+      Se você quiser fazer uma avaliação dos dados estaduais do veículo, basta acessar o site do detran de emplacamento.
+      <span class="text-orange-1 border-bottom border-orange-1"> A consulta é gratuita e você precisará do renavam do veículo.
+      </span> Clique abaixo para acessar.
+    </div>
+
+
+
+    <div class="row no-gutters mt-2">
+
+      <div class="col-12 col-md-6">
+        <div class="flex-ac flex-wrap flex-md-nowrap px-3 py-1 bg-white rounded">
+          <div class="img-detran-container m-auto">
+            <img src="./assets/images/detran/{{select?.value?.Sigla}}.jpg" alt="{{select?.value?.Nome}}">
+          </div>
+          <div class="pt-2 pt-md-0 pl-md-3 w-100">
+            <ck-select [value]="this.listaEstados[indiceEstadoInicial].value" [control]="select" [options]="listaEstados" [label]="'Local do emplacamento'"></ck-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 pl-3">
+        <div class="py-3 py-md-0">
+          <div class="mb-2">
+            <div class="text-orange-1 f-14 fw-500">Você precisa de:</div>
+            <span class="">Placa, </span>
+            <span class="">Renavam.</span>
+          </div>
+          <div>
+            <div class="text-orange-1 f-14 fw-500">Informações disponíveis:</div>
+            <span class="">Multas,</span>
+            <span class=""> débitos,</span>
+            <span class=""> restrições,</span>
+            <span class=""> identificação de proprietários.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="mt-3 d-block d-md-inline-block px-5 btn btn-orange-1" [disabled]="select?.value?.url == null" (click)="paginaDetran()">
+        <a class="text-white no-text-decoration" >ACESSE AQUI</a>
+      </button>
+    </div>
+  </div>
+</div>

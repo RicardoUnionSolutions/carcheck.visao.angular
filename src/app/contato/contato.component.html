@@ -1,0 +1,63 @@
+<section class="padding-80" style="background:#ededed">
+  <div class="container d-flex flex-wrap">
+    <div class="title col-md-6">
+      <h1>Fale com o Time Carcheck Brasil</h1>
+      <h2>Tem dúvidas? Pergunte pra gente!</h2>
+      <ul>
+        <li><a href="https://api.whatsapp.com/send?phone=5527998281914" target="_blank"><i class="mdi mdi-whatsapp"></i>
+            Fale Conosco</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <div id="contactForm" class="wpcf7 js" lang="pt-BR">
+        <form class="wpcf7-form init" [formGroup]="contactForm" (ngSubmit)="submitForm()" aria-label="Formulários de contato"
+          novalidate>
+          <p>
+            <label> Seu nome<br>
+              <input class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
+                aria-invalid="false" formControlName="name">
+            </label>
+            <span *ngIf="showErrors && formControls.name.invalid && (formControls.name.dirty || formControls.name.touched)">
+              <small *ngIf="formControls.name.errors?.required">O nome é obrigatório.</small>
+            </span>
+          </p>
+          <p>
+            <label> Seu e-mail<br>
+              <input class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email"
+                aria-required="true" aria-invalid="false" formControlName="email">
+            </label>
+            <span *ngIf="showErrors && formControls.email.invalid && (formControls.email.dirty || formControls.email.touched)">
+              <small *ngIf="formControls.email.errors?.required">O e-mail é obrigatório.</small>
+              <small *ngIf="formControls.email.errors?.email">Digite um e-mail válido.</small>
+            </span>
+          </p>
+          <p>
+            <label> Assunto<br>
+              <input class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
+                aria-invalid="false" formControlName="subject">
+            </label>
+            <span *ngIf="showErrors && formControls.subject.invalid && (formControls.subject.dirty || formControls.subject.touched)">
+              <small>O assunto é obrigatório.</small>
+            </span>
+          </p>
+          <p>
+            <label> Sua mensagem<br>
+              <textarea class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" formControlName="message"></textarea>
+            </label>
+            <span *ngIf="showErrors && formControls.message.invalid && (formControls.message.dirty || formControls.message.touched)">
+              <small>A mensagem é obrigatória.</small>
+            </span>
+          </p>
+          <p>
+            <button type="submit" class="wpcf7-form-control wpcf7-submit has-spinner">Enviar<span
+                class="wpcf7-spinner"></span></button>
+          </p>
+          <div class="wpcf7-response-output" *ngIf="submitMessage">{{ submitMessage }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-duvidas-frequentes></app-duvidas-frequentes>

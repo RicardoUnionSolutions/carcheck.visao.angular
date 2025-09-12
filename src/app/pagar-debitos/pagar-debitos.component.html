@@ -1,0 +1,200 @@
+<section>
+  <div *ngIf="!dadosDoVeiculo" class="container">
+    <div appAppearOnScroll>
+      <h1 class="title">
+        Consulte grátis os débitos do seu veículo e <span class="texto-destacado">pague em até 21X.</span>
+      </h1>
+      <p class="subtitle">
+        Pague seu IPVA, Multas, Licenciamento de forma rápida e segura.
+      </p>
+    </div>
+
+    <div class="form-card">
+      <div class="form-container">
+        <form [formGroup]="form" (ngSubmit)="consultar()">
+          <!-- Estado -->
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado" formControlName="uf">
+              <option value="SP">São Paulo</option>
+            </select>
+            <div class="error" *ngIf="form.get('estado')?.hasError('required') && form.get('estado')?.touched">
+              Campo obrigatório
+            </div>
+          </div>
+
+          <!-- E-mail -->
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" formControlName="email" required />
+            <div class="error" *ngIf="form.get('email')?.touched">
+              <div *ngIf="form.get('email')?.hasError('required')">Campo obrigatório</div>
+              <div *ngIf="form.get('email')?.hasError('email')">E-mail inválido</div>
+            </div>
+          </div>
+
+          <!-- Placa -->
+          <div class="form-group">
+            <label for="placa">Placa do Veículo</label>
+            <input type="text" id="placa" formControlName="placa" (keypress)="mascaraPlaca($event)" maxlength="8"
+              required />
+            <div class="error" *ngIf="form.get('placa')?.hasError('required') && form.get('placa')?.touched">
+              Campo obrigatório
+            </div>
+          </div>
+
+          <!-- Renavam -->
+          <div class="form-group">
+            <label for="renavam">Renavam</label>
+            <input type="text" id="renavam" formControlName="renavam" required />
+            <div class="error" *ngIf="form.get('renavam')?.hasError('required') && form.get('renavam')?.touched">
+              Campo obrigatório
+            </div>
+          </div>
+
+          <!-- Botão -->
+          <div class="form-footer d-flex justify-content-between align-items-center" style="gap: 10px;">
+            <button type="submit" class="btn-consultar">
+              Consultar
+            </button>
+            <div *ngIf="consultaAnterior != null">
+              ou
+            </div>
+            <div (click)="this.buscarPelaConsultaAnterior(consultaAnterior)" *ngIf="consultaAnterior?.placa"
+              class="consulta-anterior">
+              <strong> Ver consulta anterior </strong>
+              <span *ngIf="consultaAnterior?.placa">{{ consultaAnterior.placa.slice(0, 3) + '-' + consultaAnterior.placa.slice(3) }}</span>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="spaceBetween"></div>
+
+      <div class="imgDestaque">
+        <img src="./assets/images/img-destaque/fundo.png">
+        <div appAppearRightOnScroll class="car-container">
+          <img src="./assets/images/img-destaque/car-destaque.png">
+        </div>
+      </div>
+    </div>
+
+    <p class="observacao">
+      * Por enquanto apenas para veículos do estado de São Paulo disponível para consulta.
+    </p>
+  </div>
+
+
+  <!-- informações de debitos do veiculo -->
+
+
+  <div *ngIf="this.dadosDoVeiculo != null" class="debitos-container">
+
+    <div *ngIf="dadosDoVeiculo.veiculo" appAppearOnScroll class="veiculo">
+      <div class="logo-marca-container">
+        <div class="img-circle"><img alt=""
+            src="./assets/images/marcas/{{dadosDoVeiculo.veiculo?.marca?.toLowerCase()}}.png" height="100px"
+            onerror="this.onerror=null; this.src='./assets/images/logos/Carcheck_Logos-07.png';">
+        </div>
+
+      </div>
+      <div class="info-veiculo w-100">
+        <div class="containerPlaca">
+          <div class="placa">
+            <h2 class="nrPlaca">{{this.dadosDoVeiculo.vehicle.license_plate}}</h2>
+            <img class="placa-img" src="./assets/images/Placa.svg" alt="" srcset="">
+          </div>
+        </div>
+        <div style="width: 100%;">
+          <ul class="list-inline striped-list noMargin">
+            <li class="">
+              <h4 class="text-secondary f-12 format-compacta">MARCA / MODELO: </h4><span
+                class="text-uppercase f-14 format-compacta p-2">{{this.dadosDoVeiculo.veiculo?.modelo}}</span>
+            </li>
+            <li class="">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Fabricação /
+                Modelo:</h4><span
+                class="text-uppercase f-14 format-compacta p-2">{{this.dadosDoVeiculo.veiculo?.anoFabricacao}} /
+                {{this.dadosDoVeiculo.veiculo.anoModelo}}</span>
+            </li>
+            <li class="">
+              <h4 class="text-secondary text-uppercase f-12 format-compacta">Cor:</h4><span
+                class="text-uppercase f-14 format-compacta p-2">{{this.dadosDoVeiculo.veiculo?.cor}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <h2>Débitos de {{ dadosDoVeiculo.vehicle.license_plate }}</h2> -->
+    <div class="row">
+      <div *ngIf="dadosDoVeiculo.debits.length == 0">
+        <div appAppearOnScroll class="d-flex align-items-center p-2 flex-column">
+          <div class="svg-w-40 svg-w-sm-50 svg-w-md-60 svg-w-lg-70 fill-success" [inlineSVG]="'check-circle.svg'"
+            [removeSVGAttributes]="['class']"></div>
+          <h2 class="title text-center">
+            Nenhum debíto foi encontrado para este veículo!
+          </h2>
+        </div>
+      </div>
+      <ul class="lista-debitos">
+        <li appAppearRightOnScroll *ngFor="let debito of dadosDoVeiculo.debits">
+          <label class="checkbox-wrapper">
+            <input type="checkbox" [checked]="isSelecionado(debito)" (change)="toggleSelecionado(debito)" />
+            <span class="custom-checkbox"></span>
+            <div class="debito-detalhes">
+              <div>
+                <div class="tipo">{{ debito.type.replace('_', ' ') }}</div>
+                <div class="descricao">{{ debito.description || debito.ticket_description }}</div>
+              </div>
+              <div class="valor">
+                <span>Valor: R$ <strong>{{ debito.value / 100 || 0 | number:'1.2-2' }}</strong></span>
+                <span>Vencimento: {{ debito.due_date ? (debito.due_date | date:'dd/MM/yyyy') : '---' }}</span>
+              </div>
+            </div>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div [ngClass]="{ 'fixo': isRelatorioFixo }" class="relatorio" *ngIf="debitosSelecionados.length > 0">
+
+    <p class="total">
+      Total a pagar:
+      <strong>R$ {{ calcularTotal() / 100 | number:'1.2-2' }}</strong>
+    </p>
+
+    <button *ngIf="mostrarFormPagamento == false" class="btn-pagar" [disabled]="gerandoLink"
+      (click)="mostrarFormPagamento = true">
+      Pagar Débitos
+    </button>
+
+    <div *ngIf="mostrarFormPagamento == true" class="form-pagamento">
+      <form [formGroup]="formPagamento" (ngSubmit)="pagarDebitos()">
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="nome" id="nome" formControlName="nome" required placeholder="Seu nome" />
+          <div class="error" *ngIf="formPagamento.get('nome')?.touched">
+            <div *ngIf="formPagamento.get('nome')?.hasError('required')">Campo obrigatório</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="documento">Documento</label>
+          <input type="documento" id="documento" formControlName="documento" placeholder="Seu CPF" required />
+          <div class="error" *ngIf="formPagamento.get('documento')?.touched">
+            <div *ngIf="formPagamento.get('documento')?.hasError('required')">Campo obrigatório</div>
+          </div>
+        </div>
+
+        <button class="btn-pagar" type="submit" [disabled]="gerandoLink">
+          {{gerandoLink ? 'Gerando fatura...' : 'Pagar Débitos'}}
+        </button>
+      </form>
+    </div>
+
+  </div>
+  <section #fimDaPagina></section>
+</section>

@@ -1,0 +1,53 @@
+<tab-nav [tabs]="menuPagamento" [(currentTab)]="formaPagamento" [(listaPagamento)]="listaPagamento"></tab-nav>
+<div class="px-lg-3 content">
+  <forma-pagamento-credito *ngIf="formaPagamento==0" [valorTotalDesconto]="valorTotalDesconto"
+    [valorTotal]="valorTotal"></forma-pagamento-credito>
+
+  <forma-pagamento-boleto *ngIf="formaPagamento==1"></forma-pagamento-boleto>
+
+  <forma-pagamento-pix *ngIf="formaPagamento==2"></forma-pagamento-pix>
+
+
+
+
+  <!--<forma-pagamento-debito *ngIf="formaPagamento==2 && bandeirasDebito.length>0" [(activeItem)]="bancoDebito" [(bandeiras)]="bandeirasDebito"  [(pagamento)]="pagamento"></forma-pagamento-debito>-->
+</div>
+
+<ng-content></ng-content>
+
+<div class="py-2 px-3 bg-light rounded my-3">
+  <div class="flex-ac custom-checkbox-wrapper">
+    <input [(ngModel)]="pagamento.termosUso" class="custom-checkbox m-0 radio-md" id="inputtermposdeuso" type="checkbox"
+      name="inputtermposdeuso">
+      <label for="inputtermposdeuso" class="f-16 ml-2 fw-700">
+        Li e aceito com os
+        <u (click)="openModalTermosUso(); $event.preventDefault(); $event.stopPropagation();"
+           class="pointer text-orange-1 fw-700">
+          Termos de uso e Política de Privacidade
+        </u>.
+      </label>
+  </div>
+  <div [hidden]="!termosUsoAlert || pagamento.termosUso" class="f-12 text-danger">
+    Por favor, leia e concorde com os termos de uso.
+  </div>
+</div>
+
+<div class="py-2 px-3 bg-light rounded my-3">
+  <div class="flex-ac">
+    <span class="f-16 ml-2 mr-2 fw-700">Cupom </span>
+    <input class="input-form text-uppercase" type="text" [(ngModel)]="cupom">
+    <button *ngIf="!valorDesconto" class="btn btn-sm btn-orange-1 px-2 ml-2 btn-cupom"
+      (click)="validaCupom()">Ativar</button>
+    <button *ngIf="valorDesconto" class="btn btn-sm btn-outline-danger px-2 ml-2"
+      (click)="removerCupom()">Remover</button>
+  </div>
+  <div class="flex-ac">
+    <span class="f-12 ml-2 mt-2 mr-2 fw-700 text-success" *ngIf="!cupomError">{{cupomMsg}}</span>
+    <span class="f-12 ml-2 mt-2 mr-2 fw-700 text-danger" *ngIf="cupomError">{{cupomMsg}}</span>
+  </div>
+</div>
+
+<app-modal-termos-uso
+  [visible]="mostrarModalTermos"
+  (fechar)="onFecharModalTermos($event)">
+</app-modal-termos-uso>

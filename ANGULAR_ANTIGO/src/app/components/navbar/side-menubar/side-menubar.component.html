@@ -1,0 +1,52 @@
+<div class="side-menu" [ngClass]="{ open: isOpen }">
+  <div class="overlay" (click)="toggleMenu()"></div>
+  <div class="menu-content">
+    <ul class="container">
+      <li class="closeMenu" (click)="toggleMenu()">
+        <img
+          src="./assets/images/logos/Carcheck_Logos-02.png"
+          height="53px"
+          width="auto"
+          alt="carheckbrasil"
+          srcset=""
+        />
+        <i class="mdi mdi-backburger"></i>
+      </li>
+      <li *ngFor="let o of options; let i = index">
+        <a (click)="selectItem(i)" [ngClass]="{ active: active == i }">
+          <div
+            *ngIf="o.icon"
+            class="icon-svg"
+            [inlineSVG]="o.icon"
+            [removeSVGAttributes]="['class']"
+          ></div>
+          <span class="f-16">{{ o.label }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <hr />
+
+    <ul class="container-user">
+      <li *ngFor="let userOptions of userOptions; let j = index">
+        <a (click)="selectItemUser(j)" [ngClass]="{ logout: j == 2 }">
+          <div
+            *ngIf="userOptions.icon"
+            class="icon-svg"
+            [inlineSVG]="userOptions.icon"
+            [removeSVGAttributes]="['class']"
+          ></div>
+          <span class="f-16">{{ userOptions.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<button
+  class="menu-toggle"
+  (click)="toggleMenu()"
+  aria-label="Abrir menu de navegação"
+>
+  <i class="mdi mdi-menu"></i>
+</button>

@@ -1,0 +1,23 @@
+<section appAppearOnScroll id="premios">
+  <div class="container">
+    <div class="col-md-12 text-center">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @for (pacote of pacotes; track $index; let i = $index) {
+          <div class="col">
+          <div class="pacote" [ngClass]="{ recomendada: pacote.recomendada }">
+            <div *ngIf="pacote.recomendada" class="label">RECOMENDADO</div>
+            <h3 [innerHTML]="pacote.nome_do_pacote">&nbsp;</h3>
+            <p [innerHTML]="pacote.descricao_do_pacote"></p>
+            <span class="de">{{ valorToString(pacote.valor_atual) }}</span
+            ><br />
+            <p class="preco">
+              <b>{{ valorToString(pacote.valor_promocional) }}</b>
+            </p>
+            <button (click)="clickComprar(pacote)" class="btn">comprar</button>
+          </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

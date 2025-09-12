@@ -1,0 +1,12 @@
+<div *ngFor="let consulta of this.consultas; let i = index;">
+  <div *ngIf="consulta.img != ''" class="blocoConsulta">
+
+    <img [src]="consulta.img" alt="consulta">
+
+    <div *ngIf="consulta.descricao != ''" class="sobre text-center" (click)="this.openDescricao(i)">
+      <span>Sobre esta base</span>
+      <i class="mdi mdi-chevron-down close item{{i}}" id="item{{i}}"></i>
+    </div>
+    <span class="descricao" [hidden]="!consulta.open" [innerHTML]="consulta.descricao"></span>
+  </div>
+</div>

@@ -1,0 +1,195 @@
+<div ngIf="dadosConsulta.denatran!=null && dadosConsulta.denatran.codigoControle!='DUAS_ETAPAS' && (dadosConsulta.composta.nome=='Garage' || dadosConsulta.composta.nome=='Completa' || dadosConsulta.composta.nome=='TesteDenatran'))">
+  <div class="row f-18 no-gutters bg-silver-light rounded my-5">
+    <div class="col-4 flex-ac flex-jc py-3 px-2">
+      <div class="svg-30 mr-3 fill-success" [inlineSVG]="'check-square.svg'" [removeSVGAttributes]="['class']"></div>
+      <div class="fw-500">Aprovações</div>
+    </div>
+    <div class="col-4 flex-ac flex-jc py-3 px-2">
+      <div class="svg-30 mr-3 fill-danger" [inlineSVG]="'x-square.svg'" [removeSVGAttributes]="['class']"></div>
+      <div class="fw-500">Restrições</div>
+    </div>
+    <div class="col-4 flex-ac flex-jc py-3 px-2">
+      <div class="svg-30 mr-3 fill-orange-1" [inlineSVG]="'alert-square.svg'" [removeSVGAttributes]="['class']"></div>
+      <div class="fw-500">Alertas</div>
+    </div>
+  </div>
+
+
+  <div class="row no-gutters mb-5 pb-5">
+
+    <!-- Alienação -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.alienacao=='S' ? '2' : '0' " [label]="'Alienação fiduciária'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição de Alienação</h4>
+        <span></span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{alienacao.descricao}}</span>
+      </div>
+
+    </div> -->
+    </check-item>
+
+    <!-- Arrendamento Mercantil -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.arrendamentoMercantil=='S' ? '2' : '0' "
+      [label]="'Arrendamento mercantil'" class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>DESCRIÇÃO</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{arrendamentoMercantil.descricao}}</span>
+      </div>
+    </div> -->
+
+    </check-item>
+
+    <!-- Restrição Tributária -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.restricaoTributaria=='S' ? '2' : '0' " [label]="'Restrição tributaria'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição Tributária</h4>
+        <span>DESCRIÇÃO</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{tributaria.descricao}}</span>
+      </div>
+    </div> -->
+    </check-item>
+
+    <!-- Roubo e Furto -->
+    <check-item [hidden]="dadosConsulta.binrf==null" [status]="dados.roubo=='S' ? '2' : '0' " [label]="'Restrição de roubo e furto'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição de roubo e furto</h4>
+        <span>DESCRIÇÃO</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{roubo.descricao}}</span>
+      </div>
+    </div> -->
+    </check-item>
+    
+    <check-item [hidden]="dadosConsulta.binrf==null" [status]="dados.historicoRoubo=='S' ? '2' : '0' " [label]="'Historico de Roubo'"
+      class="col-12 col-md-6">
+   
+    </check-item>
+
+
+    <!-- Restrição Judicial -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.restricaoJudicial=='S' ? '2' : '0' " [label]="'Restrição judicial'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição Judicial</h4>
+        <span>DESCRIÇÃO</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>DESCRIÇÃO - {{judicial.descricao}}</span>
+      </div>
+    </div> -->
+    </check-item>
+
+    <!-- Restrição de Penhor -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.restricaoPenhor=='S' ? '2' : '0' " [label]="'Restrição de penhor'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição Penhor</h4>
+        <span>DESCRIÇÃO</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>DESCRIÇÃO - {{penhor.descricao}}</span>
+      </div>
+    </div> -->
+
+    </check-item>
+
+    <!-- Restrição Administrativa -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.restricaoAdministrativa=='S' ? '2' : '0' "
+      [label]="'Restrição administrativa'" class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Restrição Administrativa</h4>
+        <span>Descrição</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{administrativa.descricao}}</span>
+      </div>
+
+    </div> -->
+
+    </check-item>
+
+
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.comunicacaoVenda=='S' ? '1' : '0' " [label]="'Comunicação de Venda'"
+      class="col-12 col-md-6">
+
+    </check-item>
+
+
+    <!-- Circulação -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.circulacao=='S' ? '0' : '2' " [label]="'Em circulação'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>Modelo</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{circulacao.modelo}}</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>Combustível</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{circulacao.combustivel}}</span>
+      </div>
+    </div> -->
+    </check-item>
+
+    <!-- Reserva Dominio -->
+    <check-item [hidden]="dadosConsulta.denatran==null" [status]="dados.reserva=='S' ? '2' : '0' " [label]="'Reserva de Domínio'"
+      class="col-12 col-md-6">
+      <!-- <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4>Reserva de Domínio</h4>
+        <span>Descrição</span>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-6 mb-2">
+        <h4></h4>
+        <span>{{reserva.descricao}}</span>
+      </div>
+
+    </div> -->
+
+    </check-item>
+
+  </div>
+</div>

@@ -1,0 +1,222 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.timeline{
+    text-decoration: none;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    margin: 45px 0px;
+
+    .year{
+        width: 80px;
+        height: 80px;
+        padding: 7px;
+        min-width: 80px;
+        min-height: 80px;
+        flex-basis: 80px;
+        border-radius: 50%;
+        margin-left: 50px;
+        margin-bottom: 50px;
+        border: 2px solid white;
+
+        &:last-child{
+            margin-bottom: 0px;
+        }
+
+    }
+
+
+    .event{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        width: 100%;
+
+        .event-pointer{
+            width: 32px;
+            flex-basis: 34px;
+            height: 34px;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin-top: 5px;
+        }
+
+        .date{
+            line-height: 0.9;
+            text-align: center;
+            width: 55px;
+            height: 55px;
+
+            :first-child{
+                font-size: 28px;
+                font-weight: 700;
+            }
+
+            :last-child{
+                font-weight: 500;
+                font-size:18px;
+            }
+        }
+
+        .desc{
+            width: 100%;
+            max-width: calc(100% - 129px);
+            line-height: 1;
+
+            h2{
+                font-weight: 500;
+                margin: 0px;
+                font-size: 20px;
+            }
+
+            p{
+                margin: 0px;
+                padding: 0px;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .event-pointer:before{
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        background: white;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+    }
+
+    .year h1{
+        background: white;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        margin: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .year, .event-pointer, &:before{
+        position: relative;
+        background: #ecda26;
+        background: linear-gradient(to right, #efdf35 0%,#ecda26 59%,#fbe920 100%);
+    }
+
+    &:before{
+        content: "";
+        display: block;
+        width: 6px;
+        height: 100%;
+        margin-left: 89px;
+        position: absolute;
+    }
+}
+
+
+@include media-breakpoint-down(md) {
+    .timeline{
+        margin: 25px 0px;
+
+        .year{
+            margin-left: 32px;
+            margin-bottom: 20px;
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            min-height: 60px;
+            flex-basis: 60px;
+            padding: 4px;
+            border-radius: 50%;
+            border: 2px solid white;
+
+            &:last-child{
+                margin-bottom: 0px;
+            }
+
+        }
+
+        .event{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            width: 100%;
+
+            .event-pointer{
+                width: 32px;
+                flex-basis: 32px;
+                height: 32px;
+                border: 2px solid white;
+                border-radius: 50%;
+                margin-top: 5px;
+            }
+
+            .date{
+                line-height: 0.9;
+                text-align: center;
+                width: 40px;
+                height: 36px;
+
+                :first-child{
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                :last-child{
+                    font-weight: 500;
+                    font-size:20px;
+                }
+            }
+
+            .desc{
+                width: 100%;
+                max-width: calc(100% - 85px);
+                line-height: 1;
+
+                h2{
+                    font-weight: 700;
+                    margin: 0px;
+                    font-size: 16px;
+                }
+
+                p{
+                    margin: 0px;
+                    padding: 0px;
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .event-pointer:before{
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .year h1{
+            font-size: 20px;
+        }
+
+        &:before{
+            width: 5px;
+            margin-left: 60px;
+        }
+    }
+
+}

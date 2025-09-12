@@ -1,0 +1,9 @@
+[
+  {
+    "transacao": "11111",
+    "dataPagamento": "2023-08-08T12:00:00",
+    "valorFinal": 50.0,
+    "tipoPagamento": "PIX",
+    "situacaoPagamento": "AGUARDANDO_PAGAMENTO"
+  }
+]

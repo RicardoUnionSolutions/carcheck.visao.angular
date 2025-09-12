@@ -1,0 +1,108 @@
+// Bootstrap functions
+//
+// Utility mixins and functions for evalutating source code across our variables, maps, and mixins.
+
+// ✅ CORRETO - Usar @use para módulos Sass
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:string";
+@use "sass:color";
+
+// Default empty Sass maps for values that will be populated later.
+// These placeholders prevent "undefined variable" errors when functions
+// like `theme-color` are evaluated before the maps are configured.
+// Note: $colors, $theme-colors, $grays are defined in _variables.scss to avoid conflicts
+$yiq-contrasted-threshold: 150 !default;
+$yiq-text-dark: #000 !default;
+$yiq-text-light: #fff !default;
+$theme-color-interval: 8% !default;
+
+// Ascending
+// Used to evaluate Sass maps like our grid breakpoints.
+@mixin assert-ascending($map, $map-name) {
+  $prev-key: null;
+  $prev-num: null;
+  @each $key, $num in $map {
+    @if $prev-num == null {
+      // Do nothing
+    } @else if not math.compatible($prev-num, $num) {
+      @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    } @else if $prev-num >= $num {
+      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    }
+    $prev-key: $key;
+    $prev-num: $num;
+  }
+}
+
+// Starts at zero
+// Another grid mixin that ensures the min-width of the lowest breakpoint starts at 0.
+@mixin assert-starts-at-zero($map) {
+  $values: map.values($map);
+  $first-value: list.nth($values, 1);
+  @if $first-value != 0 {
+    @warn "First breakpoint in `$grid-breakpoints` must start at 0, but starts at #{$first-value}.";
+  }
+}
+
+// Replace `$search` with `$replace` in `$string`
+// Used on our SVG icon backgrounds for custom forms.
+//
+// @author Hugo Giraudel
+// @param {String} $string - Initial string
+// @param {String} $search - Substring to replace
+// @param {String} $replace ('') - New value
+// @return {String} - Updated string
+@function str-replace($string, $search, $replace: "") {
+  $index: string.index($string, $search);
+
+  @if $index {
+    @return string.slice($string, 1, $index - 1) +
+      $replace +
+      str-replace(
+        string.slice($string, $index + string.length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+// Color contrast
+@function color-yiq($color) {
+  $r: color.red($color);
+  $g: color.green($color);
+  $b: color.blue($color);
+
+  $yiq: math.div((($r * 299) + ($g * 587) + ($b * 114)), 1000);
+
+  @if ($yiq >= $yiq-contrasted-threshold) {
+    @return $yiq-text-dark;
+  } @else {
+    @return $yiq-text-light;
+  }
+}
+
+// Retrieve color Sass maps
+@function color($key: "blue") {
+  @return map.get($colors, $key);
+}
+
+// @function theme-color($key: "primary") {
+//   @return map.get($theme-colors, $key);
+// }
+
+@function gray($key: "100") {
+  @return map.get($grays, $key);
+}
+
+// Request a theme color level
+@function theme-color-level($color-name: "primary", $level: 0) {
+  $color: map.get($theme-colors, $color-name);
+  $color-base: if($level > 0, #000, #fff);
+  $level: math.abs($level);
+
+  @return color.mix($color-base, $color, $level * $theme-color-interval);
+}

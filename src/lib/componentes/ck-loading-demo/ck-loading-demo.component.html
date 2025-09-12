@@ -1,0 +1,173 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-loading-demo">
+  <h2>CK Loading - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Tipos de Loading</h3>
+    <div class="loading-grid">
+      <div class="loading-item">
+        <h4>Spinner</h4>
+        <div class="loading-container">
+          <div class="ck-spinner" [class.active]="showSpinner"></div>
+        </div>
+        <button class="btn-secondary" (click)="toggleSpinner()">
+          {{ showSpinner ? "Parar" : "Iniciar" }} Spinner
+        </button>
+      </div>
+
+      <div class="loading-item">
+        <h4>Dots</h4>
+        <div class="loading-container">
+          <div class="ck-dots" [class.active]="showDots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <button class="btn-secondary" (click)="toggleDots()">
+          {{ showDots ? "Parar" : "Iniciar" }} Dots
+        </button>
+      </div>
+
+      <div class="loading-item">
+        <h4>Bars</h4>
+        <div class="loading-container">
+          <div class="ck-bars" [class.active]="showBars">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <button class="btn-secondary" (click)="toggleBars()">
+          {{ showBars ? "Parar" : "Iniciar" }} Bars
+        </button>
+      </div>
+
+      <div class="loading-item">
+        <h4>Pulse</h4>
+        <div class="loading-container">
+          <div class="ck-pulse" [class.active]="showPulse"></div>
+        </div>
+        <button class="btn-secondary" (click)="togglePulse()">
+          {{ showPulse ? "Parar" : "Iniciar" }} Pulse
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tamanhos</h3>
+    <div class="size-demo">
+      <div class="size-item">
+        <h4>Pequeno</h4>
+        <div class="ck-spinner small"></div>
+      </div>
+      <div class="size-item">
+        <h4>Médio</h4>
+        <div class="ck-spinner medium"></div>
+      </div>
+      <div class="size-item">
+        <h4>Grande</h4>
+        <div class="ck-spinner large"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Cores</h3>
+    <div class="color-demo">
+      <div class="color-item">
+        <h4>Padrão</h4>
+        <div class="ck-spinner medium"></div>
+      </div>
+      <div class="color-item">
+        <h4>Azul</h4>
+        <div class="ck-spinner medium blue"></div>
+      </div>
+      <div class="color-item">
+        <h4>Verde</h4>
+        <div class="ck-spinner medium green"></div>
+      </div>
+      <div class="color-item">
+        <h4>Vermelho</h4>
+        <div class="ck-spinner medium red"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Com Texto</h3>
+    <div class="text-demo">
+      <div class="text-item">
+        <div class="ck-spinner medium"></div>
+        <span>{{ loadingText }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Loading com Progresso</h3>
+    <div class="progress-demo">
+      <div class="progress-container">
+        <div class="ck-spinner medium" *ngIf="isLoading"></div>
+        <div class="progress-text" *ngIf="isLoading">
+          Carregando... {{ progress }}%
+        </div>
+        <div class="progress-bar" *ngIf="isLoading">
+          <div class="progress-fill" [style.width.%]="progress"></div>
+        </div>
+      </div>
+      <button
+        class="btn-primary"
+        (click)="simulateLoading()"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? "Carregando..." : "Simular Carregamento" }}
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Overlay Loading</h3>
+    <div class="overlay-demo">
+      <div class="content-area">
+        <h4>Conteúdo da Página</h4>
+        <p>
+          Este é um exemplo de conteúdo que fica atrás do overlay de loading.
+        </p>
+        <button class="btn-secondary" (click)="toggleOverlay()">
+          {{ showOverlay ? "Ocultar" : "Mostrar" }} Overlay
+        </button>
+      </div>
+
+      <div class="loading-overlay" *ngIf="showOverlay">
+        <div class="overlay-content">
+          <div class="ck-spinner large"></div>
+          <span>Carregando...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Loading Original (ck-loading)</h3>
+    <div class="original-loading-demo">
+      <p>Este é o componente de loading original do projeto, com o logo girando:</p>
+      <button class="btn-primary" (click)="toggleOriginalLoading()">
+        {{ showOriginalLoading ? "Parar" : "Iniciar" }} Loading Original
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles</h3>
+    <div class="controls">
+      <button class="btn-primary" (click)="resetAll()">Parar Todos</button>
+    </div>
+  </div>
+</div>
+
+<!-- Componente de loading original -->
+<ck-loading id="default-loading"></ck-loading>

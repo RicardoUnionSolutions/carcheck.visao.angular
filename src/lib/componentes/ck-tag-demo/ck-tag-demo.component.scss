@@ -1,0 +1,281 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.ck-tag-demo {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  h2 {
+    color: #243646;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .demo-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: #243646;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #ecda26;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .size-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .size-item {
+      h4 {
+        color: #243646;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .add-tag-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        color: #243646;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .form-input,
+      .form-select {
+        padding: 0.75rem 1rem;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+
+        &:focus {
+          outline: none;
+          border-color: #ecda26;
+          box-shadow: 0 0 0 3px rgba(236, 218, 38, 0.1);
+        }
+
+        &::placeholder {
+          color: #adb5bd;
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  .usage-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .example-item {
+      h4 {
+        color: #243646;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.btn-primary {
+        background: #ecda26;
+        color: #243646;
+
+        &:hover {
+          background: #d9c713;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-secondary {
+        background: transparent;
+        color: #243646;
+        border: 2px solid #e1e5e9;
+
+        &:hover {
+          border-color: #243646;
+          background: #f8f9fa;
+        }
+      }
+    }
+  }
+
+  // Tag Styles
+  .ck-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+
+    &.small {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    &.medium {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    &.large {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+
+    // Colors
+    &.primary {
+      background: #ecda26;
+      color: #243646;
+    }
+
+    &.secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    &.success {
+      background: #28a745;
+      color: white;
+    }
+
+    &.warning {
+      background: #ffc107;
+      color: #212529;
+    }
+
+    &.danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    &.info {
+      background: #17a2b8;
+      color: white;
+    }
+
+    &.light {
+      background: #f8f9fa;
+      color: #212529;
+      border: 1px solid #dee2e6;
+    }
+
+    &.dark {
+      background: #343a40;
+      color: white;
+    }
+
+    &.removable {
+      padding-right: 0.5rem;
+
+      .remove-btn {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0;
+        margin-left: 0.25rem;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .ck-tag-demo {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .demo-section {
+      padding: 1rem;
+    }
+
+    .add-tag-form .form-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    .controls {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

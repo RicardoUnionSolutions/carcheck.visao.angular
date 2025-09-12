@@ -1,0 +1,25 @@
+<div class="flex-js">
+<div class="img-container">
+   <img class="bg-dark border border-dark border-4" src="./assets/images/usuario.png" alt="Usuario">
+</div>
+<div class="w-100">
+  <div class="f-16 fw-500">Você está conectado como</div>
+  <h2 class="mb-1 f-20">{{login?.cliente?.nome}}</h2>
+  <div class="f-14 fw-500 mt-3 text-right">Não é você?</div>
+</div>
+</div>
+
+<div class="w-100">  
+  <a [routerLink]="'/login/out'" role="button" class="btn btn-orange-1 btn-lg w-100">
+    DESCONECTAR
+  </a>
+  
+  <div class="text-center p-3 f-20 fw-700">
+    OU
+  </div>
+
+  <button (click)="next()" class="btn btn-success btn-lg w-100">
+    CONTINUAR
+  </button>
+
+</div>

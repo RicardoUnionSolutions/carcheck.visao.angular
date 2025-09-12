@@ -1,0 +1,36 @@
+<select [formControl]="control"
+ [ngClass]="{'selected':control.value, 'border-danger': control.errors!=null && control.touched==true}"  class="text-dark f-16" >
+    <option *ngFor="let o of options" [ngValue]="o.value">{{o.label}}</option>
+</select>
+<label for="{{id}}" [ngClass]="{'text-danger': control.errors!=null && control.touched==true}">{{label}}</label>
+<div *ngIf="control.errors != null && control.touched" class="msg text-danger f-12 fw-500">
+        <p [hidden]="!control.errors.required">
+             Campo obrigatório
+        </p>
+        <p [hidden]="!control.errors.email">
+             Email inválido
+        </p>
+        <p [hidden]="!control.errors.cpf">
+             Cpf inválido
+        </p>
+        <p [hidden]="!control.errors.cnpj">
+             Cnpj inválido
+        </p>
+        <p [hidden]="!control.errors.cnpj">
+             Cnpj inválido
+        </p>
+        <p [hidden]="!control.errors.minlength">
+             Mínimo de {{control.errors.minlength?.requiredLength}} caracteres requeridos, {{control.errors.minlength?.actualLength}} informados
+        </p>
+        <p [hidden]="!control.errors.maxlength">
+             Máximo de {{control.errors.maxlength?.requiredLength}} caracteres, {{control.errors.maxlength?.actualLength}} informados
+        </p>
+        <p [hidden]="!control.errors.msg">
+            {{control.errors.msg}}
+        </p>
+ </div>
+
+ 
+<div *ngIf="loading" class="loading">
+    <i class="mdi mdi-loading rotate text-secondary f-26 animation-speed-2000"></i>
+</div>

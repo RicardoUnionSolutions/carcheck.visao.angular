@@ -1,0 +1,58 @@
+<div style = " margin-top: 33px; border-bottom: solid; border-width: 5px; border-color: #243646;" >
+<div class="py-5 container">
+  <app-confirmar-email [(user)]="this.user" [(token)]="this.token" *ngIf="emailVerificado === false"></app-confirmar-email>
+  <login (cadastrarBtnClick)="cadastrarChange()" (loginFbBtnClick)="loginFbChange()" [hidden]="cadastrar"></login>
+  <div *ngIf="cadastrar" class="w-100">
+    <cadastrar [(cadastro)]="cadastrarUsuario"></cadastrar>
+    <div class="py-2 px-3 bg-light rounded my-3">
+      <div class="flex-ac custom-checkbox-wrapper">
+        <input [(ngModel)]="termosUsoAceito" class="custom-checkbox m-0 radio-md" id="inputtermposdeuso" type="checkbox"
+          name="inputtermposdeuso">
+          <label for="inputtermposdeuso" class="f-16 ml-2 fw-700">
+            Li e aceito com os
+            <u (click)="openModalTermosUso(); $event.preventDefault(); $event.stopPropagation();"
+               class="pointer text-orange-1 fw-700">
+              Termos de uso e Política de Privacidade
+            </u>.
+          </label>
+      </div>
+      <div [hidden]="!alertTermosUso || termosUsoAceito" class="f-12 text-danger">
+        Por favor, leia e concorde com os termos de uso.
+      </div>
+    </div>
+    <div class="flex-jb flex-column-reverse flex-lg-row my-5">
+      <button (click)="cadastrar=false" class="btn btn-orange-1 btn-lg px-5">JÁ SOU CADASTRADO</button>
+      <button (click)="efetuarCadastro()" class="btn btn-lg btn-success mb-3 mb-lg-0 px-5">CONCLUIR</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<ck-modal id="modalAvisoLogin" class="full-screen">
+
+  <div class="p-md-4 p-3 f-18" style="max-width: 900px">
+      <h1 class="f-20 mb-4 text-center text-grey-deep">Instabilidade pagamento</h1>
+      <div class="f-14 text-secondary">
+          <p>
+            Prezados clientes,
+
+            Gostaríamos de informar que nossa plataforma de pagamentos está passando por uma manutenção programada. Durante este período, algumas funcionalidades, como a realização de compras, estarão indisponíveis.
+
+            Pedimos desculpas pelo inconveniente causado e agradecemos sua compreensão enquanto trabalhamos para melhorar nossos serviços. Faremos o possível para concluir a manutenção o mais rápido possível e restaurar todas as funcionalidades normalmente.
+
+          </p>
+      </div>
+  </div>
+  <div class="px-3 px-lg-4 pb-3 d-flex justify-content-center">
+
+      <button (click)="closeModal()" class="btn btn-warning">
+          FECHAR
+      </button>
+  </div>
+
+</ck-modal>
+
+<app-modal-termos-uso
+  [visible]="mostrarModalTermos"
+  (fechar)="onFecharModalTermos($event)">
+</app-modal-termos-uso>

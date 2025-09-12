@@ -1,0 +1,92 @@
+<div
+  class="floating-chat"
+  [class]="getPositionClass() + ' ' + getThemeClass()"
+  *ngIf="visible"
+>
+  <!-- Chat Toggle Button -->
+  <button
+    class="chat-toggle-btn"
+    (click)="toggleChat()"
+    [class.open]="isOpen"
+    [class.online]="isOnline"
+    [class.offline]="!isOnline"
+  >
+    <i class="mdi mdi-chat" *ngIf="!isOpen"></i>
+    <i class="mdi mdi-close" *ngIf="isOpen"></i>
+    <div class="online-indicator" *ngIf="isOnline && !isOpen"></div>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chat-window" [class.open]="isOpen">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <div class="header-info">
+        <img
+          *ngIf="config.showAvatar && config.avatarUrl"
+          [src]="config.avatarUrl"
+          alt="Avatar"
+          class="chat-avatar"
+        />
+        <div class="header-text">
+          <h4>Suporte Online</h4>
+          <span
+            class="status"
+            [class.online]="isOnline"
+            [class.offline]="!isOnline"
+          >
+            {{ isOnline ? "Online" : "Offline" }}
+          </span>
+        </div>
+      </div>
+      <button class="close-btn" (click)="closeChat()">
+        <i class="mdi mdi-close"></i>
+      </button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-messages">
+      <div
+        *ngFor="let message of messages"
+        class="message"
+        [class.user]="message.sender === 'user'"
+        [class.bot]="message.sender === 'bot'"
+      >
+        <div class="message-content">
+          <div class="message-text">{{ message.text }}</div>
+          <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+        </div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" *ngIf="isTyping">
+        <div class="typing-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="typing-text">Digitando...</span>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-input">
+      <div class="input-container">
+        <input
+          type="text"
+          [(ngModel)]="newMessage"
+          [placeholder]="config.placeholder"
+          (keypress)="onKeyPress($event)"
+          class="message-input"
+          [disabled]="!isOnline"
+        />
+        <button
+          class="send-btn"
+          (click)="sendMessage()"
+          [disabled]="!newMessage.trim() || !isOnline"
+        >
+          <i class="mdi mdi-send"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

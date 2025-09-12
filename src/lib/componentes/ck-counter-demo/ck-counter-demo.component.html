@@ -1,0 +1,123 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-counter-demo">
+  <h2>CK Counter - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Contadores Básicos</h3>
+    <div class="counters-grid">
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter1 }}</div>
+        <span class="counter-label">Contador Simples</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter2 }}</div>
+        <span class="counter-label">Com Animação</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter3 }}</div>
+        <span class="counter-label">Número Grande</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter4 }}</div>
+        <span class="counter-label">Decimal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Com Prefixo e Sufixo</h3>
+    <div class="counters-grid">
+      <div class="counter-item">
+        <div class="ck-counter">R$ {{ counter2 }}</div>
+        <span class="counter-label">Moeda</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter1 }}%</div>
+        <span class="counter-label">Porcentagem</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">{{ counter3 }}+</div>
+        <span class="counter-label">Mais que</span>
+      </div>
+      <div class="counter-item">
+        <div class="ck-counter">⭐ {{ counter4 }}</div>
+        <span class="counter-label">Avaliação</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Tamanhos</h3>
+    <div class="size-demo">
+      <div class="size-item">
+        <h4>Pequeno</h4>
+        <div class="ck-counter small">1,250</div>
+      </div>
+      <div class="size-item">
+        <h4>Médio</h4>
+        <div class="ck-counter medium">1,250</div>
+      </div>
+      <div class="size-item">
+        <h4>Grande</h4>
+        <div class="ck-counter large">1,250</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Cores</h3>
+    <div class="color-demo">
+      <div class="color-item">
+        <div class="ck-counter primary">1,250</div>
+        <span>Primário</span>
+      </div>
+      <div class="color-item">
+        <div class="ck-counter success">1,250</div>
+        <span>Sucesso</span>
+      </div>
+      <div class="color-item">
+        <div class="ck-counter warning">1,250</div>
+        <span>Aviso</span>
+      </div>
+      <div class="color-item">
+        <div class="ck-counter danger">1,250</div>
+        <span>Perigo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Exemplos de Uso - Dashboard</h3>
+    <div class="dashboard-demo">
+      <div class="stats-grid">
+        <div *ngFor="let stat of stats" class="stat-card">
+          <div class="ck-counter large primary">
+            {{ stat.prefix }}{{ stat.value }}{{ stat.suffix }}
+          </div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h3>Controles de Demonstração</h3>
+    <div class="controls">
+      <button class="btn-primary" (click)="animateCounter('150')">
+        Animar Contador 1
+      </button>
+      <button class="btn-primary" (click)="animateCounter('2500')">
+        Animar Contador 2
+      </button>
+      <button class="btn-primary" (click)="animateCounter('89')">
+        Animar Contador 3
+      </button>
+      <button class="btn-primary" (click)="animateCounter('4.8')">
+        Animar Contador 4
+      </button>
+      <button class="btn-secondary" (click)="resetCounters()">Resetar</button>
+      <button class="btn-success" (click)="animateAll()">Animar Todos</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+
+
+
+<ul class="timeline">
+
+ 
+    <ng-container *ngFor="let obj of this.lAnosBlackList">
+      <li  class="year">
+        <h1 class="f-22">{{obj.ano}}</h1>
+      </li>
+      <li  class="event" *ngFor="let o of obj.lObjeto">
+        <div class="date">
+          <div>{{ o.dia }}</div>
+          <div *ngIf="o.mes">{{ o.mes }}</div>
+          <div *ngIf="o.ano">{{ o.ano }}</div>
+        </div>
+        <div class="event-pointer"></div>
+        <div class="desc">
+          <div *ngIf="o.consulta=='proprietarios_anteriores'">
+            <h2>Veículo com novo proprietário</h2>
+            <p> Novo Proprietário {{o.doc}}.</p>
+        </div>
+        <div *ngIf="o.consulta=='gravame'">
+            <h2>Gravame</h2>
+            <p>Descrição: {{o.descricaoStatus}} <br> Nome Agente: {{o.nomeAgente}} </p>
+        </div>
+        <div *ngIf="o.consulta=='leilao'">
+          <h2>Leilão</h2>
+          <p>Descrição: {{o.descricao}}  </p>
+        </div>
+        <div *ngIf="o.consulta=='carro'">
+          <h2>Carro</h2>
+          <p>Descrição: {{o.descricao}}  </p>
+        </div>
+        </div>
+      </li>
+    </ng-container>
+
+  </ul>
+
+
+
+
+
+  <!--
+ nomeProprietario:valor.nomeProprietario.toString(),
+              uf:valor.ufDut.toString(),
+              anoEmissao:new Date(valor.dataEmissaoGuia).getFullYear().toString(),
+              mesEmissao:this.retornaMes(new Date(valor.dataEmissaoGuia).getMonth()),
+              diaEmissao:new Date(valor.dataEmissaoGuia).getDay().toString()
+  -->

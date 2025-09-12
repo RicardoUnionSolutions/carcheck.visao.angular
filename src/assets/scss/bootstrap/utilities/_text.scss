@@ -1,0 +1,71 @@
+@use "sass:map";
+@use "../_variables" as *;
+@use "../mixins/breakpoints" as *;
+@use "../mixins/text-truncate" as *;
+@use "../mixins/text-emphasis" as *;
+@use "../mixins/text-hide" as *;
+
+//
+// Text
+//
+
+// Alignment
+
+.text-justify  { text-align: justify !important; }
+.text-nowrap   { white-space: nowrap !important; }
+.text-truncate { @include text-truncate; }
+
+// Responsive alignment
+
+@each $breakpoint in map.keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .text#{$infix}-left   { text-align: left !important; }
+    .text#{$infix}-right  { text-align: right !important; }
+    .text#{$infix}-center { text-align: center !important; }
+  }
+}
+
+// Transformation
+
+.text-lowercase  { text-transform: lowercase !important; }
+.text-uppercase  { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+// Weight and italics
+
+.font-weight-light  { font-weight: $font-weight-light !important; }
+.font-weight-normal { font-weight: $font-weight-normal !important; }
+.font-weight-bold   { font-weight: $font-weight-bold !important; }
+.font-italic        { font-style: italic !important; }
+.fw-light  { font-weight: $font-weight-light !important; }
+.fw-400 { font-weight: 400 !important; }
+.fw-500 { font-weight: 500 !important; }
+.fw-600   { font-weight: 600 !important; }
+.fw-700   { font-weight: 700 !important; }
+
+// Contextual colors
+
+.text-white { color: #fff !important; }
+
+@each $color, $value in $theme-colors {
+  @include text-emphasis-variant(".text-#{$color}", $value);
+}
+
+.text-muted { color: $text-muted !important; }
+
+// Misc
+
+.text-hide {
+  @include text-hide();
+}
+
+@each $size in map.keys($font-size){
+  @each $breakpoint in map.keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      .f#{$infix}-#{$size}{ font-size: map.get($font-size, $size); }
+    }
+  }
+}

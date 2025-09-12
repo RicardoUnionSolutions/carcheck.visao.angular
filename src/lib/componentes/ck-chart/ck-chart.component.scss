@@ -1,0 +1,106 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  .ck-chart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+
+    .chart-title {
+      color: #244b5a;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .chart-canvas {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 4px;
+      }
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+      justify-content: center;
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        font-size: 14px;
+
+        .legend-color {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+
+        .legend-label {
+          color: #244b5a;
+          font-weight: 500;
+        }
+
+        .legend-value {
+          color: #6c757d;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  // Responsividade
+  @include media-breakpoint-down(md) {
+    .ck-chart {
+      .chart-container {
+        height: 250px;
+        padding: 15px;
+      }
+
+      .chart-legend {
+        gap: 10px;
+
+        .legend-item {
+          padding: 6px 10px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .ck-chart {
+      .chart-container {
+        height: 200px;
+        padding: 10px;
+      }
+
+      .chart-legend {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+}

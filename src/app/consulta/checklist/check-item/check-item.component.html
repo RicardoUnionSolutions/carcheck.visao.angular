@@ -1,0 +1,16 @@
+<div class="flex-ac px-4 pt-4 pb-3">
+  <div *ngIf="status==0" class="svg-24 mr-2 fill-success" [inlineSVG]="'check-square.svg'" [removeSVGAttributes]="['class']"></div>
+  <div *ngIf="status==1" class="svg-24 mr-2 fill-orange-1" [inlineSVG]="'alert-square.svg'" [removeSVGAttributes]="['class']"></div>
+  <div *ngIf="status==2" class="svg-24 mr-2 fill-danger" [inlineSVG]="'x-square.svg'" [removeSVGAttributes]="['class']"></div>
+  <div *ngIf="status==4" class="svg-24 mr-2 fill-blue" [inlineSVG]="'info-circle.svg'" [removeSVGAttributes]="['class']"></div>
+
+  <div class="fw-500 w-100">{{label}}</div>
+  <button [hidden]="status==0 || hiddenDetail || detail.children.length == 0" (click)="toggle()" class="btn btn-sm btn-outline-orange-1" [ngClass]="{'active':selfStatic.currentIndex == index}">
+    {{selfStatic.currentIndex == index ? 'Ocultar' : 'Ver'}} detalhes
+  </button>
+</div>
+<div [hidden]="status==0 || hiddenDetail || detail.children.length == 0" [ngClass]="{'showDetail': selfStatic.currentIndex == index}" class="bg-silver-light detail">
+  <div #detail class="detail-body">
+    <ng-content></ng-content>
+  </div>
+</div>

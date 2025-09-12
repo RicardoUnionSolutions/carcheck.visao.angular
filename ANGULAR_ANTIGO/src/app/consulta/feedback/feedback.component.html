@@ -1,0 +1,52 @@
+<div class="ck-card ck-card-blue my-5 hide-print">
+  <div class="ck-card-title ck-card-title-info">FEEDBACK - Precisamos da sua opinião!</div>
+  <div class="ck-card-body">
+    <div class="row no-gutters fw-500">
+      <div class="mr-0 mr-md-5 col-12 col-md-6">
+        Esta consulta atendeu as suas expectativas?
+      </div>
+      <div class="flex-ac mt-2 mt-md-0">
+        <label for="radioExpectativa-sim" class="mr-5 flex-ac">
+          <input [(ngModel)]="radioExpectativa"  name="radioExpectativa" value="SIM" class="radio-md" type="radio" name="" id="radioExpectativa-sim">
+          <span class="ml-2">
+            SIM
+          </span>
+        </label>
+        <label for="radioExpectativa-nao" class="flex-ac">
+          <input [(ngModel)]="radioExpectativa" name="radioExpectativa" value="NAO" class="radio-md" type="radio" name="" id="radioExpectativa-nao">
+          <span class="ml-2">
+            NÃO
+          </span>
+        </label>
+      </div>
+      <div [hidden]="!radioExpectativa" class="my-3 w-100">
+        <div [hidden]="radioExpectativa!='SIM'" class="f-16 mb-3 fw-700 text-blue">
+            Se tiver algum elogio, critica ou sugestão, não deixe de nos informar ok?
+        </div>
+
+        <div [hidden]="radioExpectativa!='NAO'" class="f-16 mb-3 fw-700 text-blue">
+            A consulta não te ajudou? Por favor, nos diga o que aconteceu:
+        </div>
+
+        <div [hidden]="statusEnvio!=1" class="f-16 mb-3 fw-700 text-success">
+            Feedback enviado com sucesso.
+        </div>
+
+        <div [hidden]="statusEnvio!=-1" class="f-16 mb-3 text-danger">
+            <strong>Erro ao enviar Feedback.</strong>
+            <div class="f-14">Tente novamente mais tarde, caso o problema persista ou para maiores informações entre em contato com o nosso suporte.</div>
+        </div>
+
+        <div class="flex-je flex-wrap flex-md-nowrap">
+          <textarea [(ngModel)]="msgFeedback" class="border border-2 border-blue rounded w-100 mw-100 mr-0 mr-md-2  mb-2 mb-md-0 p-2"></textarea>
+          <button (click)="enviarFeedback()"
+          [ngClass]="{'flex-ac flex-jc relative':loading}"
+          class="btn btn-blue btn-lg w-100" [ngClass]="{'px-md-5 ':!loading}" [disabled]="loading" >
+              <i [ngClass]="{'d-block':loading, 'd-none':!loading}" class="mdi mdi-loading mr-3 f-24 rotate"></i>
+              {{loading ? 'Enviando...' : 'Enviar'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  .navbar-sub {
+    display: flex;
+    align-items: center;
+
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+
+      .nav-item {
+        position: relative;
+
+        .nav-link {
+          color: white;
+          text-decoration: none;
+          padding: 10px 15px;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-weight: 500;
+
+          i {
+            font-size: 16px;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ecda26;
+          }
+        }
+
+        &.active {
+          .nav-link {
+            background-color: #ecda26;
+            color: #244b5a;
+            font-weight: 600;
+
+            &:hover {
+              background-color: #d4c420;
+              color: #244b5a;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Responsividade
+  @include media-breakpoint-down(lg) {
+    .navbar-sub {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@use '../../../../assets/scss/bootstrap/variables' as *;
+@use '../../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+.card-container{
+    width: 100%;
+    max-width: 240px;
+    border: 2px solid;
+    border-radius: 4px;
+    margin: 15px 10px;
+    cursor: pointer;
+    transition: 200ms all ease-in;
+    opacity: 0.75;
+    text-align: center;
+    padding: 10px 0px;
+    font-weight: 700;
+    position: relative;
+    box-shadow: none;
+    outline: none;
+
+    &:focus{
+        opacity: 1;
+    }
+
+    .svg-icon{
+        position: absolute;
+        top: -12px;
+        background: white;
+        border-radius: 50%;
+        right: -12px;
+        opacity: 0;
+        transition: 200ms all ease-in;
+    }
+
+    img{
+        height: 40px;
+        margin: 10px auto;
+    }
+
+    p{
+        margin: 5px 0px;
+        padding: 0px;
+    }
+
+
+    &:hover, &.active{
+        opacity: 1;
+    }
+
+    &.active{
+        .svg-icon{
+            opacity: 1;
+        }
+    }
+
+}
+
+
+
+@include media-breakpoint-down(md) {
+    .card-container{
+        margin: 0px 0px;
+        max-width: 100%;
+        width: 100%;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+    }
+
+    img{
+        height: 35px;
+        margin: 0px !important;
+    }
+}

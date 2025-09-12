@@ -1,0 +1,23 @@
+<section class="container-faq">
+  <h1 class="faq-title">Perguntas frequentes</h1>
+  <div class="accordion">
+    <div class="card" *ngFor="let faq of listaFaqs">
+      <div class="card-header" (click)="toggleCard(faq.id)">
+        <h2 class="mb-0">
+          <button class="accordion-btn">
+            <span class="question-text">{{ faq.question }}</span>
+            <i
+              class="mdi mdi-chevron-down icon"
+              [class.rotar]="activeCard === faq.id"
+            ></i>
+          </button>
+        </h2>
+      </div>
+      <h3 class="accordion-body-wrapper" [class.open]="activeCard === faq.id">
+        <div class="card-body">
+          <p><span [innerHTML]="faq.answer"></span></p>
+        </div>
+      </h3>
+    </div>
+  </div>
+</section>

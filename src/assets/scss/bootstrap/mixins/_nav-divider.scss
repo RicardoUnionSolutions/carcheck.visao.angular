@@ -1,0 +1,13 @@
+// Navbar dividers
+//
+// Dividers built from flexbox utilities to organize navbar content.
+
+@use "sass:math";
+@use "../variables" as *;
+
+@mixin nav-divider($color: #e5e5e5) {
+  height: 0;
+  margin: math.div($spacer, 2) 0;
+  overflow: hidden;
+  border-top: 1px solid $color;
+}

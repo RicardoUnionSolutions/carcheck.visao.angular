@@ -1,0 +1,163 @@
+.servicos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+.servico {
+  flex: 1;
+  background: #f5f5f5e3;
+  padding: 30px;
+  border-radius: 10px;
+  color: #161616;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 330px;
+  max-width: 330px;
+  position: relative;
+}
+
+.servico:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.servico h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #304d5a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.servico i {
+  font-size: 1.8rem;
+  color: #ecda26;
+}
+
+.servico p {
+  font-size: 1.1rem;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.descricao {
+  font-size: 1.3rem;
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  color: #dcdcdc;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 12px 25px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.btn-primario {
+  background: #244b5a;
+  color: #dcdcdc;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primario:hover {
+  background: #ecda26;
+  color: #244b5a;
+  text-decoration: none;
+}
+
+.indisponivel {
+  position: relative;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.indisponivel .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(42, 42, 42, 0.5);
+  color: #ecda26;
+  font-size: 3.0rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+@keyframes led-pulse {
+  0% {
+    box-shadow: 0 0 2px 1px #ecdb266b;
+  }
+
+  50% {
+    box-shadow: 0 0 8px 3px #ecdb266b;
+  }
+
+  100% {
+    box-shadow: 0 0 2px 1px #ecdb266b;
+  }
+}
+
+.em-breve {
+  background-color: #304d5a;
+  width: 100%;
+  padding: 10px 0;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 5px #ecda26;
+  animation: led-pulse 2s infinite;
+}
+
+.novidade {
+  color: white !important;
+}
+
+.obs {
+  font-size: 14px !important;
+  color: #4e4e4e !important;
+  position: absolute;
+  left: 14px;
+  bottom: -18px;
+}
+
+@media (max-width: 768px) {
+  .servicos {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .servico {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .descricao {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

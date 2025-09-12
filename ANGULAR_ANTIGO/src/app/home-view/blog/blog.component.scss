@@ -1,0 +1,48 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0px;
+  align-items: center;
+}
+
+.bg_amarelo{
+  background-color: #ecda26; ;
+}
+
+.btn{
+  font-weight: 400;
+  font-size: 18px;
+  padding: 10px 25px;
+  color: white;
+  background: #304d5a !important;
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.imagem{
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+}
+a{
+  color: #292929;;
+  font-weight: 500;
+  font-size: 18px;
+  text-decoration: none;
+}
+img{
+  max-width: 100%;
+  vertical-align: middle;
+  object-fit: cover;
+}
+
+section{
+  padding: 20px;
+}

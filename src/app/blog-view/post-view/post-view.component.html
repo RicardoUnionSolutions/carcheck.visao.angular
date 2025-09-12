@@ -1,0 +1,62 @@
+<div *ngIf="post">
+  <section id="destaque_interno"
+    style="background:
+    url(https://carcheckbrasil.com.br/wp-content/themes/carcheck/img/bg_interno_cor.jpg) center center !important; background-size:cover !important  ">
+    <div class="item padding-20">
+      <div class="overlay">
+        <div class="container ">
+          <div class="titulo">
+            <h2>{{post.titulo}}</h2>
+            <div class="area-share">
+              <span>Compartilhar post:</span>
+              <ul class="list-share">
+                <li><a class="email" href="mailto:?subject=&amp;body=Veja este artigo do Carcheck Brasil: https://carcheckbrasil.com.br/{{post.id}}/{{post.slug}}" target="_blank"><i class="mdi mdi-email"></i></a></li>
+                <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://carcheckbrasil.com.br/{{post.id}}/{{post.slug}}" target="_blank"><i class="mdi mdi-facebook"></i></a></li>
+                <li><a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://carcheckbrasil.com.br/{{post.id}}/{{post.slug}}&amp;title=Veja este artigo do Carcheck Brasil"><i class="mdi mdi-linkedin"></i></a></li>
+                <li><a class="whatsapp" href="https://api.whatsapp.com/send?text=https://carcheckbrasil.com.br/{{post.id}}/{{post.slug}}" data-action="share/whatsapp/share" target="_blank"><i class="mdi mdi-whatsapp"></i></a></li>
+              </ul>
+            </div>
+            <h5 class="saibamais preto">{{post.categoria}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="conteudo" class="{{post.categoriaSlug}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="imagem" style="margin-bottom:10px"><img width="1600" height="1066" src="{{post.linkImg}}"
+              class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="consumo do carro"
+              decoding="async" fetchpriority="high" sizes="(max-width: 1600px) 100vw, 1600px"></div>
+
+          <div [innerHTML]="post.body"></div>
+        </div>
+        <div appAppearRightOnScroll class="col-md-4 sidebar">
+          <h3>Descubra mais</h3>
+          <ul>
+            <li *ngFor="let post of this.posts" class="cat-item cat-item-3">
+              <div appAppearRightOnScroll class="post">
+                <div class="imagem">
+                  <a style="cursor: pointer;" (click)="openPost(post)">
+                    <img width="800" height="400" src="{{post.linkImg}}"
+                      class="attachment-blog_capa size-blog_capa wp-post-image" alt="{{post.slug}}" decoding="async"
+                      fetchpriority="high"></a>
+                </div>
+                <div class="data"><small>{{post.dataCriacao | date:'dd/MM/yyyy'}}</small></div>
+                <h4><a style="cursor: pointer;"  (click)="openPost(post)">{{post.titulo}}</a></h4>
+                <a class="category" href="/blog/{{post.slugCategory}}">{{post.category}}</a>
+                <p class="truncate" [innerHTML]="post.body"></p>
+                <hr>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-warning" [routerLink]="['/blog']" routerLinkActive="router-link-active"> Ver mais
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

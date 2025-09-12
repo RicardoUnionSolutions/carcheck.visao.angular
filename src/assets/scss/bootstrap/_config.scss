@@ -1,0 +1,44 @@
+// Arquivo de configuração central do Bootstrap
+// Este arquivo centraliza todas as importações para evitar loops circulares
+
+@use "sass:math";
+@use "sass:map";
+@use "sass:color";
+
+// Importar variáveis
+@use "_variables" as *;
+
+// Importar funções (elas dependem das variáveis)
+@use "_functions" as *;
+
+// Importar mixins
+@use "mixins/_breakpoints" as *;
+@use "mixins/_hover" as *;
+@use "mixins/_image" as *;
+@use "mixins/_badge" as *;
+@use "mixins/_resize" as *;
+@use "mixins/_screen-reader" as *;
+@use "mixins/_size" as *;
+@use "mixins/_reset-text" as *;
+@use "mixins/_text-emphasis" as *;
+@use "mixins/_text-hide" as *;
+@use "mixins/_text-truncate" as *;
+@use "mixins/_visibility" as *;
+@use "mixins/_alert" as *;
+@use "mixins/_buttons" as *;
+@use "mixins/_caret" as *;
+@use "mixins/_pagination" as *;
+@use "mixins/_lists" as *;
+@use "mixins/_list-group" as *;
+@use "mixins/_nav-divider" as *;
+@use "mixins/_forms" as *;
+@use "mixins/_table-row" as *;
+@use "mixins/_background-variant" as *;
+@use "mixins/_border-radius" as *;
+@use "mixins/_box-shadow" as *;
+@use "mixins/_gradients" as *;
+@use "mixins/_transition" as *;
+@use "mixins/_clearfix" as *;
+@use "mixins/_grid-framework" as *;
+@use "mixins/_grid" as *;
+@use "mixins/_float" as *;

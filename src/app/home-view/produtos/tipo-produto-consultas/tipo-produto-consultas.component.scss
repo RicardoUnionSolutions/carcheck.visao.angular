@@ -1,0 +1,261 @@
+#premios {
+  padding-top: 5px;
+}
+
+.consulta {
+  border: 1px solid #eee;
+  margin: 20px 0px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 13px 0px #eee;
+  background: #f9fafc;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+  }
+
+  .label {
+    background: rgb(32, 139, 135);
+    background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
+    color: #fff;
+    padding: 8px 0;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-weight: bold;
+  }
+
+  .promocional-text {
+    position: static;
+    background: linear-gradient(90deg, #208b87 0%, #244b5a 100%);
+    color: #fff;
+    padding: 7px 24px;
+    font-size: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-weight: bold;
+  }
+
+  .promocional {
+    background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
+    color: #fff;
+    padding: 5px 0;
+    font-size: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-weight: bold;
+    position: sticky;
+  }
+
+  .promocional::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: -1px;
+    border-radius: 10px;
+    background: red;
+    background-size: 200% 200%;
+    animation: led-glow 1s linear infinite;
+    z-index: -1;
+  }
+
+  @keyframes led-glow {
+    0%,
+    100% {
+      opacity: 0;
+      /* Invisible at the start and end */
+    }
+
+    50% {
+      opacity: 1;
+      /* Fully visible at the middle */
+    }
+  }
+
+  .preco {
+    font-size: 35px;
+    color: #244b5a;
+  }
+
+  .de {
+    text-decoration: line-through;
+    color: #111111;
+  }
+
+  .dado {
+    padding-left: 14px;
+    color: #333;
+    font-size: 12px;
+  }
+
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .btn {
+    background: #ecda26;
+    color: #244b5a;
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: capitalize;
+    border: 1px solid transparent;
+    border-radius: 15px;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+    background: #e3d11e !important;
+    box-shadow: 0px 2px 8px 0px #7f7f7fb8;
+  }
+
+  .btn-detalhes {
+    max-width: fit-content;
+  }
+
+  .detalhes {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+  }
+
+  .detalhes.expandido {
+    max-height: 1000px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    a {
+      color: #244b5a;
+    }
+  }
+
+  i {
+    font-size: large;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a:hover {
+    font-weight: bold;
+    transform: scale(1.02);
+  }
+}
+
+.recomendada {
+  transform: scale(1.05);
+  border: 1px solid #79a2bd;
+}
+
+// Estilos para flexbox
+.d-flex {
+  flex-direction: column;
+  margin-top: auto;
+}
+
+// Responsividade - Regra: 3 cards ou 1 card, nunca 2
+// Desktop: 3 cards por linha (992px+)
+// Mobile: 1 card por linha (até 991px)
+
+// Mobile e Tablet - 1 card por linha
+@media (max-width: 991px) {
+  .row-cols-1 {
+    --bs-gutter-x: 1.5rem;
+  }
+
+  .consulta {
+    margin: 15px 0px;
+    padding: 18px;
+
+    h3 {
+      font-size: 17px;
+    }
+
+    .preco {
+      font-size: 30px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+}
+
+// Desktop - 3 cards por linha
+@media (min-width: 992px) {
+  .row-cols-lg-3 {
+    --bs-gutter-x: 1.5rem;
+  }
+
+  .consulta {
+    margin: 20px 0px;
+    padding: 20px;
+
+    h3 {
+      font-size: 18px;
+    }
+
+    .preco {
+      font-size: 32px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      font-size: 15px;
+    }
+  }
+}
+
+// Ajustes específicos para telas muito pequenas (mantém 1 card por linha)
+@media (max-width: 480px) {
+  .consulta {
+    margin: 15px 0px 25px 0px;
+    padding: 12px;
+    border-radius: 15px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  .preco {
+    font-size: 24px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .recomendada {
+    transform: scale(1.01);
+  }
+}

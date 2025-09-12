@@ -1,0 +1,129 @@
+@use '../../../assets/scss/bootstrap/variables' as *;
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+:host {
+  /* modals are hidden by default */
+  display: none;
+
+  .ck-modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* z-index must be higher than .jw-modal-background */
+    z-index: 99999;
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+
+    .ck-modal-body {
+      width: 350px;
+      max-width: 100%;
+      min-height: 330px;
+      background: rgba(224, 224, 224, 0.822);
+      /* margin exposes part of the modal background */
+      margin: 10px;
+      border-radius: 3px;
+    }
+  }
+
+  .ck-modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(0.3);
+    /* semi-transparent black  */
+    background-color: rgba(0, 0, 0, 0.76);
+
+    /* z-index must be below .jw-modal and above everything else  */
+    z-index: 900;
+  }
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+//##### FOI COLOCADO TRANSPARENT PARA ESCONDER O LOADING PADRAO FEITO ####
+.mdi-loading {
+  color: transparent;
+}
+//################################
+
+//### MARGEM DA ESCRITA " AGUARDE... "
+.loading-text {
+  margin-top: 205px;
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.logo-loading {
+  -webkit-animation: spin 3s infinite linear;
+  animation: spin 3s infinite linear;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  -webkit-filter: drop-shadow(1px 1px 10px #222222);
+  filter: drop-shadow(1px 1px 10px #222222);
+}
+//#####
+
+// ########    -  Logos aspiral Externa girando  -  ###########
+
+.logo-loading-externa {
+  height: 130px;
+  position: relative;
+  width: auto;
+  opacity: 80%;
+  animation-duration: 9500ms;
+}
+
+.logo-loading-externa2 {
+  height: 190px;
+  position: absolute;
+  width: auto;
+  animation-duration: 9500ms;
+}
+
+.logo-loading-externa3 {
+  height: 80px;
+  position: absolute;
+  width: auto;
+  opacity: 80%;
+  animation-duration: 9500ms;
+}

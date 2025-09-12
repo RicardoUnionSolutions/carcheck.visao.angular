@@ -1,0 +1,30 @@
+// Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+
+input[type="text"]{
+    max-width: 400px;
+    letter-spacing: 10px;
+    outline: none;
+    box-shadow: none;
+    font-family: "Caros";
+    text-transform: uppercase;
+}
+
+.veiculo-pesquisa-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+
+@media (max-width: 768px) {
+    input[type="text"]{
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .veiculo-pesquisa-form{
+        flex-wrap: wrap;
+    }
+}

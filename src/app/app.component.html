@@ -1,0 +1,14 @@
+<header>
+  <navbar-home></navbar-home>
+</header>
+
+<section [ngClass]="{ 'section-login': paddingLogin }">
+  <router-outlet class="not"></router-outlet>
+  <app-floating-chat></app-floating-chat>
+</section>
+<footer class="hide-print">
+  <app-footer></app-footer>
+</footer>
+
+<ck-loading id="default-loading"></ck-loading>
+<ck-modal-msg></ck-modal-msg>

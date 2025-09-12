@@ -1,0 +1,27 @@
+<div class="modal-overlay">
+  <div class="modalConfirmarEmail">
+    <div class="custom-logo-link py-2" rel="home">
+      <div class="logo">
+        <img src="./assets/images/logos/Carcheck_Logos-07.png" class="icon-logo" alt="logo Carcheck Brasil">
+        <img src="./assets/images/logos/Carcheck_Logos-05.png" class="custom-logo" alt="Carcheck Brasil">
+      </div>
+    </div>
+    <div class="content-modal">
+    <h2>Receba as nossas boas vindas!</h2>
+    <p>Sua conta foi criada com sucesso. Enviamos um <strong>código de verificação</strong> ao seu email. Por favor, preencha-o no campo abaixo.</p>
+    <p>Código de verificação :</p>
+    <code-input [isCodeHidden]="false"
+                [codeLength]="5"
+                [isCharsCode]= "true"
+                [inputType]="'text'"
+                (codeChanged)="onCodeChanged($event)"
+                (codeCompleted)="onCodeCompleted($event)">
+    </code-input>
+    <p *ngIf="codigoInvalido" style="color: darkred;" class="codigoInvalido" >*Código invalido, favor verificar o código e tentar novamente</p>
+    <button id="resendBtn" class="resend-btn" (click)="reenviarEmail()">Reenviar Email</button>
+    <p id="counter" style="display: none;"></p>
+    </div>
+  <button [disabled]="!codigoDigitado || loading" class="conclude-btn text-uppercase" (click)="concluirCadastro()">{{ loading ? 'Verificando código...' : 'Concluir' }}</button>
+  </div>
+</div>
+

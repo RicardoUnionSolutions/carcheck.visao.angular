@@ -1,0 +1,26 @@
+@import 'functions', 'variables', 'mixins/breakpoints';
+
+.search-btn{
+    border: 1px solid #555;
+    border-radius: 3px;
+    max-width: 500px;
+}
+
+.ck-table{
+    width: 100%;
+}
+
+.ck-table th{
+    font-weight: 700;
+    border-bottom: 2px solid #555;
+    padding: 0px 0px 2px 10px;
+    font-size: 18px;
+}
+
+.ck-table td{
+    padding: 7px 0px 7px 10px;
+}
+
+.ck-table tr:nth-child(odd)>td{
+    background: rgba(0,0,0,0.045);
+}

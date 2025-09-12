@@ -1,0 +1,76 @@
+.parceria-seguralta {
+  background: #2a2a2a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: #ecda26;
+  text-align: center;
+  overflow: hidden;
+  margin: 12px 0 0 0;
+  position: relative;
+}
+
+.img-background {
+  position: absolute;
+  right: 0;
+  top: -170px;
+
+  img {
+    transform: rotate(155deg);
+    filter: opacity(0.1);
+  }
+}
+
+.intro {
+  margin-top: 50px;
+}
+
+.logo {
+  width: 220px;
+  filter: drop-shadow(2px 2px 5px rgba(255, 255, 255, 0.2));
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #f5f5f5;
+}
+
+.titulo span {
+  color: #ecda26;
+}
+
+.sub {
+  font-size: 1.3rem;
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  color: #dcdcdc;
+}
+
+// Estilos removidos - agora são gerenciados pelo componente cards-servicos
+
+// Media queries responsivos para o layout principal
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 2rem;
+  }
+
+  .sub {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .parceria-seguralta {
+    margin: 12px 0 0 0;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+  }
+
+  .sub {
+    font-size: 1rem;
+  }
+}

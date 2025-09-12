@@ -1,0 +1,103 @@
+#premios {
+  padding-top: 5px;
+}
+
+.cards {
+  margin: 50px 0px;
+}
+
+.pacote {
+  border: 1px solid #eee;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 6px 6px 13px 0px #eee;
+  background: #f9fafc;
+  display: table;
+  width: 90%;
+
+  h3 {
+    font-family: Archivo, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 33px;
+    line-height: 125%;
+    letter-spacing: -0.5px;
+    color: #252525;
+  }
+
+  .label {
+    background: rgb(32, 139, 135);
+    background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
+    color: #fff;
+    padding: 8px 0;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    font-weight: bold;
+  }
+
+  .preco {
+    font-size: 35px;
+    color: #244b5a;
+  }
+
+  .de {
+    text-decoration: line-through;
+    color: #111111;
+  }
+
+  .dado {
+    padding-left: 14px;
+    color: #333;
+    font-size: 12px;
+  }
+
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .btn {
+    background: #ecda26;
+    color: #244b5a;
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: capitalize;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .btn:hover {
+    text-decoration: none;
+    background: #e6d525 !important;
+    box-shadow: 0px 2px 8px 0px #7f7f7fb8;
+    transform: scale(1.02);
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    a {
+      color: #244b5a;
+    }
+  }
+
+  i {
+    font-size: large;
+  }
+}
+
+.recomendada {
+  transform: scale(1.2);
+  border: 1px solid #ecdb26;
+}

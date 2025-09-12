@@ -1,0 +1,32 @@
+<h1 class="text-center f-30 fw-400">DADOS DO <span class="fw-700">VEÍCULO</span></h1>
+<p class="f-20 fw-500 text-secondary mb-5 px-5 text-center">
+  Insira abaixo o chassi ou placa do carro seminovo para realizar a consulta desejada.
+</p>
+
+<div class="veiculo-pesquisa-form px-md-5">
+  <div class="col-lg-4 col-md-6 col-12 px-2">
+    <label class="d-flex align-items-center" for="select_placa" >
+      <input class="radio-md mr-2" id="select_placa" type="radio" name="placa_chassi"
+              [(ngModel)]="tipoPesquisa" value="placa" (ngModelChange)="changeTipoConsulta()" >
+      <span>Placa</span>
+    </label>
+    <input type="text" class="form-control form-control-lg  border-2"
+        [ngClass]="{'border-orange-1 bg-white': tipoPesquisa=='placa', 'border-dark bg-silver': tipoPesquisa!='placa'}"
+         (focus)="setTipoPesquisa('placa')"
+         [(ngModel)]="placa"
+         (ngModelChange)="changePlaca()" [textMask]="masks.placa"  maxlength="7">
+  </div>
+  <div class="fw-700 px-3 px-lg-5 pt-3 f-lg-30 f-26">OU</div>
+  <div class="col-lg-4 col-md-6 col-12 px-2">
+    <label class="d-flex align-items-center" for="select_chassi" >
+      <input class="radio-md mr-2" id="select_chassi" type="radio"  name="placa_chassi"
+        [(ngModel)]="tipoPesquisa" (ngModelChange)="changeTipoConsulta()" value="chassi">
+      <span>Chassi</span>
+    </label>
+    <input type="text" class="form-control form-control-lg border-2"
+          [ngClass]="{'border-orange-1 bg-white': tipoPesquisa=='chassi', 'border-dark bg-silver': tipoPesquisa!='chassi'}"
+          (focus)="setTipoPesquisa('chassi')"
+          [(ngModel)]="chassi"
+          (ngModelChange)="changeChassi()" maxlength="17"  name="uniqueChassiInput" >
+  </div>
+</div>

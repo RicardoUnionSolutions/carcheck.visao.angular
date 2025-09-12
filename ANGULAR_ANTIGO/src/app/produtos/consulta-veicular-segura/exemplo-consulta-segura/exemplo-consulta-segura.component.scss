@@ -1,0 +1,67 @@
+.blocoConsulta {
+  margin: 50px 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+img {
+  width: -webkit-fill-available;
+  height: auto;
+}
+
+.descricao {
+  margin-top: 15px;
+}
+
+.sobre {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0px 5px 10px 5px;
+  cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 1px 4px 12px 0px rgba(0, 0, 0, 0.288);
+
+  span {
+    font-weight: bold;
+    color: #304d5a;
+    font-size: 19px;
+  }
+
+  i {
+    font-size: 40px;
+    transition: all ease-in-out 0.5s;
+  }
+}
+
+.open {
+  transform: rotate(180deg);
+  transition: all ease-in-out 0.5s;
+}
+
+@media (max-width:1060px) {
+  .blocoConsulta {
+    margin: 20px 10%;
+  }
+}
+
+@media (max-width:720px) {
+  .blocoConsulta {
+    margin: 20px 5%;
+  }
+
+  span {
+    font-size: 15px !important;
+  }
+
+  i {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width:520px) {
+  .blocoConsulta {
+    margin: 20px 5px;
+  }
+}

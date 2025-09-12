@@ -1,0 +1,46 @@
+<section id="conteudo" class="padding-60">
+  <div class="container d-flex align-items-center flex-wrap ">
+    <div class="clear"></div>
+    <div class="col-md-6">
+      <h1>Consulta Veicular Completa</h1>
+      <p><span style="font-weight: 400;">A </span><b>consulta veicular completa</b><span style="font-weight: 400;"> é
+          indicada para quem quer verificar a maior quantidade de dados possível de um veículo. Por meio da placa do
+          carro ou chassi, você tem acesso à informações de riscos na compra do veículo e avaliações de mercado do
+          modelo em instantes, de forma segura.</span></p>
+      <p><span style="font-weight: 400;">Por ser 100% online a </span><b>consulta veicular completa</b><span
+          style="font-weight: 400;"> permite impressão e compartilhamento. Os dados são apresentados em um relatório com
+          quadro de resumo, checklist, timeline e um detalhamento que facilita a visualização das informações.</span>
+      </p>
+      <p><span style="font-weight: 400;">Confira a relação de dados disponíveis pela </span><b>Consulta Veicular
+          Completa:<br>
+        </b><br>
+        <b>Informe a placa ou chassi do veículo para realizar a consulta.</b>
+      </p>
+      <p><b>ATENÇÃO: Veículos anteriores ao ano de 1992 não possuem todas as informações citadas acima disponíveis no
+          histórico devido a criação do cadastro nacional de motores neste ano.</b></p>
+    </div>
+    <div class="col-md-6">
+      <div appAppearRightOnScroll class="consulta text-center">
+        <h3 class="label">RECOMENDADA</h3>
+        <h2 class="azul">{{consulta.nome_da_consulta}}</h2>
+        <!-- <div class="promocional"><span class="promocional-text">Valor promocional até dia 10/08</span></div> -->
+        <span class="de">{{consulta.valor_atual|currency:'BRL'}}</span>
+        <br>
+        <span class="preco">{{consulta.valor_promocional|currency:'BRL'}}</span><br>
+        <p>Por consulta</p><a href="/comprar-consulta-placa/completa" class="btn">comprar</a>
+      </div>
+    </div>
+  </div>
+</section>
+<h1 class="text-center">Exemplo de consulta</h1>
+<h5 class="sub text-center">Modelo e explicação da consulta <br> </h5>
+<h6 class="text-center">* Dados ficticios </h6>
+<app-exemplo-consulta-completa></app-exemplo-consulta-completa>
+
+<app-comparar-produto [consultaComparada]="consulta.id"></app-comparar-produto>
+
+<app-como-funciona></app-como-funciona>
+
+<app-duvidas-frequentes></app-duvidas-frequentes>
+
+<app-produtos></app-produtos>

@@ -1,0 +1,161 @@
+<app-demo-navigation></app-demo-navigation>
+
+<div class="ck-modal-demo">
+  <h2>CK Modal - Demonstração</h2>
+
+  <div class="demo-section">
+    <h3>Tipos de Modal</h3>
+    <div class="button-group">
+      <button class="btn-primary" (click)="openModal('basic')">
+        Modal Básico
+      </button>
+      <button class="btn-primary" (click)="openModal('large')">
+        Modal Grande
+      </button>
+      <button class="btn-primary" (click)="openModal('confirm')">
+        Modal de Confirmação
+      </button>
+      <button class="btn-primary" (click)="openModal('form')">
+        Modal com Formulário
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Básico -->
+  <div *ngIf="showBasicModal" class="modal-overlay" (click)="closeAllModals()">
+    <div class="modal-content modal-sm" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Modal Básico</h3>
+        <button class="close-btn" (click)="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Este é um exemplo de modal básico. Clique fora dele ou no X para
+          fechar.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeAllModals()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Grande -->
+  <div *ngIf="showLargeModal" class="modal-overlay" (click)="closeAllModals()">
+    <div class="modal-content modal-lg" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Modal Grande</h3>
+        <button class="close-btn" (click)="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Este é um modal grande com mais espaço para conteúdo.</p>
+        <div class="content-section">
+          <h4>Seção 1</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+        <div class="content-section">
+          <h4>Seção 2</h4>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div class="content-section">
+          <h4>Seção 3</h4>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeAllModals()">
+          Cancelar
+        </button>
+        <button class="btn-primary" (click)="closeAllModals()">Aceitar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação -->
+  <div
+    *ngIf="showConfirmModal"
+    class="modal-overlay"
+    (click)="closeAllModals()"
+  >
+    <div class="modal-content modal-sm" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Confirmar Ação</h3>
+        <button class="close-btn" (click)="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-icon">⚠️</div>
+        <p>
+          Tem certeza que deseja realizar esta ação? Esta operação não pode ser
+          desfeita.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeAllModals()">
+          Cancelar
+        </button>
+        <button class="btn-danger" (click)="confirmAction()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal com Formulário -->
+  <div *ngIf="showFormModal" class="modal-overlay" (click)="closeAllModals()">
+    <div class="modal-content modal-md" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Formulário de Contato</h3>
+        <button class="close-btn" (click)="closeAllModals()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitForm()">
+          <div class="form-group">
+            <label for="nome">Nome *</label>
+            <input
+              type="text"
+              id="nome"
+              [(ngModel)]="formData.nome"
+              name="nome"
+              class="form-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="formData.email"
+              name="email"
+              class="form-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              [(ngModel)]="formData.mensagem"
+              name="mensagem"
+              class="form-textarea"
+              rows="4"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeAllModals()">
+          Cancelar
+        </button>
+        <button class="btn-primary" (click)="submitForm()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
