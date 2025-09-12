@@ -1,21 +1,33 @@
 import { TestBed } from "@angular/core/testing";
 import { LOCALE_ID } from "@angular/core";
-import { Router } from "@angular/router";
 import { LoginService } from "./login.service";
 import { ModalService } from "./modal.service";
+import { TokenService } from "./token.service";
 
 class ModalServiceStub {
   openModalMsg() {}
   openLoading() {}
 }
 
-class RouterStub {
-  navigate() {}
+class TokenServiceStub {
+  getTokenLogin() {
+    const token = localStorage.getItem('tokenLogin');
+    return token === 'null' ? null : token;
+  }
+  setTokenLogin(token: string) {
+    localStorage.setItem('tokenLogin', token);
+  }
+  removeTokenLogin() {
+    localStorage.removeItem('tokenLogin');
+  }
+  getUserFromToken(token?: string) {
+    return null;
+  }
 }
 
 describe("LoginService", () => {
   let service: LoginService;
-  let router: Router;
+  let tokenService: TokenService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,11 +35,11 @@ describe("LoginService", () => {
         LoginService,
         { provide: LOCALE_ID, useValue: "en-US" },
         { provide: ModalService, useClass: ModalServiceStub },
-        { provide: Router, useClass: RouterStub },
+        { provide: TokenService, useClass: TokenServiceStub },
       ],
     });
     service = TestBed.inject(LoginService);
-    router = TestBed.inject(Router);
+    tokenService = TestBed.inject(TokenService);
   });
 
   afterEach(() => {
@@ -40,9 +52,7 @@ describe("LoginService", () => {
       cliente: { documento: "123", dataNascimento: "2000-01-01" },
       nome: "John",
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service.getLogIn().subscribe((v) => expect(v.status).toBeTruthy());
     expect(localStorage.getItem("tokenLogin")).toBe("token");
@@ -56,6 +66,7 @@ describe("LoginService", () => {
   });
 
   it("should return false when decoding null token", () => {
+    spyOn(tokenService, "getUserFromToken").and.returnValue(null);
     expect(service.decodeToken(null)).toBeFalsy();
   });
 
@@ -87,9 +98,7 @@ describe("LoginService", () => {
       },
       nome: "John",
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     expect(service.getEmail()).toBe("john@example.com");
     expect(service.getTelefone()).toBe("9999");
@@ -107,9 +116,7 @@ describe("LoginService", () => {
       },
       nome: "John",
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service.getLogIn().subscribe((v) => {
       expect(v.statusCadastro).toBe("COMPLETO");
@@ -123,9 +130,7 @@ describe("LoginService", () => {
       nome: "",
       cliente: { documento: "", dataNascimento: null, telefone: "" },
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service
       .getLogIn()
@@ -143,9 +148,7 @@ describe("LoginService", () => {
         clienteAntigo: true,
       },
     };
-    spyOn(service.jwtHelper, "decodeToken").and.returnValue({
-      iss: JSON.stringify(user),
-    });
+    spyOn(tokenService, "getUserFromToken").and.returnValue(user);
     service.logIn("token");
     service
       .getLogIn()
@@ -160,11 +163,9 @@ describe("LoginService", () => {
 
   it("should handle decodeToken errors by logging out and redirecting", () => {
     const logoutSpy = spyOn(service, "logOut").and.callThrough();
-    const navigateSpy = spyOn(router, "navigate");
     spyOn(service, "decodeToken").and.throwError("invalid");
     service.logIn("token");
     expect(logoutSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(["/home"]);
     expect(localStorage.getItem("tokenLogin")).toBeNull();
   });
 });

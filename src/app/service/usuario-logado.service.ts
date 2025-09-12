@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class UsuarioLogadoService {
 
-  constructor(private tokenService : TokenService ) { }
+  constructor(private tokenService: TokenService) {}
 
-  setUsuarioLogado(tokenUsuario:string){
-    localStorage.setItem('tokenLogin',tokenUsuario);
+  setUsuarioLogado(tokenUsuario: string) {
+    this.tokenService.setTokenLogin(tokenUsuario);
   }
 
-  getUsuarioLogado(){
-    return this.tokenService.decodeToken("tokenLogin");
+  getUsuarioLogado() {
+    return this.tokenService.getUserFromToken();
   }
 
-  logout(){
-    localStorage.removeItem("tokenLogin");
+  logout() {
+    this.tokenService.removeTokenLogin();
   }
 
 }
