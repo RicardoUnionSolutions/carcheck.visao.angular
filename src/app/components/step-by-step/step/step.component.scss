@@ -78,7 +78,9 @@ $step-xs-img-size-active: 32px !default;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: block;
+
+    display: flex;
+    padding: 5px;
     max-width: $step-img-size;
     max-height: $step-img-size;
 }

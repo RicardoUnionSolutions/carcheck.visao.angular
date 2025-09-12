@@ -129,7 +129,7 @@ export class CadastrarDadosUsuarioComponent implements OnInit {
       telefone: { mask: UtilMasks.tel, guide: false },
       cpf: { mask: UtilMasks.cpf, guide: false },
       cnpj: { mask: UtilMasks.cnpj, guide: false },
-      data: { mask: UtilMasks.dataBr, gruide: false },
+      data: { mask: UtilMasks.dataBr, guide: false },
     };
 
     this.ufOptions = UtilForms.options.estado;
@@ -144,13 +144,13 @@ export class CadastrarDadosUsuarioComponent implements OnInit {
         this.loadingEndereco = true;
         this.cepService.search(v).then(
           (response) => {
-            if (!response.erro) {
+            if (response.erro == null || response.erro == false) {
               const f = this.form.value;
               this.form.patchValue({
-                endereco: response.logradouro ?? f.endereco,
-                cidade: response.localidade ?? f.cidade,
-                bairro: response.bairro ?? f.bairro,
-                uf: response.uf ?? f.uf,
+                endereco: response.logradouro == null ? f.endereco : response.logradouro,
+                cidade: response.localidade == null ? f.cidade : response.localidade,
+                bairro: response.bairro == null ? f.bairro : response.bairro,
+                uf: response.uf == null ? f.uf : response.uf,
               });
             }
             this.loadingEndereco = false;
@@ -169,6 +169,12 @@ export class CadastrarDadosUsuarioComponent implements OnInit {
         new UntypedFormControl(this.cadastro.cnpj || "", UtilValidators.cnpj)
       );
       this.form.removeControl("cpf");
+    } else if (this.cadastro.tipoPessoa == 0) {
+      this.form.setControl(
+        "cpf",
+        new UntypedFormControl(this.cadastro.cpf || "", UtilValidators.cpf)
+      );
+      this.form.removeControl("cnpj");
     } else {
       this.form.setControl(
         "cpf",

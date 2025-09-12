@@ -149,15 +149,16 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  height: 35px;
 }
 
 .quantity-btn {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: 2px solid #ecda26;
   background: white;
-  color: #ecda26;
+  color: #243646;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -165,6 +166,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  flex-shrink: 0;
   
   &:hover {
     background: #ecda26;
@@ -176,15 +178,31 @@
   }
 }
 
-.quantity-input {
-  width: 50px;
+.input-wrapper {
+  width: 60px;
   height: 35px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-input {
+  width: 100%;
+  height: 100%;
   border: 1px solid #000000;
   border-radius: 4px;
   font-size: 0.9rem;
   font-weight: 600;
-  padding-left: 20px;
+  text-align: center;
   color: #243646;
+  background: white;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
   
   &:focus {
     outline: none;

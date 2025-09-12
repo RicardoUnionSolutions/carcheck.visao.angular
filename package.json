@@ -44,6 +44,7 @@
     "ngx-cookie": "^4.1.2",
     "ngx-infinite-scroll": "^6.0.1",
     "rxjs": "^7.5.0",
+    "text-mask-core": "^5.1.2",
     "tslib": "^2.0.0",
     "url-search-params-polyfill": "^4.0.1",
     "uuid": "^3.4.0",

@@ -30,12 +30,14 @@
         <button class="quantity-btn minus-btn" (click)="decrementarQuantidade(c)">
           <span class="btn-symbol">−</span>
         </button>
-        <input type="number" 
-               class="quantity-input" 
-               [(ngModel)]="c.quantidade" 
-               (ngModelChange)="updateValorTotal()"
-               min="0" 
-               readonly>
+        <div class="input-wrapper">
+          <input 
+                 class="quantity-input" 
+                 [(ngModel)]="c.quantidade" 
+                 (ngModelChange)="updateValorTotal()"
+                 min="0" 
+                 readonly>
+        </div>
         <button class="quantity-btn plus-btn" (click)="incrementarQuantidade(c)">
           <span class="btn-symbol">+</span>
         </button>
