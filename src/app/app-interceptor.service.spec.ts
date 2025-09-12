@@ -4,6 +4,7 @@ import { of, throwError } from "rxjs";
 import { AppInterceptor } from "./app-interceptor.service";
 import { LoginService } from "./service/login.service";
 import { ModalService } from "./service/modal.service";
+import { Router } from "@angular/router";
 
 class LoginServiceStub {
   constructor(private token: string | null = "jwt-token") {}
@@ -23,6 +24,10 @@ class ModalServiceStub {
   openModalMsg(_: any) {}
 }
 
+class RouterStub {
+  navigate(_: any[]) {}
+}
+
 describe("AppInterceptor", () => {
   const baseUrl = "http://api.test";
   let interceptor: AppInterceptor;
@@ -35,11 +40,13 @@ describe("AppInterceptor", () => {
         AppInterceptor,
         { provide: LoginService, useClass: LoginServiceStub },
         { provide: ModalService, useClass: ModalServiceStub },
+        { provide: Router, useClass: RouterStub },
       ],
     });
     interceptor = TestBed.inject(AppInterceptor);
     loginSvc = TestBed.inject(LoginService) as any;
     modalSvc = TestBed.inject(ModalService) as any;
+    (interceptor as any).baseUrl = baseUrl;
   });
 
   it("should add Authorization header when token exists", (done) => {
