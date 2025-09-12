@@ -4,6 +4,8 @@ import { of, throwError } from "rxjs";
 import { AppInterceptor } from "./app-interceptor.service";
 import { LoginService } from "./service/login.service";
 import { ModalService } from "./service/modal.service";
+import { Router } from "@angular/router";
+import { VariableGlobal } from "./service/variable.global.service";
 
 class LoginServiceStub {
   constructor(private token: string | null = "jwt-token") {}
@@ -23,11 +25,16 @@ class ModalServiceStub {
   openModalMsg(_: any) {}
 }
 
+class RouterStub {
+  navigate(_commands: any[]) {}
+}
+
 describe("AppInterceptor", () => {
-  const baseUrl = "http://api.test";
+  const baseUrl = new VariableGlobal().getUrl();
   let interceptor: AppInterceptor;
   let loginSvc: LoginServiceStub;
   let modalSvc: ModalServiceStub;
+  let router: RouterStub;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,15 +42,17 @@ describe("AppInterceptor", () => {
         AppInterceptor,
         { provide: LoginService, useClass: LoginServiceStub },
         { provide: ModalService, useClass: ModalServiceStub },
+        { provide: Router, useClass: RouterStub },
       ],
     });
     interceptor = TestBed.inject(AppInterceptor);
     loginSvc = TestBed.inject(LoginService) as any;
     modalSvc = TestBed.inject(ModalService) as any;
+    router = TestBed.inject(Router) as any;
   });
 
   it("should add Authorization header when token exists", (done) => {
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const handler: HttpHandler = {
       handle: (request: HttpRequest<any>) => {
         expect(request.headers.get("Authorization")).toBe("jwt-token");
@@ -55,7 +64,7 @@ describe("AppInterceptor", () => {
 
   it("should not add Authorization header when token is missing", (done) => {
     loginSvc.setToken(null);
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const handler: HttpHandler = {
       handle: (request: HttpRequest<any>) => {
         expect(request.headers.has("Authorization")).toBeFalsy();
@@ -66,7 +75,7 @@ describe("AppInterceptor", () => {
   });
 
   it("should call getServerMsg and hasServerError for JSON responses", (done) => {
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const handler: HttpHandler = {
       handle: () => of(new HttpResponse({ status: 200, body: {} })),
     };
@@ -84,7 +93,7 @@ describe("AppInterceptor", () => {
   });
 
   it("should not call getServerMsg and hasServerError for non-JSON responseType", (done) => {
-    const req = new HttpRequest("GET", `${baseUrl}/resource`, null, {
+    const req = new HttpRequest("GET", `${baseUrl}resource`, null, {
       responseType: "blob" as const, // Using blob as non-JSON response type
     });
 
@@ -177,7 +186,7 @@ describe("AppInterceptor", () => {
 
   it("should throw HttpErrorResponse when serverError is true", () => {
     const response = new HttpResponse({
-      url: `${baseUrl}/resource`,
+      url: `${baseUrl}resource`,
       headers: new HttpHeaders(),
       status: 200,
       body: { serverMsg: {}, serverError: true },
@@ -194,7 +203,7 @@ describe("AppInterceptor", () => {
 
   it("should not throw when serverError is false", () => {
     const response = new HttpResponse({
-      url: `${baseUrl}/resource`,
+      url: `${baseUrl}resource`,
       headers: new HttpHeaders(),
       status: 200,
       body: { serverMsg: {}, serverError: false },
@@ -216,9 +225,10 @@ describe("AppInterceptor", () => {
     loginSvcSpy.getTokenLogin.and.returnValue("jwt-token");
     loginSvcSpy.getLogIn.and.returnValue(of(null));
 
-    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy);
+    const routerSpy = jasmine.createSpyObj<Router>("Router", ["navigate"]);
+    const interceptor = new AppInterceptor(loginSvcSpy, modalSvcSpy, routerSpy);
 
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const handler: HttpHandler = {
       handle: () => throwError(new HttpErrorResponse({ status: 401 })),
     };
@@ -228,13 +238,14 @@ describe("AppInterceptor", () => {
       error: () => {
         expect(modalSvcSpy.openModalMsg).toHaveBeenCalled();
         expect(loginSvcSpy.logOut).toHaveBeenCalled();
+        expect(routerSpy.navigate).toHaveBeenCalledWith(["/login"]);
         done();
       },
     });
   });
 
   it("should return original response when no error or serverMsg is present", (done) => {
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const expectedResponse = new HttpResponse({ status: 200, body: {} });
 
     const handler: HttpHandler = {
@@ -251,7 +262,7 @@ describe("AppInterceptor", () => {
     const modalSpy = spyOn(modalSvc, "openModalMsg");
     const logoutSpy = spyOn(loginSvc, "logOut");
 
-    const req = new HttpRequest("GET", `${baseUrl}/resource`);
+    const req = new HttpRequest("GET", `${baseUrl}resource`);
     const handler: HttpHandler = {
       handle: () => throwError(new HttpErrorResponse({ status: 500 })),
     };
