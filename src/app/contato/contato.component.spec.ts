@@ -70,12 +70,18 @@ describe("ContatoComponent", () => {
   });
 
   it("should not submit when form is invalid", fakeAsync(() => {
+    const consoleSpy = spyOn(console, "log");
+
     component.contactForm.reset();
     component.submitForm();
     tick();
-    expect(component.showErrors).toBeTruthy();
+
+    expect(component.showErrors).toBeTrue();
     expect(pessoaServiceSpy.enviarContato).not.toHaveBeenCalled();
     expect(component.submitMessage).toBe("");
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Formulário inválido. Verifique os campos."
+    );
   }));
 
   it("should submit form and show success message when service resolves", fakeAsync(() => {
@@ -98,6 +104,7 @@ describe("ContatoComponent", () => {
     tick();
 
     expect(pessoaServiceSpy.enviarContato).toHaveBeenCalledWith(expectedBody);
+    expect(component.showErrors).toBeTrue();
     expect(component.submitMessage).toBe("Mensagem enviada com sucesso!");
   }));
 
