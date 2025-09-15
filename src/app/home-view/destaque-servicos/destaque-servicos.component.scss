@@ -73,7 +73,9 @@ section.sobre-seguros {
   color: #161616;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   min-width: 280px;
-  width: max-content;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   animation: led-pulse 1s infinite;
 }
 

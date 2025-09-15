@@ -3,14 +3,14 @@
 ## 🏠 **TELAS PRINCIPAIS**
 
 ### 🏡 **Home e Navegação**
-- [ ] **Home** (`/home`) - Página inicial do sistema
-- [ ] **Histórico de Consultas** (`/historico-consulta`) - Lista de consultas realizadas
-- [ ] **Serviços** (`/servicos`) - Página de serviços oferecidos
+- [X] **Home** (`/home`) - Página inicial do sistema
+- [X] **Histórico de Consultas** (`/historico-consulta`) - Lista de consultas realizadas
+- [X] **Serviços** (`/servicos`) - Página de serviços oferecidos
 
 ### 🔍 **Consultas e Produtos**
-- [ ] **Consulta por Placa** (`/consulta-placa-veiculo`) - Formulário de consulta por placa
-- [ ] **Consulta Veicular Completa** (`/produto/consulta-veicular-completa`) - Página do produto
-- [ ] **Consulta Veicular Segura** (`/produto/consulta-veicular-segura`) - Página do produto
+- [X] **Consulta por Placa** (`/consulta-placa-veiculo`) - Formulário de consulta por placa
+- [X] **Consulta Veicular Completa** (`/produto/consulta-veicular-completa`) - Página do produto
+- [X] **Consulta Veicular Segura** (`/produto/consulta-veicular-segura`) - Página do produto
 - [ ] **Consulta Veicular Leilão** (`/produto/consulta-veicular-leilao`) - Página do produto
 - [ ] **Realizar Consultas** (`/realizar-consultas`) - Interface para realizar consultas
 - [ ] **Consulta Inicial** (`/consulta-teste/:placa/:email/:nome/:tokenRecaptcha`) - Tela de teste

@@ -15,9 +15,7 @@
 }
 
 .continuar-area{ 
-width: 100%;
-    .continuar-button {
-    }
+    width: 100%;
 }
 
 .container-form{ 
@@ -27,6 +25,19 @@ width: 100%;
 
 .btn-next{
   width: 345px;
+}
+
+// Classes flex do ANGULAR_ANTIGO
+.flex-jb {
+  justify-content: space-between;
+}
+
+.flex-je {
+  justify-content: flex-end;
+}
+
+.flex-ae {
+  align-items: flex-end;
 }
 
 @media (min-width: 992px) {

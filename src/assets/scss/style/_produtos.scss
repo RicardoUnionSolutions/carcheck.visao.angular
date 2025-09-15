@@ -50,7 +50,7 @@
 .label {
   background: rgb(32, 139, 135);
   background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
-  color: #fff;
+  color: #FFF;
   padding: 8px 0;
   font-size: 14px;
   float: left;
@@ -82,12 +82,12 @@ h2 {
 
 // Card de consulta
 .consulta {
-  border: 1px solid #eee;
+  border: 1px solid #EEE;
   margin: 10px;
-  padding: 20px;
+  padding: 15px;
   border-radius: 20px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  background: #fff;
+  box-shadow: 2px 2px 2px #eee;
+  background: #FFF;
   display: table;
   width: 90%;
   transition: all 0.3s ease;
@@ -100,6 +100,7 @@ h2 {
   p {
     margin: 10px 0;
     color: #666;
+    font-size: 14px;
   }
 }
 
@@ -107,7 +108,7 @@ h2 {
 .promocional-text {
   position: static;
   background: linear-gradient(90deg, #208b87 0%, #244b5a 100%);
-  color: #fff;
+  color: #FFF;
   padding: 7px 24px;
   font-size: 15px;
   width: 100%;
@@ -121,7 +122,7 @@ h2 {
 
 .promocional {
   background: linear-gradient(90deg, rgba(32, 139, 135, 1) 0%, #244b5a 100%);
-  color: #fff;
+  color: #FFF;
   padding: 5px 0;
   font-size: 15px;
   width: 61%;
@@ -137,7 +138,7 @@ h2 {
 }
 
 .promocional::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -1px;
   left: 0px;
@@ -154,9 +155,12 @@ h2 {
   0%,
   100% {
     opacity: 0;
+    /* Invisible at the start and end */
   }
+
   50% {
     opacity: 1;
+    /* Fully visible at the middle */
   }
 }
 

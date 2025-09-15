@@ -6,6 +6,7 @@ import { CompararProdutoComponent } from "../../produtos/comparar-produto/compar
 import { ComoFuncionaComponent } from "../../home-view/como-funciona/como-funciona.component";
 import { DuvidasFrequentesComponent } from "../../duvidas-frequentes/duvidas-frequentes.component";
 import { ProdutosComponent } from "../../home-view/produtos/produtos.component";
+import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-scroll.directive";
 
 @Component({
     selector: "app-consulta-veicular-segura",
@@ -18,7 +19,8 @@ import { ProdutosComponent } from "../../home-view/produtos/produtos.component";
       CompararProdutoComponent,
       ComoFuncionaComponent,
       DuvidasFrequentesComponent,
-      ProdutosComponent
+      ProdutosComponent,
+      AppearRightOnScrollDirective
     ]
 })
 export class ConsultaVeicularSeguraComponent {

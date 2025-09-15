@@ -6,6 +6,7 @@ import { CompararProdutoComponent } from "../comparar-produto/comparar-produto.c
 import { ComoFuncionaComponent } from "../../home-view/como-funciona/como-funciona.component";
 import { DuvidasFrequentesComponent } from "../../duvidas-frequentes/duvidas-frequentes.component";
 import { ProdutosComponent } from "../../home-view/produtos/produtos.component";
+import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-scroll.directive";
 
 @Component({
     selector: "app-consulta-veicular-completa",
@@ -20,6 +21,7 @@ import { ProdutosComponent } from "../../home-view/produtos/produtos.component";
       ComoFuncionaComponent,
       DuvidasFrequentesComponent,
       ProdutosComponent,
+      AppearRightOnScrollDirective,
     ]
 })
 export class ConsultaVeicularCompletaComponent {

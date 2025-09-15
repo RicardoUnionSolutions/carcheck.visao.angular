@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VariableGlobal } from '../../service/variable.global.service';
 import { CommonModule } from '@angular/common';
+import { AppearOnScrollDirective } from '../../directives/appear-on-scroll.directive';
 
 @Component({
     selector: 'app-comparar-produto',
     templateUrl: './comparar-produto.component.html',
     styleUrls: ['./comparar-produto.component.scss'],
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, AppearOnScrollDirective],
     inputs: ['consultaComparada']
 })
 export class CompararProdutoComponent implements OnInit {

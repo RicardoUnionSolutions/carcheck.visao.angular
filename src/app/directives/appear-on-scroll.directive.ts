@@ -5,8 +5,8 @@ import { Directive, ElementRef, HostBinding, Input, OnDestroy, OnInit } from '@a
     standalone: true
 })
 export class AppearOnScrollDirective implements OnInit, OnDestroy {
-  @Input() threshold: number = 0.1;
-  @Input() rootMargin: string = '0px';
+  @Input() threshold: number = 0.2;
+  @Input() rootMargin: string = '50px';
   @HostBinding('class.appear') isVisible = false;
 
   private observer!: IntersectionObserver;
@@ -14,6 +14,17 @@ export class AppearOnScrollDirective implements OnInit, OnDestroy {
   constructor(private element: ElementRef) {}
 
   ngOnInit() {
+    // Mostrar imediatamente para debug
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 100);
+
+    // Fallback: se o IntersectionObserver não estiver disponível, mostrar imediatamente
+    if (!window.IntersectionObserver) {
+      this.isVisible = true;
+      return;
+    }
+
     const options = {
       root: null,
       rootMargin: this.rootMargin,
