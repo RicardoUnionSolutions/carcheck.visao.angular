@@ -1,0 +1,113 @@
+{
+  "tokenConsulta": "token-exemplo",
+  "codigoControleConsultaPrimaria": "OK",
+  "composta": {
+    "nome": "Completa"
+  },
+  "data": "2024-08-10T18:30:00",
+  "placaEntrada": "ABC1D23",
+  "id": 98765,
+  "veiculo": {
+    "placa": "ABC1D23",
+    "marca": "Honda",
+    "modeloBin": "Civic Touring",
+    "anoFabricacao": 2021,
+    "anoModelo": 2022,
+    "cilindrada": "1498",
+    "uf": "SP",
+    "municipio": "São Paulo",
+    "cor": "Prata",
+    "chassi": "9BWZZZ377VT004251",
+    "combustivel": "Flex",
+    "tipo": "Carro"
+  },
+  "binestadual": {
+    "dadosveiculo": {
+      "placa": "ABC1D23",
+      "marca": "Honda",
+      "modelo": "Civic Touring",
+      "anoFabricacao": 2021,
+      "anoModelo": 2022,
+      "cilindrada": "1498",
+      "uf": "SP",
+      "municipio": "São Paulo",
+      "cor": "Prata",
+      "chassi": "9BWZZZ377VT004251",
+      "combustivel": "Flex"
+    },
+    "restricoes": [],
+    "dadosDebito": null,
+    "dadosMulta": null,
+    "dadosGravame": null
+  },
+  "binfederal": {
+    "dadosveiculo": {
+      "placa": "ABC1D23",
+      "marca": "Honda",
+      "modelo": "Civic Touring",
+      "anoFabricacao": 2021,
+      "anoModelo": 2022,
+      "cilindrada": "1498",
+      "uf": "SP",
+      "municipio": "São Paulo",
+      "cor": "Prata",
+      "chassi": "9BWZZZ377VT004251",
+      "combustivel": "Flex"
+    },
+    "restricoes": []
+  },
+  "binrf": {
+    "dadosveiculo": [
+      {
+        "placa": "ABC1D23",
+        "marca": "Honda",
+        "modelo": "Civic Touring",
+        "anoFabricacao": 2021,
+        "anoModelo": 2022,
+        "cilindrada": "1498",
+        "uf": "SP",
+        "municipio": "São Paulo",
+        "cor": "Prata",
+        "chassi": "9BWZZZ377VT004251",
+        "combustivel": "Flex",
+        "tipo": "Carro"
+      }
+    ],
+    "restricoes": [],
+    "rf": []
+  },
+  "snva": {
+    "dadosveiculo": {
+      "placa": "ABC1D23",
+      "marca": "Honda",
+      "modelo": "Civic Touring",
+      "anoFabricacao": 2021,
+      "anoModelo": 2022,
+      "cilindrada": "1498",
+      "uf": "SP",
+      "municipio": "São Paulo",
+      "cor": "Prata",
+      "chassi": "9BWZZZ377VT004251",
+      "combustivel": "Flex",
+      "tipo": "Carro"
+    }
+  },
+  "leilao": {
+    "dadosLeilao": []
+  },
+  "sinistro": {
+    "codigoControle": "SEMREGISTRO",
+    "indicioSinistro": {
+      "temSinistro": false
+    }
+  },
+  "desvalorizacao": {
+    "dadosDesvalorizacao": []
+  },
+  "dadosResumo": {
+    "precoFipe": "R$ 120.000",
+    "precoMedioUf": "R$ 118.000",
+    "precoMedioBr": "R$ 119.000",
+    "precoMolicar": "R$ 117.500"
+  }
+}

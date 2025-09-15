@@ -53,7 +53,7 @@ describe("ConsultaComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ConsultaComponent],
+      imports: [ConsultaComponent],
       providers: [
         { provide: LoginService, useValue: loginServiceStub },
         { provide: ModalService, useValue: modalServiceStub },
@@ -304,6 +304,56 @@ describe("ConsultaComponent", () => {
       } as any;
       expect(component.verificaRestricao()).toBeUndefined();
     });
+
+    it("should detect restriction when debitos exist", () => {
+      spyOn(component, "verificaGravame").and.returnValue(false);
+      component.dadosConsulta = {
+        binestadual: { restricoes: [], dadosDebito: { valor: 10 }, dadosMulta: null },
+        leilao: { dadosLeilao: [] },
+        sinistro: { codigoControle: "SEMREGISTRO" },
+      } as any;
+      expect(component.verificaRestricao()).toBeTrue();
+    });
+
+    it("should detect restriction when multas exist", () => {
+      spyOn(component, "verificaGravame").and.returnValue(false);
+      component.dadosConsulta = {
+        binestadual: { restricoes: [], dadosDebito: null, dadosMulta: { total: 1 } },
+        leilao: { dadosLeilao: [] },
+        sinistro: { codigoControle: "SEMREGISTRO" },
+      } as any;
+      expect(component.verificaRestricao()).toBeTrue();
+    });
+
+    it("should detect restriction when gravame returns true", () => {
+      spyOn(component, "verificaGravame").and.returnValue(true);
+      component.dadosConsulta = {
+        binestadual: { restricoes: [], dadosDebito: null, dadosMulta: null },
+        leilao: { dadosLeilao: [] },
+        sinistro: { codigoControle: "SEMREGISTRO" },
+      } as any;
+      expect(component.verificaRestricao()).toBeTrue();
+    });
+
+    it("should detect restriction when leilao has dados", () => {
+      spyOn(component, "verificaGravame").and.returnValue(false);
+      component.dadosConsulta = {
+        binestadual: { restricoes: [], dadosDebito: null, dadosMulta: null },
+        leilao: { dadosLeilao: [{}] },
+        sinistro: { codigoControle: "SEMREGISTRO" },
+      } as any;
+      expect(component.verificaRestricao()).toBeTrue();
+    });
+
+    it("should detect restriction when sinistro is not SEMREGISTRO", () => {
+      spyOn(component, "verificaGravame").and.returnValue(false);
+      component.dadosConsulta = {
+        binestadual: { restricoes: [], dadosDebito: null, dadosMulta: null },
+        leilao: { dadosLeilao: [] },
+        sinistro: { codigoControle: "TEMREGISTRO" },
+      } as any;
+      expect(component.verificaRestricao()).toBeTrue();
+    });
   });
 
   describe("verificaExemplo", () => {
@@ -423,6 +473,17 @@ describe("ConsultaComponent", () => {
         binrf: { dadosveiculo: [{ marca: "BMW", tipo: "Carro" }] },
       } as any;
       expect(component.verificaLogo()).toBe("bmw");
+    });
+
+    it("verificaLogo should return semmarca for binrf with prefix", () => {
+      component.dadosConsulta = {
+        binrf: {
+          dadosveiculo: [
+            { marca: "I/Ford", tipo: "Motocicleta" },
+          ],
+        },
+      } as any;
+      expect(component.verificaLogo()).toBe("semmarca");
     });
 
     it("verificaLogo should return default when no marca", () => {
@@ -609,6 +670,8 @@ describe("ConsultaComponent", () => {
       expect(component.statusCarregamento).toBe(1);
       expect(component.dadosConsulta).toEqual(dados as any);
       expect(modalServiceStub.closeLoading).toHaveBeenCalled();
+      expect(component.removeAbas).toBeFalse();
+      expect(component.marcaVeiculo).toBe("semmarca");
     }));
 
     it("should populate data using toPromise and set flags", fakeAsync(() => {
@@ -654,6 +717,7 @@ describe("ConsultaComponent", () => {
       expect(modalServiceStub.openLoading).toHaveBeenCalled();
       expect(dadosConsultaServiceStub.downloadPdf).toHaveBeenCalled();
       expect(linkMock.click).toHaveBeenCalled();
+      expect(window.open).toHaveBeenCalledWith("blob:url", "Consulta.pdf");
       expect(modalServiceStub.closeLoading).toHaveBeenCalled();
     });
 
