@@ -8,6 +8,8 @@ import { AnalyticsService } from '../service/analytics.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DuvidasFrequentesComponent } from '../duvidas-frequentes/duvidas-frequentes.component';
+import { CompararProdutoComponent } from '../produtos/comparar-produto/comparar-produto.component';
+import { ProdutosComponent } from '../home-view/produtos/produtos.component';
 import { AppearOnScrollDirective } from '../directives/appear-on-scroll.directive';
 
 @Component({
@@ -15,7 +17,7 @@ import { AppearOnScrollDirective } from '../directives/appear-on-scroll.directiv
     templateUrl: './consulta-inicial.component.html',
     styleUrls: ['./consulta-inicial.component.scss'],
     standalone: true,
-    imports: [CommonModule, DuvidasFrequentesComponent, AppearOnScrollDirective]
+    imports: [CommonModule, DuvidasFrequentesComponent, CompararProdutoComponent, ProdutosComponent, AppearOnScrollDirective]
 })
 export class ConsultaInicialComponent implements OnInit {
 

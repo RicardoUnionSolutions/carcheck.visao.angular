@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from "@angular/core";
+import { Component, OnInit, Renderer2, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
   ReactiveFormsModule,
@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgxCaptchaModule } from "ngx-captcha";
+import { NgOptimizedImage } from "@angular/common";
 import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-scroll.directive";
 
 @Component({
@@ -19,10 +20,11 @@ import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-sc
     CommonModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
+    NgOptimizedImage,
     AppearRightOnScrollDirective,
   ],
 })
-export class DestaqueComponent implements OnInit {
+export class DestaqueComponent implements OnInit, OnDestroy {
   compraTesteForm: FormGroup;
   modalForm: FormGroup;
   showModal = false;
@@ -42,6 +44,7 @@ export class DestaqueComponent implements OnInit {
   typingSpeed = 100;
   deletingSpeed = 50;
   pauseBetweenStrings = 1000;
+  private typingTimeout?: number;
 
   constructor(
     private fb: FormBuilder,
@@ -197,7 +200,7 @@ export class DestaqueComponent implements OnInit {
       }
 
       if (!this.isDeleting && this.currentCharIndex === currentString.length) {
-        setTimeout(() => (this.isDeleting = true), this.pauseBetweenStrings);
+        this.typingTimeout = window.setTimeout(() => (this.isDeleting = true), this.pauseBetweenStrings);
       } else if (this.isDeleting && this.currentCharIndex === 0) {
         this.isDeleting = false;
         this.currentStringIndex =
@@ -205,9 +208,16 @@ export class DestaqueComponent implements OnInit {
       }
 
       const speed = this.isDeleting ? this.deletingSpeed : this.typingSpeed;
-      setTimeout(() => this.type(), speed);
+      this.typingTimeout = window.setTimeout(() => this.type(), speed);
     } catch (error) {
       console.warn("Erro na animação de digitação:", error);
     }
   }
+
+  ngOnDestroy(): void {
+    if (this.typingTimeout) {
+      clearTimeout(this.typingTimeout);
+    }
+  }
+
 }

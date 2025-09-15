@@ -9,7 +9,9 @@ export default defineConfig({
       // Permitir todos os subdomínios do ngrok
       '.ngrok-free.app',
       '.ngrok.io',
-      '.ngrok.app'
+      '.ngrok.app',
+      // Host específico do ngrok atual
+      'f98063fc2694.ngrok-free.app'
     ],
     host: '0.0.0.0',
     port: 4200

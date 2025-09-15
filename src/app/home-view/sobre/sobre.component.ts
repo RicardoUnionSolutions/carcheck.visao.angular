@@ -1,4 +1,4 @@
-import { ViewportScroller } from "@angular/common";
+import { ViewportScroller, NgOptimizedImage } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { AppearOnScrollDirective } from "../../directives/appear-on-scroll.directive";
@@ -8,7 +8,7 @@ import { AppearOnScrollDirective } from "../../directives/appear-on-scroll.direc
   templateUrl: "./sobre.component.html",
   styleUrls: ["./sobre.component.scss"],
   standalone: true,
-  imports: [AppearOnScrollDirective, RouterModule],
+  imports: [AppearOnScrollDirective, RouterModule, NgOptimizedImage],
 })
 export class SobreComponent {
   constructor(

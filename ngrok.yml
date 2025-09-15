@@ -1,0 +1,11 @@
+version: "2"
+authtoken: # seu token aqui se tiver conta paga
+tunnels:
+  web:
+    proto: http
+    addr: 127.0.0.1:4200
+    host_header: 127.0.0.1:4200
+    # Configurações de performance
+    compression: true
+    # Usar região mais próxima
+    region: us

@@ -66,35 +66,37 @@
       <div class="customers">
         <div class="customers-icon">
           <img
+            ngSrc="./assets/images/customers.png"
             alt="Ícone de clientes"
-            src="./assets/images/customers.png"
+            width="200"
+            height="50"
             loading="lazy"
+            priority="false"
           />
         </div>
         <p>+ de 1.92 milhões de pessoas já consultaram.</p>
       </div>
     </div>
     <div appAppearRightOnScroll class="imgDestaque">
-      <div class="typed_wrap">
-        <h1>
-          <span class="highlight-text">{{ displayedText }}</span>
-          <span class="cursor">|</span>
-        </h1>
-        <h1>E muito mais!</h1>
+      <div class="">
+        <div class="typed_wrap">
+          <h1><span class="highlight-text">{{ displayedText }}</span><span class="cursor">|</span></h1>
+          <h1>E muito mais!</h1>
+        </div>
       </div>
-
       <img
+        src="./assets/images/img-destaque/fundo.png"
         (click)="scrollToElement()"
         alt="Fundo visual Carcheck Brasil"
-        src="../../../assets/images/img-destaque/fundo.png"
-        loading="lazy"
+        width="640"
+        height="400"
       />
-
       <div class="car-container">
         <img
+          src="assets/images/img-destaque/car-destaque.png"
           alt="Carro em destaque Carcheck Brasil"
-          src="../../../assets/images/img-destaque/car-destaque.png"
-          loading="lazy"
+          width="640"
+          height="300"
         />
       </div>
     </div>

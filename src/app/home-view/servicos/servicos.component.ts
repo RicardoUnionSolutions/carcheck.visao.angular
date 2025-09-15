@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, NgOptimizedImage } from "@angular/common";
 import { CardsServicosComponent } from "../../components/cards-servicos/cards-servicos.component";
 import { AppearOnScrollDirective } from "../../directives/appear-on-scroll.directive";
 import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-scroll.directive";
@@ -11,6 +11,7 @@ import { AppearRightOnScrollDirective } from "../../directives/appearRight-on-sc
   standalone: true,
   imports: [
     CommonModule,
+    NgOptimizedImage,
     CardsServicosComponent,
     AppearOnScrollDirective,
     AppearRightOnScrollDirective,

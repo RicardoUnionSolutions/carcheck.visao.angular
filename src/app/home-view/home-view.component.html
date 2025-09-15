@@ -1,16 +1,14 @@
 <br />
 
+<!-- Componente crítico - carregado imediatamente -->
 <app-destaque></app-destaque>
 
-<app-aplicativo></app-aplicativo>
-
-<!-- <div class="banner container" style="
-margin: auto;
-align-content: center;
-margin-bottom: 10px;
-">
-  <app-banner-vistoria></app-banner-vistoria>
-</div> -->
+<!-- Componente secundário - carregado após o destaque -->
+@defer (on viewport) {
+  <app-aplicativo></app-aplicativo>
+} @placeholder {
+  <div class="loading-placeholder">Carregando aplicativo...</div>
+}
 
 <div class="section-consultas">
   <div class="section-title">Consultas e pacotes</div>
@@ -22,14 +20,45 @@ margin-bottom: 10px;
   </p>
 </div>
 
+<!-- Componente de produtos - crítico para conversão -->
 <section>
   <app-produtos></app-produtos>
 </section>
 
-<app-destaque-servicos></app-destaque-servicos>
+<!-- Componente de destaque de serviços - carregado quando visível -->
+@defer (on viewport) {
+  <app-destaque-servicos></app-destaque-servicos>
+} @placeholder {
+  <div class="loading-placeholder">Carregando serviços...</div>
+}
 
-<app-lazy-wrapper [component]="depoimentosComponent"></app-lazy-wrapper>
-<app-lazy-wrapper [component]="sobreComponent"></app-lazy-wrapper>
-<app-lazy-wrapper [component]="comoFuncionaComponent"></app-lazy-wrapper>
-<app-lazy-wrapper [component]="duvidasFrequentesComponent"></app-lazy-wrapper>
-<app-lazy-wrapper [component]="blogComponent"></app-lazy-wrapper>
+<!-- Componentes não críticos - carregados com lazy loading -->
+@defer (on viewport) {
+  <app-lazy-wrapper [component]="depoimentosComponent"></app-lazy-wrapper>
+} @placeholder {
+  <div class="loading-placeholder">Carregando depoimentos...</div>
+}
+
+@defer (on viewport) {
+  <app-lazy-wrapper [component]="sobreComponent"></app-lazy-wrapper>
+} @placeholder {
+  <div class="loading-placeholder">Carregando sobre...</div>
+}
+
+@defer (on viewport) {
+  <app-lazy-wrapper [component]="comoFuncionaComponent"></app-lazy-wrapper>
+} @placeholder {
+  <div class="loading-placeholder">Carregando como funciona...</div>
+}
+
+@defer (on viewport) {
+  <app-lazy-wrapper [component]="duvidasFrequentesComponent"></app-lazy-wrapper>
+} @placeholder {
+  <div class="loading-placeholder">Carregando dúvidas frequentes...</div>
+}
+
+@defer (on viewport) {
+  <app-lazy-wrapper [component]="blogComponent"></app-lazy-wrapper>
+} @placeholder {
+  <div class="loading-placeholder">Carregando blog...</div>
+}

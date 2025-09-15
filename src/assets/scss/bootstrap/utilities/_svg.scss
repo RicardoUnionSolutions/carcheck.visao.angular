@@ -29,6 +29,6 @@
   }
 }
 
-// @each $color, $value in $theme-colors {
-//   .fill-#{$color}{fill: $value};
-// }
+@each $color, $value in $theme-colors {
+  .fill-#{$color}{fill: $value};
+}

@@ -1,9 +1,190 @@
-@use '../../assets/scss/bootstrap/variables' as *;
-@use '../../assets/scss/bootstrap/mixins/breakpoints' as *;
+@use "variables" as *;
+@use "mixins/breakpoints" as *;
+
 
 :host {
   display: block;
+}
 
+.container-consulta-company {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+  
+  @include media-breakpoint-down(sm) {
+    padding: 0 10px;
+  }
+}
+
+.header-consulta-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.consulta-banner {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2c5aa0 100%);
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+  }
+}
+
+.consulta-title {
+  flex: 1;
+  text-align: left;
+  z-index: 2;
+  
+  @include media-breakpoint-down(md) {
+    text-align: center;
+  }
+}
+
+.title-line1 {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+  margin-bottom: 5px;
+  
+  @include media-breakpoint-down(md) {
+    font-size: 2rem;
+  }
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1.5rem;
+  }
+}
+
+.title-line2 {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #ecda26;
+  line-height: 1;
+  
+  @include media-breakpoint-down(md) {
+    font-size: 1.8rem;
+  }
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1.4rem;
+  }
+}
+
+.placa-container {
+  flex: 0 0 auto;
+  z-index: 2;
+}
+
+.placa-mercosul {
+  background: white;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 200px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  
+  @include media-breakpoint-down(sm) {
+    width: 180px;
+    height: 110px;
+  }
+}
+
+.placa-top {
+  background: #1e3a5f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.brasil-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.flags {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.flag-emoji {
+  font-size: 0.8rem;
+}
+
+.mercosul {
+  font-size: 0.6rem;
+  font-weight: 500;
+}
+
+.placa-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 0 0 6px 6px;
+  position: relative;
+}
+
+.placa-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  
+  @include media-breakpoint-down(sm) {
+    font-size: 1.5rem;
+  }
+}
+
+.placa-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.placa-br {
+  color: #1e3a5f;
+}
+
+.placa-qr {
+  color: #666;
 }
 
 navbar-sub {

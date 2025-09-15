@@ -13,16 +13,16 @@
 - [X] **Consulta Veicular Segura** (`/produto/consulta-veicular-segura`) - Página do produto
 - [X] **Consulta Veicular Leilão** (`/produto/consulta-veicular-leilao`) - Página do produto
 - [ ] **Realizar Consultas** (`/realizar-consultas`) - Interface para realizar consultas ULTIMO
-- [ ] **Consulta Inicial** (`/consulta-teste/:placa/:email/:nome/:tokenRecaptcha`) - Tela de teste
+- [X] **Consulta Inicial** (`/consulta-teste/:placa/:email/:nome/:tokenRecaptcha`) - Tela de teste
 - [ ] **Visualizar Consulta** (`/visualizar-consulta/:tokenConsulta`) - Visualização de consulta
 
 ### 🔐 **Autenticação e Cadastro**
-- [ ] **Login** (`/login`) - Tela de login
+- [X] **Login** (`/login`) - Tela de login
 - [ ] **Cadastro PF** (`/cadastro-pf`) - Cadastro pessoa física
 - [ ] **Cadastro PJ** (`/cadastro-pj`) - Cadastro pessoa jurídica
-- [ ] **Recuperar Senha** (`/recuperar-senha`) - Recuperação de senha
+- [X] **Recuperar Senha** (`/recuperar-senha`) - Recuperação de senha
 - [ ] **Completar Cadastro** (`/completar-cadastro`) - Finalização de cadastro
-- [ ] **Logout** (`/logout`) - Sair do sistema
+- [X] **Logout** (`/logout`) - Sair do sistema
 
 ### 💳 **Processo de Compra**
 - [ ] **Comprar Consulta Placa** (`/comprar-consulta-placa`) - Processo de compra individual

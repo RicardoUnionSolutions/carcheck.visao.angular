@@ -123,20 +123,25 @@
 
 .imgDestaque {
   position: relative;
-  padding: 0;
+  padding: 15px;
   width: 100%;
-  max-width: 600px;
-  min-width: 400px;
+  max-width: 640px;
+  min-width: 300px;
   box-sizing: border-box;
   overflow: hidden;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  // Estado inicial (antes de aparecer)
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.6s ease-out;
 
   @media (max-width: 1200px) {
-    max-width: 550px;
-    min-width: 350px;
+    max-width: 580px;
+    min-width: 280px;
   }
 
   @media (max-width: 992px) {
@@ -161,8 +166,22 @@
     height: auto;
     object-fit: contain;
     display: block;
+    cursor: pointer;
   }
 }
+
+// Classe adicionada pela diretiva AppearRightOnScroll
+.imgDestaque.appearRight {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+// Forçar visibilidade para debug
+.imgDestaque {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
 
 .card {
   width: 100%;
@@ -584,33 +603,15 @@ h1 {
   }
 }
 
+
 .car-container {
   position: absolute;
   top: 30%;
   left: 0%;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
-
-  @media (max-width: 1200px) {
-    top: 28%;
-  }
-
-  @media (max-width: 992px) {
-    top: 25%;
-  }
-
-  @media (max-width: 768px) {
-    top: 22%;
-  }
-
-  @media (max-width: 576px) {
-    top: 20%;
-  }
-
-  @media (max-width: 400px) {
-    top: 18%;
-  }
+  overflow: visible;
+  z-index: 2;
 }
 
 .car-container::before {
@@ -635,56 +636,18 @@ h1 {
   height: auto;
   max-width: 640px;
   min-width: 300px;
-
-  @media (max-width: 1200px) {
-    max-width: 580px;
-    min-width: 280px;
-  }
-
-  @media (max-width: 992px) {
-    max-width: 520px;
-    min-width: 260px;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 450px;
-    min-width: 240px;
-  }
-
-  @media (max-width: 576px) {
-    max-width: 380px;
-    min-width: 220px;
-  }
-
-  @media (max-width: 400px) {
-    max-width: 320px;
-    min-width: 200px;
-  }
+  object-fit: contain;
 }
 
-// Novos estilos para elementos simplificados
+
+// Estilo do texto destacado seguindo o padrão do ANGULAR_ANTIGO
 .highlight-text {
   background-color: #ecda26;
-  padding: 8px 12px;
-  border-radius: 20px;
+  padding: 5px;
+  border-radius: 15px;
   display: inline-block;
   font-weight: 700;
   color: #244b5a;
-
-  @media (max-width: 768px) {
-    padding: 6px 10px;
-    border-radius: 15px;
-  }
-
-  @media (max-width: 576px) {
-    padding: 5px 8px;
-    border-radius: 12px;
-  }
-
-  @media (max-width: 400px) {
-    padding: 4px 6px;
-    border-radius: 10px;
-  }
 }
 
 .form-group {

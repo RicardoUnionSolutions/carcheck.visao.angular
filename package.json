@@ -6,14 +6,17 @@
     "ng": "ng",
     "start": "ng serve --port 4200 --watch=false",
     "start:watch": "ng serve --port 4200",
-    "dev": "ng serve --host 0.0.0.0 --port 4200",
+    "dev": "ng serve --host 0.0.0.0 --port 4200 --allowed-hosts",
     "build": "ng build --configuration production",
     "build:ssr": "ng build --configuration production && ng build --configuration production --ssr",
+    "build:optimized": "node scripts/build-optimized.js",
+    "build:analyze": "ng build --configuration production --stats-json && npx webpack-bundle-analyzer dist/browser/stats.json",
     "test": "npx ng test --watch=false --browsers=ChromeHeadless",
     "coverage": "npx ng test --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "cypress run",
-    "serve:ssr:carcheck": "node dist/server/server.mjs"
+    "serve:ssr:carcheck": "node dist/server/server.mjs",
+    "lighthouse": "lighthouse http://localhost:4200 --output=html --output-path=./lighthouse-report.html"
   },
   "private": true,
   "dependencies": {

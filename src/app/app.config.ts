@@ -5,13 +5,14 @@ import {
   withInterceptorsFromDi,
 } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { provideClientHydration } from "@angular/platform-browser";
+import { provideClientHydration, withEventReplay } from "@angular/platform-browser";
 import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localePT from "@angular/common/locales/pt";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { importProvidersFrom } from '@angular/core';
 import { CardModule } from 'ngx-card';
+import { provideImgixLoader } from '@angular/common';
 
 import { routes } from "./app.routes";
 import { AppInterceptor } from "./app-interceptor.service";
@@ -36,9 +37,15 @@ registerLocaleData(localePT);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
     provideAnimations(),
-    provideClientHydration(),
+    provideClientHydration(
+      withEventReplay()
+    ),
+    // Otimização de imagens
+    provideImgixLoader('https://carcheckbrasil.com.br'),
     importProvidersFrom(CardModule),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: "pt" },

@@ -25,13 +25,40 @@
 <ng-container *ngIf="statusCarregamento==1">
 
 
+  <div class="header-consulta-container hide-print" style="margin-top: 15px; margin-bottom: 20px;">
+    <div class="consulta-banner">
+      <div class="consulta-title">
+        <span class="title-line1">CONSULTA VEICULAR</span>
+        <span class="title-line2">COMPLETA</span>
+      </div>
+      <div class="placa-container">
+        <div class="placa-mercosul">
+          <div class="placa-top">
+            <span class="brasil-text">BRASIL</span>
+            <div class="flags">
+              <span class="flag-emoji">🇧🇷</span>
+              <span class="mercosul">MERCOSUL</span>
+            </div>
+          </div>
+          <div class="placa-main">
+            <span class="placa-number">SES3J70</span>
+            <div class="placa-bottom">
+              <span class="placa-br">BR</span>
+              <span class="placa-qr">QR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h1 class="ck-h1 hide-print" style="margin-top: 15px; margin-bottom: -0.5rem;">
     <span class="fw-700 mr-2">DETALHES</span>
     <span class="fw-400 mr-2">DA</span>
     <span class="fw-400">CONSULTA</span>
   </h1>
 
-  <div class="container mt-3">
+  <div class="container-consulta-company mt-3">
     <div class="d-flex pt-3 pb-1 justify-content-between hide-print">
       <a [routerLink]="['']" class="btn btn-orange-1 btn-lg px-2 px-md-5">VOLTAR</a>
       <a [routerLink]="['/realizar-consultas']" class="btn btn-novaconsulta btn-lg px-2 px-md-5">NOVA CONSULTA</a>
