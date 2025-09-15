@@ -1,11 +1,6 @@
-@if (loadingTela) {
-<div class="loading-container">
-  <div class="loading-spinner">
-    <div class="spinner"></div>
-    <p class="loading-text">Carregando...</p>
-  </div>
-</div>
-} @else {
+<ck-page-loading [loading]="loadingTela" text="Carregando..."></ck-page-loading>
+
+@if (!loadingTela) {
 <div class="container-form">
     <step-by-step [steps]="steps" [(currentStep)]="currentStep" [doneSteps]="doneSteps"></step-by-step>
     <div class="currentStep-container">

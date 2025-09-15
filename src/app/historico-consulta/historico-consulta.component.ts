@@ -14,6 +14,7 @@ import { BannerVistoriaComponent } from '../components/banner-vistoria/banner-vi
 import { HistoricoCardComponent } from './historico-card/historico-card.component';
 import { ConsultasDisponiveisComponent } from '../components/consultas-disponiveis/consultas-disponiveis.component';
 import { InlineSVGDirective } from '../directives/inline-svg.directive';
+import { CkPageLoadingComponent } from '../components/ck-page-loading/ck-page-loading.component';
 
 
 @Component({
@@ -31,7 +32,8 @@ import { InlineSVGDirective } from '../directives/inline-svg.directive';
       BannerVistoriaComponent,
       HistoricoCardComponent,
       ConsultasDisponiveisComponent,
-      InlineSVGDirective
+      InlineSVGDirective,
+      CkPageLoadingComponent
     ]
 })
 export class HistoricoConsultaComponent implements OnInit, OnDestroy {
@@ -76,6 +78,7 @@ export class HistoricoConsultaComponent implements OnInit, OnDestroy {
   direction = '';
   pagina = 0;
   loadingScroll = false;
+  loadingTela: boolean = true;
   possuiCompraAprovada = false;
   abrirWebsocket: boolean = false;
   fecharWebSocket: boolean = false;
@@ -117,6 +120,10 @@ export class HistoricoConsultaComponent implements OnInit, OnDestroy {
     this.verificaCompraAprovada();
     // this.analyticsService.homePageSistema();
 
+    // Mostrar a tela após 1.5 segundos para melhor UX
+    setTimeout(() => {
+      this.loadingTela = false;
+    }, 1500);
   }
 
   ngOnDestroy(): void {

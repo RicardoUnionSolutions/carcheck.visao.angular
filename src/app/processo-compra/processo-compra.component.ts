@@ -24,6 +24,7 @@ import { DisplayProdutoPagamentoComponent } from "../components/display-produto-
 import { FormLaudoComponent } from "../components/form-laudo/form-laudo.component";
 import { FormLaudoAdicionalComponent } from "../components/form-laudo-adicional/form-laudo-adicional.component";
 import { Title, Meta } from "@angular/platform-browser";
+import { CkPageLoadingComponent } from "../components/ck-page-loading/ck-page-loading.component";
 
 @Component({
     selector: "app-processo-compra",
@@ -47,7 +48,8 @@ import { Title, Meta } from "@angular/platform-browser";
       DisplayProdutoPagamentoComponent,
       FormLaudoComponent,
       FormLaudoAdicionalComponent,
-      CkModalComponent
+      CkModalComponent,
+      CkPageLoadingComponent
     ]
 })
 export class ProcessoCompraComponent implements OnInit, AfterViewInit {

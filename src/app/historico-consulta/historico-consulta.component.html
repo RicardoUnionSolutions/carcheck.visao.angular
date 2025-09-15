@@ -1,3 +1,6 @@
+<ck-page-loading [loading]="loadingTela" text="Carregando..."></ck-page-loading>
+
+@if (!loadingTela) {
 <h1 class="ck-h1 mb-0">
   <span class="fw-700 mr-2">HISTÓRICO</span>
   <span class="fw-400 mr-2">DE</span>
@@ -78,11 +81,15 @@ align-content: center;
     </div>
 
 
-    <div [hidden]="!loadingScroll" class="my-5 position-relative flex-jc">
-      <i class="mdi mdi-loading rotate animation-speed-2000 f-80 text-gray-light"></i>
+    <div *ngIf="loadingScroll" class="loading-scroll-container">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p class="loading-text">Carregando mais consultas...</p>
+      </div>
     </div>
 
   </div>
 
 
 </div>
+}
