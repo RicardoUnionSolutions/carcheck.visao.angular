@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { of, throwError } from "rxjs";
 import { Title, Meta } from "@angular/platform-browser";
-import { Component, Input, NO_ERRORS_SCHEMA,Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { Component, Input, NO_ERRORS_SCHEMA, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { StatusPagamentoComponent } from "./status-pagamento.component";
@@ -43,12 +43,13 @@ describe("StatusPagamentoComponent", () => {
     titleService = TestBed.inject(Title);
     metaService = TestBed.inject(Meta);
 
+    service.carregarLista.and.returnValue(of([]));
+
     spyOn(titleService, "setTitle").and.callThrough();
     spyOn(metaService, "updateTag").and.callThrough();
   });
 
   it("should create", () => {
-    service.carregarLista.and.returnValue(of([]));
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
@@ -70,12 +71,13 @@ describe("StatusPagamentoComponent", () => {
   });
 
   it("should filter list using current search value", () => {
-    service.carregarLista.and.returnValue(of([]));
     fixture.detectChanges();
 
-    const carregarListaSpy = spyOn(component, "carregarLista").and.callThrough();
+    component.valorPesquisa = "98765";
     component.filtrarLista();
-    expect(carregarListaSpy).toHaveBeenCalled();
+
+    expect(service.carregarLista).toHaveBeenCalledTimes(2);
+    expect(service.carregarLista.calls.mostRecent().args[0]).toEqual({ codigoPagamento: "98765" });
   });
 
   it("should load pagamentos and log message on carregarLista success", () => {
@@ -97,6 +99,95 @@ describe("StatusPagamentoComponent", () => {
     component.carregarLista();
 
     expect(consoleSpy).toHaveBeenCalledWith("erro", "failure");
+  });
+
+  it("should render all status labels and icons in the template", () => {
+    fixture.detectChanges();
+
+    component.pagamentos = [
+      {
+        transacao: "TRX-AGUARDANDO",
+        dataPagamento: "2024-01-01T10:00:00",
+        valorFinal: 150,
+        tipoPagamento: "DEBITO",
+        situacaoPagamento: "EM_ANALISE",
+      },
+      {
+        transacao: "TRX-CONTESTACAO",
+        dataPagamento: "2024-01-02T11:00:00",
+        valorFinal: 200,
+        tipoPagamento: "BOLETO",
+        situacaoPagamento: "EM_CONTESTACAO",
+      },
+      {
+        transacao: "TRX-DISPUTA",
+        dataPagamento: "2024-01-03T12:00:00",
+        valorFinal: 250,
+        tipoPagamento: "CARTAO",
+        situacaoPagamento: "EM_DISPUTA",
+      },
+      {
+        transacao: null,
+        dataPagamento: "2024-01-04T13:00:00",
+        valorFinal: 300,
+        tipoPagamento: "PIX",
+        situacaoPagamento: "PROCESSANDO_PAGAMENTO",
+      },
+      {
+        transacao: "TRX-APROVADA",
+        dataPagamento: "2024-01-05T14:00:00",
+        valorFinal: 350,
+        tipoPagamento: "PIX",
+        situacaoPagamento: "APROVADO",
+      },
+      {
+        transacao: "TRX-CANCELADA",
+        dataPagamento: "2024-01-06T15:00:00",
+        valorFinal: 400,
+        tipoPagamento: "DEBITO",
+        situacaoPagamento: "CANCELADO",
+      },
+    ];
+
+    fixture.detectChanges();
+
+    const nativeElement: HTMLElement = fixture.nativeElement;
+    const rows = nativeElement.querySelectorAll("table.ck-table tr");
+
+    expect(rows.length).toBe(7);
+
+    const aguardandoRow = rows[1] as HTMLTableRowElement;
+    expect(aguardandoRow.textContent).toContain("TRX-AGUARDANDO");
+    expect(aguardandoRow.textContent).toContain("Débito");
+    expect(aguardandoRow.textContent).toContain("Aguardando");
+    expect(aguardandoRow.querySelector(".mdi-clock.text-blue")).not.toBeNull();
+
+    const contestacaoRow = rows[2] as HTMLTableRowElement;
+    expect(contestacaoRow.textContent).toContain("TRX-CONTESTACAO");
+    expect(contestacaoRow.textContent).toContain("Boleto");
+    expect(contestacaoRow.textContent).toContain("Contestação");
+    expect(contestacaoRow.querySelector(".mdi-clock.text-blue")).not.toBeNull();
+
+    const disputaRow = rows[3] as HTMLTableRowElement;
+    expect(disputaRow.textContent).toContain("TRX-DISPUTA");
+    expect(disputaRow.textContent).toContain("Cartão");
+    expect(disputaRow.textContent).toContain("Disputa");
+    expect(disputaRow.querySelector(".mdi-clock.text-blue")).not.toBeNull();
+
+    const erroRow = rows[4] as HTMLTableRowElement;
+    expect(erroRow.textContent).toContain("Erro de Pagamento");
+    expect(erroRow.textContent).toContain("Pix");
+    expect(erroRow.querySelector(".mdi-close.text-danger")).not.toBeNull();
+
+    const aprovadaRow = rows[5] as HTMLTableRowElement;
+    expect(aprovadaRow.textContent).toContain("TRX-APROVADA");
+    expect(aprovadaRow.textContent).toContain("Aprovada");
+    expect(aprovadaRow.querySelector(".mdi-check.text-success")).not.toBeNull();
+
+    const canceladaRow = rows[6] as HTMLTableRowElement;
+    expect(canceladaRow.textContent).toContain("TRX-CANCELADA");
+    expect(canceladaRow.textContent).toContain("Cancelada");
+    expect(canceladaRow.querySelector(".mdi-close.text-danger")).not.toBeNull();
   });
 });
 
