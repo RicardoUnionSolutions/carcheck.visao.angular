@@ -35,4 +35,43 @@ describe('Status de Pagamento', () => {
       cy.contains('Aguardando');
     });
   });
+
+  it('exibe contestação, disputa e erro de pagamento', () => {
+    cy.intercept('POST', '**/pagamento/lista**', { fixture: 'payment-additional-statuses.json' }).as('lista');
+    cy.visit('/status-pagamento');
+    cy.wait('@lista').its('response.statusCode').should('eq', 200);
+
+    cy.contains('Contestação').should('be.visible');
+    cy.contains('Disputa').should('be.visible');
+    cy.contains('Erro de Pagamento').should('be.visible');
+    cy.get('table.ck-table tr').contains('Erro de Pagamento').parent().find('.mdi-close.text-danger').should('be.visible');
+  });
+
+  it('permite buscar pagamentos pelo código', () => {
+    let callCount = 0;
+    cy.intercept('POST', '**/pagamento/lista**', (req) => {
+      callCount += 1;
+
+      if (callCount === 1) {
+        expect(req.body).to.deep.equal({ codigoPagamento: null });
+        req.reply({ fixture: 'payment-pending.json' });
+      } else {
+        expect(req.body).to.deep.equal({ codigoPagamento: '99999' });
+        req.reply({ fixture: 'payment-approved.json' });
+      }
+    }).as('lista');
+
+    cy.visit('/status-pagamento');
+    cy.wait('@lista');
+
+    cy.get('ck-input input').type('99999');
+    cy.contains('button', 'Buscar').click();
+
+    cy.wait('@lista');
+
+    cy.get('table.ck-table tr').eq(1).within(() => {
+      cy.contains('12345');
+      cy.contains('Aprovada');
+    });
+  });
 });
