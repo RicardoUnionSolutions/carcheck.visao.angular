@@ -23,11 +23,13 @@ export class ComprarConsultaComponent implements OnInit {
   @Input() consultasSelecionadas: any[];
   @Output() consultasSelecionadasChange = new EventEmitter();
 
+  @Input() loadingCompra: boolean = false;
 
   @Output() nextEvent = new EventEmitter();
 
   consultas: any;
   consulta: any;
+  showConsulta: boolean = false;
 
   constructor(private variableGlobal: VariableGlobal) {
     this.consultas = this.variableGlobal.getProdutos();
@@ -36,6 +38,11 @@ export class ComprarConsultaComponent implements OnInit {
   ngOnInit() {
     this.compararInsumos();
     this.consulta = this.consultas.find(consulta => consulta.id === 3);
+    
+    // Mostrar o card após 1 segundo para melhor UX
+    setTimeout(() => {
+      this.showConsulta = true;
+    }, 1000);
   }
 
 

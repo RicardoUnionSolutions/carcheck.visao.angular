@@ -11,8 +11,8 @@
 - [X] **Consulta por Placa** (`/consulta-placa-veiculo`) - Formulário de consulta por placa
 - [X] **Consulta Veicular Completa** (`/produto/consulta-veicular-completa`) - Página do produto
 - [X] **Consulta Veicular Segura** (`/produto/consulta-veicular-segura`) - Página do produto
-- [ ] **Consulta Veicular Leilão** (`/produto/consulta-veicular-leilao`) - Página do produto
-- [ ] **Realizar Consultas** (`/realizar-consultas`) - Interface para realizar consultas
+- [X] **Consulta Veicular Leilão** (`/produto/consulta-veicular-leilao`) - Página do produto
+- [ ] **Realizar Consultas** (`/realizar-consultas`) - Interface para realizar consultas ULTIMO
 - [ ] **Consulta Inicial** (`/consulta-teste/:placa/:email/:nome/:tokenRecaptcha`) - Tela de teste
 - [ ] **Visualizar Consulta** (`/visualizar-consulta/:tokenConsulta`) - Visualização de consulta
 

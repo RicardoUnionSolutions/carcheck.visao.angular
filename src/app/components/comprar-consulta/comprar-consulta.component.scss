@@ -170,6 +170,14 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   background: white;
   display: table;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   h3 {
     font-size: 20px;
@@ -182,7 +190,10 @@
     padding-left: 14px;
     color: #333333;
     font-size: 14px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
+    .mdi-close {
+      color: red;
+    }
   }
 
   .row {

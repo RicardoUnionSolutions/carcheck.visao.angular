@@ -58,6 +58,7 @@ export class ProcessoCompraComponent implements OnInit, AfterViewInit {
   possuiLaudo = false;
   detalhesCompra: String = "";
   loadingCompra: boolean = false;
+  loadingTela: boolean = true;
   steps: any;
   currentStep: number = 0;
   doneSteps: number = 0;
@@ -258,6 +259,11 @@ export class ProcessoCompraComponent implements OnInit, AfterViewInit {
     this.pesquisaEmail = (
       this.route.snapshot.paramMap.get("email") || ""
     ).toUpperCase();
+
+    // Mostrar a tela após 1.5 segundos para melhor UX
+    setTimeout(() => {
+      this.loadingTela = false;
+    }, 1500);
   }
 
   ngAfterViewInit() {

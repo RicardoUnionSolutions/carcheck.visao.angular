@@ -16,7 +16,7 @@
 
   <!-- Primeira Coluna (Nova Segunda Coluna) -->
   <div class=" col-lg-4 order-2 order-lg-2 mb-3">
-    <div class="consulta" [ngClass]="{'recomendada': consulta.recomendada}">
+    <div class="consulta" [ngClass]="{'recomendada': consulta.recomendada, 'show': showConsulta}" [hidden]="loadingCompra || !showConsulta">
       <div *ngIf="consulta.recomendada" class="label">NOVA CONSULTA</div>
       <h3>{{ consulta.nome_da_consulta }}</h3>
       <div [id]="'detalhes'" class="detalhes expandido text-left">

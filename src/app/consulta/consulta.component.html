@@ -112,101 +112,81 @@
 
 
 
-        <div *ngIf="statusConsultaVeiculo==0" class="ck-card-body flex-ac flex-column flex-md-row">
-          <div class="logo-marca-container mb-3 mb-md-0">
-            <div class="img-circle">
-              <img src="./assets/images/marcas/{{verificaLogo()}}.png" alt="">
+        <div *ngIf="statusConsultaVeiculo==0" class="ck-card-body vehicle-info-container">
+          <div class="vehicle-left-section">
+            <div class="logo-marca-container">
+              <div class="img-circle">
+                <img src="./assets/images/marcas/{{verificaLogo()}}.png" alt="">
+              </div>
+              
+              <div class="placa-container">
+                <img class="placa-img" src="./assets/images/Placa.svg" alt="">
+                <h2 class="nrPlaca">{{verificaPlaca()}}</h2>
+              </div>
             </div>
-
-            <h1 class="f-28 mb-0">
-              {{verificaPlaca()}}
-            </h1>
-            <div *ngIf="dadosConsulta?.dados?.numeroRestricoes>0" class="d-flex align-items-center pt-1">
-              <div class="svg-w-36 flex-ac mr-2 fill-danger" [inlineSVG]="'perigo.svg'"
-                [removeSVGAttributes]="['class']"></div>
-              <span class="f-16">
-                Foram encontradas
-                <br>
-                <strong class="text-danger">{{dadosConsulta?.dados?.numeroRestricoes}}</strong> restrições na consulta.
-              </span>
-            </div>
-            <div *ngIf="dadosConsulta?.dados?.numeroRestricoes==0" class="d-flex align-items-center pt-1">
-              <div class="svg-w-36 flex-ac mr-2 fill-blue" [inlineSVG]="'info-circle.svg'"
-                [removeSVGAttributes]="['class']"></div>
-              <span class="f-16">
-                Não foram encontradas restrições para esta consulta.
-              </span>
-            </div>
-          </div>
-          <div class="row no-gutters w-100">
-            <div class="col-12 col-lg-6 margin-0">
-              <ul class="list-inline px-2">
-                <div class="subtitle" style="font-weight: 800;">
-                  VEÍCULO
-                </div>
-                <li class="pb-3">
-                  <h4 class="text-secondary f-12 format-compacta">MARCA / MODELO: </h4>
-                  <span class="text-uppercase format-compacta">{{verificaMarca()}} / {{verificaModelo()}}</span>
+            
+            <div class="vehicle-info-section">
+              <div class="subtitle">VEÍCULO</div>
+              <ul class="vehicle-info-list">
+                <li class="info-item">
+                  <h4>MARCA / MODELO:</h4>
+                  <span>{{verificaMarca()}} / {{verificaModelo()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Fabricação / Modelo:</h4>
-                  <span class="text-uppercase format-compacta" >{{verificaAnoFabricacao()}}
-                    / {{verificaAnoModelo()}}</span>
+                <li class="info-item">
+                  <h4>FABRICAÇÃO / MODELO:</h4>
+                  <span>{{verificaAnoFabricacao()}} / {{verificaAnoModelo()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Cilindradas:</h4>
-                  <span class="text-uppercase format-compacta">{{verificaCilindradas()}}</span>
+                <li class="info-item">
+                  <h4>CILINDRADAS:</h4>
+                  <span>{{verificaCilindradas()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Emplacamento:</h4>
-                  <span class="text-uppercase format-compacta"> {{verificaMunicipio()}}/{{verificaEstado()}}</span>
+                <li class="info-item">
+                  <h4>EMPLACAMENTO:</h4>
+                  <span>{{verificaMunicipio()}}/{{verificaEstado()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Cor:</h4>
-                  <span class="text-uppercase format-compacta">{{verificaCor()}}</span>
+                <li class="info-item">
+                  <h4>COR:</h4>
+                  <span>{{verificaCor()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Chassi:</h4>
-                  <span class="text-uppercase format-compacta">{{verificaChassi()}}</span>
+                <li class="info-item">
+                  <h4>CHASSI:</h4>
+                  <span>{{verificaChassi()}}</span>
                 </li>
-                <li class="pb-3">
-                  <h4 class="text-secondary text-uppercase f-12 format-compacta">Combustivel:</h4>
-                  <span class="text-uppercase format-compacta">{{verificaCombustivel()}}</span>
+                <li class="info-item">
+                  <h4>COMBUSTÍVEL:</h4>
+                  <span>{{verificaCombustivel()}}</span>
                 </li>
-
-
               </ul>
             </div>
-            <div class="col-12 col-lg-6 margin-0">
-              <ul class="dadosconsulta list-inline px-2">
-                <div class="subtitle" style="font-weight: 800;">
-                  CONSULTA
-                    </div>
-                    <li class="pb-3">
-                      <h4 class="text-secondary text-uppercase f-12 format-compacta">Entrada:</h4>
-                      <span class="text-uppercase format-compacta">{{verificaEntrada()}}</span>
-                    </li>
-                    <li class="pb-3">
-                      <h4 class="text-secondary text-uppercase f-12 format-compacta">Data realização:</h4>
-                      <span class="text-uppercase format-compacta">{{dadosConsulta?.data |date:"dd/MM/yyyy \'as\' HH:mm"}}</span>
-                    </li>
-                    <li class="pb-3">
-                      <h4 class="text-secondary text-uppercase f-12 format-compacta">Consulta:</h4>
-                      <span class="text-uppercase format-compacta">{{dadosConsulta?.composta?.nome}}</span>
-                    </li>
-                    <li class="pb-3">
-                      <h4 class="text-secondary text-uppercase f-12 format-compacta">código da consulta:</h4>
-                      <span class="text-uppercase format-compacta">{{verificaIdConsulta()}}</span>
-                    </li>
-                    <li class="pb-3">
-                      <h4 class="text-secondary text-uppercase f-12 format-compacta">Token da consulta:</h4>
-                      <span class="text-uppercase format-compacta">{{dadosConsulta?.tokenConsulta}}</span>
-                    </li>
+          </div>
+          
+          <div class="consulta-right-section">
+            <div class="consulta-box">
+              <div class="subtitle">CONSULTA</div>
+              <ul class="consulta-info-list">
+                <li class="info-item">
+                  <h4>ENTRADA:</h4>
+                  <span>{{verificaEntrada()}}</span>
+                </li>
+                <li class="info-item">
+                  <h4>DATA REALIZAÇÃO:</h4>
+                  <span>{{dadosConsulta?.data |date:"dd/MM/yyyy \'as\' HH:mm"}}</span>
+                </li>
+                <li class="info-item">
+                  <h4>CONSULTA:</h4>
+                  <span>{{dadosConsulta?.composta?.nome}}</span>
+                </li>
+                <li class="info-item">
+                  <h4>CÓDIGO DA CONSULTA:</h4>
+                  <span>{{verificaIdConsulta()}}</span>
+                </li>
+                <li class="info-item">
+                  <h4>TOKEN DA CONSULTA:</h4>
+                  <span>{{dadosConsulta?.tokenConsulta}}</span>
+                </li>
               </ul>
             </div>
-
           </div>
-
         </div>
 
         <consulta-resumo [(dadosObservable)]="dadosObservable" *ngIf="dadosConsulta" [hidden]="step!=0"></consulta-resumo>

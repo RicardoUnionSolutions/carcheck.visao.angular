@@ -1,5 +1,7 @@
-@use '../../assets/scss/bootstrap/variables' as *;
-@use '../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
+@use "variables" as *;
+@use "mixins/breakpoints" as *;
+
 
 .consulta-teste {
   border-radius: 4px;

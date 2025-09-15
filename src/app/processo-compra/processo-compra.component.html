@@ -1,10 +1,18 @@
+@if (loadingTela) {
+<div class="loading-container">
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p class="loading-text">Carregando...</p>
+  </div>
+</div>
+} @else {
 <div class="container-form">
     <step-by-step [steps]="steps" [(currentStep)]="currentStep" [doneSteps]="doneSteps"></step-by-step>
     <div class="currentStep-container">
         <div [hidden]="stepIndex.consulta != currentStep" class="pt-5 mt-0 pt-lg-5">
             <comprar-consulta [consultasSelecionadas]="consultasSelecionadas"
                 (consultasSelecionadasChange)="selecionarConsultaEvent($event)" [listaConsulta]="listaConsulta"
-                (nextEvent)="next()">
+                [loadingCompra]="loadingCompra" (nextEvent)="next()">
             </comprar-consulta>
         </div>
 
@@ -41,7 +49,8 @@
         </div>
 
 
-        <div *ngIf="stepIndex.pagamento == currentStep" class="mt-5">
+        @if (stepIndex.pagamento == currentStep) {
+        <div class="mt-5">
             <forma-pagamento [(valorTotal)]="valorTotal"
                 (valorTotalDescontoChange)="valorTotalDesconto=$event">
                 <app-display-produto-pagamento [dadosVeiculo]="dadosVeiculo"
@@ -74,19 +83,22 @@
             </div>
 
         </div>
+        }
         <div class="mb-5 flex-wrap flex-column-reverse flex-md-row flex-md-nowrap" [ngClass]="{
             'flex-jb': (!logIn.status && cadastrar && stepIndex.cadastro==currentStep),
             'flex-je': !(!logIn.status && cadastrar && stepIndex.cadastro==currentStep)
         }">
 
-            <div *ngIf="!logIn.status && cadastrar && stepIndex.cadastro==currentStep">
+            @if (!logIn.status && cadastrar && stepIndex.cadastro==currentStep) {
+            <div>
                 <button (click)="cadastrar=false" class="btn btn-orange-1 btn-lg w-100 py-lg-3">JÁ SOU
                     CADASTRADO</button>
             </div>
+            }
 
             <div class="w-100 flex-je flex-ae flex-column mb-3 mb-md-0">
-                <button *ngIf="!loadingCompra"
-                    [hidden]="stepIndex.cadastro == currentStep && (cadastrar==false || logIn.status==true)"
+                @if (!loadingCompra) {
+                <button [hidden]="stepIndex.cadastro == currentStep && (cadastrar==false || logIn.status==true)"
                     (click)="next()" class="btn-next btn btn-success btn-lg  py-lg-3"
                     [ngClass]="{
                       'cadastro': currentStep == stepIndex.cadastro,
@@ -95,9 +107,12 @@
                     }">
                     {{ currentStep == stepIndex.pagamento ? 'Finalizar' : 'Continuar' }}
                 </button>
-                <button *ngIf="loadingCompra" disabled="disabled"
+                }
+                @if (loadingCompra) {
+                <button disabled="disabled"
                     class="btn btn-lg btn-next btn-success flex-ac flex-jc py-lg-3 relative">
                     <i class="d-block mdi mdi-loading mr-3 f-24 rotate"></i>Efetuando transação</button>
+                }
                 <div class="f-18">
                     <span
                         [hidden]="!logIn.status || logIn.cliente.documento=='' || stepIndex.cadastro==currentStep || stepIndex.pagamento==currentStep">
@@ -132,3 +147,6 @@
       </div>
 
   </ck-modal>
+
+</div>
+}
