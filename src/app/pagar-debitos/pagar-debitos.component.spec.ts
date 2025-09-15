@@ -1,53 +1,66 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ActivatedRoute } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
 import { UntypedFormBuilder } from "@angular/forms";
 import { of, throwError } from "rxjs";
-import { RouterTestingModule } from "@angular/router/testing";
-import { ActivatedRoute } from "@angular/router";
 
-import { PagarDebitosComponent } from "./pagar-debitos.component";
-import { PagarDebitosService } from "../service/pagar-debitos.service";
 import { ModalService } from "../service/modal.service";
-
-const pagarDebitosServiceSpy = jasmine.createSpyObj("PagarDebitosService", [
-  "consultarDebitos",
-  "gerarLinkPagamento",
-]);
-pagarDebitosServiceSpy.consultarDebitos.and.returnValue(
-  of({ consult_id: "1", vehicle: {}, debits: [] })
-);
-pagarDebitosServiceSpy.gerarLinkPagamento.and.returnValue(
-  of({ url: "http://link.com" })
-);
-
-const modalServiceSpy = jasmine.createSpyObj("ModalService", [
-  "openLoading",
-  "closeLoading",
-  "openModalMsg",
-]);
+import { PagarDebitosService } from "../service/pagar-debitos.service";
+import { PagarDebitosComponent } from "./pagar-debitos.component";
 
 describe("PagarDebitosComponent", () => {
   let component: PagarDebitosComponent;
   let fixture: ComponentFixture<PagarDebitosComponent>;
+  let pagarDebitosServiceSpy: jasmine.SpyObj<PagarDebitosService>;
+  let modalServiceSpy: jasmine.SpyObj<ModalService>;
+  let routeStub: { snapshot: { paramMap: { get: jasmine.Spy } } };
 
   beforeEach(waitForAsync(() => {
+    pagarDebitosServiceSpy = jasmine.createSpyObj("PagarDebitosService", [
+      "consultarDebitos",
+      "gerarLinkPagamento",
+    ]);
+    pagarDebitosServiceSpy.consultarDebitos.and.returnValue(
+      of({ consult_id: "1", vehicle: {}, debits: [] })
+    );
+    pagarDebitosServiceSpy.gerarLinkPagamento.and.returnValue(
+      of({ url: "http://link.com" })
+    );
+
+    modalServiceSpy = jasmine.createSpyObj("ModalService", [
+      "openLoading",
+      "closeLoading",
+      "openModalMsg",
+    ]);
+
+    routeStub = {
+      snapshot: {
+        paramMap: {
+          get: jasmine.createSpy("get").and.returnValue(null),
+        },
+      },
+    };
+
     TestBed.configureTestingModule({
       imports: [PagarDebitosComponent, RouterTestingModule.withRoutes([])],
       providers: [
         { provide: PagarDebitosService, useValue: pagarDebitosServiceSpy },
         { provide: ModalService, useValue: modalServiceSpy },
-        {
-          provide: ActivatedRoute,
-          useValue: { snapshot: { paramMap: { get: () => null } } },
-        },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(PagarDebitosComponent);
     component = fixture.componentInstance;
+    (window as any).scrollTo = jasmine.createSpy("scrollTo");
     fixture.detectChanges();
-    (window as any).scrollTo = () => {};
+  });
+
+  afterEach(() => {
+    localStorage.clear();
   });
 
   it("should create", () => {
@@ -70,6 +83,7 @@ describe("PagarDebitosComponent", () => {
 
   it("should consult with sanitized placa when form is valid", () => {
     const consultaSpy = spyOn(component, "fazerConsulta");
+    const scrollSpy = spyOn(component, "scrollToTop").and.callThrough();
     component.form.setValue({
       uf: "SP",
       email: "a@b.com",
@@ -80,6 +94,7 @@ describe("PagarDebitosComponent", () => {
     expect(consultaSpy).toHaveBeenCalledWith(
       jasmine.objectContaining({ placa: "ABC1234" })
     );
+    expect(scrollSpy).toHaveBeenCalled();
   });
 
   it("should check if a debit is selected", () => {
@@ -97,8 +112,8 @@ describe("PagarDebitosComponent", () => {
   });
 
   it("should calculate total", () => {
-    component.debitosSelecionados = [{ value: 10 }, { value: 5 }];
-    expect(component.calcularTotal()).toBe(15);
+    component.debitosSelecionados = [{ value: 10 }, { value: undefined } as any];
+    expect(component.calcularTotal()).toBe(10);
   });
 
   it("should perform consulta and save data", () => {
@@ -107,7 +122,7 @@ describe("PagarDebitosComponent", () => {
       vehicle: { uf: "SP", license_plate: "ABC1234", renavam: "123" },
     } as any;
     pagarDebitosServiceSpy.consultarDebitos.and.returnValue(of(response));
-    const lsSpy = spyOn(window.localStorage, "setItem");
+    const lsSpy = spyOn(window.localStorage, "setItem").and.callThrough();
     component.fazerConsulta({ uf: "SP", placa: "ABC1234", renavam: "123" });
 
     expect(modalServiceSpy.openLoading).toHaveBeenCalled();
@@ -124,6 +139,16 @@ describe("PagarDebitosComponent", () => {
     component.mascaraPlaca(event);
     expect(input.value).toBe("ABC-1234");
     expect(component.form.get("placa").value).toBe("ABC-1234");
+  });
+
+  it("should ignore mask when event target is missing or empty", () => {
+    const input = document.createElement("input");
+    input.value = "";
+    component.mascaraPlaca({ target: input } as any);
+    expect(component.form.get("placa").value).toBe("");
+
+    component.mascaraPlaca({ target: null } as any);
+    expect(component.form.get("placa").value).toBe("");
   });
 
   it("should not generate payment link when payment form is invalid", () => {
@@ -198,6 +223,14 @@ describe("PagarDebitosComponent", () => {
     component.mascaraPlaca(event);
     expect(input.value).toBe("AB1");
     expect(component.form.get("placa").value).toBe("AB1");
+  });
+
+  it("should scroll to top with smooth behavior", () => {
+    component.scrollToTop();
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      top: 0,
+      behavior: "smooth",
+    });
   });
 
   it("should call fazerConsulta with data from consultaAnterior", () => {
