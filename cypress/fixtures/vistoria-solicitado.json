@@ -1,0 +1,15 @@
+{
+  "status": "SOLICITADO",
+  "cidade": "cariacica",
+  "marca": "Fiat Uno",
+  "placa": "ABC1D23",
+  "modelo": "Uno Way 1.0",
+  "anoFabricacao": 2022,
+  "anoModelo": 2023,
+  "nomeProprietario": "João Silva",
+  "telefone": "(11) 91234-5678",
+  "uf": "ES",
+  "dataSolicitacao": "2024-05-01",
+  "dataVistoria": null,
+  "tokenPdf": null
+}

@@ -21,7 +21,20 @@ describe("VistoriaComponent", () => {
 
   beforeEach(waitForAsync(() => {
     laudoServiceSpy.getLaudo.and.returnValue(
-      Promise.resolve({ status: "SOLICITADO", cidade: "c1", marca: "Fiat Uno" })
+      Promise.resolve({
+        status: "SOLICITADO",
+        cidade: "c1",
+        marca: "Fiat Uno",
+        placa: "ABC1D23",
+        modelo: "Uno",
+        anoFabricacao: 2022,
+        anoModelo: 2023,
+        nomeProprietario: "João",
+        telefone: "11999999999",
+        uf: "ES",
+        dataSolicitacao: "2024-05-01T00:00:00",
+        dataVistoria: null,
+      })
     );
     laudoServiceSpy.getCidadeNome.and.returnValue("Cidade Teste");
 
@@ -61,8 +74,10 @@ describe("VistoriaComponent", () => {
         "Visualize o status da vistoria veicular, incluindo etapas como agendamento, realização e entrega do laudo.",
     });
     expect(laudoServiceSpy.getLaudo).toHaveBeenCalledWith("tokenABC");
+    expect(component.token).toBe("tokenABC");
     expect(laudoServiceSpy.getCidadeNome).toHaveBeenCalledWith("c1");
     expect(component.dados.cidade).toBe("Cidade Teste");
+    expect(component.statusText).toContain("Recebemos sua solicitação");
     expect(component.stepIndex).toBe(0);
     expect(component.fotoMarca).toBe(
       "./assets/images/marcas/fiatuno.png"
@@ -91,8 +106,10 @@ describe("VistoriaComponent", () => {
     expect(component.statusText).toBe("");
     expect(component.laudoDesc).toBe("Finalizado");
 
+    const previousStatus = component.statusText;
     component.setStepIndex("DESCONHECIDO");
     expect(component.laudoDesc).toBe("DESCONHECIDO");
+    expect(component.statusText).toBe(previousStatus);
   });
 
   it("should set fotoMarca path correctly", () => {
@@ -104,6 +121,11 @@ describe("VistoriaComponent", () => {
     component.setFotoMarca(null);
     expect(component.fotoMarca).toBe(
       "./assets/images/marcas/semmarca.png"
+    );
+
+    component.setFotoMarca("Peugeot 208");
+    expect(component.fotoMarca).toBe(
+      "./assets/images/marcas/peugeot208.png"
     );
   });
 });
