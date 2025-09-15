@@ -45,3 +45,4 @@ Thumbs.db
 .qodo
 dump-frontend.sh
 /cypress/videos
+cypress/screenshots
