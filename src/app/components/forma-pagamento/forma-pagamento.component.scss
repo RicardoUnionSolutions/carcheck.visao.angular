@@ -118,12 +118,28 @@
 .coupon-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px; // Aumentado de 12px para 16px
+  margin-bottom: 8px; // Adicionado espaçamento inferior
+
+  @include media-breakpoint-down(md) {
+    flex-wrap: wrap;
+    gap: 12px; // Aumentado de 8px para 12px
+    margin-bottom: 10px;
+  }
 
   @include media-breakpoint-down(sm) {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: 12px; // Aumentado de 8px para 12px
+    margin-bottom: 12px;
+  }
+
+  // Breakpoint intermediário para telas entre 360px e 480px
+  @media (max-width: 480px) and (min-width: 361px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px; // Aumentado de 6px para 10px
+    margin-bottom: 10px;
   }
 }
 
@@ -132,10 +148,12 @@
   font-weight: 700;
   color: #212529;
   margin: 0;
+  margin-bottom: 4px; // Adicionado espaçamento inferior
 
   @include media-breakpoint-down(sm) {
     font-size: 14px;
     text-align: center;
+    margin-bottom: 6px; // Aumentado para mobile
   }
 }
 
@@ -151,10 +169,25 @@
   max-width: 200px;
   transition: border-color 0.2s ease;
 
+  @include media-breakpoint-down(md) {
+    flex: 1;
+    min-width: 120px;
+    max-width: 180px;
+  }
+
   @include media-breakpoint-down(sm) {
     max-width: 100%;
     height: 44px;
     font-size: 16px; /* Evita zoom no iOS */
+    min-width: unset;
+  }
+
+  // Breakpoint intermediário para telas entre 360px e 480px
+  @media (max-width: 480px) and (min-width: 361px) {
+    max-width: 100%;
+    height: 43px;
+    font-size: 15px;
+    min-width: unset;
   }
 }
 
@@ -174,11 +207,26 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
+
+  @include media-breakpoint-down(md) {
+    padding: 0 12px;
+    font-size: 13px;
+  }
 
   @include media-breakpoint-down(sm) {
     height: 44px;
     font-size: 16px;
     width: 100%;
+    padding: 0 16px;
+  }
+
+  // Breakpoint intermediário para telas entre 360px e 480px
+  @media (max-width: 480px) and (min-width: 361px) {
+    height: 43px;
+    font-size: 15px;
+    width: 100%;
+    padding: 0 14px;
   }
 }
 
@@ -508,9 +556,6 @@ input:focus+label {
 
 // Ajustes para tablets
 @include media-breakpoint-down(md) {
-  .forma-pagamento-content {
-    margin: 0 10px;
-  }
   
   .px-lg-3 {
     padding-left: 15px !important;
@@ -537,13 +582,27 @@ input:focus+label {
   }
   
   .coupon-container {
-    gap: 6px;
+    gap: 8px; // Aumentado de 6px para 8px
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 8px; // Adicionado espaçamento inferior
   }
   
-  .coupon-input,
+  .coupon-label {
+    font-size: 13px;
+    text-align: left;
+  }
+  
+  .coupon-input {
+    height: 42px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  
   .coupon-button {
     height: 42px;
     font-size: 14px;
+    padding: 0 12px;
   }
 }
 

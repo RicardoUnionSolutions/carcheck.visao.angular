@@ -1,20 +1,11 @@
-
-<!-- Container dos passos -->
-<div class="steps-container d-flex align-items-center justify-content-between">
+<div class="steps-container">
 
 <ng-container *ngFor="let s of steps; let i=index">
-    <step (click)="goToStep(i)" [icon]="s.icon" [image]="s.image" [state]='s.state'></step>
-    <step-bar *ngIf="i<steps.length-1" [state]="i < doneSteps ? 1 : 0"></step-bar>
-</ng-container>
-
-</div>
-
-<!-- Container dos títulos -->
-<div class="title-container d-flex justify-content-between align-items-center">
-
-<ng-container *ngFor="let s of steps; let i=index">
-    <h2 [ngClass]="{'current': s.state==2, 'text-muted': s.state!=2}" 
-        class="fs-6 text-center mb-0">{{s.title}}</h2>
+    <div class="step-wrapper">
+        <step (click)="goToStep(i)" [icon]="s.icon"  [image]="s.image" [state]='s.state'></step>
+        <h2 [ngClass]="{'current': s.state==2, 'text-gray': s.state!=2}" class="step-title">{{s.title}}</h2>
+    </div>
+    <step-bar *ngIf="i<steps.length-1" [state]="i < doneSteps ? 1 : 0" ></step-bar>
 </ng-container>
 
 </div>

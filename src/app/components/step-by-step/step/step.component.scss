@@ -4,23 +4,36 @@
 @use 'mixins/breakpoints' as *;
 @use 'sass:math';
 
+// Variáveis locais do componente
 $step-size: 60px !default;
 $step-size-done: 60px !default;
-$step-size-active: 90px !default;
+$step-size-active: 70px !default; // Step ativo ligeiramente maior
 
 $step-font-size: 28px !default;
 $step-font-size-done: 28px !default;
-$step-font-size-active: 42px !default;
+$step-font-size-active: 28px !default; // Ajustado para ser igual ao tamanho padrão
 
 $step-img-size: 48px !default;
 $step-img-size-done: 48px !default;
-$step-img-size-active: 64px !default;
+$step-img-size-active: 56px !default; // Imagem do step ativo ligeiramente maior
+
+// CSS Custom Properties para melhor manutenibilidade
+:host {
+    --step-size: #{$step-size};
+    --step-font-size: #{$step-font-size};
+    --step-img-size: #{$step-img-size};
+    --step-border-radius: 50%;
+    --step-bg-color: #efefef;
+    --step-active-bg: #244b5a;
+    --step-active-color: #ffffff;
+    --step-transition: all 0.3s ease;
+}
 
 
 
 $step-md-size: 40px !default;
 $step-md-size-done: 40px !default;
-$step-md-size-active: 50px !default;
+$step-md-size-active: 48px !default; // Step ativo ligeiramente maior
 
 $step-md-font-size: 24px !default;
 $step-md-font-size-done: 24px !default;
@@ -28,24 +41,24 @@ $step-md-font-size-active: 24px !default;
 
 $step-md-img-size: 32px !default;
 $step-md-img-size-done: 32px !default;
-$step-md-img-size-active: 40px !default;
+$step-md-img-size-active: 38px !default; // Imagem do step ativo ligeiramente maior
 
 
 $step-lg-size: 50px !default;
 $step-lg-size-done: 50px !default;
-$step-lg-size-active: 70px !default;
+$step-lg-size-active: 60px !default; // Step ativo ligeiramente maior
 
 $step-lg-font-size: 24px !default;
 $step-lg-font-size-done: 24px !default;
-$step-lg-font-size-active: 32px !default;
+$step-lg-font-size-active: 24px !default; // Ajustado para ser igual ao tamanho padrão
 
 $step-lg-img-size: 40px !default;
 $step-lg-img-size-done: 40px !default;
-$step-lg-img-size-active: 50px !default;
+$step-lg-img-size-active: 48px !default; // Imagem do step ativo ligeiramente maior
 
 $step-sm-size: 32px !default;
 $step-sm-size-done: 32px !default;
-$step-sm-size-active: 40px !default;
+$step-sm-size-active: 38px !default; // Step ativo ligeiramente maior
 
 $step-sm-font-size: 18px !default;
 $step-sm-font-size-done: 18px !default;
@@ -53,11 +66,11 @@ $step-sm-font-size-active: 18px !default;
 
 $step-sm-img-size: 24px !default;
 $step-sm-img-size-done: 24px !default;
-$step-sm-img-size-active: 28px !default;
+$step-sm-img-size-active: 28px !default; // Imagem do step ativo ligeiramente maior
 
 $step-xs-size: 28px !default;
 $step-xs-size-done: 28px !default;
-$step-xs-size-active: 35px !default;
+$step-xs-size-active: 34px !default; // Step ativo ligeiramente maior
 
 $step-xs-font-size: 16px !default;
 $step-xs-font-size-done: 16px !default;
@@ -65,11 +78,11 @@ $step-xs-font-size-active: 16px !default;
 
 $step-xs-img-size: 20px !default;
 $step-xs-img-size-done: 20px !default;
-$step-xs-img-size-active: 24px !default;
+$step-xs-img-size-active: 24px !default; // Imagem do step ativo ligeiramente maior
 
 $step-xxs-size: 24px !default;
 $step-xxs-size-done: 24px !default;
-$step-xxs-size-active: 30px !default;
+$step-xxs-size-active: 30px !default; // Step ativo ligeiramente maior
 
 $step-xxs-font-size: 14px !default;
 $step-xxs-font-size-done: 14px !default;
@@ -77,38 +90,40 @@ $step-xxs-font-size-active: 14px !default;
 
 $step-xxs-img-size: 16px !default;
 $step-xxs-img-size-done: 16px !default;
-$step-xxs-img-size-active: 20px !default;
+$step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente maior
 
 
 
 
-:host{
+:host {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: $step-size;
-    min-height: $step-size;
-    max-height: $step-size;
-    flex-basis: $step-size;
-    width: $step-size;
-    min-width: $step-size;
-    max-width: $step-size;
-    font-size: $step-font-size;
-    border-radius: 50%;
+    height: var(--step-size);
+    min-height: var(--step-size);
+    max-height: var(--step-size);
+    flex-basis: var(--step-size);
+    width: var(--step-size);
+    min-width: var(--step-size);
+    max-width: var(--step-size);
+    font-size: var(--step-font-size);
+    border-radius: var(--step-border-radius);
     position: relative;
     z-index: 2;
-    background: #efefef;
+    background: var(--step-bg-color);
     line-height: 1;
     background-origin: border-box;
     overflow: hidden;
+    transition: var(--step-transition);
 }
 
-:host img{
+:host img {
     filter: grayscale(1) brightness(0.8);
-    max-width: $step-img-size;
-    max-height: $step-img-size;
+    max-width: var(--step-img-size);
+    max-height: var(--step-img-size);
     opacity: 1;
     display: block;
+    transition: var(--step-transition);
 }
 
 .step-image {
@@ -162,14 +177,14 @@ $step-xxs-img-size-active: 20px !default;
     animation-fill-mode: both;         /* When the spec is finished */
 }
 
-:host.active{
-    border: 3px solid #244b5a;
-    background: #244b5a;
+:host.active {
+    border: 3px solid var(--step-active-bg);
+    background: var(--step-active-bg);
     background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
     background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
     background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     font-size: $step-font-size-active;
-    color: Rgba(255,255,255,1);
+    color: var(--step-active-color);
     background-origin: border-box;
     height: $step-size-active;
     min-height: $step-size-active;
@@ -180,11 +195,10 @@ $step-xxs-img-size-active: 20px !default;
     max-width: $step-size-active;
 
     animation: step-active 400ms ease-out 400ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
@@ -203,21 +217,20 @@ $step-xxs-img-size-active: 20px !default;
 }
 
 
-:host.done{
-    border: 3px solid #244b5a;
-    background: #244b5a;
+:host.done {
+    border: 3px solid var(--step-active-bg);
+    background: var(--step-active-bg);
     background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
     background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
     background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
     font-size: $step-font-size-done;
-    color: Rgba(255,255,255,1);
+    color: var(--step-active-color);
     cursor: pointer;
     animation: step-done 400ms ease-out 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
@@ -491,7 +504,7 @@ $step-xxs-img-size-active: 20px !default;
 
 @include media-breakpoint-down(md) {
 
-    :host{
+    :host {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1361,6 +1374,79 @@ $step-xxs-img-size-active: 20px !default;
     :host.active img{
         max-width: $step-xxs-img-size-active;
         max-height: $step-xxs-img-size-active;
+    }
+}
+
+// Regras responsivas usando especificidade adequada e CSS custom properties
+// A especificidade :host.active é maior que :host, garantindo que o estado ativo seja aplicado corretamente
+
+@include media-breakpoint-down(md) {
+    :host {
+        --step-size: #{$step-md-size};
+        --step-font-size: #{$step-md-font-size};
+        --step-img-size: #{$step-md-img-size};
+    }
+    
+    :host.active {
+        --step-size: #{$step-md-size-active};
+        --step-font-size: #{$step-md-font-size-active};
+        --step-img-size: #{$step-md-img-size-active};
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    :host {
+        --step-size: #{$step-lg-size};
+        --step-font-size: #{$step-lg-font-size};
+        --step-img-size: #{$step-lg-img-size};
+    }
+    
+    :host.active {
+        --step-size: #{$step-lg-size-active};
+        --step-font-size: #{$step-lg-font-size-active};
+        --step-img-size: #{$step-lg-img-size-active};
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    :host {
+        --step-size: #{$step-sm-size};
+        --step-font-size: #{$step-sm-font-size};
+        --step-img-size: #{$step-sm-img-size};
+    }
+    
+    :host.active {
+        --step-size: #{$step-sm-size-active};
+        --step-font-size: #{$step-sm-font-size-active};
+        --step-img-size: #{$step-sm-img-size-active};
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    :host {
+        --step-size: #{$step-xs-size};
+        --step-font-size: #{$step-xs-font-size};
+        --step-img-size: #{$step-xs-img-size};
+    }
+    
+    :host.active {
+        --step-size: #{$step-xs-size-active};
+        --step-font-size: #{$step-xs-font-size-active};
+        --step-img-size: #{$step-xs-img-size-active};
+    }
+}
+
+@media (max-width: 320px) {
+    :host {
+        --step-size: #{$step-xxs-size};
+        --step-font-size: #{$step-xxs-font-size};
+        --step-img-size: #{$step-xxs-img-size};
+    }
+    
+    :host.active {
+        --step-size: #{$step-xxs-size-active};
+        --step-font-size: #{$step-xxs-font-size-active};
+        --step-img-size: #{$step-xxs-img-size-active};
     }
 }
 

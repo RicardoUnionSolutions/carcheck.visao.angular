@@ -10,43 +10,32 @@
     max-width: 900px;
     margin: 0px auto 0px auto;
     filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.1)) drop-shadow(0px 2px 3px rgba(0,0,0,0.25));
+    position: relative;
+    margin-bottom: 40px;
 }
 
-.title-container{
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
+.step-wrapper{
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    flex: 1;
 }
 
-.title-container h2{
+.step-title{
     font-size: 18px;
-    width: 120px;
+    width: 100px;
     text-align: center;
-    margin: 0px -10px;
     transition: 400ms 0ms all ease-out;
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
-.title-container h2.current{
+.step-title.current{
     margin: 0px -5px;
-}
-
-@include media-breakpoint-down(lg) {
-    .steps-container{
-        height: 60px;
-        max-width: 100vw;
-        padding: 0px 30px;
-    }
-
-    .title-container h2{
-        font-size: 15px;
-        width: 110px;
-        text-align: center;
-        margin: 0px -5px;
-        transition: 400ms 0ms all ease-out;
-    }
 }
 
 @include media-breakpoint-down(md) {
@@ -56,61 +45,13 @@
         padding: 0px 20px;
     }
 
-    .title-container h2{
-        font-size: 14px;
+    .step-title{
+        font-size: 16px;
         width: 100px;
         text-align: center;
-        margin: 0px -3px;
+        margin: 0px -10px;
         transition: 400ms 0ms all ease-out;
+        top: 60px;
     }
 }
 
-
-@include media-breakpoint-down(sm) {
-    .steps-container{
-        height: 45px;
-        max-width: 100vw;
-        padding: 0px 15px;
-    }
-
-    .title-container h2{
-        font-size: 12px;
-        width: 90px;
-        text-align: center;
-        margin: 0px -2px;
-        transition: 400ms 0ms all ease-out;
-    }
-}
-
-@include media-breakpoint-down(xs) {
-    .steps-container{
-        height: 40px;
-        max-width: 100vw;
-        padding: 0px 10px;
-    }
-
-    .title-container h2{
-        font-size: 10px;
-        width: 75px;
-        text-align: center;
-        margin: 0px -1px;
-        transition: 400ms 0ms all ease-out;
-    }
-}
-
-// Breakpoint para telas muito pequenas (até 320px)
-@media (max-width: 320px) {
-    .steps-container{
-        height: 35px;
-        max-width: 100vw;
-        padding: 0px 5px;
-    }
-
-    .title-container h2{
-        font-size: 9px;
-        width: 65px;
-        text-align: center;
-        margin: 0px 0px;
-        transition: 400ms 0ms all ease-out;
-    }
-}

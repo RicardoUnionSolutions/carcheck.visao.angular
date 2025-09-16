@@ -181,14 +181,19 @@ $white-color: #ffffff;
 
     .nav-actions {
       app-button {
-        display: none !important;
+        display: none !important; // Ocultar apenas os botões de ação
       }
 
       .menu-toggle {
-        display: flex;
+        display: flex; // Manter o menu hambúrguer visível
         padding: 8px;
       }
     }
+  }
+
+  // Ocultar menu do usuário na versão mobile
+  .user-menu {
+    display: none !important;
   }
 }
 
@@ -210,11 +215,21 @@ $white-color: #ffffff;
     }
     
     .nav-actions {
+      app-button {
+        display: none !important; // Ocultar apenas os botões de ação
+      }
+
       .menu-toggle {
+        display: flex; // Manter o menu hambúrguer visível
         padding: 6px;
         font-size: 18px;
       }
     }
+  }
+
+  // Ocultar menu do usuário na versão mobile
+  .user-menu {
+    display: none !important;
   }
 }
 
@@ -234,6 +249,23 @@ $white-color: #ffffff;
         padding-left: 8px;
       }
     }
+    
+    .nav-actions {
+      app-button {
+        display: none !important; // Ocultar apenas os botões de ação
+      }
+
+      .menu-toggle {
+        display: flex; // Manter o menu hambúrguer visível
+        padding: 4px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  // Ocultar menu do usuário na versão mobile
+  .user-menu {
+    display: none !important;
   }
 }
 

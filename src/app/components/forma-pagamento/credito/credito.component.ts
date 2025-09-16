@@ -45,6 +45,7 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
   lastNumCartao = '';
   cartao: any = { bandeira: '', config: null };
   login: any;
+  private resizeHandler: (() => void) | null = null;
 
   messages: any = {
     validDate: 'Data válida\naté',
@@ -195,6 +196,7 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
 
   ngOnDestroy() {
     console.log('CreditoComponent: ngOnDestroy chamado');
+    this.removeResizeListener();
     this.destroyCard();
   }
 
@@ -209,10 +211,20 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
       if (typeof Card !== 'undefined' && this.cardForm && this.cardForm.nativeElement) {
         console.log('CreditoComponent: Inicializando nova instância do card.js');
         try {
+          // Calcula a largura responsiva do card
+          const cardWidth = this.calculateCardWidth();
+          
+          // Verifica se o container existe
+          const container = document.querySelector('.card-wrapper');
+          if (!container) {
+            console.error('CreditoComponent: Container .card-wrapper não encontrado');
+            return;
+          }
+          
           this.cardInstance = new Card({
             form: this.cardForm.nativeElement,
             container: '.card-wrapper',
-            width: 350,
+            width: cardWidth,
             formatting: true,
             messages: {
               validDate: 'Data válida\naté',
@@ -228,10 +240,19 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
               cardNumber: '•'
             }
           });
-          this.isCardInitialized = true;
-          console.log('CreditoComponent: Card.js inicializado com sucesso');
+          
+          // Aguarda um pouco para garantir que o card foi renderizado
+          setTimeout(() => {
+            this.isCardInitialized = true;
+            console.log('CreditoComponent: Card.js inicializado com sucesso, largura:', cardWidth);
+            
+            // Adiciona listener para redimensionamento
+            this.addResizeListener();
+          }, 100);
+          
         } catch (error) {
           console.error('CreditoComponent: Erro ao inicializar card.js:', error);
+          this.isCardInitialized = false;
         }
       } else {
         console.warn('CreditoComponent: Card.js não disponível ou form não encontrado');
@@ -251,18 +272,124 @@ export class CreditoComponent implements OnInit, AfterViewInit, OnDestroy, OnCha
         if (container) {
           container.innerHTML = '';
         }
+        
+        // Limpa referências
         this.cardInstance = null;
         this.isCardInitialized = false;
+        
+        console.log('CreditoComponent: Card.js destruído com sucesso');
       } catch (error) {
         console.error('CreditoComponent: Erro ao destruir card.js:', error);
       }
     }
   }
 
+  private calculateCardWidth(): number {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Larguras baseadas no viewport
+    let cardWidth: number;
+    
+    if (viewportWidth <= 320) {
+      // Telas muito pequenas (≤320px)
+      cardWidth = Math.min(120, viewportWidth * 0.65);
+    } else if (viewportWidth <= 400) {
+      // Celulares pequenos (321px-400px)
+      cardWidth = Math.min(150, viewportWidth * 0.7);
+    } else if (viewportWidth <= 480) {
+      // Celulares médios (401px-480px)
+      cardWidth = Math.min(180, viewportWidth * 0.75);
+    } else if (viewportWidth <= 768) {
+      // Tablets pequenos (481px-768px)
+      cardWidth = Math.min(220, viewportWidth * 0.6);
+    } else if (viewportWidth <= 992) {
+      // Tablets (769px-992px)
+      cardWidth = Math.min(280, viewportWidth * 0.5);
+    } else if (viewportWidth <= 1200) {
+      // Desktops pequenos (993px-1200px)
+      cardWidth = Math.min(320, viewportWidth * 0.4);
+    } else {
+      // Desktops grandes (>1200px)
+      cardWidth = Math.min(350, viewportWidth * 0.35);
+    }
+    
+    // Ajuste para orientação landscape em mobile
+    if (viewportHeight < viewportWidth && viewportWidth <= 768) {
+      cardWidth = Math.min(cardWidth, viewportWidth * 0.3);
+    }
+    
+    // Garantir largura mínima para legibilidade
+    cardWidth = Math.max(cardWidth, 80);
+    
+    console.log(`CreditoComponent: Calculando largura do card - viewport: ${viewportWidth}x${viewportHeight}, card: ${cardWidth}px`);
+    return Math.round(cardWidth);
+  }
+
+  private addResizeListener() {
+    // Remove listener anterior se existir
+    this.removeResizeListener();
+    
+    // Adiciona novo listener com debounce
+    let resizeTimeout: any;
+    this.resizeHandler = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (this.isCardInitialized && this.cardInstance) {
+          const newWidth = this.calculateCardWidth();
+          console.log('CreditoComponent: Redimensionando card para:', newWidth);
+          
+          // Atualiza apenas a largura sem destruir o card
+          this.updateCardWidth(newWidth);
+        }
+      }, 300); // Debounce de 300ms
+    };
+    
+    window.addEventListener('resize', this.resizeHandler);
+  }
+
+  private removeResizeListener() {
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
+      this.resizeHandler = null;
+    }
+  }
+
+  private updateCardWidth(newWidth: number) {
+    if (!this.cardInstance || !this.isCardInitialized) {
+      console.warn('CreditoComponent: Tentativa de atualizar largura sem card inicializado');
+      return;
+    }
+
+    try {
+      // Atualiza a largura do card via CSS
+      const cardElement = document.querySelector('.card-wrapper .jp-card');
+      if (cardElement) {
+        (cardElement as HTMLElement).style.width = `${newWidth}px`;
+        console.log('CreditoComponent: Largura do card atualizada via CSS para:', newWidth);
+      } else {
+        // Se não encontrar o elemento, tenta reinicializar
+        console.warn('CreditoComponent: Elemento do card não encontrado, reinicializando...');
+        this.reinitializeCard();
+      }
+    } catch (error) {
+      console.error('CreditoComponent: Erro ao atualizar largura do card:', error);
+      // Em caso de erro, tenta reinicializar
+      this.reinitializeCard();
+    }
+  }
+
   // Método público para reinicializar o card (pode ser chamado externamente)
   public reinitializeCard() {
     console.log('CreditoComponent: Reinicializando card por solicitação externa');
-    this.initializeCard();
+    
+    // Destrói a instância atual
+    this.destroyCard();
+    
+    // Aguarda um pouco antes de reinicializar
+    setTimeout(() => {
+      this.initializeCard();
+    }, 200);
   }
 
   updateControlCpf(dono) {

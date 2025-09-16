@@ -1,3 +1,5 @@
+@use '../../../assets/scss/bootstrap/mixins/breakpoints' as *;
+
 .creditoContent {
   display: flex;
   flex-direction: row-reverse;
@@ -21,6 +23,28 @@
   justify-content: center;
   align-items: center;
   min-width: 0; /* Permite que o flex item encolha */
+  position: relative;
+  overflow: hidden;
+  
+  // Garantir que o card visual seja responsivo e sempre visível
+  .card {
+    width: 100%;
+    max-width: min(350px, 40vw); /* Máximo de 350px ou 40% da viewport */
+    height: auto;
+    aspect-ratio: 1.6; /* Proporção de cartão de crédito */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    // Garantir que o cartão não seja menor que um tamanho mínimo legível
+    min-width: 200px;
+    min-height: 125px; /* 200px / 1.6 = 125px */
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .form-group {
@@ -58,6 +82,14 @@
     max-width: 100%;
     width: 100%;
     padding: 15px;
+    min-height: 200px;
+    
+    .card {
+      max-width: min(300px, 50vw); /* 50% da viewport ou 300px máximo */
+      aspect-ratio: 1.6;
+      min-width: 180px;
+      min-height: 112px; /* 180px / 1.6 = 112px */
+    }
   }
 
   .formCard {
@@ -73,6 +105,14 @@
 
   .card-wrapper {
     padding: 12px;
+    min-height: 180px;
+    
+    .card {
+      max-width: min(280px, 60vw); /* 60% da viewport ou 280px máximo */
+      aspect-ratio: 1.6;
+      min-width: 160px;
+      min-height: 100px; /* 160px / 1.6 = 100px */
+    }
   }
 }
 
@@ -84,6 +124,14 @@
 
   .card-wrapper {
     padding: 10px;
+    min-height: 160px;
+    
+    .card {
+      max-width: min(250px, 70vw); /* 70% da viewport ou 250px máximo */
+      aspect-ratio: 1.6;
+      min-width: 140px;
+      min-height: 87px; /* 140px / 1.6 = 87px */
+    }
   }
 
   // Ajustar tamanhos de fonte para mobile
@@ -105,34 +153,232 @@
   }
 }
 
-// Ajustes para telas muito pequenas (menos de 360px)
-@media (max-width: 360px) {
+// Ajustes para mobile pequeno (320px - 480px)
+@media (max-width: 480px) {
   .creditoContent {
-    padding: 8px;
+    padding: 6px;
     gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .card-wrapper {
     padding: 8px;
+    max-width: 100%;
+    width: 100%;
+    order: -1;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .card {
+      max-width: min(220px, 80vw); /* 80% da viewport ou 220px máximo */
+      aspect-ratio: 1.6;
+      border-radius: 8px;
+      min-width: 120px;
+      min-height: 75px; /* 120px / 1.6 = 75px */
+    }
+  }
+}
+
+// Ajustes específicos para celulares entre 400px e 300px
+@media (max-width: 400px) and (min-width: 300px) {
+  .creditoContent {
+    padding: 4px;
+    gap: 6px;
   }
 
+  .card-wrapper {
+    padding: 6px;
+    min-height: 140px;
+    
+    .card {
+      max-width: min(180px, 75vw); /* 75% da viewport ou 180px máximo */
+      aspect-ratio: 1.6;
+      border-radius: 6px;
+      min-width: 100px;
+      min-height: 62px; /* 100px / 1.6 = 62px */
+    }
+  }
+}
+
+// Ajustes específicos para celulares entre 300px e 200px
+@media (max-width: 300px) and (min-width: 200px) {
+  .creditoContent {
+    padding: 3px;
+    gap: 4px;
+  }
+
+  .card-wrapper {
+    padding: 4px;
+    min-height: 120px;
+    
+    .card {
+      max-width: min(150px, 70vw); /* 70% da viewport ou 150px máximo */
+      aspect-ratio: 1.6;
+      border-radius: 4px;
+      min-width: 80px;
+      min-height: 50px; /* 80px / 1.6 = 50px */
+    }
+  }
   .formCard {
     font-size: 13px;
+    width: 100%;
   }
 
   input, textarea {
-    height: 40px;
-    font-size: 14px;
-    padding: 6px 10px;
+    height: 42px;
+    font-size: 16px; /* Evita zoom no iOS */
+    padding: 8px 12px;
   }
 
   label {
     font-size: 13px;
-    top: 6px;
+    top: 8px;
   }
 
   .parcelas-container {
-    max-width: 180px;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+// Ajustes para telas muito pequenas (menos de 200px)
+@media (max-width: 200px) {
+  .creditoContent {
+    padding: 2px;
+    gap: 3px;
+  }
+
+  .card-wrapper {
+    padding: 3px;
+    min-height: 100px;
+    
+    .card {
+      max-width: min(120px, 65vw); /* 65% da viewport ou 120px máximo */
+      aspect-ratio: 1.6;
+      border-radius: 3px;
+      min-width: 60px;
+      min-height: 37px; /* 60px / 1.6 = 37px */
+    }
+  }
+
+  .formCard {
+    font-size: 10px;
+  }
+
+  input, textarea {
+    height: 36px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  label {
+    font-size: 10px;
+    top: 4px;
+  }
+
+  .parcelas-container {
+    max-width: 100%;
+  }
+}
+
+// Ajustes para telas extra pequenas (entre 320px e 200px) - já coberto pelos breakpoints específicos acima
+
+// Ajustes para orientação landscape em mobile pequeno
+@media (max-width: 480px) and (orientation: landscape) {
+  .creditoContent {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 4px;
+    gap: 6px;
+  }
+
+  .card-wrapper {
+    order: 1;
+    min-height: 120px;
+    max-width: min(200px, 35vw); /* 35% da viewport ou 200px máximo */
+    flex-shrink: 0;
+    
+    .card {
+      max-width: 100%;
+      aspect-ratio: 1.6;
+      min-width: 100px;
+      min-height: 62px; /* 100px / 1.6 = 62px */
+    }
+  }
+
+  .formCard {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+// Ajustes para orientação landscape em celulares entre 400px e 300px
+@media (max-width: 400px) and (min-width: 300px) and (orientation: landscape) {
+  .card-wrapper {
+    min-height: 100px;
+    max-width: min(160px, 30vw); /* 30% da viewport ou 160px máximo */
+    
+    .card {
+      min-width: 80px;
+      min-height: 50px; /* 80px / 1.6 = 50px */
+    }
+  }
+}
+
+// Ajustes para orientação landscape em celulares entre 300px e 200px
+@media (max-width: 300px) and (min-width: 200px) and (orientation: landscape) {
+  .card-wrapper {
+    min-height: 80px;
+    max-width: min(120px, 25vw); /* 25% da viewport ou 120px máximo */
+    
+    .card {
+      min-width: 60px;
+      min-height: 37px; /* 60px / 1.6 = 37px */
+    }
+  }
+}
+
+// Ajustes para telas muito pequenas em landscape (já coberto pelos breakpoints específicos acima)
+
+// Melhorias para touch devices
+@media (hover: none) and (pointer: coarse) {
+  .card-wrapper .card {
+    &:hover {
+      transform: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// Garantir que o cartão sempre apareça inteiro na tela
+@media (max-width: 100vw) {
+  .card-wrapper {
+    // Garantir que o container não cause overflow
+    max-width: 100%;
+    overflow: visible;
+    
+    .card {
+      // Usar calc() para garantir que o cartão caiba na tela
+      max-width: calc(100vw - 40px); /* 40px de margem total */
+      max-height: calc(100vh - 200px); /* 200px para header/footer */
+      
+      // Manter proporção mesmo com restrições de altura
+      @media (max-height: 600px) {
+        max-height: calc(100vh - 150px);
+      }
+      
+      @media (max-height: 500px) {
+        max-height: calc(100vh - 100px);
+      }
+    }
   }
 }
 
