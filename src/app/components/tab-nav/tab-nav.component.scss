@@ -40,33 +40,78 @@
   .icon {
     font-size: 16px;
   }
+
+  .tab-text {
+    margin-left: 8px;
+  }
 }
 
 // Responsividade usando breakpoints Bootstrap
-@media (max-width: 576px) {
+@include media-breakpoint-down(sm) {
   .tab {
-    padding: 6px 12px;
-    font-size: 14px;
-    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 13px;
+    min-width: 90px;
+    flex: 1;
+    max-width: 120px;
 
     .icon {
-      font-size: 14px;
+      font-size: 12px;
+    }
+
+    .tab-text {
+      margin-left: 4px;
     }
   }
 }
 
-@media (min-width: 576px) and (max-width: 768px) {
+@include media-breakpoint-down(md) {
   .tab {
-    padding: 7px 15px;
-    font-size: 15px;
-    min-width: 110px;
+    padding: 8px 14px;
+    font-size: 14px;
+    min-width: 100px;
+    flex: 1;
+
+    .icon {
+      font-size: 14px;
+    }
+
+    .tab-text {
+      margin-left: 6px;
+    }
   }
 }
 
-@media (min-width: 768px) {
+@include media-breakpoint-up(lg) {
   .tab {
     padding: 8px 20px;
     font-size: 16px;
     min-width: 120px;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    .tab-text {
+      margin-left: 8px;
+    }
+  }
+}
+
+// Ajustes para telas muito pequenas (menos de 360px)
+@media (max-width: 360px) {
+  .tab {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-width: 80px;
+    max-width: 100px;
+
+    .icon {
+      font-size: 11px;
+    }
+
+    .tab-text {
+      margin-left: 3px;
+    }
   }
 }

@@ -55,7 +55,7 @@ describe("PagarDebitosComponent", () => {
     localStorage.clear();
     fixture = TestBed.createComponent(PagarDebitosComponent);
     component = fixture.componentInstance;
-    (window as any).scrollTo = jasmine.createSpy("scrollTo");
+    (window as any).scrollTo = jasmine.createSpy("scrollTo").and.callFake((options: any) => {});
     fixture.detectChanges();
   });
 
@@ -227,9 +227,10 @@ describe("PagarDebitosComponent", () => {
 
   it("should scroll to top with smooth behavior", () => {
     component.scrollToTop();
-    expect(window.scrollTo).toHaveBeenCalledWith({
+    expect(window.scrollTo).toHaveBeenCalled();
+    expect((window.scrollTo as jasmine.Spy).calls.mostRecent().args[0]).toEqual({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth'
     });
   });
 

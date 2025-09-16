@@ -30,12 +30,12 @@ describe("LazyWrapperComponent", () => {
 
   beforeEach(() => {
     originalObserver = (window as any).IntersectionObserver;
-    (window as any).IntersectionObserver = (jasmine
-      .createSpy("IntersectionObserver")
-      .and.callFake((cb: IntersectionObserverCallback) => {
+    (window as any).IntersectionObserver = class MockIntersectionObserver {
+      constructor(cb: IntersectionObserverCallback) {
         observer = new IntersectionObserverMock(cb);
         return observer as unknown as IntersectionObserver;
-      })) as any;
+      }
+    } as any;
   });
 
   afterEach(() => {

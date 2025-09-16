@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
 
 import { FormLaudoComponent } from "./form-laudo.component";
 import { LaudoService } from "../../service/laudo.service";
@@ -44,9 +45,11 @@ describe("FormLaudoComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [FormLaudoComponent],
-      imports: [ReactiveFormsModule],
-      providers: [{ provide: LaudoService, useClass: LaudoServiceStub }],
+      imports: [FormLaudoComponent, ReactiveFormsModule],
+      providers: [
+        { provide: LaudoService, useClass: LaudoServiceStub },
+        { provide: HttpClient, useValue: {} }
+      ],
     }).compileComponents();
   }));
 

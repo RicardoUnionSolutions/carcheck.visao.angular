@@ -56,14 +56,28 @@ describe("ConsultaVeicularCompletaComponent", () => {
     {
       id: 1,
       nome_da_consulta: "Consulta Base",
+      slug: "consulta-base",
+      descricao_da_consulta: "Consulta básica de veículo",
       valor_atual: 30.9,
       valor_promocional: 25.9,
+      imagem: "imagem1.jpg",
+      recomendada: false,
+      exemplo: "Exemplo de consulta base",
+      lista_de_insumos: ["insumo1", "insumo2"],
+      lista_de_insumos_negados: []
     },
     {
       id: 3,
       nome_da_consulta: "Consulta Veicular Completa",
+      slug: "consulta-veicular-completa",
+      descricao_da_consulta: "Consulta completa de veículo",
       valor_atual: 69.9,
       valor_promocional: 54.9,
+      imagem: "imagem2.jpg",
+      recomendada: true,
+      exemplo: "Exemplo de consulta completa",
+      lista_de_insumos: ["insumo1", "insumo2", "insumo3"],
+      lista_de_insumos_negados: []
     },
   ];
 

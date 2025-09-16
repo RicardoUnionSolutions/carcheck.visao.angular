@@ -117,7 +117,7 @@ describe("PostViewComponent", () => {
     historyStateSpy.and.returnValue({});
     postService.getPostById.and.returnValue(Promise.resolve(mainPost));
     postService.getPosts.and.returnValue(
-      Promise.resolve({ posts: fallbackPosts, totalDePosts: 2 })
+      Promise.resolve(fallbackPosts)
     );
 
     await component.ngOnInit();
@@ -161,7 +161,7 @@ describe("PostViewComponent", () => {
       buildPost({ id: 9, titulo: "Outro post 3", slug: "outro-3" }),
     ];
     postService.getPosts.and.returnValue(
-      Promise.resolve({ posts: highlightPosts, totalDePosts: 4 })
+      Promise.resolve(highlightPosts)
     );
 
     await component.getDestaques();

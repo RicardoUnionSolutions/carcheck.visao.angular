@@ -2,23 +2,25 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
+  gap: 20px;
 }
 
 .formCard {
   flex: 1;
   width: 100%;
+  min-width: 0; /* Permite que o flex item encolha */
 }
 
 .card-wrapper {
   flex: 1;
-  max-width: 500px; /* Ajuste o tamanho máximo do cartão conforme necessário */
+  max-width: 500px;
   display: flex;
   padding: 20px;
   justify-content: center;
   align-items: center;
-  /* Adicione aqui estilos adicionais para o cartão, como uma borda ou sombra */
+  min-width: 0; /* Permite que o flex item encolha */
 }
 
 .form-group {
@@ -33,14 +35,104 @@
   width: 100%; /* Garante que os inputs preencham o espaço disponível */
 }
 
-@media (max-width: 768px) {
+.parcelas-container {
+  width: fit-content;
+  
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+// Breakpoints responsivos usando mixins do Bootstrap
+@include media-breakpoint-down(lg) {
   .creditoContent {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
   }
 
   .card-wrapper {
-    margin-top: 20px;
+    order: -1; /* Coloca o cartão visual primeiro */
+    max-width: 100%;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .formCard {
+    width: 100%;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .creditoContent {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .card-wrapper {
+    padding: 12px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .creditoContent {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .card-wrapper {
+    padding: 10px;
+  }
+
+  // Ajustar tamanhos de fonte para mobile
+  .formCard {
+    font-size: 14px;
+  }
+
+  // Ajustar inputs para mobile
+  input, textarea {
+    height: 42px;
+    font-size: 16px; /* Evita zoom no iOS */
+    padding: 8px 12px;
+  }
+
+  // Ajustar labels para mobile
+  label {
+    font-size: 14px;
+    top: 8px;
+  }
+}
+
+// Ajustes para telas muito pequenas (menos de 360px)
+@media (max-width: 360px) {
+  .creditoContent {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .card-wrapper {
+    padding: 8px;
+  }
+
+  .formCard {
+    font-size: 13px;
+  }
+
+  input, textarea {
+    height: 40px;
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  label {
+    font-size: 13px;
+    top: 6px;
+  }
+
+  .parcelas-container {
+    max-width: 180px;
   }
 }
 

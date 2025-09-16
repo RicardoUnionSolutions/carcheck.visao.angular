@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 import { CkModalMsgComponent } from './ck-modal-msg.component';
 import { ModalService } from '../../../service/modal.service';
+import { HttpClient } from '@angular/common/http';
 
 class ModalServiceStub {
   msg$ = new BehaviorSubject<any>({
@@ -25,8 +26,11 @@ describe('CkModalMsgComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CkModalMsgComponent],
-      providers: [{ provide: ModalService, useClass: ModalServiceStub }],
+      imports: [CkModalMsgComponent],
+      providers: [
+        { provide: ModalService, useClass: ModalServiceStub },
+        { provide: HttpClient, useValue: {} }
+      ],
     }).compileComponents();
   }));
 

@@ -34,7 +34,9 @@ describe("ModalService", () => {
       "getUrl",
     ]);
     token = jasmine.createSpyObj<TokenService>("TokenService", [
-      "getTokenLogin",
+      "getToken",
+      "setToken",
+      "removeToken",
     ]);
 
     service = new ModalService(http, variable, token);

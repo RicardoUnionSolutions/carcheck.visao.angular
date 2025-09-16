@@ -125,7 +125,7 @@ describe("PessoaService", () => {
       email: "USER@MAIL.COM",
       manterconectado: true,
     };
-    service.logar(login).subscribe();
+    service.logar(login).then(() => {});
     expect(httpSpy.post).toHaveBeenCalledWith(
       "base/cliente/login",
       {

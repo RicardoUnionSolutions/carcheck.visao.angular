@@ -5,13 +5,29 @@
       src="./assets/images/suporte-de-chat-masculino.png"
       alt="Suporte - Chat"
     />
+    <div class="tooltip">
+      <span class="tooltip-text">Fale conosco</span>
+      <div class="tooltip-arrow"></div>
+    </div>
   </div>
   <div class="options" [class.show]="showOptions" [class.hide]="!showOptions">
-    <a href="https://api.whatsapp.com/send?phone=5527998281914" target="_blank">
-      <i class="mdi mdi-whatsapp"></i> WhatsApp
+    <a href="https://api.whatsapp.com/send?phone=5527998281914" target="_blank" class="contact-btn whatsapp-btn">
+      <div class="btn-icon">
+        <i class="mdi mdi-whatsapp"></i>
+      </div>
+      <div class="btn-content">
+        <span class="btn-title">WhatsApp</span>
+        <span class="btn-subtitle">Chat direto</span>
+      </div>
     </a>
-    <button style="cursor: pointer !important" (click)="sendEmail()">
-      <i class="mdi mdi-email"></i> Email
+    <button class="contact-btn email-btn" (click)="sendEmail()">
+      <div class="btn-icon">
+        <i class="mdi mdi-email"></i>
+      </div>
+      <div class="btn-content">
+        <span class="btn-title">Email</span>
+        <span class="btn-subtitle">Enviar mensagem</span>
+      </div>
     </button>
   </div>
 </div>

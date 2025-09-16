@@ -10,7 +10,6 @@
     <app-confirmar-email
       [(user)]="this.user"
       [(token)]="this.token"
-      (emailConfirmado)="onEmailConfirmado($event)"
       *ngIf="emailVerificado === false"
     ></app-confirmar-email>
     <login

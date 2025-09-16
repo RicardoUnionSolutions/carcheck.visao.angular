@@ -1,12 +1,12 @@
-<div class="d-flex flex-wrap justify-content-center gap-2">
+<div class="d-flex flex-wrap justify-content-center gap-1 gap-sm-2">
   <ng-container *ngFor="let tab of tabs; let i = index">
     <button
       (click)="goToTab(i)"
       class="tab btn"
       [ngClass]="{ active: currentTab == i, desativado: !tab.ativo }"
     >
-      <i *ngIf="tab.icon" class="icon me-2" [ngClass]="tab.icon"></i>
-      <span>{{ tab.title }}</span>
+      <i *ngIf="tab.icon" class="icon" [ngClass]="tab.icon"></i>
+      <span class="tab-text">{{ tab.title }}</span>
     </button>
   </ng-container>
 </div>

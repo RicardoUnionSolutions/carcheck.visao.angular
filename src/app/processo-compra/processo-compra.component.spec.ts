@@ -282,7 +282,7 @@ describe("ProcessoCompraComponent", () => {
     component = createComponent({
       status: true,
       statusCadastro: "COMPLETO",
-      cliente: { documento: "123", tipoPessoa: "JURIDICA" },
+      cliente: { documento: "123", tipoPessoa: "JURIDICA", clienteTipoIndefinido: "N" },
     });
 
     expect(component.stepIndex.pagamento).toBe(2);
@@ -293,7 +293,7 @@ describe("ProcessoCompraComponent", () => {
     component = createComponent({
       status: true,
       statusCadastro: "INCOMPLETO",
-      cliente: { documento: "123" },
+      cliente: { documento: "123", tipoPessoa: "FISICA", clienteTipoIndefinido: "N" },
     });
 
     expect(component.stepIndex.completarCadastro).toBe(2);
@@ -451,7 +451,7 @@ describe("ProcessoCompraComponent", () => {
     "stepCadastroEvent deve cadastrar usuário e avançar quando formulário válido",
     fakeAsync(() => {
       component = createComponent({
-        cliente: { documento: "000.000.000-00" },
+        cliente: { documento: "000.000.000-00", tipoPessoa: "FISICA", clienteTipoIndefinido: "N" },
       });
       component.cadastrarUsuario.formAcesso.controls.email.setValue(
         "novo@teste.com"

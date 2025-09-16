@@ -27,9 +27,8 @@ describe("HistoricoCardComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [HistoricoCardComponent],
+    imports: [HistoricoCardComponent],
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [],
     providers: [
         { provide: Router, useValue: routerSpy },
         { provide: dadosConsultaService, useValue: dadosConsultaServiceSpy },

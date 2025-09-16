@@ -225,7 +225,14 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
           this.user = this.jwtHelper.decodeToken(this.token).iss;
           this.user = JSON.parse(this.user);
           this.emailVerificado = this.user.emailVerificado;
+          
+          console.log("Dados do usuário após cadastro:", this.user);
+          console.log("Email verificado:", this.emailVerificado);
+          console.log("Tipo do emailVerificado:", typeof this.emailVerificado);
+          
           if (this.emailVerificado) {
+            // Email já verificado - mostrar modal de sucesso e fazer login
+            console.log("Email já verificado - mostrando modal de sucesso");
             this.modalService.openModalMsg({
               status: "0",
               title: "Cadastro Efetuado com sucesso!",
@@ -239,6 +246,8 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
               cancel: { show: false },
             });
           }
+          // Se emailVerificado for false, a modal de confirmação será exibida automaticamente
+          // pelo template que verifica *ngIf="emailVerificado === false"
         })
         .catch((e) => {
           this.modalService.closeLoading();
@@ -253,6 +262,12 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
 
   cadastrarChange() {
     this.cadastrar = !this.cadastrar;
+    // Resetar variáveis quando alternar entre login e cadastro
+    if (!this.cadastrar) {
+      this.emailVerificado = undefined;
+      this.user = null;
+      this.token = null;
+    }
   }
   /*
     atualizouCad() {
@@ -272,24 +287,18 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
       
       console.log("LoginView - Email verificado:", this.emailVerificado);
       
-      if (!this.emailVerificado) {
-        console.log("LoginView - Exibindo modal de confirmação de email");
-      } else {
+      if (this.emailVerificado) {
         // Email verificado - fazer login e redirecionar
         this.loginService.logIn(this.token);
       }
+      // Se emailVerificado for false, a modal de confirmação será exibida automaticamente
+      // pelo template que verifica *ngIf="emailVerificado === false"
     } else {
       // Caso: email verificado - apenas evento simples é emitido
       console.log("LoginView - Login com email verificado, redirecionamento será feito pelo LoginComponent");
     }
   }
 
-  onEmailConfirmado(confirmacaoData: {user: any, token: any}) {
-    // Salvar o token no serviço de login
-    this.loginService.logIn(confirmacaoData.token);
-    
-    // O redirecionamento será feito automaticamente pelo logInSubscriber
-  }
 
   loginFbChange() {
     // var token;

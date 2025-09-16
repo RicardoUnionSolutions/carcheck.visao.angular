@@ -67,7 +67,7 @@ describe('CreditoComponent', () => {
     expect(component.cartao.bandeira).toBe('visa');
 
     const spy = spyOn(component, 'getCreditCardBrand').and.callThrough();
-    component.ngOnChanges();
+    component.ngOnChanges({} as any);
     tick();
     expect(spy).toHaveBeenCalled();
   }));
@@ -77,7 +77,7 @@ describe('CreditoComponent', () => {
     tick();
     component.form = null as any;
     const spy = spyOn(component, 'getCreditCardBrand');
-    component.ngOnChanges();
+    component.ngOnChanges({} as any);
     tick();
     expect(spy).not.toHaveBeenCalled();
   }));

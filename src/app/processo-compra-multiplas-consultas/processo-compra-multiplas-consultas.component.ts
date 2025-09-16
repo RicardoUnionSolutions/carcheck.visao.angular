@@ -51,7 +51,7 @@ export class ProcessoCompraMultiplasConsultasComponent implements OnInit {
   detalhesCompra: String = "";
 
   valorTotal: any = 0;
-  valorTotalDesconto: 0;
+  valorTotalDesconto: number = 0;
 
   codigoDesconto: any = "";
   valorToltalOriginal: any = 0.0;
