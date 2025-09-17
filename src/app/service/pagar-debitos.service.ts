@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VariableGlobal } from './variable.global.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PagarDebitosService {
 
 
