@@ -11,7 +11,7 @@
             </comprar-consulta>
         </div>
 
-        <div [hidden]="stepIndex.veiculo != currentStep" class="mt-0 pt-lg-5 mt-lg-5 pb-3 pb-md-5 my-5">
+        <div [hidden]="stepIndex.veiculo != currentStep" class="mt-2 pt-lg-5 mt-lg-5 pb-3 pb-md-5 my-5 mx-auto ">
 
             <ng-container *ngIf="!possuiLaudo">
                 <selecionar-veiculo [(tipoPesquisa)]="tipoPesquisa" [(placa)]="pesquisaPlaca"
@@ -79,7 +79,7 @@
 
         </div>
         }
-        <div class="mb-5 flex-wrap flex-column-reverse flex-md-row flex-md-nowrap" [ngClass]="{
+        <div class="mb-5 flex-wrap flex-column-reverse flex-md-row flex-md-nowrap comprar-consulta-continue-button" [ngClass]="{
             'flex-jb': (!logIn.status && cadastrar && stepIndex.cadastro==currentStep),
             'flex-je': !(!logIn.status && cadastrar && stepIndex.cadastro==currentStep)
         }">

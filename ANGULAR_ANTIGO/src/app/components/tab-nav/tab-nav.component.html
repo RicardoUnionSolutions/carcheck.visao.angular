@@ -1,6 +1,0 @@
-<ng-container *ngFor="let tab of tabs; let i=index">
-  <button (click)="goToTab(i)" class="tab" [ngClass]="{'active': currentTab==i, 'desativado': !tab.ativo}">
-  <i *ngIf="tab.icon" class="icon f-24 f-lg-32" [ngClass]="tab.icon"></i>
-  <span class="f-20 f-lg-24">{{tab.title}}</span> 
-  </button>
-</ng-container>

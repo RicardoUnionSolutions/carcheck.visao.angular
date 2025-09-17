@@ -1,11 +1,11 @@
-<div *ngIf="!dadosCompra" class="container border-silver-light p-3 p-sm-5 mt-5">
+<div *ngIf="!dadosCompra" class="container-confirmacao-pagamento container border-silver-light p-3 p-sm-5 mt-5">
     <h1 class="f-22">Nenhuma confirmação de pagamento foi encontrada.</h1>
     <p class="f-18 mt-4 text-secondary">
         Para mais informações sobre suas compras, acesse
         <a [routerLink]="'/status-pagamento'" class="text-orange-1">status de pagamento</a>.
     </p>
 
-    <div class="flex-wrap flex-md-nowrap flex-jb mt-5">
+    <div class="flex-wrap flex-md-nowrap flex-jb mt-5 gap-2">
         <div class="mb-2 mb-md-0 mr-0 mr-md-2 w-100">
             <a [routerLink]="'/comprar-consulta-placa'" class="btn btn-success px-5 flex-wrap  w-100">NOVA CONSULTA</a>
         </div>
@@ -43,7 +43,7 @@
             Clique aqui para gerar o boleto
         </a>
 
-        <div *ngIf="dadosCompra.tipoPagamento=='DEBITO'" class="mt-2 text-gray-deep mw-100">
+        <div *ngIf="dadosCompra.tipoPagamento=='BOLETO'" class="mt-2 text-gray-deep mw-100">
             <div class="text-blue flex-js fw-500">
                 <i class="mdi mdi-information-outline f-28 mr-2"></i>
                 <span>
@@ -125,7 +125,7 @@
             </span>
         </div>
 
-        <div class="flex-wrap flex-md-nowrap flex-jb mt-5">
+        <div class="flex-wrap flex-md-nowrap flex-jb mt-5 gap-2">
             <div class="mb-2 mb-md-0 mr-0 mr-md-2 w-100">
                 <a [routerLink]="'/comprar-consulta-placa'" class="btn btn-success px-5 flex-wrap  w-100">NOVA CONSULTA</a>
             </div>

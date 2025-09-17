@@ -1,8 +1,0 @@
-      PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
-     2621    2453    2621      46148  cons1    1050202 14:51:36 /usr/bin/PS
-     1789       1    1789      53844  cons3    1050202 14:40:05 /usr/bin/bash
-     2446    1789    2446      26696  cons3    1050202 14:46:57 /usr/bin/sh
-     2452    2446    2446      29128  cons3    1050202 14:46:57 /c/Program Files/nodejs/node
-      351       1     351      16096  cons0    1050202 12:05:06 /usr/bin/bash
-      901       1     901      25432  cons2    1050202 13:59:14 /usr/bin/bash
-     2453       1    2453      53340  cons1    1050202 14:48:42 /usr/bin/bash

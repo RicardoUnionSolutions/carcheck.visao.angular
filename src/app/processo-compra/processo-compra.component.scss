@@ -6,14 +6,14 @@
 .currentStep-container{
     min-height: 380px;
     max-width: 1200px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex-direction: column;
     margin: 0 auto;
-
 }
-
+.comprar-consulta-continue-button {
+    margin-top: auto;
+    padding-top: 0;
+    width: 100%;
+    margin-bottom: 1rem;
+}
 .continuar-area{ 
     width: 100%;
 }
@@ -21,10 +21,15 @@
 .container-form{ 
     padding: 25px;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 100px);
 }
 
 .btn-next{
   width: 345px;
+  max-width: 345px;
+  min-width: 345px;
 }
 
 // Classes flex do ANGULAR_ANTIGO
@@ -40,13 +45,21 @@
   align-items: flex-end;
 }
 
+.flex-ac {
+  align-items: center;
+}
+
+.flex-jc {
+  justify-content: center;
+}
+
 @media (min-width: 992px) {
     .container{
         max-width: 1200px;
     }
 }
 
-@media (max-width: 576px) {
+@include media-breakpoint-down(sm) {
     .btn-next{
         width: 100%;
     }

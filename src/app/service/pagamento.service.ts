@@ -16,22 +16,31 @@ export class PagamentoService {
   }
 
   async pagar(pagamento: any): Promise<any> {
-    // console.log(pagamento.pagamento.tipo);
+    console.log('Tipo de pagamento:', pagamento.pagamento.tipo);
+    
     if (pagamento.pagamento.tipo == "CARTAO") {
       let validade = pagamento.pagamento.CARTAO.vencimento;
       let mes = validade.split("/")[0];
       let ano = "20" + validade.split("/")[1];
-      // console.log('tipo cartao ok', pagamento);
+      console.log('Processando cartão de crédito');
       try {
         let tokenPagamentoCartao = await this.pagSeguroService.getTokenCardPagSeguro(pagamento.pagamento.CARTAO.numero, pagamento.pagamento.CARTAO.cvv, mes, ano)
         pagamento.pagamento.tokenCartao = tokenPagamentoCartao;
-        // console.log('token cartao ok', pagamento);
+        console.log('Token do cartão obtido com sucesso');
       } catch (error) {
         pagamento.pagamento.origemPagamento = "PAG_SEGURO";
         pagamento.pagamento.origemPagamento = "IUGU";
-        // console.log('erro foi pra iugu', pagamento);
+        console.log('Erro no PagSeguro, redirecionando para IUGU');
       }
+    } else if (pagamento.pagamento.tipo == "BOLETO") {
+      console.log('Processando pagamento via boleto - IUGU');
+      pagamento.pagamento.origemPagamento = "IUGU";
+    } else if (pagamento.pagamento.tipo == "PIX") {
+      console.log('Processando pagamento via PIX - IUGU');
+      pagamento.pagamento.origemPagamento = "IUGU";
     }
+    
+    console.log('Enviando pagamento para o backend:', pagamento);
     return this.realizarPagamento(pagamento).toPromise();
   }
 

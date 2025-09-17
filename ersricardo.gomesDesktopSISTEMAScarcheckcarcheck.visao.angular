@@ -1,0 +1,30 @@
+[33mcommit 98cd12125e254edd3ab63609d2e2dca2a9886af2[m
+Merge: 73820d7 70d9698
+Author: eduardo <eduardo.correa2007@hotmail.com>
+Date:   Thu Jul 31 18:39:27 2025 -0300
+
+    pinpag
+
+ package-lock.json                                  | 1538 [32m+++++++++++++++++++[m[31m-[m
+ src/app/app-routing.module.ts                      |   75 [32m+[m[31m-[m
+ src/app/app.component.ts                           |   20 [32m+[m[31m-[m
+ src/app/app.module.ts                              |  309 [32m++[m[31m--[m
+ .../cards-servicos/cards-servicos.component.html   |   22 [32m+[m
+ .../cards-servicos/cards-servicos.component.scss   |  163 [32m+++[m
+ .../cards-servicos/cards-servicos.component.ts     |   78 [32m+[m
+ .../consulta-company.component.html                |    6 [32m+[m[31m-[m
+ .../card-servicos/card-servicos.component.html     |    8 [32m+[m
+ .../card-servicos/card-servicos.component.scss     |    0
+ .../card-servicos/card-servicos.component.ts       |   15 [32m+[m
+ .../home-view/depoimentos/depoimentos.component.ts |    6 [31m-[m
+ .../destaque-servicos.component.html               |   20 [32m+[m[31m-[m
+ .../destaque-servicos.component.scss               |   33 [32m+[m[31m-[m
+ src/app/home-view/servicos/servicos.component.html |   27 [32m+[m[31m-[m
+ src/app/home-view/servicos/servicos.component.scss |  292 [32m++++[m
+ src/app/home-view/servicos/servicos.component.ts   |    3 [32m+[m
+ src/app/pagar-debitos/pagar-debitos.component.html |  200 [32m+++[m
+ src/app/pagar-debitos/pagar-debitos.component.scss |  454 [32m++++++[m
+ .../pagar-debitos/pagar-debitos.component.spec.ts  |   28 [32m+[m
+ src/app/pagar-debitos/pagar-debitos.component.ts   |  205 [32m+++[m
+ src/app/service/pagar-debitos.service.ts           |   27 [32m+[m
+ 22 files changed, 3287 insertions(+), 242 deletions(-)

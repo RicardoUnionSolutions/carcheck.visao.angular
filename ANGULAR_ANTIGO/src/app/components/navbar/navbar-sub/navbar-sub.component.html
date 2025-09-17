@@ -1,8 +1,0 @@
-<ul class="container">
-    <li *ngFor="let o of options; let i = index;">
-      <a (click)="selectItem(i)" [ngClass]="{'active': active == i}" >
-          <div *ngIf="o.icon" [inlineSVG]="o.icon" class="icon-svg" [removeSVGAttributes]="['class']"></div>
-          <span class="f-16 text-truncate d-none d-lg-block">{{o.label}}</span>
-      </a>
-    </li>
-</ul>

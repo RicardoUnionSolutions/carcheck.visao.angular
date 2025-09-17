@@ -4,20 +4,92 @@
 @use 'mixins/breakpoints' as *;
 @use 'sass:math';
 
-// Variáveis locais do componente
+// ========================================
+// VARIÁVEIS GLOBAIS
+// ========================================
+
+// Desktop (padrão)
 $step-size: 60px !default;
 $step-size-done: 60px !default;
-$step-size-active: 70px !default; // Step ativo ligeiramente maior
+$step-size-active: 70px !default;
 
 $step-font-size: 28px !default;
 $step-font-size-done: 28px !default;
-$step-font-size-active: 28px !default; // Ajustado para ser igual ao tamanho padrão
+$step-font-size-active: 28px !default;
 
 $step-img-size: 48px !default;
 $step-img-size-done: 48px !default;
-$step-img-size-active: 56px !default; // Imagem do step ativo ligeiramente maior
+$step-img-size-active: 56px !default;
 
-// CSS Custom Properties para melhor manutenibilidade
+// Large screens
+$step-lg-size: 50px !default;
+$step-lg-size-done: 50px !default;
+$step-lg-size-active: 60px !default;
+
+$step-lg-font-size: 24px !default;
+$step-lg-font-size-done: 24px !default;
+$step-lg-font-size-active: 24px !default;
+
+$step-lg-img-size: 40px !default;
+$step-lg-img-size-done: 40px !default;
+$step-lg-img-size-active: 48px !default;
+
+// Medium screens
+$step-md-size: 40px !default;
+$step-md-size-done: 40px !default;
+$step-md-size-active: 48px !default;
+
+$step-md-font-size: 24px !default;
+$step-md-font-size-done: 24px !default;
+$step-md-font-size-active: 24px !default;
+
+$step-md-img-size: 32px !default;
+$step-md-img-size-done: 32px !default;
+$step-md-img-size-active: 38px !default;
+
+// Small screens
+$step-sm-size: 32px !default;
+$step-sm-size-done: 32px !default;
+$step-sm-size-active: 43px !default; // +5px para mobile
+
+$step-sm-font-size: 18px !default;
+$step-sm-font-size-done: 18px !default;
+$step-sm-font-size-active: 18px !default;
+
+$step-sm-img-size: 24px !default;
+$step-sm-img-size-done: 24px !default;
+$step-sm-img-size-active: 33px !default; // +5px para mobile
+
+// Extra small screens
+$step-xs-size: 28px !default;
+$step-xs-size-done: 28px !default;
+$step-xs-size-active: 39px !default; // +5px para mobile
+
+$step-xs-font-size: 16px !default;
+$step-xs-font-size-done: 16px !default;
+$step-xs-font-size-active: 16px !default;
+
+$step-xs-img-size: 20px !default;
+$step-xs-img-size-done: 20px !default;
+$step-xs-img-size-active: 29px !default; // +5px para mobile
+
+// Extra extra small screens
+$step-xxs-size: 24px !default;
+$step-xxs-size-done: 24px !default;
+$step-xxs-size-active: 35px !default; // +5px para mobile
+
+$step-xxs-font-size: 14px !default;
+$step-xxs-font-size-done: 14px !default;
+$step-xxs-font-size-active: 14px !default;
+
+$step-xxs-img-size: 16px !default;
+$step-xxs-img-size-done: 16px !default;
+$step-xxs-img-size-active: 25px !default; // +5px para mobile
+
+// ========================================
+// ESTILOS BASE
+// ========================================
+
 :host {
     --step-size: #{$step-size};
     --step-font-size: #{$step-font-size};
@@ -29,71 +101,9 @@ $step-img-size-active: 56px !default; // Imagem do step ativo ligeiramente maior
     --step-transition: all 0.3s ease;
 }
 
-
-
-$step-md-size: 40px !default;
-$step-md-size-done: 40px !default;
-$step-md-size-active: 48px !default; // Step ativo ligeiramente maior
-
-$step-md-font-size: 24px !default;
-$step-md-font-size-done: 24px !default;
-$step-md-font-size-active: 24px !default;
-
-$step-md-img-size: 32px !default;
-$step-md-img-size-done: 32px !default;
-$step-md-img-size-active: 38px !default; // Imagem do step ativo ligeiramente maior
-
-
-$step-lg-size: 50px !default;
-$step-lg-size-done: 50px !default;
-$step-lg-size-active: 60px !default; // Step ativo ligeiramente maior
-
-$step-lg-font-size: 24px !default;
-$step-lg-font-size-done: 24px !default;
-$step-lg-font-size-active: 24px !default; // Ajustado para ser igual ao tamanho padrão
-
-$step-lg-img-size: 40px !default;
-$step-lg-img-size-done: 40px !default;
-$step-lg-img-size-active: 48px !default; // Imagem do step ativo ligeiramente maior
-
-$step-sm-size: 32px !default;
-$step-sm-size-done: 32px !default;
-$step-sm-size-active: 38px !default; // Step ativo ligeiramente maior
-
-$step-sm-font-size: 18px !default;
-$step-sm-font-size-done: 18px !default;
-$step-sm-font-size-active: 18px !default;
-
-$step-sm-img-size: 24px !default;
-$step-sm-img-size-done: 24px !default;
-$step-sm-img-size-active: 28px !default; // Imagem do step ativo ligeiramente maior
-
-$step-xs-size: 28px !default;
-$step-xs-size-done: 28px !default;
-$step-xs-size-active: 34px !default; // Step ativo ligeiramente maior
-
-$step-xs-font-size: 16px !default;
-$step-xs-font-size-done: 16px !default;
-$step-xs-font-size-active: 16px !default;
-
-$step-xs-img-size: 20px !default;
-$step-xs-img-size-done: 20px !default;
-$step-xs-img-size-active: 24px !default; // Imagem do step ativo ligeiramente maior
-
-$step-xxs-size: 24px !default;
-$step-xxs-size-done: 24px !default;
-$step-xxs-size-active: 30px !default; // Step ativo ligeiramente maior
-
-$step-xxs-font-size: 14px !default;
-$step-xxs-font-size-done: 14px !default;
-$step-xxs-font-size-active: 14px !default;
-
-$step-xxs-img-size: 16px !default;
-$step-xxs-img-size-done: 16px !default;
-$step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente maior
-
-
-
+// ========================================
+// ESTILOS BASE - DESKTOP
+// ========================================
 
 :host {
     display: flex;
@@ -130,70 +140,72 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     width: 100%;
     height: 100%;
     object-fit: contain;
-
     display: flex;
     padding: 5px;
     max-width: $step-img-size;
     max-height: $step-img-size;
 }
 
-:host.active-return{
+// ========================================
+// ESTADOS DOS STEPS - DESKTOP
+// ========================================
+
+:host.active-return {
     animation: step-active-reverse 400ms ease-in 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
-:host.active-return img{
+:host.active-return img {
     animation: step-active-img-reverse 400ms ease-in 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
-:host.done-to-active{
+:host.done-to-active {
     border: 0px solid #244b5a;
     background-color: #efefef;
     font-size: $step-font-size-done;
     color: Rgba(0,0,0,1);
     animation: step-done-reverse 400ms ease-out 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
-:host.done-to-active img{
+:host.done-to-active img {
     animation: step-done-img-reverse 400ms ease-out 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 :host.active {
-    border: 3px solid var(--step-active-bg);
-    background: var(--step-active-bg);
-    background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
-    background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
-    background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
-    font-size: $step-font-size-active;
-    color: var(--step-active-color);
-    background-origin: border-box;
-    height: $step-size-active;
-    min-height: $step-size-active;
-    max-height: $step-size-active;
-    flex-basis: $step-size-active;
-    width: $step-size-active;
-    min-width: $step-size-active;
-    max-width: $step-size-active;
-
+    border: 3px solid var(--step-active-bg) !important;
+    background: var(--step-active-bg) !important;
+    background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%) !important;
+    background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%) !important;
+    background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%) !important;
+    font-size: $step-font-size-active !important;
+    color: var(--step-active-color) !important;
+    background-origin: border-box !important;
+    height: $step-size-active !important;
+    min-height: $step-size-active !important;
+    max-height: $step-size-active !important;
+    flex-basis: $step-size-active !important;
+    width: $step-size-active !important;
+    min-width: $step-size-active !important;
+    max-width: $step-size-active !important;
     animation: step-active 400ms ease-out 400ms 1;
     -webkit-animation-fill-mode: both;
     -moz-animation-fill-mode: both;
@@ -202,20 +214,35 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     animation-fill-mode: both;
 }
 
-:host.active img{
-    filter: grayscale(1) brightness(1.5);
-    max-width: $step-img-size-active;
-    max-height: $step-img-size-active;
-    opacity: 1;
+// Regra adicional para garantir que o estado ativo seja aplicado imediatamente
+:host.active:not(.active-return):not(.done-to-active) {
+    height: $step-size-active !important;
+    min-height: $step-size-active !important;
+    max-height: $step-size-active !important;
+    flex-basis: $step-size-active !important;
+    width: $step-size-active !important;
+    min-width: $step-size-active !important;
+    max-width: $step-size-active !important;
+}
+
+:host.active img {
+    filter: grayscale(1) brightness(1.5) !important;
+    max-width: $step-img-size-active !important;
+    max-height: $step-img-size-active !important;
+    opacity: 1 !important;
     animation: step-active-img 400ms ease-out 400ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
+// Regra adicional para garantir que a imagem do estado ativo seja aplicada imediatamente
+:host.active:not(.active-return):not(.done-to-active) img {
+    max-width: $step-img-size-active !important;
+    max-height: $step-img-size-active !important;
+}
 
 :host.done {
     border: 3px solid var(--step-active-bg);
@@ -234,22 +261,24 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     animation-fill-mode: both;
 }
 
-:host.done img{
+:host.done img {
     filter: grayscale(1) brightness(1.5);
     max-width: $step-img-size-done;
     max-height: $step-img-size-done;
     opacity: 1;
     animation: step-done-img 400ms ease-out 0ms 1;
-    -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-    -moz-animation-fill-mode: both;    /* FF 5+ */
-    -o-animation-fill-mode: both;      /* Not implemented yet */
-    -ms-animation-fill-mode: both;     /* IE 10+ */
-    animation-fill-mode: both;         /* When the spec is finished */
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
+// ========================================
+// ANIMAÇÕES - DESKTOP
+// ========================================
 
-@keyframes step-active{
+@keyframes step-active {
     0% {
         border: 0px solid #244b5a;
         background-color: #efefef;
@@ -257,9 +286,8 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
         color: Rgba(0,0,0,1);
         background-origin: border-box;
     }
-
-        40% {
-            border: math.div($step-size-done, 2) solid #244b5a;
+    40% {
+        border: math.div($step-size-done, 2) solid #244b5a;
         background-color: #efefef;
         font-size: 5px;
         height: $step-size-done;
@@ -270,15 +298,13 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
         min-width: $step-size-done;
         max-width: $step-size-done;
     }
-
-    41%{
+    41% {
         background-color: #244b5a;
         background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
         background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
         background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
         color: Rgba(255,255,255,0);
     }
-
     100% {
         height: $step-size-active;
         min-height: $step-size-active;
@@ -294,12 +320,10 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
         background: -moz-radial-gradient(top, ellipse cover, #346275 0%, #284e5d 85%, #284e5d 100%);
         background: -webkit-radial-gradient(top, ellipse cover,  #346275 0%, #284e5d 85%, #284e5d 100%);
         background: radial-gradient(ellipse at top, #346275 0%, #284e5d 85%, #284e5d 100%);
-
     }
 }
 
-
-@keyframes step-active-reverse{
+@keyframes step-active-reverse {
     100% {
         border: 0px solid #244b5a;
         background-color: #efefef;
@@ -502,8 +526,11 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     }
 }
 
-@include media-breakpoint-down(md) {
+// ========================================
+// BREAKPOINT: MEDIUM SCREENS (md)
+// ========================================
 
+@include media-breakpoint-down(md) {
     :host {
         display: flex;
         align-items: center;
@@ -808,9 +835,12 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
 
 
 
-@include media-breakpoint-down(lg) {
+// ========================================
+// BREAKPOINT: LARGE SCREENS (lg)
+// ========================================
 
-    :host{
+@include media-breakpoint-down(lg) {
+    :host {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -874,9 +904,12 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     }
 }
 
-@include media-breakpoint-down(sm) {
+// ========================================
+// BREAKPOINT: SMALL SCREENS (sm)
+// ========================================
 
-    :host{
+@include media-breakpoint-down(sm) {
+    :host {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -940,444 +973,15 @@ $step-xxs-img-size-active: 20px !default; // Imagem do step ativo ligeiramente m
     }
 }
 
-@include media-breakpoint-down(xs) {
-
-    :host{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: $step-xs-size;
-        min-height: $step-xs-size;
-        max-height: $step-xs-size;
-        flex-basis: $step-xs-size;
-        width: $step-xs-size;
-        min-width: $step-xs-size;
-        max-width: $step-xs-size;
-        font-size: $step-xs-font-size;
-        border-radius: 50%;
-        position: relative;
-        z-index: 2;
-        background: #efefef;
-        line-height: 1;
-    }
-
-    :host img{
-        filter: grayscale(1) brightness(0.5);
-        max-width: $step-xs-img-size;
-        max-height: $step-xs-img-size;
-        opacity: 1;
-    }
-
-    :host.done{
-        cursor: pointer;
-        animation: step-done 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-    :host.done img{
-        animation: step-done-img 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-
-    @keyframes step-active{
-        0% {
-            border: 0px solid #243646;
-            background: #efefef;
-            font-size: $step-xs-font-size-done;
-            color: Rgba(0,0,0,1);
-        }
-
-        40% {
-            border: math.div($step-xs-size-done, 2) solid #243646;
-            background: #efefef;
-            font-size: 5px;
-            height: $step-xs-size-done;
-            min-height: $step-xs-size-done;
-            max-height: $step-xs-size-done;
-            flex-basis: $step-xs-size-done;
-            width: $step-xs-size-done;
-            min-width: $step-xs-size-done;
-            max-width: $step-xs-size-done;
-        }
-
-        41%{
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            color: Rgba(255,255,255,0);
-        }
-
-        100% {
-            height: $step-xs-size-active;
-            min-height: $step-xs-size-active;
-            max-height: $step-xs-size-active;
-            flex-basis: $step-xs-size-active;
-            width: $step-xs-size-active;
-            min-width: $step-xs-size-active;
-            max-width: $step-xs-size-active;
-            font-size: $step-xs-font-size-active;
-            color: Rgba(255,255,255,1);
-            border: 4px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-    }
-
-
-    @keyframes step-active-reverse{
-        100% {
-            border: 0px solid #243646;
-            background: #efefef;
-            font-size: $step-xs-font-size-done;
-            color: Rgba(0,0,0,1);
-        }
-
-        61% {
-            background: #efefef;
-            font-size: 5px;
-            height: $step-xs-size-done;
-            min-height: $step-xs-size-done;
-            max-height: $step-xs-size-done;
-            flex-basis: $step-xs-size-done;
-            width: $step-xs-size-done;
-            min-width: $step-xs-size-done;
-            max-width: $step-xs-size-done;
-        }
-
-        60%{
-            border: math.div($step-xs-size-done, 2) solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            color: Rgba(255,255,255,0);
-        }
-
-        0% {
-            height: $step-xs-size-active;
-            min-height: $step-xs-size-active;
-            max-height: $step-xs-size-active;
-            flex-basis: $step-xs-size-active;
-            width: $step-xs-size-active;
-            min-width: $step-xs-size-active;
-            max-width: $step-xs-size-active;
-            font-size: $step-xs-font-size-active;
-            color: Rgba(255,255,255,1);
-            border: 4px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-    }
-
-
-    @keyframes step-done{
-        0% {
-            height: $step-xs-size-active;
-            min-height: $step-xs-size-active;
-            max-height: $step-xs-size-active;
-            flex-basis: $step-xs-size-active;
-            width: $step-xs-size-active;
-            min-width: $step-xs-size-active;
-            max-width: $step-xs-size-active;
-            font-size: $step-xs-font-size-active;
-            color: Rgba(255,255,255,1);
-            border: 4px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-
-        100% {
-            height: $step-xs-size-done;
-            min-height: $step-xs-size-done;
-            max-height: $step-xs-size-done;
-            flex-basis: $step-xs-size-done;
-            width: $step-xs-size-done;
-            min-width: $step-xs-size-done;
-            max-width: $step-xs-size-done;
-            font-size: $step-xs-font-size-done;
-            color: Rgba(255,255,255,1);
-            border: 3px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-    }
+// ========================================
+// BREAKPOINT: EXTRA SMALL SCREENS (xs)
+// ========================================
 
 
 
-    @keyframes step-done-reverse{
-        0% {
-            height: $step-xs-size-done;
-            min-height: $step-xs-size-done;
-            max-height: $step-xs-size-done;
-            flex-basis: $step-xs-size-done;
-            width: $step-xs-size-done;
-            min-width: $step-xs-size-done;
-            max-width: $step-xs-size-done;
-            font-size: $step-xs-font-size-done;
-            color: Rgba(255,255,255,1);
-            border: 3px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-
-        100% {
-            height: $step-xs-size-active;
-            min-height: $step-xs-size-active;
-            max-height: $step-xs-size-active;
-            flex-basis: $step-xs-size-active;
-            width: $step-xs-size-active;
-            min-width: $step-xs-size-active;
-            max-width: $step-xs-size-active;
-            font-size: $step-xs-font-size-active;
-            color: Rgba(255,255,255,1);
-            border: 4px solid #243646;
-            background: #243646;
-            background: -moz-radial-gradient(top, ellipse cover, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: -webkit-radial-gradient(top, ellipse cover,  #3f7187 0%, #284e5d 85%, #284e5d 100%);
-            background: radial-gradient(ellipse at top, #3f7187 0%, #284e5d 85%, #284e5d 100%);
-        }
-
-    }
-
-    @keyframes step-active-img{
-        0%{
-            filter: grayscale(1) brightness(0.5);
-            max-width: $step-xs-img-size;
-            max-height: $step-xs-img-size;
-            opacity: 1;
-        }
-
-        40%{
-            max-width: math.div($step-xs-img-size, 10);
-            max-height: math.div($step-xs-img-size, 10);
-            opacity: 0.2;
-            filter: grayscale(1) brightness(0.8);
-        }
-
-        100%{
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size-active;
-            max-height: $step-xs-img-size-active;
-            opacity: 1;
-        }
-    }
-
-    @keyframes step-active-img-reverse{
-        0%{
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size-active;
-            max-height: $step-xs-img-size-active;
-            opacity: 1;
-        }
-
-        60%{
-            max-width: math.div($step-xs-img-size, 10);
-            max-height: math.div($step-xs-img-size, 10);
-            opacity: 0.2;
-            filter: grayscale(1) brightness(0.8);
-        }
-
-        100%{
-            filter: grayscale(1) brightness(0.5);
-            max-width: $step-xs-img-size;
-            max-height: $step-xs-img-size;
-            opacity: 1;
-        }
-
-    }
-
-
-    @keyframes step-done-img{
-        0% {
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size-active;
-            max-height: $step-xs-img-size-active;
-            opacity: 1;
-        }
-
-        100% {
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size-done;
-            max-height: $step-xs-img-size-done;
-            opacity: 1;
-        }
-    }
-
-    @keyframes step-done-img-reverse{
-        0% {
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size;
-            max-height: $step-xs-img-size;
-            opacity: 1;
-        }
-
-        100% {
-            filter: grayscale(1) brightness(1.5);
-            max-width: $step-xs-img-size-active;
-            max-height: $step-xs-img-size-active;
-            opacity: 1;
-        }
-    }
-
-}
-
-// Breakpoint para telas muito pequenas (até 320px)
-@media (max-width: 320px) {
-
-    :host{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: $step-xxs-size;
-        min-height: $step-xxs-size;
-        max-height: $step-xxs-size;
-        flex-basis: $step-xxs-size;
-        width: $step-xxs-size;
-        min-width: $step-xxs-size;
-        max-width: $step-xxs-size;
-        font-size: $step-xxs-font-size;
-        border-radius: 50%;
-        position: relative;
-        z-index: 2;
-        background: #efefef;
-        line-height: 1;
-    }
-
-    :host img{
-        filter: grayscale(1) brightness(0.5);
-        max-width: $step-xxs-img-size;
-        max-height: $step-xxs-img-size;
-        opacity: 1;
-    }
-
-    :host.done{
-        cursor: pointer;
-        animation: step-done 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-    :host.done img{
-        animation: step-done-img 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-    :host.active{
-        height: $step-xs-size-active !important;
-        min-height: $step-xs-size-active !important;
-        max-height: $step-xs-size-active !important;
-        flex-basis: $step-xs-size-active !important;
-        width: $step-xs-size-active !important;
-        min-width: $step-xs-size-active !important;
-        max-width: $step-xs-size-active !important;
-        font-size: $step-xs-font-size-active !important;
-    }
-
-    :host.active img{
-        max-width: $step-xs-img-size-active;
-        max-height: $step-xs-img-size-active;
-    }
-}
-
-// Breakpoint para telas muito pequenas (até 320px)
-@media (max-width: 320px) {
-
-    :host{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: $step-xxs-size;
-        min-height: $step-xxs-size;
-        max-height: $step-xxs-size;
-        flex-basis: $step-xxs-size;
-        width: $step-xxs-size;
-        min-width: $step-xxs-size;
-        max-width: $step-xxs-size;
-        font-size: $step-xxs-font-size;
-        border-radius: 50%;
-        position: relative;
-        z-index: 2;
-        background: #efefef;
-        line-height: 1;
-    }
-
-    :host img{
-        filter: grayscale(1) brightness(0.5);
-        max-width: $step-xxs-img-size;
-        max-height: $step-xxs-img-size;
-        opacity: 1;
-    }
-
-    :host.done{
-        cursor: pointer;
-        animation: step-done 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-    :host.done img{
-        animation: step-done-img 400ms ease-out 0ms 1;
-        -webkit-animation-fill-mode: both; /* Chrome 16+, Safari 4+ */
-        -moz-animation-fill-mode: both;    /* FF 5+ */
-        -o-animation-fill-mode: both;      /* Not implemented yet */
-        -ms-animation-fill-mode: both;     /* IE 10+ */
-        animation-fill-mode: both;         /* When the spec is finished */
-        animation-fill-mode: both;
-    }
-
-    :host.active{
-        height: $step-xxs-size-active !important;
-        min-height: $step-xxs-size-active !important;
-        max-height: $step-xxs-size-active !important;
-        flex-basis: $step-xxs-size-active !important;
-        width: $step-xxs-size-active !important;
-        min-width: $step-xxs-size-active !important;
-        max-width: $step-xxs-size-active !important;
-        font-size: $step-xxs-font-size-active !important;
-    }
-
-    :host.active img{
-        max-width: $step-xxs-img-size-active;
-        max-height: $step-xxs-img-size-active;
-    }
-}
-
-// Regras responsivas usando especificidade adequada e CSS custom properties
+// ========================================
+// CSS CUSTOM PROPERTIES RESPONSIVAS
+// ========================================
 // A especificidade :host.active é maior que :host, garantindo que o estado ativo seja aplicado corretamente
 
 @include media-breakpoint-down(md) {

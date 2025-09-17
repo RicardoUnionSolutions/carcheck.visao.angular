@@ -1,5 +1,11 @@
 // Estilos específicos para compatibilidade visual com ANGULAR_ANTIGO
+@use 'variables' as *;
+@use 'mixins/breakpoints' as *;
 
+
+.dados-veiculo-form {
+    margin: 0 auto ;
+}
 input[type="text"]{
     max-width: 400px;
     letter-spacing: 10px;
@@ -7,31 +13,143 @@ input[type="text"]{
     box-shadow: none;
     font-family: "Caros";
     text-transform: uppercase;
+    transition: all 0.3s ease;
 }
-
 
 .veiculo-pesquisa-form{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+    
     label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: $dark;
+        
         input[type="radio"]{
             margin-right: 6px;
-            background-color: red;
+            background-color: transparent;
+            border: 2px solid $gray-400;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            
+            &:checked {
+                background-color: $primary;
+                border-color: $primary;
+            }
+        }
+    }
+    
+    .col-lg-4, .col-md-6, .col-12 {
+        display: flex;
+        flex-direction: column;
+        min-width: 280px;
+        flex: 1;
+    }
+    
+    .fw-700 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 60px;
+        color: $gray-600;
+        font-weight: 700;
+    }
+}
+
+// Responsividade para tablets
+@include media-breakpoint-down(lg) {
+    .veiculo-pesquisa-form {
+        gap: 0.75rem;
+        
+        .col-lg-4, .col-md-6, .col-12 {
+            min-width: 250px;
         }
     }
 }
 
-
-@media (max-width: 768px) {
+// Responsividade para tablets pequenos
+@include media-breakpoint-down(md) {
+    .veiculo-pesquisa-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        padding: 0 1rem;
+        
+        .col-lg-4, .col-md-6, .col-12 {
+            min-width: 100%;
+            width: 100%;
+        }
+        
+        .fw-700 {
+            order: 1;
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .col-lg-4:first-child {
+            order: 0;
+        }
+        
+        .col-lg-4:last-child {
+            order: 2;
+        }
+    }
+    
     input[type="text"]{
         max-width: 100%;
+        width: 100%;
     }
 }
 
-@media (max-width: 576px) {
-    .veiculo-pesquisa-form{
-        flex-wrap: wrap;
+// Responsividade para mobile
+@include media-breakpoint-down(sm) {
+    .veiculo-pesquisa-form {
+        padding: 0 0.5rem;
+        gap: 1rem;
+        
+        .fw-700 {
+            font-size: 1rem;
+            margin: 0.25rem 0;
+        }
+        
+        label {
+            font-size: 0.9rem;
+            
+            input[type="radio"]{
+                width: 16px;
+                height: 16px;
+                margin-right: 4px;
+            }
+        }
+    }
+    
+    input[type="text"]{
+        font-size: 0.9rem;
+        padding: 0.75rem;
+        letter-spacing: 8px;
+    }
+}
+
+// Responsividade para mobile pequeno
+@include media-breakpoint-down(xs) {
+    .veiculo-pesquisa-form {
+        padding: 0;
+        
+        label {
+            font-size: 0.85rem;
+        }
+    }
+    
+    input[type="text"]{
+        font-size: 0.85rem;
+        padding: 0.6rem;
+        letter-spacing: 6px;
     }
 }

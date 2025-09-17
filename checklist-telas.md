@@ -34,18 +34,19 @@
 
 ### 📊 **Resultados e Relatórios**
 - [ ] **Consulta Detalhada** (`/consulta/:tokenConsulta`) - Resultado completo da consulta
-- [ ] **Dados da Conta** (`/conta`) - Informações da conta do usuário
+- [X] **Dados da Conta** (`/conta`) - Informações da conta do usuário
 
 ### 📝 **Informações e Suporte**
-- [ ] **Contato** (`/contato`) - Página de contato
-- [ ] **Dúvidas Frequentes** (`/duvidas-frequentes`) - FAQ do sistema
-- [ ] **Política de Privacidade** (`/politica-de-privacidade`) - Política de privacidade
-- [ ] **Blog** (`/blog`) - Página do blog
-- [ ] **Post do Blog** (`/blog/:id/:slug`) - Visualização de post específico
-- [ ] **Categoria do Blog** (`/blog/:categoriaSlug`) - Posts por categoria
+- [X] **Contato** (`/contato`) - Página de contato
+- [X] **Dúvidas Frequentes** (`/duvidas-frequentes`) - FAQ do sistema
+- [X] **Política de Privacidade** (`/politica-de-privacidade`) - Política de privacidade
+- [X] **Blog** (`/blog`) - Página do blog
+- [X] **Post do Blog** (`/blog/:id/:slug`) - Visualização de post específico
+- [X] **Categoria do Blog** (`/blog/:categoriaSlug`) - Posts por categoria
 
 ### 🔧 **Vistoria e Laudos**
 - [ ] **Vistoria** (`/vistoria/:token`) - Sistema de vistoria
+- [ ] **Vistoria** (`/vistoria-consulta/:token`) - Sistema de vistoria
 
 ---
 

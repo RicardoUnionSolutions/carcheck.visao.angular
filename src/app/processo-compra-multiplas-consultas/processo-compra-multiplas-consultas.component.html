@@ -4,7 +4,7 @@
 </h1>
 
 
-<step-by-step class="mx-4 mx-md-auto" [steps]="steps" [(currentStep)]="currentStep"
+<step-by-step class="m-4 mx-md-auto" [steps]="steps" [(currentStep)]="currentStep"
   (currentStepChange)="onChangeStep()" [doneSteps]="doneSteps"></step-by-step>
 
 <comprar-consulta-multipla [hidden]="currentStep!=stepIndex.consulta" [(consultas)]="consultas" [(pacote)]="pacote"

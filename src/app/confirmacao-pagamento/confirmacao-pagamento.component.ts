@@ -1,15 +1,18 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { PagamentoService } from '../service/pagamento.service';
 import { AnalyticsService } from '../service/analytics.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NotificationService } from '../service/notification.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-confirmacao-pagamento',
     templateUrl: './confirmacao-pagamento.component.html',
     styleUrls: ['./confirmacao-pagamento.component.scss'],
-    standalone: true
+    standalone: true,
+    imports: [CommonModule, RouterModule, NgbTooltipModule]
 })
 export class ConfirmacaoPagamentoComponent implements OnInit {
   dadosCompra: any;

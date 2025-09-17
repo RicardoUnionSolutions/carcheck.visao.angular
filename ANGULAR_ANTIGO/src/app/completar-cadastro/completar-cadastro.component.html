@@ -1,9 +1,0 @@
-<div class="mt-5 pt-5">
-  <tab-nav [tabs]="[{title:'Pessoa Física'}]" [(currentTab)]="cadastro.tipoPessoa" (currentTabChange)="tipoPessoaChange()"></tab-nav>
-
-  <cadastrar-pessoa-fisica [(cadastro)]="cadastro" [hidden]="pessoaFisica!=cadastro.tipoPessoa"></cadastrar-pessoa-fisica>
-
-  <cadastrar-pessoa-juridica [(cadastro)]="cadastro" [hidden]="pessoaJuridica!=cadastro.tipoPessoa"></cadastrar-pessoa-juridica>
-
-  <button (click)="atualizarCadastro()" class="btn w-100 btn-lg btn-orange-1 mt-5">ATUALIZAR</button>
-</div>
