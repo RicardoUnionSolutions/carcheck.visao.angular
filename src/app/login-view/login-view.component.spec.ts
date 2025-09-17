@@ -11,7 +11,7 @@ import { ModalService } from "../service/modal.service";
 import { AnalyticsService } from "../service/analytics.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { BehaviorSubject, Subject } from "rxjs";
-import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
+import { FormsModule, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
@@ -84,6 +84,7 @@ describe("LoginViewComponent", () => {
     ]);
 
     await TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [
         LoginViewComponent,
         LoginStubComponent,
@@ -193,9 +194,23 @@ describe("LoginViewComponent", () => {
     expect(pessoaServiceMock.adicionar).not.toHaveBeenCalled();
   });
 
+  it("should require termos de uso before cadastro", () => {
+    component.cadastrarUsuario.form.controls.email.setValue("a@b.com");
+    modalServiceMock.openLoading.calls.reset();
+    component.termosUsoAceito = false;
+    component.alertTermosUso = false;
+    component.efetuarCadastro();
+    expect(component.alertTermosUso).toBeTrue();
+    expect(modalServiceMock.openLoading).not.toHaveBeenCalled();
+    expect(pessoaServiceMock.adicionar).not.toHaveBeenCalled();
+    expect(pessoaServiceMock.atualizar).not.toHaveBeenCalled();
+  });
+
   it("should call atualizar when tokenFacebook is present", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "fb";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.atualizar.and.returnValue(Promise.resolve("token"));
     component.efetuarCadastro();
     tick();
@@ -212,6 +227,8 @@ describe("LoginViewComponent", () => {
   it("should handle atualizar error", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "fb";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.atualizar.and.returnValue(Promise.reject("erro"));
     modalServiceMock.openModalMsg.calls.reset();
     analyticsServiceMock.novoCadastroFb.calls.reset();
@@ -226,6 +243,8 @@ describe("LoginViewComponent", () => {
   it("should set email error when email already exists", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.adicionar.and.returnValue(Promise.resolve("erro_email"));
     component.efetuarCadastro();
     tick();
@@ -239,6 +258,8 @@ describe("LoginViewComponent", () => {
   it("should add user and open modal when cadastro succeeds", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.adicionar.and.returnValue(Promise.resolve("token"));
     component.jwtHelper = {
       decodeToken: () => ({ iss: JSON.stringify({ emailVerificado: true }) }),
@@ -256,6 +277,8 @@ describe("LoginViewComponent", () => {
   it("should not open modal when email not verified", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.adicionar.and.returnValue(Promise.resolve("token"));
     component.jwtHelper = {
       decodeToken: () => ({ iss: JSON.stringify({ emailVerificado: false }) }),
@@ -270,6 +293,8 @@ describe("LoginViewComponent", () => {
   it("should show error modal when adicionar fails", fakeAsync(() => {
     component.cadastrarUsuario.tokenFacebook = "";
     component.cadastrarUsuario.form.setValue({ email: "a@b.com" });
+    component.termosUsoAceito = true;
+    component.alertTermosUso = false;
     pessoaServiceMock.adicionar.and.returnValue(Promise.reject("error"));
     component.efetuarCadastro();
     tick();
