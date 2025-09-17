@@ -24,4 +24,8 @@ export class PagarDebitosService {
     return this.http.post(
       this.variableGlobal.getUrl("pinpag/gerarLinkPagamento"), dados)
   }
+
+  buscarRetorno(consultId: string): Observable<any> {
+    return this.http.get(this.variableGlobal.getUrl("pinpag/buscarRetorno/" + consultId))
+  }
 }
