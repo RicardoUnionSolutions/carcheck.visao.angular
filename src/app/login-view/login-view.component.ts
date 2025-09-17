@@ -7,8 +7,9 @@ import { CommonModule } from "@angular/common";
 import { PessoaService } from "../service/pessoa.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { LoginService } from "../service/login.service";
-import { UntypedFormGroup } from "@angular/forms";
+import { FormsModule, UntypedFormGroup } from "@angular/forms";
 import { ModalService } from "../service/modal.service";
+import { ModalTermosUsoComponent } from "../modal-termos-uso.component";
 import { AnalyticsService } from "../service/analytics.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { NavigationService } from "../service/navigation.service";
@@ -20,10 +21,12 @@ import { NavigationService } from "../service/navigation.service";
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     LoginComponent,
     CadastrarComponent,
     CkModalComponent,
     ConfirmarEmailComponent,
+    ModalTermosUsoComponent,
   ],
 })
 export class LoginViewComponent implements OnInit, AfterViewInit {
@@ -33,6 +36,10 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
 
   cadastrar = false;
   cadastrarRestoFB = false;
+
+  termosUsoAceito = false;
+  alertTermosUso = false;
+  mostrarModalTermos = false;
 
   emailVerificado: boolean | undefined = undefined;
 
@@ -137,6 +144,25 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
     this.modalService.open("modalAvisoLogin");
   }
 
+  openModalTermosUso(): void {
+    this.mostrarModalTermos = true;
+  }
+
+  handleModalTermosUso(aceitou: boolean): void {
+    this.mostrarModalTermos = false;
+    if (aceitou) {
+      this.termosUsoAceito = true;
+      this.alertTermosUso = false;
+    }
+  }
+
+  onTermosUsoChange(value: boolean): void {
+    this.termosUsoAceito = value;
+    if (value) {
+      this.alertTermosUso = false;
+    }
+  }
+
   ngOnDestroy() {
     this.logInSubscriber.unsubscribe();
   }
@@ -174,6 +200,12 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    if (!this.termosUsoAceito) {
+      this.alertTermosUso = true;
+      return;
+    }
+
+    this.alertTermosUso = false;
     this.cadastrarUsuario.clienteTipoIndefinido = "N";
     let cadastro = { ...this.cadastrarUsuario };
     delete cadastro.form;
@@ -262,6 +294,9 @@ export class LoginViewComponent implements OnInit, AfterViewInit {
 
   cadastrarChange() {
     this.cadastrar = !this.cadastrar;
+    this.termosUsoAceito = false;
+    this.alertTermosUso = false;
+    this.mostrarModalTermos = false;
     // Resetar variáveis quando alternar entre login e cadastro
     if (!this.cadastrar) {
       this.emailVerificado = undefined;
