@@ -18,7 +18,7 @@
             <select id="estado" formControlName="uf">
               <option value="SP">São Paulo</option>
             </select>
-            <div class="error" *ngIf="form.get('estado')?.hasError('required') && form.get('estado')?.touched">
+            <div class="error" *ngIf="form.get('uf')?.hasError('required') && form.get('uf')?.touched">
               Campo obrigatório
             </div>
           </div>
@@ -60,10 +60,10 @@
             <div *ngIf="consultaAnterior != null">
               ou
             </div>
-            <div (click)="this.buscarPelaConsultaAnterior(consultaAnterior)" *ngIf="consultaAnterior?.placa"
+            <div (click)="this.buscarPelaConsultaAnterior(consultaAnterior)" *ngIf="consultaAnterior != null"
               class="consulta-anterior">
               <strong> Ver consulta anterior </strong>
-              <span *ngIf="consultaAnterior?.placa">{{ consultaAnterior.placa.slice(0, 3) + '-' + consultaAnterior.placa.slice(3) }}</span>
+              <span>{{ consultaAnterior.placa.slice(0, 3) + '-' + consultaAnterior.placa.slice(3) }}</span>
             </div>
           </div>
         </form>
@@ -93,11 +93,11 @@
 
     <div *ngIf="dadosDoVeiculo.veiculo" appAppearOnScroll class="veiculo">
       <div class="logo-marca-container">
-        <div class="img-circle"><img alt=""
+        <div class="img-circle">
+          <img alt=""
             src="./assets/images/marcas/{{dadosDoVeiculo.veiculo?.marca?.toLowerCase()}}.png" height="100px"
             onerror="this.onerror=null; this.src='./assets/images/logos/Carcheck_Logos-07.png';">
         </div>
-
       </div>
       <div class="info-veiculo w-100">
         <div class="containerPlaca">
@@ -176,14 +176,14 @@
 
         <div class="form-group">
           <label for="nome">Nome</label>
-          <input type="nome" id="nome" formControlName="nome" required placeholder="Seu nome" />
+          <input type="text" id="nome" formControlName="nome" required placeholder="Seu nome" />
           <div class="error" *ngIf="formPagamento.get('nome')?.touched">
             <div *ngIf="formPagamento.get('nome')?.hasError('required')">Campo obrigatório</div>
           </div>
         </div>
         <div class="form-group">
           <label for="documento">Documento</label>
-          <input type="documento" id="documento" formControlName="documento" placeholder="Seu CPF" required />
+          <input type="text" id="documento" formControlName="documento" placeholder="Seu CPF" required />
           <div class="error" *ngIf="formPagamento.get('documento')?.touched">
             <div *ngIf="formPagamento.get('documento')?.hasError('required')">Campo obrigatório</div>
           </div>

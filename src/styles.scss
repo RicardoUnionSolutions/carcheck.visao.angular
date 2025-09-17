@@ -96,3 +96,34 @@ body.ck-modal-open {
   font-size: 24px;
   text-decoration: none;
 }
+
+// Classes de cor para SVGs
+.fill-success {
+  fill: #28a745 !important;
+}
+
+.fill-success svg,
+.fill-success path,
+.fill-success circle {
+  fill: #28a745 !important;
+}
+
+.fill-danger {
+  fill: #dc3545 !important;
+}
+
+.fill-warning {
+  fill: #ffc107 !important;
+}
+
+.fill-info {
+  fill: #17a2b8 !important;
+}
+
+.fill-orange-1 {
+  fill: #ecda26 !important;
+}
+
+.fill-blue {
+  fill: #007bff !important;
+}

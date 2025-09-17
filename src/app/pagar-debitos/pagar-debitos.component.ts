@@ -5,13 +5,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalService } from '../service/modal.service';
 import { PagarDebitosService } from '../service/pagar-debitos.service';
 import { InlineSVGDirective } from '../directives/inline-svg.directive';
+import { AppearOnScrollDirective } from '../directives/appear-on-scroll.directive';
+import { AppearRightOnScrollDirective } from '../directives/appearRight-on-scroll.directive';
 
 @Component({
     selector: 'app-pagar-debitos',
     templateUrl: './pagar-debitos.component.html',
     styleUrls: ['./pagar-debitos.component.scss'],
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, InlineSVGDirective]
+    imports: [CommonModule, ReactiveFormsModule, InlineSVGDirective, AppearOnScrollDirective, AppearRightOnScrollDirective]
 })
 export class PagarDebitosComponent implements OnInit {
   @ViewChild('fimDaPagina') fimDaPagina!: ElementRef;
@@ -95,18 +97,10 @@ export class PagarDebitosComponent implements OnInit {
 
     this.service.consultarDebitos(dadosConsulta).subscribe({
       next: (v: any) => {
-        console.log(v)
-        this.dadosDoVeiculo = v;
+        const consultId = v.consultId;
 
-        // salvar no localstorage o this.dadosDoVeiculo.consult_id
-        localStorage.setItem('consulta_anterior', JSON.stringify({
-          consult_id: v.consult_id,
-          uf: v.vehicle.uf,
-          placa: v.vehicle.license_plate,
-          renavam: v.vehicle.renavam,
-        }));
-
-        this.modalService.closeLoading();
+        // Iniciar o polling para buscar o retorno
+        this.buscarRetornoDebitos(consultId);
       },
       error: (err) => {
         this.modalService.closeLoading();
@@ -114,6 +108,66 @@ export class PagarDebitosComponent implements OnInit {
         console.error('Erro ao buscar debitos:', err);
       },
     });
+  }
+
+  buscarRetornoDebitos(consultId: string) {
+    let tentativas = 0;
+    const maxTentativas = 12;
+    const intervalo = 5000; // 5 segundos
+
+    const fazerRequisicao = () => {
+      if (tentativas >= maxTentativas) {
+        this.modalService.closeLoading();
+        this.modalService.openModalMsg({
+          status: 2,
+          cancel: { show: false },
+          title: 'Timeout: Não foi possível obter os débitos. Tente novamente mais tarde.'
+        });
+        return;
+      }
+
+      tentativas++;
+      console.log(`Tentativa ${tentativas} de ${maxTentativas} para buscar retorno dos débitos`);
+
+      this.service.buscarRetorno(consultId).subscribe({
+        next: (retorno: any) => {
+          // Se retornou dados válidos (status não é "pending")
+          if (retorno && retorno.status !== 'pending') {
+            this.dadosDoVeiculo = retorno;
+            // salvar no localstorage o this.dadosDoVeiculo.consult_id
+            localStorage.setItem('consulta_anterior', JSON.stringify({
+              consult_id: retorno.consult_id,
+              uf: retorno.vehicle.uf,
+              placa: retorno.vehicle.license_plate,
+              renavam: retorno.vehicle.renavam,
+            }));
+
+            this.modalService.closeLoading();
+          } else {
+            // Se ainda está pendente, aguarda e tenta novamente
+            setTimeout(fazerRequisicao, intervalo);
+          }
+        },
+        error: (err) => {
+          if (err.status === 404) {
+            // Status 404 significa que ainda está pendente, tenta novamente
+            setTimeout(fazerRequisicao, intervalo);
+          } else {
+            // Outros erros, para o polling
+            this.modalService.closeLoading();
+            this.modalService.openModalMsg({
+              status: 2,
+              cancel: { show: false },
+              title: 'Erro ao buscar retorno dos débitos. Tente novamente.'
+            });
+            console.error('Erro ao buscar retorno:', err);
+          }
+        }
+      });
+    };
+
+    // Inicia o polling
+    fazerRequisicao();
   }
 
   buscarPelaConsultaAnterior() {
@@ -188,23 +242,13 @@ export class PagarDebitosComponent implements OnInit {
 
   mascaraPlaca(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (!input || !input.value) {
-      return;
-    }
-    
     let value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-    if (value && value.length > 3) {
-      value = value.slice(0, 3) + '-' + value.slice(3, 7);
+    if (value.length > 3) {
+      value = value.slice(0, 3) + '-' + value.slice(3);
     }
-    
-    if (input) {
-      input.value = value;
-    }
-    
-    if (this.form && this.form.controls['placa']) {
-      this.form.controls['placa'].setValue(value);
-    }
+    input.value = value;
+    this.form.controls['placa'].setValue(value);
   }
 
   scrollToTop() {

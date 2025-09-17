@@ -30,6 +30,7 @@ import { WebSocketService } from "./service/webSocket.service";
 import { ConsultaDuasEtapasService } from "./service/consulta-duas-etapas.service";
 import { PagSeguroService } from "./service/pagseguro.service";
 import { NotificationService } from "./service/notification.service";
+import { PagarDebitosService } from "./service/pagar-debitos.service";
 
 // Register locale data
 registerLocaleData(localePT);
@@ -64,5 +65,6 @@ export const appConfig: ApplicationConfig = {
     ConsultaDuasEtapasService,
     PagSeguroService,
     NotificationService,
+    PagarDebitosService,
   ],
 };
