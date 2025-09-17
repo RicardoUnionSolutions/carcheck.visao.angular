@@ -1,15 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { PagSeguroService } from '../../service/pagseguro.service';
 import { AnalyticsService } from '../../service/analytics.service';
-import { ModalService } from '../../service/modal.service';
 import { PagamentoService } from '../../service/pagamento.service';
 import { CreditoComponent } from './credito/credito.component';
 import { BoletoComponent } from './boleto/boleto.component';
 import { PixComponent } from './pix/pix.component';
 import { TabNavComponent } from '../../components/tab-nav/tab-nav.component';
-import { CkModalComponent } from '../../components/ck-modal/ck-modal.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ModalTermosUsoComponent } from '../../modal-termos-uso.component';
 
 
 
@@ -18,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './forma-pagamento.component.html',
     styleUrls: ['./forma-pagamento.component.scss'],
     standalone: true,
-    imports: [CommonModule, FormsModule, TabNavComponent, CreditoComponent, BoletoComponent, PixComponent, CkModalComponent]
+    imports: [CommonModule, FormsModule, TabNavComponent, CreditoComponent, BoletoComponent, PixComponent, ModalTermosUsoComponent]
 })
 export class FormaPagamentoComponent implements OnInit {
   @ViewChild(CreditoComponent) credito;
@@ -57,10 +56,14 @@ export class FormaPagamentoComponent implements OnInit {
 
   @Input() bancoDebito = null;
   bandeirasDebito: any;
-  termosUsoAlert: boolean;
+  termosUsoAlert = false;
+  mostrarModalTermos = false;
 
-
-  constructor(private pagamentoService: PagamentoService, public pagSeguro: PagSeguroService, private analyticsService: AnalyticsService, private modalService: ModalService) {
+  constructor(
+    private pagamentoService: PagamentoService,
+    public pagSeguro: PagSeguroService,
+    private analyticsService: AnalyticsService
+  ) {
 
     this.menuPagamento = [
       { title: 'Crédito', icon: 'mdi mdi-credit-card-multiple', value: 'CREDITO' },
@@ -137,16 +140,16 @@ export class FormaPagamentoComponent implements OnInit {
     }
   }
 
-  openModalTermosUso() {
-    this.modalService.open('modaltermosuso');
+  openModalTermosUso(): void {
+    this.mostrarModalTermos = true;
   }
 
-  closeModalTermosUso(check) {
-    if (check) {
+  closeModalTermosUso(aceitou: boolean): void {
+    this.mostrarModalTermos = false;
+    if (aceitou) {
       this.pagamento.termosUso = true;
-      this.pagamento.termosUsoAlert = false;
+      this.termosUsoAlert = false;
     }
-    this.modalService.close('modaltermosuso');
   }
 
 

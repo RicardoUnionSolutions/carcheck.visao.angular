@@ -20,6 +20,30 @@
     ></login>
     <div *ngIf="cadastrar" class="w-100">
       <cadastrar [(cadastro)]="cadastrarUsuario"></cadastrar>
+      <div class="py-2 px-3 bg-light rounded my-3">
+        <div class="flex-ac custom-checkbox-wrapper">
+          <input
+            [(ngModel)]="termosUsoAceito"
+            (change)="onTermosUsoChange($event.target.checked)"
+            class="custom-checkbox m-0 radio-md"
+            id="inputtermposdeuso"
+            type="checkbox"
+            name="inputtermposdeuso"
+          />
+          <label for="inputtermposdeuso" class="f-16 ml-2 fw-700">
+            Li e aceito com os
+            <u
+              (click)="openModalTermosUso(); $event.preventDefault(); $event.stopPropagation();"
+              class="pointer text-orange-1 fw-700"
+            >
+              Termos de uso e Política de Privacidade
+            </u>.
+          </label>
+        </div>
+        <div *ngIf="alertTermosUso" class="f-12 text-danger mt-2">
+          Para concluir o cadastro, é necessário aceitar os termos de uso.
+        </div>
+      </div>
       <div class="flex-jb flex-column-reverse flex-lg-row my-5">
         <button
           (click)="cadastrar = false"
@@ -59,3 +83,8 @@
     <button (click)="closeModal()" class="btn btn-warning">FECHAR</button>
   </div>
 </ck-modal>
+
+<app-modal-termos-uso
+  [visible]="mostrarModalTermos"
+  (fechar)="handleModalTermosUso($event)"
+></app-modal-termos-uso>

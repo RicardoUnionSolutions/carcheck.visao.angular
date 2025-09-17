@@ -298,6 +298,7 @@ $icon-height-desktop: 30px;
   }
 
   .cadastrar {
+    white-space: nowrap;
     color: #ecda26;
     cursor: pointer;
     text-decoration: none;
@@ -551,6 +552,7 @@ $icon-height-desktop: 30px;
       }
 
       .cadastrar {
+        white-space: nowrap;
         color: #ecda26;
         cursor: pointer;
         text-align: center;

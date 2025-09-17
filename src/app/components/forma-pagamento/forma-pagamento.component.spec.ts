@@ -1,5 +1,4 @@
 import { TestBed, waitForAsync } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { FormaPagamentoComponent } from "./forma-pagamento.component";
 import { PagSeguroService } from "../../service/pagseguro.service";
 import { AnalyticsService } from "../../service/analytics.service";
@@ -43,19 +42,17 @@ describe("FormaPagamentoComponent", () => {
   let component: FormaPagamentoComponent;
   let pagSeguro: PagSeguroServiceStub;
   let analytics: AnalyticsServiceStub;
-  let modal: ModalServiceStub;
   let pagamentoService: PagamentoServiceStub;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [FormaPagamentoComponent],
+      imports: [FormaPagamentoComponent],
       providers: [
         { provide: PagSeguroService, useClass: PagSeguroServiceStub },
         { provide: AnalyticsService, useClass: AnalyticsServiceStub },
         { provide: ModalService, useClass: ModalServiceStub },
         { provide: PagamentoService, useClass: PagamentoServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -65,7 +62,6 @@ describe("FormaPagamentoComponent", () => {
     component.valorTotal = 100;
     pagSeguro = TestBed.inject(PagSeguroService) as any;
     analytics = TestBed.inject(AnalyticsService) as any;
-    modal = TestBed.inject(ModalService) as any;
     pagamentoService = TestBed.inject(PagamentoService) as any;
   });
 
@@ -108,22 +104,25 @@ describe("FormaPagamentoComponent", () => {
 
   it("should open termos de uso modal", () => {
     component.openModalTermosUso();
-    expect(modal.open).toHaveBeenCalledWith("modaltermosuso");
+    expect(component.mostrarModalTermos).toBeTrue();
   });
 
   it("should close termos de uso modal confirming", () => {
     component.pagamento.termosUso = false;
+    component.termosUsoAlert = true;
+    component.mostrarModalTermos = true;
     component.closeModalTermosUso(true);
-    expect(component.pagamento.termosUso).toBeTruthy();
-    expect(component.pagamento.termosUsoAlert).toBeFalsy();
-    expect(modal.close).toHaveBeenCalledWith("modaltermosuso");
+    expect(component.pagamento.termosUso).toBeTrue();
+    expect(component.termosUsoAlert).toBeFalse();
+    expect(component.mostrarModalTermos).toBeFalse();
   });
 
   it("should close termos de uso modal without confirming", () => {
     component.pagamento.termosUso = false;
+    component.mostrarModalTermos = true;
     component.closeModalTermosUso(false);
-    expect(component.pagamento.termosUso).toBeFalsy();
-    expect(modal.close).toHaveBeenCalled();
+    expect(component.pagamento.termosUso).toBeFalse();
+    expect(component.mostrarModalTermos).toBeFalse();
   });
 
   it("should return early when cupom is empty", async () => {

@@ -51,8 +51,13 @@ export class ConsultaCompanyComponent implements OnInit {
     }
   }
 
+  private atualizarTituloConsulta(tipo?: string | null): void {
+    if (tipo != null) {
+      this.titleService.setTitle(`Consulta Veicular ${tipo} - Carcheck`);
+    }
+  }
+
   ngOnInit() {
-    this.titleService.setTitle("Consulta CNPJ Completa");
     this.metaService.updateTag({
       name: "description",
       content:
@@ -72,6 +77,7 @@ export class ConsultaCompanyComponent implements OnInit {
 
     this.dadosConsulta = this.dataService.getData();
     if (this.dadosConsulta) {
+      this.atualizarTituloConsulta(this.dadosConsulta?.tipo);
       this.modalService.closeLoading();
       this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.dadosConsulta.linkPesquisa
@@ -81,6 +87,7 @@ export class ConsultaCompanyComponent implements OnInit {
         .getConsultaVeiculoCompany(this.tokenConsulta)
         .then((v) => {
           this.dadosConsulta = v;
+          this.atualizarTituloConsulta(this.dadosConsulta?.tipo);
           this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
             this.dadosConsulta.linkPesquisa
           );

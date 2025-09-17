@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VariableGlobal } from './variable.global.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PagarDebitosService {
 
 
@@ -18,6 +20,10 @@ export class PagarDebitosService {
 
   buscarPeloConsultaId(consultaId: any) {
     return this.http.get(this.variableGlobal.getUrl("pinpag/buscarConsulta/" + consultaId))
+  }
+
+  buscarRetorno(consultId: string) {
+    return this.http.get(this.variableGlobal.getUrl("pinpag/buscarRetorno/" + consultId))
   }
 
   gerarLinkPagamento(dados: any): Observable<any> {

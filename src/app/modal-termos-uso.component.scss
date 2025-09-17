@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.actions .btn {
+  min-width: 180px;
+}
