@@ -95,18 +95,14 @@ export class PagarDebitosComponent implements OnInit {
 
     this.service.consultarDebitos(dadosConsulta).subscribe({
       next: (v: any) => {
-        console.log(v)
-        this.dadosDoVeiculo = v;
+        const consultId = v?.consult_id ?? v?.consultId ?? v?.consultID;
 
-        // salvar no localstorage o this.dadosDoVeiculo.consult_id
-        localStorage.setItem('consulta_anterior', JSON.stringify({
-          consult_id: v.consult_id,
-          uf: v.vehicle.uf,
-          placa: v.vehicle.license_plate,
-          renavam: v.vehicle.renavam,
-        }));
+        if (consultId) {
+          this.buscarRetornoDebitos(String(consultId));
+          return;
+        }
 
-        this.modalService.closeLoading();
+        this.finalizarConsultaComDados(v);
       },
       error: (err) => {
         this.modalService.closeLoading();
@@ -114,6 +110,85 @@ export class PagarDebitosComponent implements OnInit {
         console.error('Erro ao buscar debitos:', err);
       },
     });
+  }
+
+  private finalizarConsultaComDados(dados: any) {
+    this.dadosDoVeiculo = dados;
+
+    if (dados) {
+      const consultId = dados.consult_id ?? dados.consultId ?? dados.consultID;
+      const vehicle = dados.vehicle ?? {};
+
+      if (consultId) {
+        const consultaAnterior = {
+          consult_id: consultId,
+          uf: vehicle?.uf,
+          placa: vehicle?.license_plate,
+          renavam: vehicle?.renavam,
+        };
+
+        this.consultaAnterior = consultaAnterior as any;
+        localStorage.setItem('consulta_anterior', JSON.stringify(consultaAnterior));
+      }
+    }
+
+    this.modalService.closeLoading();
+  }
+
+  buscarRetornoDebitos(consultId: string) {
+    const consultIdNormalizado = consultId ? String(consultId) : '';
+
+    if (!consultIdNormalizado) {
+      this.modalService.closeLoading();
+      this.modalService.openModalMsg({ status: 2, cancel: { show: false }, title: 'Não foi possível identificar a consulta. Tente novamente.' });
+      return;
+    }
+
+    let tentativas = 0;
+    const maxTentativas = 12;
+    const intervalo = 5000; // 5 segundos
+    let finalizado = false;
+
+    const fazerRequisicao = () => {
+      if (finalizado) {
+        return;
+      }
+
+      if (tentativas >= maxTentativas) {
+        finalizado = true;
+        this.modalService.closeLoading();
+        this.modalService.openModalMsg({ status: 2, cancel: { show: false }, title: 'Timeout: Não foi possível obter os débitos. Tente novamente mais tarde.' });
+        return;
+      }
+
+      tentativas++;
+
+      this.service.buscarRetorno(consultIdNormalizado).subscribe({
+        next: (retorno: any) => {
+          const status = retorno?.status?.toString().toLowerCase();
+
+          if (retorno && status !== 'pending') {
+            finalizado = true;
+            this.finalizarConsultaComDados(retorno);
+          } else if (!finalizado) {
+            setTimeout(fazerRequisicao, intervalo);
+          }
+        },
+        error: (err) => {
+          if (!finalizado && err?.status === 404) {
+            setTimeout(fazerRequisicao, intervalo);
+            return;
+          }
+
+          finalizado = true;
+          this.modalService.closeLoading();
+          this.modalService.openModalMsg({ status: 2, cancel: { show: false }, title: 'Erro ao buscar retorno dos débitos. Tente novamente.' });
+          console.error('Erro ao buscar retorno:', err);
+        },
+      });
+    };
+
+    fazerRequisicao();
   }
 
   buscarPelaConsultaAnterior() {

@@ -15,14 +15,14 @@ describe("PagarDebitosService", () => {
     variableGlobalSpy.getUrl.and.callFake((url: string) => `${baseUrl}/${url}`);
 
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [
+      imports: [],
+      providers: [
         PagarDebitosService,
         { provide: VariableGlobal, useValue: variableGlobalSpy },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-});
+      ],
+    });
 
     service = TestBed.inject(PagarDebitosService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -90,6 +90,36 @@ describe("PagarDebitosService", () => {
 
       const req = httpMock.expectOne(`${baseUrl}/pinpag/buscarConsulta/${id}`);
       req.flush("not found", { status: 404, statusText: "Not Found" });
+    });
+  });
+
+  describe("buscarRetorno", () => {
+    it("should GET retorno by consultId", () => {
+      const consultId = "789";
+      const mockResponse = { status: "completed" };
+
+      service.buscarRetorno(consultId).subscribe((res) => {
+        expect(res).toEqual(mockResponse);
+      });
+
+      const req = httpMock.expectOne(`${baseUrl}/pinpag/buscarRetorno/${consultId}`);
+      expect(variableGlobalSpy.getUrl).toHaveBeenCalledWith(
+        `pinpag/buscarRetorno/${consultId}`
+      );
+      expect(req.request.method).toBe("GET");
+      req.flush(mockResponse);
+    });
+
+    it("should propagate error when buscarRetorno fails", () => {
+      const consultId = "999";
+
+      service.buscarRetorno(consultId).subscribe({
+        next: () => fail("should have errored"),
+        error: (err) => expect(err.status).toBe(500),
+      });
+
+      const req = httpMock.expectOne(`${baseUrl}/pinpag/buscarRetorno/${consultId}`);
+      req.flush("error", { status: 500, statusText: "Server Error" });
     });
   });
 

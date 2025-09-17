@@ -19,9 +19,18 @@ describe("PagarDebitosComponent", () => {
     pagarDebitosServiceSpy = jasmine.createSpyObj("PagarDebitosService", [
       "consultarDebitos",
       "gerarLinkPagamento",
+      "buscarRetorno",
     ]);
     pagarDebitosServiceSpy.consultarDebitos.and.returnValue(
-      of({ consult_id: "1", vehicle: {}, debits: [] })
+      of({ consult_id: "1" })
+    );
+    pagarDebitosServiceSpy.buscarRetorno.and.returnValue(
+      of({
+        consult_id: "1",
+        status: "completed",
+        vehicle: { uf: "SP", license_plate: "ABC1234", renavam: "123" },
+        debits: [],
+      })
     );
     pagarDebitosServiceSpy.gerarLinkPagamento.and.returnValue(
       of({ url: "http://link.com" })
@@ -117,17 +126,24 @@ describe("PagarDebitosComponent", () => {
   });
 
   it("should perform consulta and save data", () => {
-    const response = {
+    const consultaResponse = { consult_id: "1" } as any;
+    const retornoResponse = {
       consult_id: "1",
+      status: "completed",
       vehicle: { uf: "SP", license_plate: "ABC1234", renavam: "123" },
+      debits: [],
     } as any;
-    pagarDebitosServiceSpy.consultarDebitos.and.returnValue(of(response));
+    pagarDebitosServiceSpy.consultarDebitos.and.returnValue(
+      of(consultaResponse)
+    );
+    pagarDebitosServiceSpy.buscarRetorno.and.returnValue(of(retornoResponse));
     const lsSpy = spyOn(window.localStorage, "setItem").and.callThrough();
     component.fazerConsulta({ uf: "SP", placa: "ABC1234", renavam: "123" });
 
     expect(modalServiceSpy.openLoading).toHaveBeenCalled();
     expect(pagarDebitosServiceSpy.consultarDebitos).toHaveBeenCalled();
-    expect(component.dadosDoVeiculo).toEqual(response);
+    expect(pagarDebitosServiceSpy.buscarRetorno).toHaveBeenCalledWith("1");
+    expect(component.dadosDoVeiculo).toEqual(retornoResponse);
     expect(lsSpy).toHaveBeenCalled();
     expect(modalServiceSpy.closeLoading).toHaveBeenCalled();
   });
